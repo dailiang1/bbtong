@@ -1,0 +1,140 @@
+package com.bbtong.Pojo;
+
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * bbt_await_delivery_order
+ * 戴辆
+ */
+public class AwaitDeliveryOrder implements Serializable {
+    /**
+     * 主键/ID (待还单表)
+     */
+    private Integer awaitDeliveryOrderId;
+
+    /**
+     * 待还单的ID
+     */
+    private Integer newEntrustId;
+
+    /**
+     * 待还单用户的ID
+     */
+    private Integer userId;
+
+    /**
+     * 委托的金额
+     */
+    private Double entrustMoney;
+
+    /**
+     * 委托单完成的时间
+     */
+    private Date entrustGradeTime;
+
+    /**
+     * 还单的时间期限(获取委托表中的时间)
+     */
+    private String entrustReturnTime;
+
+    private static final long serialVersionUID = 1L;
+
+    public Integer getAwaitDeliveryOrderId() {
+        return awaitDeliveryOrderId;
+    }
+
+    public void setAwaitDeliveryOrderId(Integer awaitDeliveryOrderId) {
+        this.awaitDeliveryOrderId = awaitDeliveryOrderId;
+    }
+
+    public Integer getNewEntrustId() {
+        return newEntrustId;
+    }
+
+    public void setNewEntrustId(Integer newEntrustId) {
+        this.newEntrustId = newEntrustId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Double getEntrustMoney() {
+        return entrustMoney;
+    }
+
+    public void setEntrustMoney(Double entrustMoney) {
+        this.entrustMoney = entrustMoney;
+    }
+
+    public Date getEntrustGradeTime() {
+        return entrustGradeTime;
+    }
+
+    public void setEntrustGradeTime(Date entrustGradeTime) {
+        this.entrustGradeTime = entrustGradeTime;
+    }
+
+    public String getEntrustReturnTime() {
+        return entrustReturnTime;
+    }
+
+    public void setEntrustReturnTime(String entrustReturnTime) {
+        this.entrustReturnTime = entrustReturnTime;
+    }
+
+    @Override
+    public boolean equals(Object that) {
+        if (this == that) {
+            return true;
+        }
+        if (that == null) {
+            return false;
+        }
+        if (getClass() != that.getClass()) {
+            return false;
+        }
+        AwaitDeliveryOrder other = (AwaitDeliveryOrder) that;
+        return (this.getAwaitDeliveryOrderId() == null ? other.getAwaitDeliveryOrderId() == null : this.getAwaitDeliveryOrderId().equals(other.getAwaitDeliveryOrderId()))
+            && (this.getNewEntrustId() == null ? other.getNewEntrustId() == null : this.getNewEntrustId().equals(other.getNewEntrustId()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getEntrustMoney() == null ? other.getEntrustMoney() == null : this.getEntrustMoney().equals(other.getEntrustMoney()))
+            && (this.getEntrustGradeTime() == null ? other.getEntrustGradeTime() == null : this.getEntrustGradeTime().equals(other.getEntrustGradeTime()))
+            && (this.getEntrustReturnTime() == null ? other.getEntrustReturnTime() == null : this.getEntrustReturnTime().equals(other.getEntrustReturnTime()));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((getAwaitDeliveryOrderId() == null) ? 0 : getAwaitDeliveryOrderId().hashCode());
+        result = prime * result + ((getNewEntrustId() == null) ? 0 : getNewEntrustId().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getEntrustMoney() == null) ? 0 : getEntrustMoney().hashCode());
+        result = prime * result + ((getEntrustGradeTime() == null) ? 0 : getEntrustGradeTime().hashCode());
+        result = prime * result + ((getEntrustReturnTime() == null) ? 0 : getEntrustReturnTime().hashCode());
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", awaitDeliveryOrderId=").append(awaitDeliveryOrderId);
+        sb.append(", newEntrustId=").append(newEntrustId);
+        sb.append(", userId=").append(userId);
+        sb.append(", entrustMoney=").append(entrustMoney);
+        sb.append(", entrustGradeTime=").append(entrustGradeTime);
+        sb.append(", entrustReturnTime=").append(entrustReturnTime);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
+    }
+}

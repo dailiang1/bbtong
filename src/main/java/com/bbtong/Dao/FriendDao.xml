@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbtong.Dao.FriendDao">
+  <resultMap id="BaseResultMap" type="com.bbtong.Pojo.Friend">
+    <id column="Friend_Id" jdbcType="INTEGER" property="friendId" />
+    <result column="User_Id" jdbcType="INTEGER" property="userId" />
+    <result column="Friend_User_Id" jdbcType="INTEGER" property="friendUserId" />
+    <result column="Friend_Remark" jdbcType="VARCHAR" property="friendRemark" />
+    <result column="Friend_Name" jdbcType="VARCHAR" property="friendName" />
+    <result column="Friend_phone" jdbcType="VARCHAR" property="friendPhone" />
+    <result column="Friend_Company_Name" jdbcType="VARCHAR" property="friendCompanyName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Friend_Id, User_Id, Friend_User_Id, Friend_Remark, Friend_Name, Friend_phone, Friend_Company_Name
+  </sql>
+  <select id="selectByExample" parameterType="com.bbtong.Pojo.FriendExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbt_friend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bbt_friend
+    where Friend_Id = #{friendId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bbt_friend
+    where Friend_Id = #{friendId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bbtong.Pojo.FriendExample">
+    delete from bbt_friend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="Friend_Id" keyProperty="friendId" parameterType="com.bbtong.Pojo.Friend" useGeneratedKeys="true">
+    insert into bbt_friend (User_Id, Friend_User_Id, Friend_Remark, 
+      Friend_Name, Friend_phone, Friend_Company_Name
+      )
+    values (#{userId,jdbcType=INTEGER}, #{friendUserId,jdbcType=INTEGER}, #{friendRemark,jdbcType=VARCHAR}, 
+      #{friendName,jdbcType=VARCHAR}, #{friendPhone,jdbcType=VARCHAR}, #{friendCompanyName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="Friend_Id" keyProperty="friendId" parameterType="com.bbtong.Pojo.Friend" useGeneratedKeys="true">
+    insert into bbt_friend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        User_Id,
+      </if>
+      <if test="friendUserId != null">
+        Friend_User_Id,
+      </if>
+      <if test="friendRemark != null">
+        Friend_Remark,
+      </if>
+      <if test="friendName != null">
+        Friend_Name,
+      </if>
+      <if test="friendPhone != null">
+        Friend_phone,
+      </if>
+      <if test="friendCompanyName != null">
+        Friend_Company_Name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="friendUserId != null">
+        #{friendUserId,jdbcType=INTEGER},
+      </if>
+      <if test="friendRemark != null">
+        #{friendRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="friendName != null">
+        #{friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="friendPhone != null">
+        #{friendPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="friendCompanyName != null">
+        #{friendCompanyName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bbtong.Pojo.FriendExample" resultType="java.lang.Long">
+    select count(*) from bbt_friend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bbt_friend
+    <set>
+      <if test="record.friendId != null">
+        Friend_Id = #{record.friendId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        User_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.friendUserId != null">
+        Friend_User_Id = #{record.friendUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.friendRemark != null">
+        Friend_Remark = #{record.friendRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.friendName != null">
+        Friend_Name = #{record.friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.friendPhone != null">
+        Friend_phone = #{record.friendPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.friendCompanyName != null">
+        Friend_Company_Name = #{record.friendCompanyName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bbt_friend
+    set Friend_Id = #{record.friendId,jdbcType=INTEGER},
+      User_Id = #{record.userId,jdbcType=INTEGER},
+      Friend_User_Id = #{record.friendUserId,jdbcType=INTEGER},
+      Friend_Remark = #{record.friendRemark,jdbcType=VARCHAR},
+      Friend_Name = #{record.friendName,jdbcType=VARCHAR},
+      Friend_phone = #{record.friendPhone,jdbcType=VARCHAR},
+      Friend_Company_Name = #{record.friendCompanyName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bbtong.Pojo.Friend">
+    update bbt_friend
+    <set>
+      <if test="userId != null">
+        User_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="friendUserId != null">
+        Friend_User_Id = #{friendUserId,jdbcType=INTEGER},
+      </if>
+      <if test="friendRemark != null">
+        Friend_Remark = #{friendRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="friendName != null">
+        Friend_Name = #{friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="friendPhone != null">
+        Friend_phone = #{friendPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="friendCompanyName != null">
+        Friend_Company_Name = #{friendCompanyName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Friend_Id = #{friendId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bbtong.Pojo.Friend">
+    update bbt_friend
+    set User_Id = #{userId,jdbcType=INTEGER},
+      Friend_User_Id = #{friendUserId,jdbcType=INTEGER},
+      Friend_Remark = #{friendRemark,jdbcType=VARCHAR},
+      Friend_Name = #{friendName,jdbcType=VARCHAR},
+      Friend_phone = #{friendPhone,jdbcType=VARCHAR},
+      Friend_Company_Name = #{friendCompanyName,jdbcType=VARCHAR}
+    where Friend_Id = #{friendId,jdbcType=INTEGER}
+  </update>
+</mapper>

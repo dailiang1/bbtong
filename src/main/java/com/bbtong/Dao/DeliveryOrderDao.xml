@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbtong.Dao.DeliveryOrderDao">
+  <resultMap id="BaseResultMap" type="com.bbtong.Pojo.DeliveryOrder">
+    <id column="Delivery_Order_Id" jdbcType="INTEGER" property="deliveryOrderId" />
+    <result column="New_Entrust_id" jdbcType="INTEGER" property="newEntrustId" />
+    <result column="Entrust_id" jdbcType="INTEGER" property="entrustId" />
+    <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney" />
+    <result column="Entrust_Grade_Time" jdbcType="TIMESTAMP" property="entrustGradeTime" />
+    <result column="User_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Delivery_Order_Id, New_Entrust_id, Entrust_id, Entrust_Money, Entrust_Grade_Time, 
+    User_id
+  </sql>
+  <select id="selectByExample" parameterType="com.bbtong.Pojo.DeliveryOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbt_delivery_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bbt_delivery_order
+    where Delivery_Order_Id = #{deliveryOrderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bbt_delivery_order
+    where Delivery_Order_Id = #{deliveryOrderId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bbtong.Pojo.DeliveryOrderExample">
+    delete from bbt_delivery_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="Delivery_Order_Id" keyProperty="deliveryOrderId" parameterType="com.bbtong.Pojo.DeliveryOrder" useGeneratedKeys="true">
+    insert into bbt_delivery_order (New_Entrust_id, Entrust_id, Entrust_Money, 
+      Entrust_Grade_Time, User_id)
+    values (#{newEntrustId,jdbcType=INTEGER}, #{entrustId,jdbcType=INTEGER}, #{entrustMoney,jdbcType=DOUBLE}, 
+      #{entrustGradeTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="Delivery_Order_Id" keyProperty="deliveryOrderId" parameterType="com.bbtong.Pojo.DeliveryOrder" useGeneratedKeys="true">
+    insert into bbt_delivery_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="newEntrustId != null">
+        New_Entrust_id,
+      </if>
+      <if test="entrustId != null">
+        Entrust_id,
+      </if>
+      <if test="entrustMoney != null">
+        Entrust_Money,
+      </if>
+      <if test="entrustGradeTime != null">
+        Entrust_Grade_Time,
+      </if>
+      <if test="userId != null">
+        User_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="newEntrustId != null">
+        #{newEntrustId,jdbcType=INTEGER},
+      </if>
+      <if test="entrustId != null">
+        #{entrustId,jdbcType=INTEGER},
+      </if>
+      <if test="entrustMoney != null">
+        #{entrustMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="entrustGradeTime != null">
+        #{entrustGradeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bbtong.Pojo.DeliveryOrderExample" resultType="java.lang.Long">
+    select count(*) from bbt_delivery_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bbt_delivery_order
+    <set>
+      <if test="record.deliveryOrderId != null">
+        Delivery_Order_Id = #{record.deliveryOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.newEntrustId != null">
+        New_Entrust_id = #{record.newEntrustId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entrustId != null">
+        Entrust_id = #{record.entrustId,jdbcType=INTEGER},
+      </if>
+      <if test="record.entrustMoney != null">
+        Entrust_Money = #{record.entrustMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.entrustGradeTime != null">
+        Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        User_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bbt_delivery_order
+    set Delivery_Order_Id = #{record.deliveryOrderId,jdbcType=INTEGER},
+      New_Entrust_id = #{record.newEntrustId,jdbcType=INTEGER},
+      Entrust_id = #{record.entrustId,jdbcType=INTEGER},
+      Entrust_Money = #{record.entrustMoney,jdbcType=DOUBLE},
+      Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=TIMESTAMP},
+      User_id = #{record.userId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bbtong.Pojo.DeliveryOrder">
+    update bbt_delivery_order
+    <set>
+      <if test="newEntrustId != null">
+        New_Entrust_id = #{newEntrustId,jdbcType=INTEGER},
+      </if>
+      <if test="entrustId != null">
+        Entrust_id = #{entrustId,jdbcType=INTEGER},
+      </if>
+      <if test="entrustMoney != null">
+        Entrust_Money = #{entrustMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="entrustGradeTime != null">
+        Entrust_Grade_Time = #{entrustGradeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        User_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Delivery_Order_Id = #{deliveryOrderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bbtong.Pojo.DeliveryOrder">
+    update bbt_delivery_order
+    set New_Entrust_id = #{newEntrustId,jdbcType=INTEGER},
+      Entrust_id = #{entrustId,jdbcType=INTEGER},
+      Entrust_Money = #{entrustMoney,jdbcType=DOUBLE},
+      Entrust_Grade_Time = #{entrustGradeTime,jdbcType=TIMESTAMP},
+      User_id = #{userId,jdbcType=INTEGER}
+    where Delivery_Order_Id = #{deliveryOrderId,jdbcType=INTEGER}
+  </update>
+</mapper>
