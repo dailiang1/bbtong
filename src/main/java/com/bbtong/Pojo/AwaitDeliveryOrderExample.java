@@ -305,6 +305,66 @@ public class AwaitDeliveryOrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andNewUserIdIsNull() {
+            addCriterion("New_User_Id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdIsNotNull() {
+            addCriterion("New_User_Id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdEqualTo(Integer value) {
+            addCriterion("New_User_Id =", value, "newUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdNotEqualTo(Integer value) {
+            addCriterion("New_User_Id <>", value, "newUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdGreaterThan(Integer value) {
+            addCriterion("New_User_Id >", value, "newUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("New_User_Id >=", value, "newUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdLessThan(Integer value) {
+            addCriterion("New_User_Id <", value, "newUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdLessThanOrEqualTo(Integer value) {
+            addCriterion("New_User_Id <=", value, "newUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdIn(List<Integer> values) {
+            addCriterion("New_User_Id in", values, "newUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdNotIn(List<Integer> values) {
+            addCriterion("New_User_Id not in", values, "newUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdBetween(Integer value1, Integer value2) {
+            addCriterion("New_User_Id between", value1, value2, "newUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewUserIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("New_User_Id not between", value1, value2, "newUserId");
+            return (Criteria) this;
+        }
+
         public Criteria andEntrustMoneyIsNull() {
             addCriterion("Entrust_Money is null");
             return (Criteria) this;
@@ -492,6 +552,76 @@ public class AwaitDeliveryOrderExample {
 
         public Criteria andEntrustReturnTimeNotBetween(String value1, String value2) {
             addCriterion("Entrust_Return_Time not between", value1, value2, "entrustReturnTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateIsNull() {
+            addCriterion("Entrust_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateIsNotNull() {
+            addCriterion("Entrust_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateEqualTo(String value) {
+            addCriterion("Entrust_state =", value, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateNotEqualTo(String value) {
+            addCriterion("Entrust_state <>", value, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateGreaterThan(String value) {
+            addCriterion("Entrust_state >", value, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateGreaterThanOrEqualTo(String value) {
+            addCriterion("Entrust_state >=", value, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateLessThan(String value) {
+            addCriterion("Entrust_state <", value, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateLessThanOrEqualTo(String value) {
+            addCriterion("Entrust_state <=", value, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateLike(String value) {
+            addCriterion("Entrust_state like", value, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateNotLike(String value) {
+            addCriterion("Entrust_state not like", value, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateIn(List<String> values) {
+            addCriterion("Entrust_state in", values, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateNotIn(List<String> values) {
+            addCriterion("Entrust_state not in", values, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateBetween(String value1, String value2) {
+            addCriterion("Entrust_state between", value1, value2, "entrustState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStateNotBetween(String value1, String value2) {
+            addCriterion("Entrust_state not between", value1, value2, "entrustState");
             return (Criteria) this;
         }
     }

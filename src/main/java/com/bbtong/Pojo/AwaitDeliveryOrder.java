@@ -24,6 +24,11 @@ public class AwaitDeliveryOrder implements Serializable {
     private Integer userId;
 
     /**
+     * 还单用户的ID 
+     */
+    private Integer newUserId;
+
+    /**
      * 委托的金额
      */
     private Double entrustMoney;
@@ -37,6 +42,11 @@ public class AwaitDeliveryOrder implements Serializable {
      * 还单的时间期限(获取委托表中的时间)
      */
     private String entrustReturnTime;
+
+    /**
+     * 当前这一单是否交易完成(就是是否还单完成，0表示没有，1表示完成了)默认是0
+     */
+    private String entrustState;
 
     private static final long serialVersionUID = 1L;
 
@@ -64,6 +74,14 @@ public class AwaitDeliveryOrder implements Serializable {
         this.userId = userId;
     }
 
+    public Integer getNewUserId() {
+        return newUserId;
+    }
+
+    public void setNewUserId(Integer newUserId) {
+        this.newUserId = newUserId;
+    }
+
     public Double getEntrustMoney() {
         return entrustMoney;
     }
@@ -88,6 +106,14 @@ public class AwaitDeliveryOrder implements Serializable {
         this.entrustReturnTime = entrustReturnTime;
     }
 
+    public String getEntrustState() {
+        return entrustState;
+    }
+
+    public void setEntrustState(String entrustState) {
+        this.entrustState = entrustState;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -103,9 +129,11 @@ public class AwaitDeliveryOrder implements Serializable {
         return (this.getAwaitDeliveryOrderId() == null ? other.getAwaitDeliveryOrderId() == null : this.getAwaitDeliveryOrderId().equals(other.getAwaitDeliveryOrderId()))
             && (this.getNewEntrustId() == null ? other.getNewEntrustId() == null : this.getNewEntrustId().equals(other.getNewEntrustId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getNewUserId() == null ? other.getNewUserId() == null : this.getNewUserId().equals(other.getNewUserId()))
             && (this.getEntrustMoney() == null ? other.getEntrustMoney() == null : this.getEntrustMoney().equals(other.getEntrustMoney()))
             && (this.getEntrustGradeTime() == null ? other.getEntrustGradeTime() == null : this.getEntrustGradeTime().equals(other.getEntrustGradeTime()))
-            && (this.getEntrustReturnTime() == null ? other.getEntrustReturnTime() == null : this.getEntrustReturnTime().equals(other.getEntrustReturnTime()));
+            && (this.getEntrustReturnTime() == null ? other.getEntrustReturnTime() == null : this.getEntrustReturnTime().equals(other.getEntrustReturnTime()))
+            && (this.getEntrustState() == null ? other.getEntrustState() == null : this.getEntrustState().equals(other.getEntrustState()));
     }
 
     @Override
@@ -115,9 +143,11 @@ public class AwaitDeliveryOrder implements Serializable {
         result = prime * result + ((getAwaitDeliveryOrderId() == null) ? 0 : getAwaitDeliveryOrderId().hashCode());
         result = prime * result + ((getNewEntrustId() == null) ? 0 : getNewEntrustId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getNewUserId() == null) ? 0 : getNewUserId().hashCode());
         result = prime * result + ((getEntrustMoney() == null) ? 0 : getEntrustMoney().hashCode());
         result = prime * result + ((getEntrustGradeTime() == null) ? 0 : getEntrustGradeTime().hashCode());
         result = prime * result + ((getEntrustReturnTime() == null) ? 0 : getEntrustReturnTime().hashCode());
+        result = prime * result + ((getEntrustState() == null) ? 0 : getEntrustState().hashCode());
         return result;
     }
 
@@ -130,9 +160,11 @@ public class AwaitDeliveryOrder implements Serializable {
         sb.append(", awaitDeliveryOrderId=").append(awaitDeliveryOrderId);
         sb.append(", newEntrustId=").append(newEntrustId);
         sb.append(", userId=").append(userId);
+        sb.append(", newUserId=").append(newUserId);
         sb.append(", entrustMoney=").append(entrustMoney);
         sb.append(", entrustGradeTime=").append(entrustGradeTime);
         sb.append(", entrustReturnTime=").append(entrustReturnTime);
+        sb.append(", entrustState=").append(entrustState);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -19,14 +19,24 @@ public class DeliveryOrder implements Serializable {
     private Integer newEntrustId;
 
     /**
-     * 自己提交的委托ID
+     * 待还单用户的ID
      */
-    private Integer entrustId;
+    private Integer userId;
+
+    /**
+     * 还单用户的ID 
+     */
+    private Integer newUserId;
+
+    /**
+     * 车牌号码
+     */
+    private String deliveryOrderNumber;
 
     /**
      *  获取发布委托的金额
      */
-    private Double entrustMoney;
+    private Double deliveryOrderMoney;
 
     /**
      *  表示这一单结束的时间
@@ -34,9 +44,14 @@ public class DeliveryOrder implements Serializable {
     private Date entrustGradeTime;
 
     /**
-     *  提交委托人的ID
+     * 表示待还单用户是否确认了信息(0未确认，1确定(表示订单结束)，2驳回订单信息有误，请重新提交)
      */
-    private Integer userId;
+    private Integer deliveryOrderState;
+
+    /**
+     * 表示当前表示还单的满意度(0表示满意，1表示一般，2表示不满意)
+     */
+    private Integer entrustGrade;
 
     private static final long serialVersionUID = 1L;
 
@@ -56,20 +71,36 @@ public class DeliveryOrder implements Serializable {
         this.newEntrustId = newEntrustId;
     }
 
-    public Integer getEntrustId() {
-        return entrustId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setEntrustId(Integer entrustId) {
-        this.entrustId = entrustId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Double getEntrustMoney() {
-        return entrustMoney;
+    public Integer getNewUserId() {
+        return newUserId;
     }
 
-    public void setEntrustMoney(Double entrustMoney) {
-        this.entrustMoney = entrustMoney;
+    public void setNewUserId(Integer newUserId) {
+        this.newUserId = newUserId;
+    }
+
+    public String getDeliveryOrderNumber() {
+        return deliveryOrderNumber;
+    }
+
+    public void setDeliveryOrderNumber(String deliveryOrderNumber) {
+        this.deliveryOrderNumber = deliveryOrderNumber;
+    }
+
+    public Double getDeliveryOrderMoney() {
+        return deliveryOrderMoney;
+    }
+
+    public void setDeliveryOrderMoney(Double deliveryOrderMoney) {
+        this.deliveryOrderMoney = deliveryOrderMoney;
     }
 
     public Date getEntrustGradeTime() {
@@ -80,12 +111,20 @@ public class DeliveryOrder implements Serializable {
         this.entrustGradeTime = entrustGradeTime;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getDeliveryOrderState() {
+        return deliveryOrderState;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setDeliveryOrderState(Integer deliveryOrderState) {
+        this.deliveryOrderState = deliveryOrderState;
+    }
+
+    public Integer getEntrustGrade() {
+        return entrustGrade;
+    }
+
+    public void setEntrustGrade(Integer entrustGrade) {
+        this.entrustGrade = entrustGrade;
     }
 
     @Override
@@ -102,10 +141,13 @@ public class DeliveryOrder implements Serializable {
         DeliveryOrder other = (DeliveryOrder) that;
         return (this.getDeliveryOrderId() == null ? other.getDeliveryOrderId() == null : this.getDeliveryOrderId().equals(other.getDeliveryOrderId()))
             && (this.getNewEntrustId() == null ? other.getNewEntrustId() == null : this.getNewEntrustId().equals(other.getNewEntrustId()))
-            && (this.getEntrustId() == null ? other.getEntrustId() == null : this.getEntrustId().equals(other.getEntrustId()))
-            && (this.getEntrustMoney() == null ? other.getEntrustMoney() == null : this.getEntrustMoney().equals(other.getEntrustMoney()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getNewUserId() == null ? other.getNewUserId() == null : this.getNewUserId().equals(other.getNewUserId()))
+            && (this.getDeliveryOrderNumber() == null ? other.getDeliveryOrderNumber() == null : this.getDeliveryOrderNumber().equals(other.getDeliveryOrderNumber()))
+            && (this.getDeliveryOrderMoney() == null ? other.getDeliveryOrderMoney() == null : this.getDeliveryOrderMoney().equals(other.getDeliveryOrderMoney()))
             && (this.getEntrustGradeTime() == null ? other.getEntrustGradeTime() == null : this.getEntrustGradeTime().equals(other.getEntrustGradeTime()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()));
+            && (this.getDeliveryOrderState() == null ? other.getDeliveryOrderState() == null : this.getDeliveryOrderState().equals(other.getDeliveryOrderState()))
+            && (this.getEntrustGrade() == null ? other.getEntrustGrade() == null : this.getEntrustGrade().equals(other.getEntrustGrade()));
     }
 
     @Override
@@ -114,10 +156,13 @@ public class DeliveryOrder implements Serializable {
         int result = 1;
         result = prime * result + ((getDeliveryOrderId() == null) ? 0 : getDeliveryOrderId().hashCode());
         result = prime * result + ((getNewEntrustId() == null) ? 0 : getNewEntrustId().hashCode());
-        result = prime * result + ((getEntrustId() == null) ? 0 : getEntrustId().hashCode());
-        result = prime * result + ((getEntrustMoney() == null) ? 0 : getEntrustMoney().hashCode());
-        result = prime * result + ((getEntrustGradeTime() == null) ? 0 : getEntrustGradeTime().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getNewUserId() == null) ? 0 : getNewUserId().hashCode());
+        result = prime * result + ((getDeliveryOrderNumber() == null) ? 0 : getDeliveryOrderNumber().hashCode());
+        result = prime * result + ((getDeliveryOrderMoney() == null) ? 0 : getDeliveryOrderMoney().hashCode());
+        result = prime * result + ((getEntrustGradeTime() == null) ? 0 : getEntrustGradeTime().hashCode());
+        result = prime * result + ((getDeliveryOrderState() == null) ? 0 : getDeliveryOrderState().hashCode());
+        result = prime * result + ((getEntrustGrade() == null) ? 0 : getEntrustGrade().hashCode());
         return result;
     }
 
@@ -129,10 +174,13 @@ public class DeliveryOrder implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", deliveryOrderId=").append(deliveryOrderId);
         sb.append(", newEntrustId=").append(newEntrustId);
-        sb.append(", entrustId=").append(entrustId);
-        sb.append(", entrustMoney=").append(entrustMoney);
-        sb.append(", entrustGradeTime=").append(entrustGradeTime);
         sb.append(", userId=").append(userId);
+        sb.append(", newUserId=").append(newUserId);
+        sb.append(", deliveryOrderNumber=").append(deliveryOrderNumber);
+        sb.append(", deliveryOrderMoney=").append(deliveryOrderMoney);
+        sb.append(", entrustGradeTime=").append(entrustGradeTime);
+        sb.append(", deliveryOrderState=").append(deliveryOrderState);
+        sb.append(", entrustGrade=").append(entrustGrade);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
