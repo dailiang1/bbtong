@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resources;
 import java.io.FileNotFoundException;
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
