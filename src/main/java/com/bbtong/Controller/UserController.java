@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resources;
 import java.io.FileNotFoundException;
+
+/***
+ * 委托表的Controller
+ */
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
