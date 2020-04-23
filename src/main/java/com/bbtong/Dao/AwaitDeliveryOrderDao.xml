@@ -5,9 +5,11 @@
     <id column="Await_Delivery_Order_Id" jdbcType="INTEGER" property="awaitDeliveryOrderId" />
     <result column="New_Entrust_Id" jdbcType="INTEGER" property="newEntrustId" />
     <result column="User_Id" jdbcType="INTEGER" property="userId" />
+    <result column="New_User_Id" jdbcType="INTEGER" property="newUserId" />
     <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney" />
-    <result column="Entrust_Grade_Time" jdbcType="TIMESTAMP" property="entrustGradeTime" />
+    <result column="Entrust_Grade_Time" jdbcType="VARCHAR" property="entrustGradeTime" />
     <result column="Entrust_Return_Time" jdbcType="VARCHAR" property="entrustReturnTime" />
+    <result column="Entrust_state" jdbcType="CHAR" property="entrustState" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,8 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Await_Delivery_Order_Id, New_Entrust_Id, User_Id, Entrust_Money, Entrust_Grade_Time, 
-    Entrust_Return_Time
+    Await_Delivery_Order_Id, New_Entrust_Id, User_Id, New_User_Id, Entrust_Money, Entrust_Grade_Time, 
+    Entrust_Return_Time, Entrust_state
   </sql>
   <select id="selectByExample" parameterType="com.bbtong.Pojo.AwaitDeliveryOrderExample" resultMap="BaseResultMap">
     select
@@ -110,10 +112,12 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="Await_Delivery_Order_Id" keyProperty="awaitDeliveryOrderId" parameterType="com.bbtong.Pojo.AwaitDeliveryOrder" useGeneratedKeys="true">
-    insert into bbt_await_delivery_order (New_Entrust_Id, User_Id, Entrust_Money, 
-      Entrust_Grade_Time, Entrust_Return_Time)
-    values (#{newEntrustId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{entrustMoney,jdbcType=DOUBLE}, 
-      #{entrustGradeTime,jdbcType=TIMESTAMP}, #{entrustReturnTime,jdbcType=VARCHAR})
+    insert into bbt_await_delivery_order (New_Entrust_Id, User_Id, New_User_Id, 
+      Entrust_Money, Entrust_Grade_Time, Entrust_Return_Time, 
+      Entrust_state)
+    values (#{newEntrustId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{newUserId,jdbcType=INTEGER}, 
+      #{entrustMoney,jdbcType=DOUBLE}, #{entrustGradeTime,jdbcType=VARCHAR}, #{entrustReturnTime,jdbcType=VARCHAR}, 
+      #{entrustState,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" keyColumn="Await_Delivery_Order_Id" keyProperty="awaitDeliveryOrderId" parameterType="com.bbtong.Pojo.AwaitDeliveryOrder" useGeneratedKeys="true">
     insert into bbt_await_delivery_order
@@ -124,6 +128,9 @@
       <if test="userId != null">
         User_Id,
       </if>
+      <if test="newUserId != null">
+        New_User_Id,
+      </if>
       <if test="entrustMoney != null">
         Entrust_Money,
       </if>
@@ -133,6 +140,9 @@
       <if test="entrustReturnTime != null">
         Entrust_Return_Time,
       </if>
+      <if test="entrustState != null">
+        Entrust_state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="newEntrustId != null">
@@ -141,14 +151,20 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
+      <if test="newUserId != null">
+        #{newUserId,jdbcType=INTEGER},
+      </if>
       <if test="entrustMoney != null">
         #{entrustMoney,jdbcType=DOUBLE},
       </if>
       <if test="entrustGradeTime != null">
-        #{entrustGradeTime,jdbcType=TIMESTAMP},
+        #{entrustGradeTime,jdbcType=VARCHAR},
       </if>
       <if test="entrustReturnTime != null">
         #{entrustReturnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustState != null">
+        #{entrustState,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
@@ -170,14 +186,20 @@
       <if test="record.userId != null">
         User_Id = #{record.userId,jdbcType=INTEGER},
       </if>
+      <if test="record.newUserId != null">
+        New_User_Id = #{record.newUserId,jdbcType=INTEGER},
+      </if>
       <if test="record.entrustMoney != null">
         Entrust_Money = #{record.entrustMoney,jdbcType=DOUBLE},
       </if>
       <if test="record.entrustGradeTime != null">
-        Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=TIMESTAMP},
+        Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=VARCHAR},
       </if>
       <if test="record.entrustReturnTime != null">
         Entrust_Return_Time = #{record.entrustReturnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entrustState != null">
+        Entrust_state = #{record.entrustState,jdbcType=CHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -189,9 +211,11 @@
     set Await_Delivery_Order_Id = #{record.awaitDeliveryOrderId,jdbcType=INTEGER},
       New_Entrust_Id = #{record.newEntrustId,jdbcType=INTEGER},
       User_Id = #{record.userId,jdbcType=INTEGER},
+      New_User_Id = #{record.newUserId,jdbcType=INTEGER},
       Entrust_Money = #{record.entrustMoney,jdbcType=DOUBLE},
-      Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=TIMESTAMP},
-      Entrust_Return_Time = #{record.entrustReturnTime,jdbcType=VARCHAR}
+      Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=VARCHAR},
+      Entrust_Return_Time = #{record.entrustReturnTime,jdbcType=VARCHAR},
+      Entrust_state = #{record.entrustState,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -205,14 +229,20 @@
       <if test="userId != null">
         User_Id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="newUserId != null">
+        New_User_Id = #{newUserId,jdbcType=INTEGER},
+      </if>
       <if test="entrustMoney != null">
         Entrust_Money = #{entrustMoney,jdbcType=DOUBLE},
       </if>
       <if test="entrustGradeTime != null">
-        Entrust_Grade_Time = #{entrustGradeTime,jdbcType=TIMESTAMP},
+        Entrust_Grade_Time = #{entrustGradeTime,jdbcType=VARCHAR},
       </if>
       <if test="entrustReturnTime != null">
         Entrust_Return_Time = #{entrustReturnTime,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustState != null">
+        Entrust_state = #{entrustState,jdbcType=CHAR},
       </if>
     </set>
     where Await_Delivery_Order_Id = #{awaitDeliveryOrderId,jdbcType=INTEGER}
@@ -221,9 +251,11 @@
     update bbt_await_delivery_order
     set New_Entrust_Id = #{newEntrustId,jdbcType=INTEGER},
       User_Id = #{userId,jdbcType=INTEGER},
+      New_User_Id = #{newUserId,jdbcType=INTEGER},
       Entrust_Money = #{entrustMoney,jdbcType=DOUBLE},
-      Entrust_Grade_Time = #{entrustGradeTime,jdbcType=TIMESTAMP},
-      Entrust_Return_Time = #{entrustReturnTime,jdbcType=VARCHAR}
+      Entrust_Grade_Time = #{entrustGradeTime,jdbcType=VARCHAR},
+      Entrust_Return_Time = #{entrustReturnTime,jdbcType=VARCHAR},
+      Entrust_state = #{entrustState,jdbcType=CHAR}
     where Await_Delivery_Order_Id = #{awaitDeliveryOrderId,jdbcType=INTEGER}
   </update>
 </mapper>

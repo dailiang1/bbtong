@@ -1,7 +1,6 @@
 package com.bbtong.Pojo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserExample {
@@ -585,52 +584,62 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginEqualTo(Date value) {
+        public Criteria andUserMemberBeginEqualTo(String value) {
             addCriterion("`User_ Member_Begin` =", value, "userMemberBegin");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginNotEqualTo(Date value) {
+        public Criteria andUserMemberBeginNotEqualTo(String value) {
             addCriterion("`User_ Member_Begin` <>", value, "userMemberBegin");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginGreaterThan(Date value) {
+        public Criteria andUserMemberBeginGreaterThan(String value) {
             addCriterion("`User_ Member_Begin` >", value, "userMemberBegin");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginGreaterThanOrEqualTo(Date value) {
+        public Criteria andUserMemberBeginGreaterThanOrEqualTo(String value) {
             addCriterion("`User_ Member_Begin` >=", value, "userMemberBegin");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginLessThan(Date value) {
+        public Criteria andUserMemberBeginLessThan(String value) {
             addCriterion("`User_ Member_Begin` <", value, "userMemberBegin");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginLessThanOrEqualTo(Date value) {
+        public Criteria andUserMemberBeginLessThanOrEqualTo(String value) {
             addCriterion("`User_ Member_Begin` <=", value, "userMemberBegin");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginIn(List<Date> values) {
+        public Criteria andUserMemberBeginLike(String value) {
+            addCriterion("`User_ Member_Begin` like", value, "userMemberBegin");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserMemberBeginNotLike(String value) {
+            addCriterion("`User_ Member_Begin` not like", value, "userMemberBegin");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserMemberBeginIn(List<String> values) {
             addCriterion("`User_ Member_Begin` in", values, "userMemberBegin");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginNotIn(List<Date> values) {
+        public Criteria andUserMemberBeginNotIn(List<String> values) {
             addCriterion("`User_ Member_Begin` not in", values, "userMemberBegin");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginBetween(Date value1, Date value2) {
+        public Criteria andUserMemberBeginBetween(String value1, String value2) {
             addCriterion("`User_ Member_Begin` between", value1, value2, "userMemberBegin");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberBeginNotBetween(Date value1, Date value2) {
+        public Criteria andUserMemberBeginNotBetween(String value1, String value2) {
             addCriterion("`User_ Member_Begin` not between", value1, value2, "userMemberBegin");
             return (Criteria) this;
         }
@@ -645,52 +654,62 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishEqualTo(Date value) {
+        public Criteria andUserMemberFinishEqualTo(String value) {
             addCriterion("`User_ Member_Finish` =", value, "userMemberFinish");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishNotEqualTo(Date value) {
+        public Criteria andUserMemberFinishNotEqualTo(String value) {
             addCriterion("`User_ Member_Finish` <>", value, "userMemberFinish");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishGreaterThan(Date value) {
+        public Criteria andUserMemberFinishGreaterThan(String value) {
             addCriterion("`User_ Member_Finish` >", value, "userMemberFinish");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishGreaterThanOrEqualTo(Date value) {
+        public Criteria andUserMemberFinishGreaterThanOrEqualTo(String value) {
             addCriterion("`User_ Member_Finish` >=", value, "userMemberFinish");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishLessThan(Date value) {
+        public Criteria andUserMemberFinishLessThan(String value) {
             addCriterion("`User_ Member_Finish` <", value, "userMemberFinish");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishLessThanOrEqualTo(Date value) {
+        public Criteria andUserMemberFinishLessThanOrEqualTo(String value) {
             addCriterion("`User_ Member_Finish` <=", value, "userMemberFinish");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishIn(List<Date> values) {
+        public Criteria andUserMemberFinishLike(String value) {
+            addCriterion("`User_ Member_Finish` like", value, "userMemberFinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserMemberFinishNotLike(String value) {
+            addCriterion("`User_ Member_Finish` not like", value, "userMemberFinish");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserMemberFinishIn(List<String> values) {
             addCriterion("`User_ Member_Finish` in", values, "userMemberFinish");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishNotIn(List<Date> values) {
+        public Criteria andUserMemberFinishNotIn(List<String> values) {
             addCriterion("`User_ Member_Finish` not in", values, "userMemberFinish");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishBetween(Date value1, Date value2) {
+        public Criteria andUserMemberFinishBetween(String value1, String value2) {
             addCriterion("`User_ Member_Finish` between", value1, value2, "userMemberFinish");
             return (Criteria) this;
         }
 
-        public Criteria andUserMemberFinishNotBetween(Date value1, Date value2) {
+        public Criteria andUserMemberFinishNotBetween(String value1, String value2) {
             addCriterion("`User_ Member_Finish` not between", value1, value2, "userMemberFinish");
             return (Criteria) this;
         }

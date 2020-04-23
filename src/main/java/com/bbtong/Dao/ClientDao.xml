@@ -10,8 +10,8 @@
     <result column="Client_Identity_Card_Front" jdbcType="VARCHAR" property="clientIdentityCardFront" />
     <result column="Client_Identity_Card_Verso" jdbcType="VARCHAR" property="clientIdentityCardVerso" />
     <result column="Client_Address" jdbcType="VARCHAR" property="clientAddress" />
-    <result column="Client_Come_Time" jdbcType="TIMESTAMP" property="clientComeTime" />
-    <result column="Client_Expiration_Time" jdbcType="TIMESTAMP" property="clientExpirationTime" />
+    <result column="Client_Come_Time" jdbcType="VARCHAR" property="clientComeTime" />
+    <result column="Client_Expiration_Time" jdbcType="VARCHAR" property="clientExpirationTime" />
     <result column="Client_Driving_License" jdbcType="VARCHAR" property="clientDrivingLicense" />
     <result column="Client_Birthday" jdbcType="VARCHAR" property="clientBirthday" />
     <result column="Client_Type" jdbcType="VARCHAR" property="clientType" />
@@ -122,15 +122,15 @@
     insert into bbt_client (Client_way, Client_Name, Insurance_Company_Id, 
       Client_Identity_Card, Client_Identity_Card_Front, 
       Client_Identity_Card_Verso, Client_Address, 
-      Client_Come_Time, Client_Expiration_Time, 
-      Client_Driving_License, Client_Birthday, Client_Type, 
-      Type_Id)
+      Client_Come_Time, Client_Expiration_Time, Client_Driving_License, 
+      Client_Birthday, Client_Type, Type_Id
+      )
     values (#{clientWay,jdbcType=VARCHAR}, #{clientName,jdbcType=VARCHAR}, #{insuranceCompanyId,jdbcType=INTEGER}, 
       #{clientIdentityCard,jdbcType=VARCHAR}, #{clientIdentityCardFront,jdbcType=VARCHAR}, 
       #{clientIdentityCardVerso,jdbcType=VARCHAR}, #{clientAddress,jdbcType=VARCHAR}, 
-      #{clientComeTime,jdbcType=TIMESTAMP}, #{clientExpirationTime,jdbcType=TIMESTAMP}, 
-      #{clientDrivingLicense,jdbcType=VARCHAR}, #{clientBirthday,jdbcType=VARCHAR}, #{clientType,jdbcType=VARCHAR}, 
-      #{typeId,jdbcType=INTEGER})
+      #{clientComeTime,jdbcType=VARCHAR}, #{clientExpirationTime,jdbcType=VARCHAR}, #{clientDrivingLicense,jdbcType=VARCHAR}, 
+      #{clientBirthday,jdbcType=VARCHAR}, #{clientType,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="Client_Id" keyProperty="clientId" parameterType="com.bbtong.Pojo.Client" useGeneratedKeys="true">
     insert into bbt_client
@@ -198,10 +198,10 @@
         #{clientAddress,jdbcType=VARCHAR},
       </if>
       <if test="clientComeTime != null">
-        #{clientComeTime,jdbcType=TIMESTAMP},
+        #{clientComeTime,jdbcType=VARCHAR},
       </if>
       <if test="clientExpirationTime != null">
-        #{clientExpirationTime,jdbcType=TIMESTAMP},
+        #{clientExpirationTime,jdbcType=VARCHAR},
       </if>
       <if test="clientDrivingLicense != null">
         #{clientDrivingLicense,jdbcType=VARCHAR},
@@ -251,10 +251,10 @@
         Client_Address = #{record.clientAddress,jdbcType=VARCHAR},
       </if>
       <if test="record.clientComeTime != null">
-        Client_Come_Time = #{record.clientComeTime,jdbcType=TIMESTAMP},
+        Client_Come_Time = #{record.clientComeTime,jdbcType=VARCHAR},
       </if>
       <if test="record.clientExpirationTime != null">
-        Client_Expiration_Time = #{record.clientExpirationTime,jdbcType=TIMESTAMP},
+        Client_Expiration_Time = #{record.clientExpirationTime,jdbcType=VARCHAR},
       </if>
       <if test="record.clientDrivingLicense != null">
         Client_Driving_License = #{record.clientDrivingLicense,jdbcType=VARCHAR},
@@ -283,8 +283,8 @@
       Client_Identity_Card_Front = #{record.clientIdentityCardFront,jdbcType=VARCHAR},
       Client_Identity_Card_Verso = #{record.clientIdentityCardVerso,jdbcType=VARCHAR},
       Client_Address = #{record.clientAddress,jdbcType=VARCHAR},
-      Client_Come_Time = #{record.clientComeTime,jdbcType=TIMESTAMP},
-      Client_Expiration_Time = #{record.clientExpirationTime,jdbcType=TIMESTAMP},
+      Client_Come_Time = #{record.clientComeTime,jdbcType=VARCHAR},
+      Client_Expiration_Time = #{record.clientExpirationTime,jdbcType=VARCHAR},
       Client_Driving_License = #{record.clientDrivingLicense,jdbcType=VARCHAR},
       Client_Birthday = #{record.clientBirthday,jdbcType=VARCHAR},
       Client_Type = #{record.clientType,jdbcType=VARCHAR},
@@ -318,10 +318,10 @@
         Client_Address = #{clientAddress,jdbcType=VARCHAR},
       </if>
       <if test="clientComeTime != null">
-        Client_Come_Time = #{clientComeTime,jdbcType=TIMESTAMP},
+        Client_Come_Time = #{clientComeTime,jdbcType=VARCHAR},
       </if>
       <if test="clientExpirationTime != null">
-        Client_Expiration_Time = #{clientExpirationTime,jdbcType=TIMESTAMP},
+        Client_Expiration_Time = #{clientExpirationTime,jdbcType=VARCHAR},
       </if>
       <if test="clientDrivingLicense != null">
         Client_Driving_License = #{clientDrivingLicense,jdbcType=VARCHAR},
@@ -347,8 +347,8 @@
       Client_Identity_Card_Front = #{clientIdentityCardFront,jdbcType=VARCHAR},
       Client_Identity_Card_Verso = #{clientIdentityCardVerso,jdbcType=VARCHAR},
       Client_Address = #{clientAddress,jdbcType=VARCHAR},
-      Client_Come_Time = #{clientComeTime,jdbcType=TIMESTAMP},
-      Client_Expiration_Time = #{clientExpirationTime,jdbcType=TIMESTAMP},
+      Client_Come_Time = #{clientComeTime,jdbcType=VARCHAR},
+      Client_Expiration_Time = #{clientExpirationTime,jdbcType=VARCHAR},
       Client_Driving_License = #{clientDrivingLicense,jdbcType=VARCHAR},
       Client_Birthday = #{clientBirthday,jdbcType=VARCHAR},
       Client_Type = #{clientType,jdbcType=VARCHAR},

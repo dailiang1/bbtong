@@ -1,7 +1,6 @@
 package com.bbtong.Pojo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class BeansExample {
@@ -465,52 +464,62 @@ public class BeansExample {
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeEqualTo(Date value) {
+        public Criteria andBeansTimeEqualTo(String value) {
             addCriterion("Beans_Time =", value, "beansTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeNotEqualTo(Date value) {
+        public Criteria andBeansTimeNotEqualTo(String value) {
             addCriterion("Beans_Time <>", value, "beansTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeGreaterThan(Date value) {
+        public Criteria andBeansTimeGreaterThan(String value) {
             addCriterion("Beans_Time >", value, "beansTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andBeansTimeGreaterThanOrEqualTo(String value) {
             addCriterion("Beans_Time >=", value, "beansTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeLessThan(Date value) {
+        public Criteria andBeansTimeLessThan(String value) {
             addCriterion("Beans_Time <", value, "beansTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeLessThanOrEqualTo(Date value) {
+        public Criteria andBeansTimeLessThanOrEqualTo(String value) {
             addCriterion("Beans_Time <=", value, "beansTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeIn(List<Date> values) {
+        public Criteria andBeansTimeLike(String value) {
+            addCriterion("Beans_Time like", value, "beansTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeansTimeNotLike(String value) {
+            addCriterion("Beans_Time not like", value, "beansTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBeansTimeIn(List<String> values) {
             addCriterion("Beans_Time in", values, "beansTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeNotIn(List<Date> values) {
+        public Criteria andBeansTimeNotIn(List<String> values) {
             addCriterion("Beans_Time not in", values, "beansTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeBetween(Date value1, Date value2) {
+        public Criteria andBeansTimeBetween(String value1, String value2) {
             addCriterion("Beans_Time between", value1, value2, "beansTime");
             return (Criteria) this;
         }
 
-        public Criteria andBeansTimeNotBetween(Date value1, Date value2) {
+        public Criteria andBeansTimeNotBetween(String value1, String value2) {
             addCriterion("Beans_Time not between", value1, value2, "beansTime");
             return (Criteria) this;
         }
@@ -525,52 +534,62 @@ public class BeansExample {
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeEqualTo(Date value) {
+        public Criteria andNewbeansTimeEqualTo(String value) {
             addCriterion("NewBeans_Time =", value, "newbeansTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeNotEqualTo(Date value) {
+        public Criteria andNewbeansTimeNotEqualTo(String value) {
             addCriterion("NewBeans_Time <>", value, "newbeansTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeGreaterThan(Date value) {
+        public Criteria andNewbeansTimeGreaterThan(String value) {
             addCriterion("NewBeans_Time >", value, "newbeansTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andNewbeansTimeGreaterThanOrEqualTo(String value) {
             addCriterion("NewBeans_Time >=", value, "newbeansTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeLessThan(Date value) {
+        public Criteria andNewbeansTimeLessThan(String value) {
             addCriterion("NewBeans_Time <", value, "newbeansTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeLessThanOrEqualTo(Date value) {
+        public Criteria andNewbeansTimeLessThanOrEqualTo(String value) {
             addCriterion("NewBeans_Time <=", value, "newbeansTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeIn(List<Date> values) {
+        public Criteria andNewbeansTimeLike(String value) {
+            addCriterion("NewBeans_Time like", value, "newbeansTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewbeansTimeNotLike(String value) {
+            addCriterion("NewBeans_Time not like", value, "newbeansTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewbeansTimeIn(List<String> values) {
             addCriterion("NewBeans_Time in", values, "newbeansTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeNotIn(List<Date> values) {
+        public Criteria andNewbeansTimeNotIn(List<String> values) {
             addCriterion("NewBeans_Time not in", values, "newbeansTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeBetween(Date value1, Date value2) {
+        public Criteria andNewbeansTimeBetween(String value1, String value2) {
             addCriterion("NewBeans_Time between", value1, value2, "newbeansTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewbeansTimeNotBetween(Date value1, Date value2) {
+        public Criteria andNewbeansTimeNotBetween(String value1, String value2) {
             addCriterion("NewBeans_Time not between", value1, value2, "newbeansTime");
             return (Criteria) this;
         }

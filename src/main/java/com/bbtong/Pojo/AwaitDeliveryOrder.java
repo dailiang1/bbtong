@@ -1,10 +1,9 @@
 package com.bbtong.Pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * bbt_await_delivery_order
+ * bbt_await_delivery_order 待还单表
  * 戴辆
  */
 public class AwaitDeliveryOrder implements Serializable {
@@ -36,7 +35,7 @@ public class AwaitDeliveryOrder implements Serializable {
     /**
      * 委托单完成的时间
      */
-    private Date entrustGradeTime;
+    private String entrustGradeTime;
 
     /**
      * 还单的时间期限(获取委托表中的时间)
@@ -90,11 +89,11 @@ public class AwaitDeliveryOrder implements Serializable {
         this.entrustMoney = entrustMoney;
     }
 
-    public Date getEntrustGradeTime() {
+    public String getEntrustGradeTime() {
         return entrustGradeTime;
     }
 
-    public void setEntrustGradeTime(Date entrustGradeTime) {
+    public void setEntrustGradeTime(String entrustGradeTime) {
         this.entrustGradeTime = entrustGradeTime;
     }
 

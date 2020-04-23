@@ -1,7 +1,6 @@
 package com.bbtong.Pojo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ConsumeExample {
@@ -465,52 +464,62 @@ public class ConsumeExample {
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeEqualTo(Date value) {
+        public Criteria andConsumeTimeEqualTo(String value) {
             addCriterion("Consume_Time =", value, "consumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeNotEqualTo(Date value) {
+        public Criteria andConsumeTimeNotEqualTo(String value) {
             addCriterion("Consume_Time <>", value, "consumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeGreaterThan(Date value) {
+        public Criteria andConsumeTimeGreaterThan(String value) {
             addCriterion("Consume_Time >", value, "consumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andConsumeTimeGreaterThanOrEqualTo(String value) {
             addCriterion("Consume_Time >=", value, "consumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeLessThan(Date value) {
+        public Criteria andConsumeTimeLessThan(String value) {
             addCriterion("Consume_Time <", value, "consumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeLessThanOrEqualTo(Date value) {
+        public Criteria andConsumeTimeLessThanOrEqualTo(String value) {
             addCriterion("Consume_Time <=", value, "consumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeIn(List<Date> values) {
+        public Criteria andConsumeTimeLike(String value) {
+            addCriterion("Consume_Time like", value, "consumeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConsumeTimeNotLike(String value) {
+            addCriterion("Consume_Time not like", value, "consumeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConsumeTimeIn(List<String> values) {
             addCriterion("Consume_Time in", values, "consumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeNotIn(List<Date> values) {
+        public Criteria andConsumeTimeNotIn(List<String> values) {
             addCriterion("Consume_Time not in", values, "consumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeBetween(Date value1, Date value2) {
+        public Criteria andConsumeTimeBetween(String value1, String value2) {
             addCriterion("Consume_Time between", value1, value2, "consumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andConsumeTimeNotBetween(Date value1, Date value2) {
+        public Criteria andConsumeTimeNotBetween(String value1, String value2) {
             addCriterion("Consume_Time not between", value1, value2, "consumeTime");
             return (Criteria) this;
         }
@@ -525,52 +534,62 @@ public class ConsumeExample {
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeEqualTo(Date value) {
+        public Criteria andNewconsumeTimeEqualTo(String value) {
             addCriterion("NewConsume_Time =", value, "newconsumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeNotEqualTo(Date value) {
+        public Criteria andNewconsumeTimeNotEqualTo(String value) {
             addCriterion("NewConsume_Time <>", value, "newconsumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeGreaterThan(Date value) {
+        public Criteria andNewconsumeTimeGreaterThan(String value) {
             addCriterion("NewConsume_Time >", value, "newconsumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andNewconsumeTimeGreaterThanOrEqualTo(String value) {
             addCriterion("NewConsume_Time >=", value, "newconsumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeLessThan(Date value) {
+        public Criteria andNewconsumeTimeLessThan(String value) {
             addCriterion("NewConsume_Time <", value, "newconsumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeLessThanOrEqualTo(Date value) {
+        public Criteria andNewconsumeTimeLessThanOrEqualTo(String value) {
             addCriterion("NewConsume_Time <=", value, "newconsumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeIn(List<Date> values) {
+        public Criteria andNewconsumeTimeLike(String value) {
+            addCriterion("NewConsume_Time like", value, "newconsumeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewconsumeTimeNotLike(String value) {
+            addCriterion("NewConsume_Time not like", value, "newconsumeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewconsumeTimeIn(List<String> values) {
             addCriterion("NewConsume_Time in", values, "newconsumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeNotIn(List<Date> values) {
+        public Criteria andNewconsumeTimeNotIn(List<String> values) {
             addCriterion("NewConsume_Time not in", values, "newconsumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeBetween(Date value1, Date value2) {
+        public Criteria andNewconsumeTimeBetween(String value1, String value2) {
             addCriterion("NewConsume_Time between", value1, value2, "newconsumeTime");
             return (Criteria) this;
         }
 
-        public Criteria andNewconsumeTimeNotBetween(Date value1, Date value2) {
+        public Criteria andNewconsumeTimeNotBetween(String value1, String value2) {
             addCriterion("NewConsume_Time not between", value1, value2, "newconsumeTime");
             return (Criteria) this;
         }

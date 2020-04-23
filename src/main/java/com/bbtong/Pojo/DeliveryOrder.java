@@ -1,10 +1,9 @@
 package com.bbtong.Pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * bbt_delivery_order
+ * bbt_delivery_order 还单表
  * 戴辆
  */
 public class DeliveryOrder implements Serializable {
@@ -41,7 +40,7 @@ public class DeliveryOrder implements Serializable {
     /**
      *  表示这一单结束的时间
      */
-    private Date entrustGradeTime;
+    private String entrustGradeTime;
 
     /**
      * 表示待还单用户是否确认了信息(0未确认，1确定(表示订单结束)，2驳回订单信息有误，请重新提交)
@@ -103,11 +102,11 @@ public class DeliveryOrder implements Serializable {
         this.deliveryOrderMoney = deliveryOrderMoney;
     }
 
-    public Date getEntrustGradeTime() {
+    public String getEntrustGradeTime() {
         return entrustGradeTime;
     }
 
-    public void setEntrustGradeTime(Date entrustGradeTime) {
+    public void setEntrustGradeTime(String entrustGradeTime) {
         this.entrustGradeTime = entrustGradeTime;
     }
 

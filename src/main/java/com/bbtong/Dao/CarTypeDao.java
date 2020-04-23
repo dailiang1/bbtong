@@ -34,4 +34,7 @@ public interface CarTypeDao {
     int updateByPrimaryKeySelective(CarType record);
 
     int updateByPrimaryKey(CarType record);
+
+    //查询车类的表
+    List<CarType> selectCarType();
 }

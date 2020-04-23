@@ -9,8 +9,8 @@
     <result column="Insurance_Company_Id" jdbcType="INTEGER" property="insuranceCompanyId" />
     <result column="User_Integrity" jdbcType="DOUBLE" property="userIntegrity" />
     <result column="User_Member_State" jdbcType="INTEGER" property="userMemberState" />
-    <result column="User_ Member_Begin" jdbcType="TIMESTAMP" property="userMemberBegin" />
-    <result column="User_ Member_Finish" jdbcType="TIMESTAMP" property="userMemberFinish" />
+    <result column="User_ Member_Begin" jdbcType="VARCHAR" property="userMemberBegin" />
+    <result column="User_ Member_Finish" jdbcType="VARCHAR" property="userMemberFinish" />
     <result column="User_Phone" jdbcType="VARCHAR" property="userPhone" />
     <result column="User_Identity_Card" jdbcType="VARCHAR" property="userIdentityCard" />
     <result column="User_Identity_Card_Front" jdbcType="VARCHAR" property="userIdentityCardFront" />
@@ -137,8 +137,8 @@
   <insert id="insert" keyColumn="User_Id" keyProperty="userId" parameterType="com.bbtong.Pojo.User" useGeneratedKeys="true">
     insert into bbt_user (User_Name, User_Nickname, Insurance_Company_Name, 
       Insurance_Company_Id, User_Integrity, User_Member_State, 
-      `User_ Member_Begin`, `User_ Member_Finish`, 
-      User_Phone, User_Identity_Card, User_Identity_Card_Front, 
+      `User_ Member_Begin`, `User_ Member_Finish`, User_Phone, 
+      User_Identity_Card, User_Identity_Card_Front, 
       User_Identity_Card_Verso, User_Satisfaction, 
       User_OpenId, User_State, User_Entrust_number, 
       User_Order_numer, User_Entrust_Money, User_order_Money, 
@@ -147,8 +147,8 @@
       Intention_State)
     values (#{userName,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR}, #{insuranceCompanyName,jdbcType=VARCHAR}, 
       #{insuranceCompanyId,jdbcType=INTEGER}, #{userIntegrity,jdbcType=DOUBLE}, #{userMemberState,jdbcType=INTEGER}, 
-      #{userMemberBegin,jdbcType=TIMESTAMP}, #{userMemberFinish,jdbcType=TIMESTAMP}, 
-      #{userPhone,jdbcType=VARCHAR}, #{userIdentityCard,jdbcType=VARCHAR}, #{userIdentityCardFront,jdbcType=VARCHAR}, 
+      #{userMemberBegin,jdbcType=VARCHAR}, #{userMemberFinish,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userIdentityCard,jdbcType=VARCHAR}, #{userIdentityCardFront,jdbcType=VARCHAR}, 
       #{userIdentityCardVerso,jdbcType=VARCHAR}, #{userSatisfaction,jdbcType=INTEGER}, 
       #{userOpenid,jdbcType=VARCHAR}, #{userState,jdbcType=INTEGER}, #{userEntrustNumber,jdbcType=INTEGER}, 
       #{userOrderNumer,jdbcType=INTEGER}, #{userEntrustMoney,jdbcType=DOUBLE}, #{userOrderMoney,jdbcType=DOUBLE}, 
@@ -258,10 +258,10 @@
         #{userMemberState,jdbcType=INTEGER},
       </if>
       <if test="userMemberBegin != null">
-        #{userMemberBegin,jdbcType=TIMESTAMP},
+        #{userMemberBegin,jdbcType=VARCHAR},
       </if>
       <if test="userMemberFinish != null">
-        #{userMemberFinish,jdbcType=TIMESTAMP},
+        #{userMemberFinish,jdbcType=VARCHAR},
       </if>
       <if test="userPhone != null">
         #{userPhone,jdbcType=VARCHAR},
@@ -350,10 +350,10 @@
         User_Member_State = #{record.userMemberState,jdbcType=INTEGER},
       </if>
       <if test="record.userMemberBegin != null">
-        `User_ Member_Begin` = #{record.userMemberBegin,jdbcType=TIMESTAMP},
+        `User_ Member_Begin` = #{record.userMemberBegin,jdbcType=VARCHAR},
       </if>
       <if test="record.userMemberFinish != null">
-        `User_ Member_Finish` = #{record.userMemberFinish,jdbcType=TIMESTAMP},
+        `User_ Member_Finish` = #{record.userMemberFinish,jdbcType=VARCHAR},
       </if>
       <if test="record.userPhone != null">
         User_Phone = #{record.userPhone,jdbcType=VARCHAR},
@@ -423,8 +423,8 @@
       Insurance_Company_Id = #{record.insuranceCompanyId,jdbcType=INTEGER},
       User_Integrity = #{record.userIntegrity,jdbcType=DOUBLE},
       User_Member_State = #{record.userMemberState,jdbcType=INTEGER},
-      `User_ Member_Begin` = #{record.userMemberBegin,jdbcType=TIMESTAMP},
-      `User_ Member_Finish` = #{record.userMemberFinish,jdbcType=TIMESTAMP},
+      `User_ Member_Begin` = #{record.userMemberBegin,jdbcType=VARCHAR},
+      `User_ Member_Finish` = #{record.userMemberFinish,jdbcType=VARCHAR},
       User_Phone = #{record.userPhone,jdbcType=VARCHAR},
       User_Identity_Card = #{record.userIdentityCard,jdbcType=VARCHAR},
       User_Identity_Card_Front = #{record.userIdentityCardFront,jdbcType=VARCHAR},
@@ -469,10 +469,10 @@
         User_Member_State = #{userMemberState,jdbcType=INTEGER},
       </if>
       <if test="userMemberBegin != null">
-        `User_ Member_Begin` = #{userMemberBegin,jdbcType=TIMESTAMP},
+        `User_ Member_Begin` = #{userMemberBegin,jdbcType=VARCHAR},
       </if>
       <if test="userMemberFinish != null">
-        `User_ Member_Finish` = #{userMemberFinish,jdbcType=TIMESTAMP},
+        `User_ Member_Finish` = #{userMemberFinish,jdbcType=VARCHAR},
       </if>
       <if test="userPhone != null">
         User_Phone = #{userPhone,jdbcType=VARCHAR},
@@ -539,8 +539,8 @@
       Insurance_Company_Id = #{insuranceCompanyId,jdbcType=INTEGER},
       User_Integrity = #{userIntegrity,jdbcType=DOUBLE},
       User_Member_State = #{userMemberState,jdbcType=INTEGER},
-      `User_ Member_Begin` = #{userMemberBegin,jdbcType=TIMESTAMP},
-      `User_ Member_Finish` = #{userMemberFinish,jdbcType=TIMESTAMP},
+      `User_ Member_Begin` = #{userMemberBegin,jdbcType=VARCHAR},
+      `User_ Member_Finish` = #{userMemberFinish,jdbcType=VARCHAR},
       User_Phone = #{userPhone,jdbcType=VARCHAR},
       User_Identity_Card = #{userIdentityCard,jdbcType=VARCHAR},
       User_Identity_Card_Front = #{userIdentityCardFront,jdbcType=VARCHAR},
@@ -561,9 +561,4 @@
       Intention_State = #{intentionState,jdbcType=INTEGER}
     where User_Id = #{userId,jdbcType=INTEGER}
   </update>
-
-  <!--测试登陆的功能-->
-  <select id="login" resultType="int" parameterType="user">
-        select User_Id from bbt_user where User_OpenId=#{userOpenid}
-  </select>
 </mapper>

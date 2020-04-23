@@ -1,7 +1,6 @@
 package com.bbtong.Pojo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class EntrustExample {
@@ -845,52 +844,62 @@ public class EntrustExample {
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeEqualTo(Date value) {
+        public Criteria andEntrustStartTimeEqualTo(String value) {
             addCriterion("Entrust_Start_Time =", value, "entrustStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeNotEqualTo(Date value) {
+        public Criteria andEntrustStartTimeNotEqualTo(String value) {
             addCriterion("Entrust_Start_Time <>", value, "entrustStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeGreaterThan(Date value) {
+        public Criteria andEntrustStartTimeGreaterThan(String value) {
             addCriterion("Entrust_Start_Time >", value, "entrustStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andEntrustStartTimeGreaterThanOrEqualTo(String value) {
             addCriterion("Entrust_Start_Time >=", value, "entrustStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeLessThan(Date value) {
+        public Criteria andEntrustStartTimeLessThan(String value) {
             addCriterion("Entrust_Start_Time <", value, "entrustStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeLessThanOrEqualTo(Date value) {
+        public Criteria andEntrustStartTimeLessThanOrEqualTo(String value) {
             addCriterion("Entrust_Start_Time <=", value, "entrustStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeIn(List<Date> values) {
+        public Criteria andEntrustStartTimeLike(String value) {
+            addCriterion("Entrust_Start_Time like", value, "entrustStartTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStartTimeNotLike(String value) {
+            addCriterion("Entrust_Start_Time not like", value, "entrustStartTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustStartTimeIn(List<String> values) {
             addCriterion("Entrust_Start_Time in", values, "entrustStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeNotIn(List<Date> values) {
+        public Criteria andEntrustStartTimeNotIn(List<String> values) {
             addCriterion("Entrust_Start_Time not in", values, "entrustStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeBetween(Date value1, Date value2) {
+        public Criteria andEntrustStartTimeBetween(String value1, String value2) {
             addCriterion("Entrust_Start_Time between", value1, value2, "entrustStartTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustStartTimeNotBetween(Date value1, Date value2) {
+        public Criteria andEntrustStartTimeNotBetween(String value1, String value2) {
             addCriterion("Entrust_Start_Time not between", value1, value2, "entrustStartTime");
             return (Criteria) this;
         }
@@ -905,52 +914,62 @@ public class EntrustExample {
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeEqualTo(Date value) {
+        public Criteria andEntrustEndTimeEqualTo(String value) {
             addCriterion("Entrust_End_Time =", value, "entrustEndTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeNotEqualTo(Date value) {
+        public Criteria andEntrustEndTimeNotEqualTo(String value) {
             addCriterion("Entrust_End_Time <>", value, "entrustEndTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeGreaterThan(Date value) {
+        public Criteria andEntrustEndTimeGreaterThan(String value) {
             addCriterion("Entrust_End_Time >", value, "entrustEndTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andEntrustEndTimeGreaterThanOrEqualTo(String value) {
             addCriterion("Entrust_End_Time >=", value, "entrustEndTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeLessThan(Date value) {
+        public Criteria andEntrustEndTimeLessThan(String value) {
             addCriterion("Entrust_End_Time <", value, "entrustEndTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeLessThanOrEqualTo(Date value) {
+        public Criteria andEntrustEndTimeLessThanOrEqualTo(String value) {
             addCriterion("Entrust_End_Time <=", value, "entrustEndTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeIn(List<Date> values) {
+        public Criteria andEntrustEndTimeLike(String value) {
+            addCriterion("Entrust_End_Time like", value, "entrustEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustEndTimeNotLike(String value) {
+            addCriterion("Entrust_End_Time not like", value, "entrustEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustEndTimeIn(List<String> values) {
             addCriterion("Entrust_End_Time in", values, "entrustEndTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeNotIn(List<Date> values) {
+        public Criteria andEntrustEndTimeNotIn(List<String> values) {
             addCriterion("Entrust_End_Time not in", values, "entrustEndTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeBetween(Date value1, Date value2) {
+        public Criteria andEntrustEndTimeBetween(String value1, String value2) {
             addCriterion("Entrust_End_Time between", value1, value2, "entrustEndTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustEndTimeNotBetween(Date value1, Date value2) {
+        public Criteria andEntrustEndTimeNotBetween(String value1, String value2) {
             addCriterion("Entrust_End_Time not between", value1, value2, "entrustEndTime");
             return (Criteria) this;
         }
@@ -1215,52 +1234,62 @@ public class EntrustExample {
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeEqualTo(Date value) {
+        public Criteria andEntrustGradeTimeEqualTo(String value) {
             addCriterion("Entrust_Grade_Time =", value, "entrustGradeTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeNotEqualTo(Date value) {
+        public Criteria andEntrustGradeTimeNotEqualTo(String value) {
             addCriterion("Entrust_Grade_Time <>", value, "entrustGradeTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeGreaterThan(Date value) {
+        public Criteria andEntrustGradeTimeGreaterThan(String value) {
             addCriterion("Entrust_Grade_Time >", value, "entrustGradeTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andEntrustGradeTimeGreaterThanOrEqualTo(String value) {
             addCriterion("Entrust_Grade_Time >=", value, "entrustGradeTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeLessThan(Date value) {
+        public Criteria andEntrustGradeTimeLessThan(String value) {
             addCriterion("Entrust_Grade_Time <", value, "entrustGradeTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeLessThanOrEqualTo(Date value) {
+        public Criteria andEntrustGradeTimeLessThanOrEqualTo(String value) {
             addCriterion("Entrust_Grade_Time <=", value, "entrustGradeTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeIn(List<Date> values) {
+        public Criteria andEntrustGradeTimeLike(String value) {
+            addCriterion("Entrust_Grade_Time like", value, "entrustGradeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustGradeTimeNotLike(String value) {
+            addCriterion("Entrust_Grade_Time not like", value, "entrustGradeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustGradeTimeIn(List<String> values) {
             addCriterion("Entrust_Grade_Time in", values, "entrustGradeTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeNotIn(List<Date> values) {
+        public Criteria andEntrustGradeTimeNotIn(List<String> values) {
             addCriterion("Entrust_Grade_Time not in", values, "entrustGradeTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeBetween(Date value1, Date value2) {
+        public Criteria andEntrustGradeTimeBetween(String value1, String value2) {
             addCriterion("Entrust_Grade_Time between", value1, value2, "entrustGradeTime");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustGradeTimeNotBetween(Date value1, Date value2) {
+        public Criteria andEntrustGradeTimeNotBetween(String value1, String value2) {
             addCriterion("Entrust_Grade_Time not between", value1, value2, "entrustGradeTime");
             return (Criteria) this;
         }

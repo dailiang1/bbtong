@@ -3,15 +3,8 @@ package com.bbtong.Dao;
 import com.bbtong.Pojo.Beans;
 import com.bbtong.Pojo.BeansExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * 和豆申请表
- */
-
-@Mapper
 public interface BeansDao {
     long countByExample(BeansExample example);
 

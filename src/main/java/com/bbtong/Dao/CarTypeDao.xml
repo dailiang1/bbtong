@@ -163,4 +163,8 @@
     set Car_Type_Name = #{carTypeName,jdbcType=VARCHAR}
     where Car_Type_Id = #{carTypeId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectCarType" resultMap="BaseResultMap">
+    select * from bbt_car_type
+  </select>
 </mapper>

@@ -13,13 +13,13 @@
     <result column="Entrust_Address" jdbcType="VARCHAR" property="entrustAddress" />
     <result column="Entrust_Remark" jdbcType="VARCHAR" property="entrustRemark" />
     <result column="Entrust_Grade" jdbcType="INTEGER" property="entrustGrade" />
-    <result column="Entrust_Start_Time" jdbcType="TIMESTAMP" property="entrustStartTime" />
-    <result column="Entrust_End_Time" jdbcType="TIMESTAMP" property="entrustEndTime" />
+    <result column="Entrust_Start_Time" jdbcType="VARCHAR" property="entrustStartTime" />
+    <result column="Entrust_End_Time" jdbcType="VARCHAR" property="entrustEndTime" />
     <result column="Car_Type_Id" jdbcType="INTEGER" property="carTypeId" />
     <result column="Amount_Range_Id" jdbcType="INTEGER" property="amountRangeId" />
     <result column="Entrust_state" jdbcType="INTEGER" property="entrustState" />
     <result column="Entrust_Insure" jdbcType="VARCHAR" property="entrustInsure" />
-    <result column="Entrust_Grade_Time" jdbcType="TIMESTAMP" property="entrustGradeTime" />
+    <result column="Entrust_Grade_Time" jdbcType="VARCHAR" property="entrustGradeTime" />
     <result column="Entrust_Service_Charge" jdbcType="DOUBLE" property="entrustServiceCharge" />
     <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney" />
     <result column="Entrust_Return_Money" jdbcType="DOUBLE" property="entrustReturnMoney" />
@@ -141,9 +141,9 @@
     values (#{userId,jdbcType=INTEGER}, #{newUserId,jdbcType=VARCHAR}, #{finallyUserId,jdbcType=INTEGER}, 
       #{insuranceCompanyId,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, #{iicensePlateNumber,jdbcType=VARCHAR}, 
       #{entrustCarBrand,jdbcType=VARCHAR}, #{entrustAddress,jdbcType=VARCHAR}, #{entrustRemark,jdbcType=VARCHAR}, 
-      #{entrustGrade,jdbcType=INTEGER}, #{entrustStartTime,jdbcType=TIMESTAMP}, #{entrustEndTime,jdbcType=TIMESTAMP}, 
+      #{entrustGrade,jdbcType=INTEGER}, #{entrustStartTime,jdbcType=VARCHAR}, #{entrustEndTime,jdbcType=VARCHAR}, 
       #{carTypeId,jdbcType=INTEGER}, #{amountRangeId,jdbcType=INTEGER}, #{entrustState,jdbcType=INTEGER}, 
-      #{entrustInsure,jdbcType=VARCHAR}, #{entrustGradeTime,jdbcType=TIMESTAMP}, #{entrustServiceCharge,jdbcType=DOUBLE}, 
+      #{entrustInsure,jdbcType=VARCHAR}, #{entrustGradeTime,jdbcType=VARCHAR}, #{entrustServiceCharge,jdbcType=DOUBLE}, 
       #{entrustMoney,jdbcType=DOUBLE}, #{entrustReturnMoney,jdbcType=DOUBLE}, #{entrustReturnTime,jdbcType=INTEGER}, 
       #{entrustBusiness,jdbcType=INTEGER})
   </insert>
@@ -249,10 +249,10 @@
         #{entrustGrade,jdbcType=INTEGER},
       </if>
       <if test="entrustStartTime != null">
-        #{entrustStartTime,jdbcType=TIMESTAMP},
+        #{entrustStartTime,jdbcType=VARCHAR},
       </if>
       <if test="entrustEndTime != null">
-        #{entrustEndTime,jdbcType=TIMESTAMP},
+        #{entrustEndTime,jdbcType=VARCHAR},
       </if>
       <if test="carTypeId != null">
         #{carTypeId,jdbcType=INTEGER},
@@ -267,7 +267,7 @@
         #{entrustInsure,jdbcType=VARCHAR},
       </if>
       <if test="entrustGradeTime != null">
-        #{entrustGradeTime,jdbcType=TIMESTAMP},
+        #{entrustGradeTime,jdbcType=VARCHAR},
       </if>
       <if test="entrustServiceCharge != null">
         #{entrustServiceCharge,jdbcType=DOUBLE},
@@ -329,10 +329,10 @@
         Entrust_Grade = #{record.entrustGrade,jdbcType=INTEGER},
       </if>
       <if test="record.entrustStartTime != null">
-        Entrust_Start_Time = #{record.entrustStartTime,jdbcType=TIMESTAMP},
+        Entrust_Start_Time = #{record.entrustStartTime,jdbcType=VARCHAR},
       </if>
       <if test="record.entrustEndTime != null">
-        Entrust_End_Time = #{record.entrustEndTime,jdbcType=TIMESTAMP},
+        Entrust_End_Time = #{record.entrustEndTime,jdbcType=VARCHAR},
       </if>
       <if test="record.carTypeId != null">
         Car_Type_Id = #{record.carTypeId,jdbcType=INTEGER},
@@ -347,7 +347,7 @@
         Entrust_Insure = #{record.entrustInsure,jdbcType=VARCHAR},
       </if>
       <if test="record.entrustGradeTime != null">
-        Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=TIMESTAMP},
+        Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=VARCHAR},
       </if>
       <if test="record.entrustServiceCharge != null">
         Entrust_Service_Charge = #{record.entrustServiceCharge,jdbcType=DOUBLE},
@@ -382,13 +382,13 @@
       Entrust_Address = #{record.entrustAddress,jdbcType=VARCHAR},
       Entrust_Remark = #{record.entrustRemark,jdbcType=VARCHAR},
       Entrust_Grade = #{record.entrustGrade,jdbcType=INTEGER},
-      Entrust_Start_Time = #{record.entrustStartTime,jdbcType=TIMESTAMP},
-      Entrust_End_Time = #{record.entrustEndTime,jdbcType=TIMESTAMP},
+      Entrust_Start_Time = #{record.entrustStartTime,jdbcType=VARCHAR},
+      Entrust_End_Time = #{record.entrustEndTime,jdbcType=VARCHAR},
       Car_Type_Id = #{record.carTypeId,jdbcType=INTEGER},
       Amount_Range_Id = #{record.amountRangeId,jdbcType=INTEGER},
       Entrust_state = #{record.entrustState,jdbcType=INTEGER},
       Entrust_Insure = #{record.entrustInsure,jdbcType=VARCHAR},
-      Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=TIMESTAMP},
+      Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=VARCHAR},
       Entrust_Service_Charge = #{record.entrustServiceCharge,jdbcType=DOUBLE},
       Entrust_Money = #{record.entrustMoney,jdbcType=DOUBLE},
       Entrust_Return_Money = #{record.entrustReturnMoney,jdbcType=DOUBLE},
@@ -432,10 +432,10 @@
         Entrust_Grade = #{entrustGrade,jdbcType=INTEGER},
       </if>
       <if test="entrustStartTime != null">
-        Entrust_Start_Time = #{entrustStartTime,jdbcType=TIMESTAMP},
+        Entrust_Start_Time = #{entrustStartTime,jdbcType=VARCHAR},
       </if>
       <if test="entrustEndTime != null">
-        Entrust_End_Time = #{entrustEndTime,jdbcType=TIMESTAMP},
+        Entrust_End_Time = #{entrustEndTime,jdbcType=VARCHAR},
       </if>
       <if test="carTypeId != null">
         Car_Type_Id = #{carTypeId,jdbcType=INTEGER},
@@ -450,7 +450,7 @@
         Entrust_Insure = #{entrustInsure,jdbcType=VARCHAR},
       </if>
       <if test="entrustGradeTime != null">
-        Entrust_Grade_Time = #{entrustGradeTime,jdbcType=TIMESTAMP},
+        Entrust_Grade_Time = #{entrustGradeTime,jdbcType=VARCHAR},
       </if>
       <if test="entrustServiceCharge != null">
         Entrust_Service_Charge = #{entrustServiceCharge,jdbcType=DOUBLE},
@@ -482,13 +482,13 @@
       Entrust_Address = #{entrustAddress,jdbcType=VARCHAR},
       Entrust_Remark = #{entrustRemark,jdbcType=VARCHAR},
       Entrust_Grade = #{entrustGrade,jdbcType=INTEGER},
-      Entrust_Start_Time = #{entrustStartTime,jdbcType=TIMESTAMP},
-      Entrust_End_Time = #{entrustEndTime,jdbcType=TIMESTAMP},
+      Entrust_Start_Time = #{entrustStartTime,jdbcType=VARCHAR},
+      Entrust_End_Time = #{entrustEndTime,jdbcType=VARCHAR},
       Car_Type_Id = #{carTypeId,jdbcType=INTEGER},
       Amount_Range_Id = #{amountRangeId,jdbcType=INTEGER},
       Entrust_state = #{entrustState,jdbcType=INTEGER},
       Entrust_Insure = #{entrustInsure,jdbcType=VARCHAR},
-      Entrust_Grade_Time = #{entrustGradeTime,jdbcType=TIMESTAMP},
+      Entrust_Grade_Time = #{entrustGradeTime,jdbcType=VARCHAR},
       Entrust_Service_Charge = #{entrustServiceCharge,jdbcType=DOUBLE},
       Entrust_Money = #{entrustMoney,jdbcType=DOUBLE},
       Entrust_Return_Money = #{entrustReturnMoney,jdbcType=DOUBLE},

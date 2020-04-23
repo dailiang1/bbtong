@@ -3,15 +3,8 @@ package com.bbtong.Dao;
 import com.bbtong.Pojo.Client;
 import com.bbtong.Pojo.ClientExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * 客户表
- */
-
-@Mapper
 public interface ClientDao {
     long countByExample(ClientExample example);
 

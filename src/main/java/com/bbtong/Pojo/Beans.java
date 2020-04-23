@@ -1,10 +1,9 @@
 package com.bbtong.Pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * bbt_beans
+ * bbt_beans 和豆申请表
  * 戴辆
  */
 public class Beans implements Serializable {
@@ -36,12 +35,12 @@ public class Beans implements Serializable {
     /**
      * 和豆订单申请的时间
      */
-    private Date beansTime;
+    private String beansTime;
 
     /**
      * 和豆订单申请审核的时间
      */
-    private Date newbeansTime;
+    private String newbeansTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -85,19 +84,19 @@ public class Beans implements Serializable {
         this.userNumber = userNumber;
     }
 
-    public Date getBeansTime() {
+    public String getBeansTime() {
         return beansTime;
     }
 
-    public void setBeansTime(Date beansTime) {
+    public void setBeansTime(String beansTime) {
         this.beansTime = beansTime;
     }
 
-    public Date getNewbeansTime() {
+    public String getNewbeansTime() {
         return newbeansTime;
     }
 
-    public void setNewbeansTime(Date newbeansTime) {
+    public void setNewbeansTime(String newbeansTime) {
         this.newbeansTime = newbeansTime;
     }
 

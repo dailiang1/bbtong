@@ -163,4 +163,9 @@
     set Insurance_Company_Name = #{insuranceCompanyName,jdbcType=VARCHAR}
     where Insurance_Company_Id = #{insuranceCompanyId,jdbcType=INTEGER}
   </update>
+
+  <!--查询表中所有公司的名称和ID-->
+  <select id="selectInsurance" resultMap="BaseResultMap">
+    select * from bbt_insurance_company
+  </select>
 </mapper>

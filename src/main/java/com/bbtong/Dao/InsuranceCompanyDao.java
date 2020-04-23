@@ -27,4 +27,7 @@ public interface InsuranceCompanyDao {
     int updateByPrimaryKeySelective(InsuranceCompany record);
 
     int updateByPrimaryKey(InsuranceCompany record);
+
+    //查询保险公司表中公司的名称和ID
+    List<InsuranceCompany> selectInsurance();
 }

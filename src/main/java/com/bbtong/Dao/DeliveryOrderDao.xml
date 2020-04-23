@@ -8,7 +8,7 @@
     <result column="New_User_Id" jdbcType="INTEGER" property="newUserId" />
     <result column="Delivery_Order_Number" jdbcType="VARCHAR" property="deliveryOrderNumber" />
     <result column="Delivery_Order_Money" jdbcType="DOUBLE" property="deliveryOrderMoney" />
-    <result column="Entrust_Grade_Time" jdbcType="TIMESTAMP" property="entrustGradeTime" />
+    <result column="Entrust_Grade_Time" jdbcType="VARCHAR" property="entrustGradeTime" />
     <result column="Delivery_Order_state" jdbcType="INTEGER" property="deliveryOrderState" />
     <result column="Entrust_Grade" jdbcType="INTEGER" property="entrustGrade" />
   </resultMap>
@@ -115,12 +115,12 @@
   <insert id="insert" keyColumn="Delivery_Order_Id" keyProperty="deliveryOrderId" parameterType="com.bbtong.Pojo.DeliveryOrder" useGeneratedKeys="true">
     insert into bbt_delivery_order (New_Entrust_id, User_id, New_User_Id, 
       Delivery_Order_Number, Delivery_Order_Money, 
-      Entrust_Grade_Time, Delivery_Order_state, 
-      Entrust_Grade)
+      Entrust_Grade_Time, Delivery_Order_state, Entrust_Grade
+      )
     values (#{newEntrustId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{newUserId,jdbcType=INTEGER}, 
       #{deliveryOrderNumber,jdbcType=VARCHAR}, #{deliveryOrderMoney,jdbcType=DOUBLE}, 
-      #{entrustGradeTime,jdbcType=TIMESTAMP}, #{deliveryOrderState,jdbcType=INTEGER}, 
-      #{entrustGrade,jdbcType=INTEGER})
+      #{entrustGradeTime,jdbcType=VARCHAR}, #{deliveryOrderState,jdbcType=INTEGER}, #{entrustGrade,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" keyColumn="Delivery_Order_Id" keyProperty="deliveryOrderId" parameterType="com.bbtong.Pojo.DeliveryOrder" useGeneratedKeys="true">
     insert into bbt_delivery_order
@@ -167,7 +167,7 @@
         #{deliveryOrderMoney,jdbcType=DOUBLE},
       </if>
       <if test="entrustGradeTime != null">
-        #{entrustGradeTime,jdbcType=TIMESTAMP},
+        #{entrustGradeTime,jdbcType=VARCHAR},
       </if>
       <if test="deliveryOrderState != null">
         #{deliveryOrderState,jdbcType=INTEGER},
@@ -205,7 +205,7 @@
         Delivery_Order_Money = #{record.deliveryOrderMoney,jdbcType=DOUBLE},
       </if>
       <if test="record.entrustGradeTime != null">
-        Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=TIMESTAMP},
+        Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=VARCHAR},
       </if>
       <if test="record.deliveryOrderState != null">
         Delivery_Order_state = #{record.deliveryOrderState,jdbcType=INTEGER},
@@ -226,7 +226,7 @@
       New_User_Id = #{record.newUserId,jdbcType=INTEGER},
       Delivery_Order_Number = #{record.deliveryOrderNumber,jdbcType=VARCHAR},
       Delivery_Order_Money = #{record.deliveryOrderMoney,jdbcType=DOUBLE},
-      Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=TIMESTAMP},
+      Entrust_Grade_Time = #{record.entrustGradeTime,jdbcType=VARCHAR},
       Delivery_Order_state = #{record.deliveryOrderState,jdbcType=INTEGER},
       Entrust_Grade = #{record.entrustGrade,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -252,7 +252,7 @@
         Delivery_Order_Money = #{deliveryOrderMoney,jdbcType=DOUBLE},
       </if>
       <if test="entrustGradeTime != null">
-        Entrust_Grade_Time = #{entrustGradeTime,jdbcType=TIMESTAMP},
+        Entrust_Grade_Time = #{entrustGradeTime,jdbcType=VARCHAR},
       </if>
       <if test="deliveryOrderState != null">
         Delivery_Order_state = #{deliveryOrderState,jdbcType=INTEGER},
@@ -270,7 +270,7 @@
       New_User_Id = #{newUserId,jdbcType=INTEGER},
       Delivery_Order_Number = #{deliveryOrderNumber,jdbcType=VARCHAR},
       Delivery_Order_Money = #{deliveryOrderMoney,jdbcType=DOUBLE},
-      Entrust_Grade_Time = #{entrustGradeTime,jdbcType=TIMESTAMP},
+      Entrust_Grade_Time = #{entrustGradeTime,jdbcType=VARCHAR},
       Delivery_Order_state = #{deliveryOrderState,jdbcType=INTEGER},
       Entrust_Grade = #{entrustGrade,jdbcType=INTEGER}
     where Delivery_Order_Id = #{deliveryOrderId,jdbcType=INTEGER}

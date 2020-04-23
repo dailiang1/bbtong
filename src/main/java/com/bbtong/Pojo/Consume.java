@@ -1,10 +1,9 @@
 package com.bbtong.Pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * bbt_consume
+ * bbt_consume 消费卡申请表
  * 戴辆
  */
 public class Consume implements Serializable {
@@ -36,12 +35,12 @@ public class Consume implements Serializable {
     /**
      * 提交消费卡申请的时间
      */
-    private Date consumeTime;
+    private String consumeTime;
 
     /**
      * 消费卡申请审核的时间
      */
-    private Date newconsumeTime;
+    private String newconsumeTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -85,19 +84,19 @@ public class Consume implements Serializable {
         this.userNumber = userNumber;
     }
 
-    public Date getConsumeTime() {
+    public String getConsumeTime() {
         return consumeTime;
     }
 
-    public void setConsumeTime(Date consumeTime) {
+    public void setConsumeTime(String consumeTime) {
         this.consumeTime = consumeTime;
     }
 
-    public Date getNewconsumeTime() {
+    public String getNewconsumeTime() {
         return newconsumeTime;
     }
 
-    public void setNewconsumeTime(Date newconsumeTime) {
+    public void setNewconsumeTime(String newconsumeTime) {
         this.newconsumeTime = newconsumeTime;
     }
 

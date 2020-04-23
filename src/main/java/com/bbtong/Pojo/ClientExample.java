@@ -1,7 +1,6 @@
 package com.bbtong.Pojo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ClientExample {
@@ -675,52 +674,62 @@ public class ClientExample {
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeEqualTo(Date value) {
+        public Criteria andClientComeTimeEqualTo(String value) {
             addCriterion("Client_Come_Time =", value, "clientComeTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeNotEqualTo(Date value) {
+        public Criteria andClientComeTimeNotEqualTo(String value) {
             addCriterion("Client_Come_Time <>", value, "clientComeTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeGreaterThan(Date value) {
+        public Criteria andClientComeTimeGreaterThan(String value) {
             addCriterion("Client_Come_Time >", value, "clientComeTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andClientComeTimeGreaterThanOrEqualTo(String value) {
             addCriterion("Client_Come_Time >=", value, "clientComeTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeLessThan(Date value) {
+        public Criteria andClientComeTimeLessThan(String value) {
             addCriterion("Client_Come_Time <", value, "clientComeTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeLessThanOrEqualTo(Date value) {
+        public Criteria andClientComeTimeLessThanOrEqualTo(String value) {
             addCriterion("Client_Come_Time <=", value, "clientComeTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeIn(List<Date> values) {
+        public Criteria andClientComeTimeLike(String value) {
+            addCriterion("Client_Come_Time like", value, "clientComeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientComeTimeNotLike(String value) {
+            addCriterion("Client_Come_Time not like", value, "clientComeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientComeTimeIn(List<String> values) {
             addCriterion("Client_Come_Time in", values, "clientComeTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeNotIn(List<Date> values) {
+        public Criteria andClientComeTimeNotIn(List<String> values) {
             addCriterion("Client_Come_Time not in", values, "clientComeTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeBetween(Date value1, Date value2) {
+        public Criteria andClientComeTimeBetween(String value1, String value2) {
             addCriterion("Client_Come_Time between", value1, value2, "clientComeTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientComeTimeNotBetween(Date value1, Date value2) {
+        public Criteria andClientComeTimeNotBetween(String value1, String value2) {
             addCriterion("Client_Come_Time not between", value1, value2, "clientComeTime");
             return (Criteria) this;
         }
@@ -735,52 +744,62 @@ public class ClientExample {
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeEqualTo(Date value) {
+        public Criteria andClientExpirationTimeEqualTo(String value) {
             addCriterion("Client_Expiration_Time =", value, "clientExpirationTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeNotEqualTo(Date value) {
+        public Criteria andClientExpirationTimeNotEqualTo(String value) {
             addCriterion("Client_Expiration_Time <>", value, "clientExpirationTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeGreaterThan(Date value) {
+        public Criteria andClientExpirationTimeGreaterThan(String value) {
             addCriterion("Client_Expiration_Time >", value, "clientExpirationTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andClientExpirationTimeGreaterThanOrEqualTo(String value) {
             addCriterion("Client_Expiration_Time >=", value, "clientExpirationTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeLessThan(Date value) {
+        public Criteria andClientExpirationTimeLessThan(String value) {
             addCriterion("Client_Expiration_Time <", value, "clientExpirationTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeLessThanOrEqualTo(Date value) {
+        public Criteria andClientExpirationTimeLessThanOrEqualTo(String value) {
             addCriterion("Client_Expiration_Time <=", value, "clientExpirationTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeIn(List<Date> values) {
+        public Criteria andClientExpirationTimeLike(String value) {
+            addCriterion("Client_Expiration_Time like", value, "clientExpirationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpirationTimeNotLike(String value) {
+            addCriterion("Client_Expiration_Time not like", value, "clientExpirationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpirationTimeIn(List<String> values) {
             addCriterion("Client_Expiration_Time in", values, "clientExpirationTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeNotIn(List<Date> values) {
+        public Criteria andClientExpirationTimeNotIn(List<String> values) {
             addCriterion("Client_Expiration_Time not in", values, "clientExpirationTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeBetween(Date value1, Date value2) {
+        public Criteria andClientExpirationTimeBetween(String value1, String value2) {
             addCriterion("Client_Expiration_Time between", value1, value2, "clientExpirationTime");
             return (Criteria) this;
         }
 
-        public Criteria andClientExpirationTimeNotBetween(Date value1, Date value2) {
+        public Criteria andClientExpirationTimeNotBetween(String value1, String value2) {
             addCriterion("Client_Expiration_Time not between", value1, value2, "clientExpirationTime");
             return (Criteria) this;
         }

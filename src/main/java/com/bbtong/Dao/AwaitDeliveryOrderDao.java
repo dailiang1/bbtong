@@ -3,15 +3,8 @@ package com.bbtong.Dao;
 import com.bbtong.Pojo.AwaitDeliveryOrder;
 import com.bbtong.Pojo.AwaitDeliveryOrderExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * 待还单表
- */
-
-@Mapper
 public interface AwaitDeliveryOrderDao {
     long countByExample(AwaitDeliveryOrderExample example);
 

@@ -7,8 +7,8 @@
     <result column="Card_Number" jdbcType="VARCHAR" property="cardNumber" />
     <result column="Beans_State" jdbcType="CHAR" property="beansState" />
     <result column="User_Number" jdbcType="VARCHAR" property="userNumber" />
-    <result column="Beans_Time" jdbcType="TIMESTAMP" property="beansTime" />
-    <result column="NewBeans_Time" jdbcType="TIMESTAMP" property="newbeansTime" />
+    <result column="Beans_Time" jdbcType="VARCHAR" property="beansTime" />
+    <result column="NewBeans_Time" jdbcType="VARCHAR" property="newbeansTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -114,7 +114,7 @@
       User_Number, Beans_Time, NewBeans_Time
       )
     values (#{userId,jdbcType=INTEGER}, #{cardNumber,jdbcType=VARCHAR}, #{beansState,jdbcType=CHAR}, 
-      #{userNumber,jdbcType=VARCHAR}, #{beansTime,jdbcType=TIMESTAMP}, #{newbeansTime,jdbcType=TIMESTAMP}
+      #{userNumber,jdbcType=VARCHAR}, #{beansTime,jdbcType=VARCHAR}, #{newbeansTime,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="Beans_Id" keyProperty="beansId" parameterType="com.bbtong.Pojo.Beans" useGeneratedKeys="true">
@@ -153,10 +153,10 @@
         #{userNumber,jdbcType=VARCHAR},
       </if>
       <if test="beansTime != null">
-        #{beansTime,jdbcType=TIMESTAMP},
+        #{beansTime,jdbcType=VARCHAR},
       </if>
       <if test="newbeansTime != null">
-        #{newbeansTime,jdbcType=TIMESTAMP},
+        #{newbeansTime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -185,10 +185,10 @@
         User_Number = #{record.userNumber,jdbcType=VARCHAR},
       </if>
       <if test="record.beansTime != null">
-        Beans_Time = #{record.beansTime,jdbcType=TIMESTAMP},
+        Beans_Time = #{record.beansTime,jdbcType=VARCHAR},
       </if>
       <if test="record.newbeansTime != null">
-        NewBeans_Time = #{record.newbeansTime,jdbcType=TIMESTAMP},
+        NewBeans_Time = #{record.newbeansTime,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -202,8 +202,8 @@
       Card_Number = #{record.cardNumber,jdbcType=VARCHAR},
       Beans_State = #{record.beansState,jdbcType=CHAR},
       User_Number = #{record.userNumber,jdbcType=VARCHAR},
-      Beans_Time = #{record.beansTime,jdbcType=TIMESTAMP},
-      NewBeans_Time = #{record.newbeansTime,jdbcType=TIMESTAMP}
+      Beans_Time = #{record.beansTime,jdbcType=VARCHAR},
+      NewBeans_Time = #{record.newbeansTime,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -224,10 +224,10 @@
         User_Number = #{userNumber,jdbcType=VARCHAR},
       </if>
       <if test="beansTime != null">
-        Beans_Time = #{beansTime,jdbcType=TIMESTAMP},
+        Beans_Time = #{beansTime,jdbcType=VARCHAR},
       </if>
       <if test="newbeansTime != null">
-        NewBeans_Time = #{newbeansTime,jdbcType=TIMESTAMP},
+        NewBeans_Time = #{newbeansTime,jdbcType=VARCHAR},
       </if>
     </set>
     where Beans_Id = #{beansId,jdbcType=INTEGER}
@@ -238,8 +238,8 @@
       Card_Number = #{cardNumber,jdbcType=VARCHAR},
       Beans_State = #{beansState,jdbcType=CHAR},
       User_Number = #{userNumber,jdbcType=VARCHAR},
-      Beans_Time = #{beansTime,jdbcType=TIMESTAMP},
-      NewBeans_Time = #{newbeansTime,jdbcType=TIMESTAMP}
+      Beans_Time = #{beansTime,jdbcType=VARCHAR},
+      NewBeans_Time = #{newbeansTime,jdbcType=VARCHAR}
     where Beans_Id = #{beansId,jdbcType=INTEGER}
   </update>
 </mapper>

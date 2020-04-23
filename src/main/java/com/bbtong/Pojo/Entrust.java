@@ -1,10 +1,9 @@
 package com.bbtong.Pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * bbt_entrust
+ * bbt_entrust 委托订单表
  * 戴辆
  */
 public class Entrust implements Serializable {
@@ -66,12 +65,12 @@ public class Entrust implements Serializable {
     /**
      * 委托单开始的时间(获取下单时候的时间)
      */
-    private Date entrustStartTime;
+    private String entrustStartTime;
 
     /**
      * 委托单结束的时间
      */
-    private Date entrustEndTime;
+    private String entrustEndTime;
 
     /**
      * 车类型表的ID(表示新车或旧车)
@@ -84,7 +83,7 @@ public class Entrust implements Serializable {
     private Integer amountRangeId;
 
     /**
-     *  表示委托是否被接(0表示未接单，1表示已接单，2表示已完成)
+     *  表示委托是否被接(0表示未接单，1表示已接单，2表示已完成，3表示没人接单，4表示委托人主动撤单)
      */
     private Integer entrustState;
 
@@ -96,7 +95,7 @@ public class Entrust implements Serializable {
     /**
      * 订单的评分的时间(表示这一单正式结束的时间)
      */
-    private Date entrustGradeTime;
+    private String entrustGradeTime;
 
     /**
      *  期望委托的服务费(可以为空，私下交易联系)
@@ -213,19 +212,19 @@ public class Entrust implements Serializable {
         this.entrustGrade = entrustGrade;
     }
 
-    public Date getEntrustStartTime() {
+    public String getEntrustStartTime() {
         return entrustStartTime;
     }
 
-    public void setEntrustStartTime(Date entrustStartTime) {
+    public void setEntrustStartTime(String entrustStartTime) {
         this.entrustStartTime = entrustStartTime;
     }
 
-    public Date getEntrustEndTime() {
+    public String getEntrustEndTime() {
         return entrustEndTime;
     }
 
-    public void setEntrustEndTime(Date entrustEndTime) {
+    public void setEntrustEndTime(String entrustEndTime) {
         this.entrustEndTime = entrustEndTime;
     }
 
@@ -261,11 +260,11 @@ public class Entrust implements Serializable {
         this.entrustInsure = entrustInsure;
     }
 
-    public Date getEntrustGradeTime() {
+    public String getEntrustGradeTime() {
         return entrustGradeTime;
     }
 
-    public void setEntrustGradeTime(Date entrustGradeTime) {
+    public void setEntrustGradeTime(String entrustGradeTime) {
         this.entrustGradeTime = entrustGradeTime;
     }
 

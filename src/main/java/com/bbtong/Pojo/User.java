@@ -1,10 +1,9 @@
 package com.bbtong.Pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * bbt_user 代理人表
+ * bbt_user代理人表
  * 戴辆
  */
 public class User implements Serializable {
@@ -46,12 +45,12 @@ public class User implements Serializable {
     /**
      * 年费开始的时间
      */
-    private Date userMemberBegin;
+    private String userMemberBegin;
 
     /**
      * 年费截止的时间
      */
-    private Date userMemberFinish;
+    private String userMemberFinish;
 
     /**
      * 电话号码(需要验证)
@@ -201,19 +200,19 @@ public class User implements Serializable {
         this.userMemberState = userMemberState;
     }
 
-    public Date getUserMemberBegin() {
+    public String getUserMemberBegin() {
         return userMemberBegin;
     }
 
-    public void setUserMemberBegin(Date userMemberBegin) {
+    public void setUserMemberBegin(String userMemberBegin) {
         this.userMemberBegin = userMemberBegin;
     }
 
-    public Date getUserMemberFinish() {
+    public String getUserMemberFinish() {
         return userMemberFinish;
     }
 
-    public void setUserMemberFinish(Date userMemberFinish) {
+    public void setUserMemberFinish(String userMemberFinish) {
         this.userMemberFinish = userMemberFinish;
     }
 

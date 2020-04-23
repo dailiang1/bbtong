@@ -3,11 +3,8 @@ package com.bbtong.Dao;
 import com.bbtong.Pojo.User;
 import com.bbtong.Pojo.UserExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-@Mapper
 public interface UserDao {
     long countByExample(UserExample example);
 
@@ -30,7 +27,4 @@ public interface UserDao {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-
-    //测试登陆是否能够连接数据库
-    int login(User user);
 }

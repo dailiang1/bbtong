@@ -1,10 +1,9 @@
 package com.bbtong.Pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * bbt_client
+ * bbt_client 客户表
  * 戴辆
  */
 public class Client implements Serializable {
@@ -51,12 +50,12 @@ public class Client implements Serializable {
     /**
      * 客户出保日期
      */
-    private Date clientComeTime;
+    private String clientComeTime;
 
     /**
      * 客户到保时间
      */
-    private Date clientExpirationTime;
+    private String clientExpirationTime;
 
     /**
      * 客户的行驶证副本图片
@@ -144,19 +143,19 @@ public class Client implements Serializable {
         this.clientAddress = clientAddress;
     }
 
-    public Date getClientComeTime() {
+    public String getClientComeTime() {
         return clientComeTime;
     }
 
-    public void setClientComeTime(Date clientComeTime) {
+    public void setClientComeTime(String clientComeTime) {
         this.clientComeTime = clientComeTime;
     }
 
-    public Date getClientExpirationTime() {
+    public String getClientExpirationTime() {
         return clientExpirationTime;
     }
 
-    public void setClientExpirationTime(Date clientExpirationTime) {
+    public void setClientExpirationTime(String clientExpirationTime) {
         this.clientExpirationTime = clientExpirationTime;
     }
 
