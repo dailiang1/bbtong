@@ -11,11 +11,11 @@ import javax.annotation.Resource;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Resource
     private UserDao userDao;
 
     @Override
     public int login(User user) {
-        return userDao.login(user);
+        return  1;
     }
 }
