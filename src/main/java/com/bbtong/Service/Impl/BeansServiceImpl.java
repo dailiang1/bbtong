@@ -77,11 +77,8 @@ public class BeansServiceImpl implements BeansService {
             resultPage.setData(beansDao.Query(map));
             return  resultPage;
         }
-        //将当前页是多少页，存到map中用于查询
-//        map.put("index",resultPage.getIndex());
-
         //将一页显示多少条数据，存到map中
-        map.put("size",resultPage.getSize()*resultPage.getIndex());
+        map.put("end",resultPage.getSize()*resultPage.getIndex());
         List<Beans> beansList=beansDao.Query(map);
         if(beansList.size()>0||beansList.size()==0){
             resultPage.setCode(200);
@@ -120,11 +117,17 @@ public class BeansServiceImpl implements BeansService {
         if(resultPage.getPageCount()==index){
             resultPage.setCode(200);
             resultPage.setMessage("当前已经是最后一页");
-            map.put("size",resultPage.getSize()*index);
-            resultPage.setData(beansDao.Query(map));
+            //忽略多少条数据
+            map.put("state",(index-1)*resultPage.getSize());
+            //查询多少条数据
+            map.put("end",resultPage.getSize());
+            resultPage.setData(beansDao.SelectQuery(map));
             return  resultPage;
         }
-        map.put("end",(int)Math.ceil((double)resultPage.getCount()/resultPage.getSize()));
+        //忽略多少条数据
+        map.put("state",(index-1)*resultPage.getSize());
+        //查询多少条数据
+        map.put("end",resultPage.getSize());
         List<BeansUser> beansList=beansDao.SelectQuery(map);
         if(beansList.size()>0||beansList.size()==0){
             resultPage.setCode(200);

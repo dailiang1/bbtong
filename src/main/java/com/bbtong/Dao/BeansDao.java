@@ -47,7 +47,7 @@ public interface BeansDao {
 
     /**
      * 查询对应用户，没有审核的和豆申请
-     * @param map 中存储用户的user_id,还有index，当前的页数，以及size每页显示的条数
+     * @param map 中存储用户的user_id,还有index，当前的页数，以及end每页显示的条数
      * @return 戴辆
      */
     List<Beans> Query(Map map);

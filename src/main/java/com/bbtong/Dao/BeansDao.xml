@@ -255,7 +255,7 @@
 
   <!--生成和豆申请的订单-->
   <insert id="Submit" parameterType="Beans">
-        insert  into bbt_beans(user_id, card_number,beans_time)values(#{userId},#{cardNumber},#{beansTime})
+        insert  into bbt_beans(user_id,card_number,beans_time)values(#{userId},#{cardNumber},#{beansTime})
   </insert>
 
   <!--查询对应用户，对应状态的数据-->
@@ -264,7 +264,7 @@
   </select>
 
   <!--查询对应用户，为审核的和豆申请订单-->
-  <select id="Query" parameterType="int" resultMap="BaseResultMap">
+  <select id="Query" parameterType="map" resultMap="BaseResultMap">
         select * from bbt_beans where User_id=#{User_id} and Beans_State=#{Beans_State} limit 0,#{end}
   </select>
 
@@ -275,6 +275,6 @@
 
   <!--管理员查询对应数据的信息-->
   <select id="SelectQuery" parameterType="map" resultMap="BaseBeansUser">
-    SELECT b.*,u.User_Phone FROM bbt_beans b LEFT JOIN bbt_user u ON b.User_id=u.User_Id where b.Beans_State=#{Beans_State} ORDER BY b.Beans_Time LIMIT 0,#{end }
+    SELECT b.*,u.User_Phone FROM bbt_beans b LEFT JOIN bbt_user u ON b.User_id=u.User_Id where b.Beans_State=#{Beans_State} ORDER BY b.Beans_Time LIMIT #{state},#{end }
   </select>
 </mapper>

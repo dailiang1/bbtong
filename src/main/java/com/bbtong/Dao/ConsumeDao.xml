@@ -242,4 +242,34 @@
       NewConsume_Time = #{newconsumeTime,jdbcType=VARCHAR}
     where Consume_Id = #{consumeId,jdbcType=INTEGER}
   </update>
+
+  <!--先根据ID查询对应的代理编号-->
+  <select id="User_Number" parameterType="int" resultType="string">
+    SELECT User_Number FROM bbt_user WHERE User_Id=#{userId}
+  </select>
+
+  <!--用户提交大家保险的单号来申请消费卡-->
+  <insert id="Submit"  parameterType="Consume">
+    insert into bbt_consume(User_id, Consume_number,User_Number, Consume_Time)values(#{userId},#{consumeNumber},#{userNumber},#{consumeTime})
+  </insert>
+
+  <!--查询当前用户，查询的数据有多少条-->
+  <select id="QueryNumber" parameterType="map" resultType="int">
+        select count(1) from bbt_consume where User_id=#{userId} and Consume_State=#{consumeState}
+  </select>
+
+  <!--查询对应用户，为审核的和豆申请订单-->
+  <select id="Query" parameterType="map" resultMap="BaseResultMap">
+        select * from bbt_consume where User_id=#{userId} and Consume_State=#{consumeState} limit 0,#{end}
+  </select>
+
+  <!--管理员查看对应数据的条数-->
+  <select id="SelectQueryNumber" parameterType="map" resultType="int">
+    select count(1) from bbt_consume where Consume_State=#{consumeState}
+  </select>
+
+  <!--管理员查询，对应的信息来显示对应的数据-->
+  <select id="SelectQuery" parameterType="map" resultMap="BaseResultMap">
+    select * from  bbt_consume where Consume_State=#{consumeState} order by Consume_Time limit #{state},#{end}
+  </select>
 </mapper>
