@@ -31,4 +31,6 @@ public interface AmountRangeDao {
     int updateByPrimaryKeySelective(AmountRange record);
 
     int updateByPrimaryKey(AmountRange record);
+
+    List<AmountRange> SelectAmount();
 }

@@ -1073,6 +1073,136 @@ public class ClientExample {
             addCriterion("Type_Id not between", value1, value2, "typeId");
             return (Criteria) this;
         }
+
+        public Criteria andUserIdIsNull() {
+            addCriterion("User_Id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("User_Id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdEqualTo(Integer value) {
+            addCriterion("User_Id =", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotEqualTo(Integer value) {
+            addCriterion("User_Id <>", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdGreaterThan(Integer value) {
+            addCriterion("User_Id >", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("User_Id >=", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLessThan(Integer value) {
+            addCriterion("User_Id <", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLessThanOrEqualTo(Integer value) {
+            addCriterion("User_Id <=", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIn(List<Integer> values) {
+            addCriterion("User_Id in", values, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotIn(List<Integer> values) {
+            addCriterion("User_Id not in", values, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdBetween(Integer value1, Integer value2) {
+            addCriterion("User_Id between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("User_Id not between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkIsNull() {
+            addCriterion("Client_Remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkIsNotNull() {
+            addCriterion("Client_Remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkEqualTo(String value) {
+            addCriterion("Client_Remark =", value, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkNotEqualTo(String value) {
+            addCriterion("Client_Remark <>", value, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkGreaterThan(String value) {
+            addCriterion("Client_Remark >", value, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("Client_Remark >=", value, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkLessThan(String value) {
+            addCriterion("Client_Remark <", value, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkLessThanOrEqualTo(String value) {
+            addCriterion("Client_Remark <=", value, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkLike(String value) {
+            addCriterion("Client_Remark like", value, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkNotLike(String value) {
+            addCriterion("Client_Remark not like", value, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkIn(List<String> values) {
+            addCriterion("Client_Remark in", values, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkNotIn(List<String> values) {
+            addCriterion("Client_Remark not in", values, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkBetween(String value1, String value2) {
+            addCriterion("Client_Remark between", value1, value2, "clientRemark");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientRemarkNotBetween(String value1, String value2) {
+            addCriterion("Client_Remark not between", value1, value2, "clientRemark");
+            return (Criteria) this;
+        }
     }
 
     /**

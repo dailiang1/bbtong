@@ -3,8 +3,8 @@ package com.bbtong.Pojo;
 import java.io.Serializable;
 
 /**
- * bbt_client 客户表
- * 戴辆
+ * bbt_client
+ * @author 
  */
 public class Client implements Serializable {
     /**
@@ -76,6 +76,16 @@ public class Client implements Serializable {
      * 客户类型表的ID
      */
     private Integer typeId;
+
+    /**
+     * 用户的ID，这是属于哪个用户的客户
+     */
+    private Integer userId;
+
+    /**
+     * 给客户的备注
+     */
+    private String clientRemark;
 
     private static final long serialVersionUID = 1L;
 
@@ -191,6 +201,22 @@ public class Client implements Serializable {
         this.typeId = typeId;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getClientRemark() {
+        return clientRemark;
+    }
+
+    public void setClientRemark(String clientRemark) {
+        this.clientRemark = clientRemark;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -216,7 +242,9 @@ public class Client implements Serializable {
             && (this.getClientDrivingLicense() == null ? other.getClientDrivingLicense() == null : this.getClientDrivingLicense().equals(other.getClientDrivingLicense()))
             && (this.getClientBirthday() == null ? other.getClientBirthday() == null : this.getClientBirthday().equals(other.getClientBirthday()))
             && (this.getClientType() == null ? other.getClientType() == null : this.getClientType().equals(other.getClientType()))
-            && (this.getTypeId() == null ? other.getTypeId() == null : this.getTypeId().equals(other.getTypeId()));
+            && (this.getTypeId() == null ? other.getTypeId() == null : this.getTypeId().equals(other.getTypeId()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getClientRemark() == null ? other.getClientRemark() == null : this.getClientRemark().equals(other.getClientRemark()));
     }
 
     @Override
@@ -237,6 +265,8 @@ public class Client implements Serializable {
         result = prime * result + ((getClientBirthday() == null) ? 0 : getClientBirthday().hashCode());
         result = prime * result + ((getClientType() == null) ? 0 : getClientType().hashCode());
         result = prime * result + ((getTypeId() == null) ? 0 : getTypeId().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getClientRemark() == null) ? 0 : getClientRemark().hashCode());
         return result;
     }
 
@@ -260,6 +290,8 @@ public class Client implements Serializable {
         sb.append(", clientBirthday=").append(clientBirthday);
         sb.append(", clientType=").append(clientType);
         sb.append(", typeId=").append(typeId);
+        sb.append(", userId=").append(userId);
+        sb.append(", clientRemark=").append(clientRemark);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

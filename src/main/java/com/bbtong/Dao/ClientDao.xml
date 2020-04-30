@@ -1,344 +1,397 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbtong.Dao.ClientDao">
-  <resultMap id="BaseResultMap" type="com.bbtong.Pojo.Client">
-    <id column="Client_Id" jdbcType="INTEGER" property="clientId" />
-    <result column="Client_way" jdbcType="VARCHAR" property="clientWay" />
-    <result column="Client_Name" jdbcType="VARCHAR" property="clientName" />
-    <result column="Insurance_Company_Id" jdbcType="INTEGER" property="insuranceCompanyId" />
-    <result column="Client_Identity_Card" jdbcType="VARCHAR" property="clientIdentityCard" />
-    <result column="Client_Identity_Card_Front" jdbcType="VARCHAR" property="clientIdentityCardFront" />
-    <result column="Client_Identity_Card_Verso" jdbcType="VARCHAR" property="clientIdentityCardVerso" />
-    <result column="Client_Address" jdbcType="VARCHAR" property="clientAddress" />
-    <result column="Client_Come_Time" jdbcType="VARCHAR" property="clientComeTime" />
-    <result column="Client_Expiration_Time" jdbcType="VARCHAR" property="clientExpirationTime" />
-    <result column="Client_Driving_License" jdbcType="VARCHAR" property="clientDrivingLicense" />
-    <result column="Client_Birthday" jdbcType="VARCHAR" property="clientBirthday" />
-    <result column="Client_Type" jdbcType="VARCHAR" property="clientType" />
-    <result column="Type_Id" jdbcType="INTEGER" property="typeId" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.bbtong.Pojo.Client">
+        <id column="Client_Id" jdbcType="INTEGER" property="clientId"/>
+        <result column="Client_way" jdbcType="VARCHAR" property="clientWay"/>
+        <result column="Client_Name" jdbcType="VARCHAR" property="clientName"/>
+        <result column="Insurance_Company_Id" jdbcType="INTEGER" property="insuranceCompanyId"/>
+        <result column="Client_Identity_Card" jdbcType="VARCHAR" property="clientIdentityCard"/>
+        <result column="Client_Identity_Card_Front" jdbcType="VARCHAR" property="clientIdentityCardFront"/>
+        <result column="Client_Identity_Card_Verso" jdbcType="VARCHAR" property="clientIdentityCardVerso"/>
+        <result column="Client_Address" jdbcType="VARCHAR" property="clientAddress"/>
+        <result column="Client_Come_Time" jdbcType="VARCHAR" property="clientComeTime"/>
+        <result column="Client_Expiration_Time" jdbcType="VARCHAR" property="clientExpirationTime"/>
+        <result column="Client_Driving_License" jdbcType="VARCHAR" property="clientDrivingLicense"/>
+        <result column="Client_Birthday" jdbcType="VARCHAR" property="clientBirthday"/>
+        <result column="Client_Type" jdbcType="VARCHAR" property="clientType"/>
+        <result column="Type_Id" jdbcType="INTEGER" property="typeId"/>
+        <result column="User_Id" jdbcType="INTEGER" property="userId"/>
+        <result column="Client_Remark" jdbcType="VARCHAR" property="clientRemark"/>
+    </resultMap>
+
+    <resultMap id="BaseSelectClient" type="com.bbtong.Pojo.SelectClient">
+        <id column="Client_Id" jdbcType="INTEGER" property="clientId"/>
+        <result column="Client_way" jdbcType="VARCHAR" property="clientWay"/>
+        <result column="Client_Name" jdbcType="VARCHAR" property="clientName"/>
+        <result column="Insurance_Company_Id" jdbcType="INTEGER" property="insuranceCompanyId"/>
+        <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
+        <result column="Client_Identity_Card" jdbcType="VARCHAR" property="clientIdentityCard"/>
+        <result column="Client_Identity_Card_Front" jdbcType="VARCHAR" property="clientIdentityCardFront"/>
+        <result column="Client_Identity_Card_Verso" jdbcType="VARCHAR" property="clientIdentityCardVerso"/>
+        <result column="Client_Address" jdbcType="VARCHAR" property="clientAddress"/>
+        <result column="Client_Come_Time" jdbcType="VARCHAR" property="clientComeTime"/>
+        <result column="Client_Expiration_Time" jdbcType="VARCHAR" property="clientExpirationTime"/>
+        <result column="Client_Driving_License" jdbcType="VARCHAR" property="clientDrivingLicense"/>
+        <result column="Client_Birthday" jdbcType="VARCHAR" property="clientBirthday"/>
+        <result column="Client_Type" jdbcType="VARCHAR" property="clientType"/>
+        <result column="Type_Id" jdbcType="INTEGER" property="typeId"/>
+        <result column="Type_Name" jdbcType="VARCHAR" property="typeName"/>
+        <result column="User_Id" jdbcType="INTEGER" property="userId"/>
+        <result column="Client_Remark" jdbcType="VARCHAR" property="clientRemark"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     Client_Id, Client_way, Client_Name, Insurance_Company_Id, Client_Identity_Card, Client_Identity_Card_Front, 
     Client_Identity_Card_Verso, Client_Address, Client_Come_Time, Client_Expiration_Time, 
-    Client_Driving_License, Client_Birthday, Client_Type, Type_Id
+    Client_Driving_License, Client_Birthday, Client_Type, Type_Id, User_Id, Client_Remark
   </sql>
-  <select id="selectByExample" parameterType="com.bbtong.Pojo.ClientExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from bbt_client
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limit != null">
-      <if test="offset != null">
-        limit ${offset}, ${limit}
-      </if>
-      <if test="offset == null">
-        limit ${limit}
-      </if>
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from bbt_client
-    where Client_Id = #{clientId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByExample" parameterType="com.bbtong.Pojo.ClientExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from bbt_client
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="limit != null">
+            <if test="offset != null">
+                limit ${offset}, ${limit}
+            </if>
+            <if test="offset == null">
+                limit ${limit}
+            </if>
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bbt_client
+        where Client_Id = #{clientId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from bbt_client
     where Client_Id = #{clientId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.bbtong.Pojo.ClientExample">
-    delete from bbt_client
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" keyColumn="Client_Id" keyProperty="clientId" parameterType="com.bbtong.Pojo.Client" useGeneratedKeys="true">
+    <delete id="deleteByExample" parameterType="com.bbtong.Pojo.ClientExample">
+        delete from bbt_client
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="Client_Id" keyProperty="clientId" parameterType="com.bbtong.Pojo.Client"
+            useGeneratedKeys="true">
     insert into bbt_client (Client_way, Client_Name, Insurance_Company_Id, 
       Client_Identity_Card, Client_Identity_Card_Front, 
       Client_Identity_Card_Verso, Client_Address, 
       Client_Come_Time, Client_Expiration_Time, Client_Driving_License, 
-      Client_Birthday, Client_Type, Type_Id
-      )
+      Client_Birthday, Client_Type, Type_Id, 
+      User_Id, Client_Remark)
     values (#{clientWay,jdbcType=VARCHAR}, #{clientName,jdbcType=VARCHAR}, #{insuranceCompanyId,jdbcType=INTEGER}, 
       #{clientIdentityCard,jdbcType=VARCHAR}, #{clientIdentityCardFront,jdbcType=VARCHAR}, 
       #{clientIdentityCardVerso,jdbcType=VARCHAR}, #{clientAddress,jdbcType=VARCHAR}, 
       #{clientComeTime,jdbcType=VARCHAR}, #{clientExpirationTime,jdbcType=VARCHAR}, #{clientDrivingLicense,jdbcType=VARCHAR}, 
-      #{clientBirthday,jdbcType=VARCHAR}, #{clientType,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}
-      )
+      #{clientBirthday,jdbcType=VARCHAR}, #{clientType,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{clientRemark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="Client_Id" keyProperty="clientId" parameterType="com.bbtong.Pojo.Client" useGeneratedKeys="true">
-    insert into bbt_client
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="clientWay != null">
-        Client_way,
-      </if>
-      <if test="clientName != null">
-        Client_Name,
-      </if>
-      <if test="insuranceCompanyId != null">
-        Insurance_Company_Id,
-      </if>
-      <if test="clientIdentityCard != null">
-        Client_Identity_Card,
-      </if>
-      <if test="clientIdentityCardFront != null">
-        Client_Identity_Card_Front,
-      </if>
-      <if test="clientIdentityCardVerso != null">
-        Client_Identity_Card_Verso,
-      </if>
-      <if test="clientAddress != null">
-        Client_Address,
-      </if>
-      <if test="clientComeTime != null">
-        Client_Come_Time,
-      </if>
-      <if test="clientExpirationTime != null">
-        Client_Expiration_Time,
-      </if>
-      <if test="clientDrivingLicense != null">
-        Client_Driving_License,
-      </if>
-      <if test="clientBirthday != null">
-        Client_Birthday,
-      </if>
-      <if test="clientType != null">
-        Client_Type,
-      </if>
-      <if test="typeId != null">
-        Type_Id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="clientWay != null">
-        #{clientWay,jdbcType=VARCHAR},
-      </if>
-      <if test="clientName != null">
-        #{clientName,jdbcType=VARCHAR},
-      </if>
-      <if test="insuranceCompanyId != null">
-        #{insuranceCompanyId,jdbcType=INTEGER},
-      </if>
-      <if test="clientIdentityCard != null">
-        #{clientIdentityCard,jdbcType=VARCHAR},
-      </if>
-      <if test="clientIdentityCardFront != null">
-        #{clientIdentityCardFront,jdbcType=VARCHAR},
-      </if>
-      <if test="clientIdentityCardVerso != null">
-        #{clientIdentityCardVerso,jdbcType=VARCHAR},
-      </if>
-      <if test="clientAddress != null">
-        #{clientAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="clientComeTime != null">
-        #{clientComeTime,jdbcType=VARCHAR},
-      </if>
-      <if test="clientExpirationTime != null">
-        #{clientExpirationTime,jdbcType=VARCHAR},
-      </if>
-      <if test="clientDrivingLicense != null">
-        #{clientDrivingLicense,jdbcType=VARCHAR},
-      </if>
-      <if test="clientBirthday != null">
-        #{clientBirthday,jdbcType=VARCHAR},
-      </if>
-      <if test="clientType != null">
-        #{clientType,jdbcType=VARCHAR},
-      </if>
-      <if test="typeId != null">
-        #{typeId,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.bbtong.Pojo.ClientExample" resultType="java.lang.Long">
-    select count(*) from bbt_client
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update bbt_client
-    <set>
-      <if test="record.clientId != null">
-        Client_Id = #{record.clientId,jdbcType=INTEGER},
-      </if>
-      <if test="record.clientWay != null">
+    <insert id="insertSelective" keyColumn="Client_Id" keyProperty="clientId" parameterType="com.bbtong.Pojo.Client"
+            useGeneratedKeys="true">
+        insert into bbt_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clientWay != null">
+                Client_way,
+            </if>
+            <if test="clientName != null">
+                Client_Name,
+            </if>
+            <if test="insuranceCompanyId != null">
+                Insurance_Company_Id,
+            </if>
+            <if test="clientIdentityCard != null">
+                Client_Identity_Card,
+            </if>
+            <if test="clientIdentityCardFront != null">
+                Client_Identity_Card_Front,
+            </if>
+            <if test="clientIdentityCardVerso != null">
+                Client_Identity_Card_Verso,
+            </if>
+            <if test="clientAddress != null">
+                Client_Address,
+            </if>
+            <if test="clientComeTime != null">
+                Client_Come_Time,
+            </if>
+            <if test="clientExpirationTime != null">
+                Client_Expiration_Time,
+            </if>
+            <if test="clientDrivingLicense != null">
+                Client_Driving_License,
+            </if>
+            <if test="clientBirthday != null">
+                Client_Birthday,
+            </if>
+            <if test="clientType != null">
+                Client_Type,
+            </if>
+            <if test="typeId != null">
+                Type_Id,
+            </if>
+            <if test="userId != null">
+                User_Id,
+            </if>
+            <if test="clientRemark != null">
+                Client_Remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clientWay != null">
+                #{clientWay,jdbcType=VARCHAR},
+            </if>
+            <if test="clientName != null">
+                #{clientName,jdbcType=VARCHAR},
+            </if>
+            <if test="insuranceCompanyId != null">
+                #{insuranceCompanyId,jdbcType=INTEGER},
+            </if>
+            <if test="clientIdentityCard != null">
+                #{clientIdentityCard,jdbcType=VARCHAR},
+            </if>
+            <if test="clientIdentityCardFront != null">
+                #{clientIdentityCardFront,jdbcType=VARCHAR},
+            </if>
+            <if test="clientIdentityCardVerso != null">
+                #{clientIdentityCardVerso,jdbcType=VARCHAR},
+            </if>
+            <if test="clientAddress != null">
+                #{clientAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="clientComeTime != null">
+                #{clientComeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="clientExpirationTime != null">
+                #{clientExpirationTime,jdbcType=VARCHAR},
+            </if>
+            <if test="clientDrivingLicense != null">
+                #{clientDrivingLicense,jdbcType=VARCHAR},
+            </if>
+            <if test="clientBirthday != null">
+                #{clientBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null">
+                #{clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="typeId != null">
+                #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="clientRemark != null">
+                #{clientRemark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.bbtong.Pojo.ClientExample" resultType="java.lang.Long">
+        select count(*) from bbt_client
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update bbt_client
+        <set>
+            <if test="record.clientId != null">
+                Client_Id = #{record.clientId,jdbcType=INTEGER},
+            </if>
+            <if test="record.clientWay != null">
+                Client_way = #{record.clientWay,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientName != null">
+                Client_Name = #{record.clientName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.insuranceCompanyId != null">
+                Insurance_Company_Id = #{record.insuranceCompanyId,jdbcType=INTEGER},
+            </if>
+            <if test="record.clientIdentityCard != null">
+                Client_Identity_Card = #{record.clientIdentityCard,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientIdentityCardFront != null">
+                Client_Identity_Card_Front = #{record.clientIdentityCardFront,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientIdentityCardVerso != null">
+                Client_Identity_Card_Verso = #{record.clientIdentityCardVerso,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientAddress != null">
+                Client_Address = #{record.clientAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientComeTime != null">
+                Client_Come_Time = #{record.clientComeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientExpirationTime != null">
+                Client_Expiration_Time = #{record.clientExpirationTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientDrivingLicense != null">
+                Client_Driving_License = #{record.clientDrivingLicense,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientBirthday != null">
+                Client_Birthday = #{record.clientBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clientType != null">
+                Client_Type = #{record.clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.typeId != null">
+                Type_Id = #{record.typeId,jdbcType=INTEGER},
+            </if>
+            <if test="record.userId != null">
+                User_Id = #{record.userId,jdbcType=INTEGER},
+            </if>
+            <if test="record.clientRemark != null">
+                Client_Remark = #{record.clientRemark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update bbt_client
+        set Client_Id = #{record.clientId,jdbcType=INTEGER},
         Client_way = #{record.clientWay,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientName != null">
         Client_Name = #{record.clientName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.insuranceCompanyId != null">
         Insurance_Company_Id = #{record.insuranceCompanyId,jdbcType=INTEGER},
-      </if>
-      <if test="record.clientIdentityCard != null">
         Client_Identity_Card = #{record.clientIdentityCard,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientIdentityCardFront != null">
         Client_Identity_Card_Front = #{record.clientIdentityCardFront,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientIdentityCardVerso != null">
         Client_Identity_Card_Verso = #{record.clientIdentityCardVerso,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientAddress != null">
         Client_Address = #{record.clientAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientComeTime != null">
         Client_Come_Time = #{record.clientComeTime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientExpirationTime != null">
         Client_Expiration_Time = #{record.clientExpirationTime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientDrivingLicense != null">
         Client_Driving_License = #{record.clientDrivingLicense,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientBirthday != null">
         Client_Birthday = #{record.clientBirthday,jdbcType=VARCHAR},
-      </if>
-      <if test="record.clientType != null">
         Client_Type = #{record.clientType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.typeId != null">
         Type_Id = #{record.typeId,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update bbt_client
-    set Client_Id = #{record.clientId,jdbcType=INTEGER},
-      Client_way = #{record.clientWay,jdbcType=VARCHAR},
-      Client_Name = #{record.clientName,jdbcType=VARCHAR},
-      Insurance_Company_Id = #{record.insuranceCompanyId,jdbcType=INTEGER},
-      Client_Identity_Card = #{record.clientIdentityCard,jdbcType=VARCHAR},
-      Client_Identity_Card_Front = #{record.clientIdentityCardFront,jdbcType=VARCHAR},
-      Client_Identity_Card_Verso = #{record.clientIdentityCardVerso,jdbcType=VARCHAR},
-      Client_Address = #{record.clientAddress,jdbcType=VARCHAR},
-      Client_Come_Time = #{record.clientComeTime,jdbcType=VARCHAR},
-      Client_Expiration_Time = #{record.clientExpirationTime,jdbcType=VARCHAR},
-      Client_Driving_License = #{record.clientDrivingLicense,jdbcType=VARCHAR},
-      Client_Birthday = #{record.clientBirthday,jdbcType=VARCHAR},
-      Client_Type = #{record.clientType,jdbcType=VARCHAR},
-      Type_Id = #{record.typeId,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bbtong.Pojo.Client">
-    update bbt_client
-    <set>
-      <if test="clientWay != null">
-        Client_way = #{clientWay,jdbcType=VARCHAR},
-      </if>
-      <if test="clientName != null">
-        Client_Name = #{clientName,jdbcType=VARCHAR},
-      </if>
-      <if test="insuranceCompanyId != null">
-        Insurance_Company_Id = #{insuranceCompanyId,jdbcType=INTEGER},
-      </if>
-      <if test="clientIdentityCard != null">
-        Client_Identity_Card = #{clientIdentityCard,jdbcType=VARCHAR},
-      </if>
-      <if test="clientIdentityCardFront != null">
-        Client_Identity_Card_Front = #{clientIdentityCardFront,jdbcType=VARCHAR},
-      </if>
-      <if test="clientIdentityCardVerso != null">
-        Client_Identity_Card_Verso = #{clientIdentityCardVerso,jdbcType=VARCHAR},
-      </if>
-      <if test="clientAddress != null">
-        Client_Address = #{clientAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="clientComeTime != null">
-        Client_Come_Time = #{clientComeTime,jdbcType=VARCHAR},
-      </if>
-      <if test="clientExpirationTime != null">
-        Client_Expiration_Time = #{clientExpirationTime,jdbcType=VARCHAR},
-      </if>
-      <if test="clientDrivingLicense != null">
-        Client_Driving_License = #{clientDrivingLicense,jdbcType=VARCHAR},
-      </if>
-      <if test="clientBirthday != null">
-        Client_Birthday = #{clientBirthday,jdbcType=VARCHAR},
-      </if>
-      <if test="clientType != null">
-        Client_Type = #{clientType,jdbcType=VARCHAR},
-      </if>
-      <if test="typeId != null">
-        Type_Id = #{typeId,jdbcType=INTEGER},
-      </if>
-    </set>
-    where Client_Id = #{clientId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.bbtong.Pojo.Client">
+        User_Id = #{record.userId,jdbcType=INTEGER},
+        Client_Remark = #{record.clientRemark,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bbtong.Pojo.Client">
+        update bbt_client
+        <set>
+            <if test="clientWay != null">
+                Client_way = #{clientWay,jdbcType=VARCHAR},
+            </if>
+            <if test="clientName != null">
+                Client_Name = #{clientName,jdbcType=VARCHAR},
+            </if>
+            <if test="insuranceCompanyId != null">
+                Insurance_Company_Id = #{insuranceCompanyId,jdbcType=INTEGER},
+            </if>
+            <if test="clientIdentityCard != null">
+                Client_Identity_Card = #{clientIdentityCard,jdbcType=VARCHAR},
+            </if>
+            <if test="clientIdentityCardFront != null">
+                Client_Identity_Card_Front = #{clientIdentityCardFront,jdbcType=VARCHAR},
+            </if>
+            <if test="clientIdentityCardVerso != null">
+                Client_Identity_Card_Verso = #{clientIdentityCardVerso,jdbcType=VARCHAR},
+            </if>
+            <if test="clientAddress != null">
+                Client_Address = #{clientAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="clientComeTime != null">
+                Client_Come_Time = #{clientComeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="clientExpirationTime != null">
+                Client_Expiration_Time = #{clientExpirationTime,jdbcType=VARCHAR},
+            </if>
+            <if test="clientDrivingLicense != null">
+                Client_Driving_License = #{clientDrivingLicense,jdbcType=VARCHAR},
+            </if>
+            <if test="clientBirthday != null">
+                Client_Birthday = #{clientBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null">
+                Client_Type = #{clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="typeId != null">
+                Type_Id = #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                User_Id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="clientRemark != null">
+                Client_Remark = #{clientRemark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where Client_Id = #{clientId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bbtong.Pojo.Client">
     update bbt_client
     set Client_way = #{clientWay,jdbcType=VARCHAR},
       Client_Name = #{clientName,jdbcType=VARCHAR},
@@ -352,7 +405,149 @@
       Client_Driving_License = #{clientDrivingLicense,jdbcType=VARCHAR},
       Client_Birthday = #{clientBirthday,jdbcType=VARCHAR},
       Client_Type = #{clientType,jdbcType=VARCHAR},
-      Type_Id = #{typeId,jdbcType=INTEGER}
+      Type_Id = #{typeId,jdbcType=INTEGER},
+      User_Id = #{userId,jdbcType=INTEGER},
+      Client_Remark = #{clientRemark,jdbcType=VARCHAR}
     where Client_Id = #{clientId,jdbcType=INTEGER}
   </update>
+    <!--用户添加新的客户的方法-->
+    <insert id="AddClient" parameterType="client">
+     insert into bbt_client (Client_way, Client_Name, Insurance_Company_Id,
+      Client_Identity_Card, Client_Identity_Card_Front,
+      Client_Identity_Card_Verso, Client_Address,
+      Client_Come_Time, Client_Expiration_Time, Client_Driving_License,
+      Client_Birthday, Client_Type, Type_Id,
+      User_Id,Client_Remark)
+    values (#{clientWay,jdbcType=VARCHAR}, #{clientName,jdbcType=VARCHAR}, #{insuranceCompanyId,jdbcType=INTEGER},
+      #{clientIdentityCard,jdbcType=VARCHAR}, #{clientIdentityCardFront,jdbcType=VARCHAR},
+      #{clientIdentityCardVerso,jdbcType=VARCHAR}, #{clientAddress,jdbcType=VARCHAR},
+      #{clientComeTime,jdbcType=VARCHAR}, #{clientExpirationTime,jdbcType=VARCHAR}, #{clientDrivingLicense,jdbcType=VARCHAR},
+      #{clientBirthday,jdbcType=VARCHAR}, #{clientType,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER},
+      #{userId,jdbcType=INTEGER},#{clientRemark,jdbcType=VARCHAR})
+  </insert>
+
+    <!--查询对应的客户有多少条-->
+    <select id="SelectQueryNumber" parameterType="map" resultType="int">
+        select count(1) from bbt_client
+        <where>
+            <if test="userId != null and userId != ''">
+                and User_Id=#{userId}
+            </if>
+            <if test="typeId != null and typeId != ''">
+                and Type_Id=#{typeId}
+            </if>
+        </where>
+    </select>
+
+    <!--查询显示用户对应客户的信息-->
+    <select id="SelectQuery" resultMap="BaseSelectClient" parameterType="map">
+    select c.Client_Id,c.Client_Name,ic.Insurance_Company_Name,t.Type_Name,c.Client_Come_Time,c.Client_Expiration_Time from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        <where>
+            <if test="userId != null and userId != ''">
+                and User_Id=#{userId}
+            </if>
+            <if test="typeId != null and typeId != ''">
+                and Type_Id=#{typeId}
+            </if>
+        </where>
+            ORDER BY  c.Client_Expiration_Time LIMIT #{state},#{end}
+    </select>
+
+    <!--用户查询对应客户的详情信息-->
+    <select id="Particulars" parameterType="map" resultMap="BaseSelectClient">
+        select c.*,ic.*,t.* from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        <where>
+            User_Id=#{userId} and Client_Id=#{clientId}
+        </where>
+    </select>
+
+    <!--查询十二月到一月生日的客户-->
+    <select id="Birthday" parameterType="map" resultMap="BaseSelectClient">
+        select c.*,ic.*,t.* from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        <where>
+            User_Id=#{userId}
+            <if test="Time != null and Time != ''">
+                and c.Client_Birthday>=#{Time}
+            </if>
+            <if test="NewTime != null and NewTime != ''">
+                or #{NewTime}>=c.Client_Birthday
+            </if>
+        </where>
+        order  by c.Client_Birthday limit #{state},#{end}
+    </select>
+
+    <!--查询十二月到一月生日的客户条数-->
+    <select id="BirthdayNumber" parameterType="map" resultType="int">
+        select count(1) from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        <where>
+            User_Id=#{userId}
+            <if test="Time != null and Time != ''">
+                and c.Client_Birthday>=#{Time}
+            </if>
+            <if test="NewTime != null and NewTime != ''">
+                or #{NewTime}>=c.Client_Birthday
+            </if>
+        </where>
+    </select>
+
+    <!--查询用户在这一个月内生日的客户,除去12月到1月生日的-->
+    <select id="NewBirthday" parameterType="map" resultMap="BaseSelectClient">
+        select * from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        <where>
+                User_Id=#{userId}
+            <if test="Time != null and Time != ''">
+                and c.Client_Birthday>=#{Time}
+            </if>
+            <if test="NewTime != null and NewTime != ''">
+                and #{NewTime}>=c.Client_Birthday
+            </if>
+        </where>
+            order by c.Client_Birthday limit #{state},#{end}
+    </select>
+
+    <!--查询用户在这一个月内生日的客户的总条数，除去12月到1月生日的-->
+    <select id="NewBirthdayNumber" parameterType="map" resultType="int">
+        select count(1) from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        <where>
+            User_Id=#{userId}
+            <if test="Time != null and Time != ''">
+                and c.Client_Birthday>=#{Time}
+            </if>
+            <if test="NewTime != null and NewTime != ''">
+                and #{NewTime}>=c.Client_Birthday
+            </if>
+        </where>
+    </select>
+
+    <!--查询从当前时间开始，一个月之内，车险快到了的客户的总条数-->
+    <select id="InsuranceWarnNumber" resultType="int" parameterType="map">
+        select count(1) from bbt_client
+        <where>
+            <if test="userId != null and userId != ''">
+                and User_Id=#{userId}
+            </if>
+            <if test="Time != null and Time != ''">
+                and Client_Expiration_Time>=#{Time}
+            </if>
+            <if test="NewTime != null and NewTime != ''">
+                and #{NewTime}>=Client_Expiration_Time
+            </if>
+        </where>
+    </select>
+
+    <select id="InsuranceWarna" parameterType="map" resultMap="BaseSelectClient">
+         select * from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        <where>
+            <if test="userId != null and userId != ''">
+                and User_Id=#{userId}
+            </if>
+            <if test="Time != null and Time != ''">
+                and Client_Expiration_Time>=#{Time}
+            </if>
+            <if test="NewTime != null and NewTime != ''">
+                and #{NewTime}>=Client_Expiration_Time
+            </if>
+        </where>
+            order by c.Client_Birthday limit #{state},#{end}
+    </select>
 </mapper>

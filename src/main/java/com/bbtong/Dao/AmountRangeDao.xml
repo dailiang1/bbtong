@@ -163,4 +163,9 @@
     set Amount_Range_Name = #{amountRangeName,jdbcType=VARCHAR}
     where Amount_Range_Id = #{amountRangeId,jdbcType=INTEGER}
   </update>
+
+  <!--查询车保金额类型表-->
+  <select id="SelectAmount" resultMap="BaseResultMap">
+    select * from  bbt_amount_range
+  </select>
 </mapper>

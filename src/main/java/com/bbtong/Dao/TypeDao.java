@@ -30,4 +30,10 @@ public interface TypeDao {
     int updateByPrimaryKeySelective(Type record);
 
     int updateByPrimaryKey(Type record);
+
+    /**
+     *查询客户类型的数据
+     * @return 戴辆
+     */
+    List<Type> SelectType();
 }

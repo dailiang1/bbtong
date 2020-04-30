@@ -163,4 +163,9 @@
     set Type_Name = #{typeName,jdbcType=VARCHAR}
     where Type_Id = #{typeId,jdbcType=INTEGER}
   </update>
+
+  <!--查询客户类型表的数据-->
+  <select id="SelectType" resultMap="BaseResultMap">
+    select * from bbt_type
+  </select>
 </mapper>
