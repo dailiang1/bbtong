@@ -374,6 +374,76 @@ public class EntrustExample {
             return (Criteria) this;
         }
 
+        public Criteria andInsuranceCompanyNameIsNull() {
+            addCriterion("Insurance_Company_Name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameIsNotNull() {
+            addCriterion("Insurance_Company_Name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameEqualTo(String value) {
+            addCriterion("Insurance_Company_Name =", value, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameNotEqualTo(String value) {
+            addCriterion("Insurance_Company_Name <>", value, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameGreaterThan(String value) {
+            addCriterion("Insurance_Company_Name >", value, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameGreaterThanOrEqualTo(String value) {
+            addCriterion("Insurance_Company_Name >=", value, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameLessThan(String value) {
+            addCriterion("Insurance_Company_Name <", value, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameLessThanOrEqualTo(String value) {
+            addCriterion("Insurance_Company_Name <=", value, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameLike(String value) {
+            addCriterion("Insurance_Company_Name like", value, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameNotLike(String value) {
+            addCriterion("Insurance_Company_Name not like", value, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameIn(List<String> values) {
+            addCriterion("Insurance_Company_Name in", values, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameNotIn(List<String> values) {
+            addCriterion("Insurance_Company_Name not in", values, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameBetween(String value1, String value2) {
+            addCriterion("Insurance_Company_Name between", value1, value2, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsuranceCompanyNameNotBetween(String value1, String value2) {
+            addCriterion("Insurance_Company_Name not between", value1, value2, "insuranceCompanyName");
+            return (Criteria) this;
+        }
+
         public Criteria andInsuranceCompanyIdIsNull() {
             addCriterion("Insurance_Company_Id is null");
             return (Criteria) this;
@@ -434,133 +504,73 @@ public class EntrustExample {
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIsNull() {
-            addCriterion("Company_Id is null");
+        public Criteria andLicensePlateNumberIsNull() {
+            addCriterion("license_Plate_Number is null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIsNotNull() {
-            addCriterion("Company_Id is not null");
+        public Criteria andLicensePlateNumberIsNotNull() {
+            addCriterion("license_Plate_Number is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdEqualTo(Integer value) {
-            addCriterion("Company_Id =", value, "companyId");
+        public Criteria andLicensePlateNumberEqualTo(String value) {
+            addCriterion("license_Plate_Number =", value, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotEqualTo(Integer value) {
-            addCriterion("Company_Id <>", value, "companyId");
+        public Criteria andLicensePlateNumberNotEqualTo(String value) {
+            addCriterion("license_Plate_Number <>", value, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThan(Integer value) {
-            addCriterion("Company_Id >", value, "companyId");
+        public Criteria andLicensePlateNumberGreaterThan(String value) {
+            addCriterion("license_Plate_Number >", value, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("Company_Id >=", value, "companyId");
+        public Criteria andLicensePlateNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("license_Plate_Number >=", value, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThan(Integer value) {
-            addCriterion("Company_Id <", value, "companyId");
+        public Criteria andLicensePlateNumberLessThan(String value) {
+            addCriterion("license_Plate_Number <", value, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThanOrEqualTo(Integer value) {
-            addCriterion("Company_Id <=", value, "companyId");
+        public Criteria andLicensePlateNumberLessThanOrEqualTo(String value) {
+            addCriterion("license_Plate_Number <=", value, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIn(List<Integer> values) {
-            addCriterion("Company_Id in", values, "companyId");
+        public Criteria andLicensePlateNumberLike(String value) {
+            addCriterion("license_Plate_Number like", value, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotIn(List<Integer> values) {
-            addCriterion("Company_Id not in", values, "companyId");
+        public Criteria andLicensePlateNumberNotLike(String value) {
+            addCriterion("license_Plate_Number not like", value, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdBetween(Integer value1, Integer value2) {
-            addCriterion("Company_Id between", value1, value2, "companyId");
+        public Criteria andLicensePlateNumberIn(List<String> values) {
+            addCriterion("license_Plate_Number in", values, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("Company_Id not between", value1, value2, "companyId");
+        public Criteria andLicensePlateNumberNotIn(List<String> values) {
+            addCriterion("license_Plate_Number not in", values, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andIicensePlateNumberIsNull() {
-            addCriterion("Iicense_Plate_Number is null");
+        public Criteria andLicensePlateNumberBetween(String value1, String value2) {
+            addCriterion("license_Plate_Number between", value1, value2, "licensePlateNumber");
             return (Criteria) this;
         }
 
-        public Criteria andIicensePlateNumberIsNotNull() {
-            addCriterion("Iicense_Plate_Number is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberEqualTo(String value) {
-            addCriterion("Iicense_Plate_Number =", value, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberNotEqualTo(String value) {
-            addCriterion("Iicense_Plate_Number <>", value, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberGreaterThan(String value) {
-            addCriterion("Iicense_Plate_Number >", value, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberGreaterThanOrEqualTo(String value) {
-            addCriterion("Iicense_Plate_Number >=", value, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberLessThan(String value) {
-            addCriterion("Iicense_Plate_Number <", value, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberLessThanOrEqualTo(String value) {
-            addCriterion("Iicense_Plate_Number <=", value, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberLike(String value) {
-            addCriterion("Iicense_Plate_Number like", value, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberNotLike(String value) {
-            addCriterion("Iicense_Plate_Number not like", value, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberIn(List<String> values) {
-            addCriterion("Iicense_Plate_Number in", values, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberNotIn(List<String> values) {
-            addCriterion("Iicense_Plate_Number not in", values, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberBetween(String value1, String value2) {
-            addCriterion("Iicense_Plate_Number between", value1, value2, "iicensePlateNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andIicensePlateNumberNotBetween(String value1, String value2) {
-            addCriterion("Iicense_Plate_Number not between", value1, value2, "iicensePlateNumber");
+        public Criteria andLicensePlateNumberNotBetween(String value1, String value2) {
+            addCriterion("license_Plate_Number not between", value1, value2, "licensePlateNumber");
             return (Criteria) this;
         }
 
@@ -1095,62 +1105,62 @@ public class EntrustExample {
         }
 
         public Criteria andEntrustStateIsNull() {
-            addCriterion("Entrust_state is null");
+            addCriterion("Entrust_State is null");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateIsNotNull() {
-            addCriterion("Entrust_state is not null");
+            addCriterion("Entrust_State is not null");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateEqualTo(Integer value) {
-            addCriterion("Entrust_state =", value, "entrustState");
+            addCriterion("Entrust_State =", value, "entrustState");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateNotEqualTo(Integer value) {
-            addCriterion("Entrust_state <>", value, "entrustState");
+            addCriterion("Entrust_State <>", value, "entrustState");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateGreaterThan(Integer value) {
-            addCriterion("Entrust_state >", value, "entrustState");
+            addCriterion("Entrust_State >", value, "entrustState");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateGreaterThanOrEqualTo(Integer value) {
-            addCriterion("Entrust_state >=", value, "entrustState");
+            addCriterion("Entrust_State >=", value, "entrustState");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateLessThan(Integer value) {
-            addCriterion("Entrust_state <", value, "entrustState");
+            addCriterion("Entrust_State <", value, "entrustState");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateLessThanOrEqualTo(Integer value) {
-            addCriterion("Entrust_state <=", value, "entrustState");
+            addCriterion("Entrust_State <=", value, "entrustState");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateIn(List<Integer> values) {
-            addCriterion("Entrust_state in", values, "entrustState");
+            addCriterion("Entrust_State in", values, "entrustState");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateNotIn(List<Integer> values) {
-            addCriterion("Entrust_state not in", values, "entrustState");
+            addCriterion("Entrust_State not in", values, "entrustState");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateBetween(Integer value1, Integer value2) {
-            addCriterion("Entrust_state between", value1, value2, "entrustState");
+            addCriterion("Entrust_State between", value1, value2, "entrustState");
             return (Criteria) this;
         }
 
         public Criteria andEntrustStateNotBetween(Integer value1, Integer value2) {
-            addCriterion("Entrust_state not between", value1, value2, "entrustState");
+            addCriterion("Entrust_State not between", value1, value2, "entrustState");
             return (Criteria) this;
         }
 
@@ -1535,62 +1545,132 @@ public class EntrustExample {
         }
 
         public Criteria andEntrustBusinessIsNull() {
-            addCriterion("`Entrust_ Business` is null");
+            addCriterion("Entrust_Business is null");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessIsNotNull() {
-            addCriterion("`Entrust_ Business` is not null");
+            addCriterion("Entrust_Business is not null");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessEqualTo(Integer value) {
-            addCriterion("`Entrust_ Business` =", value, "entrustBusiness");
+            addCriterion("Entrust_Business =", value, "entrustBusiness");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessNotEqualTo(Integer value) {
-            addCriterion("`Entrust_ Business` <>", value, "entrustBusiness");
+            addCriterion("Entrust_Business <>", value, "entrustBusiness");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessGreaterThan(Integer value) {
-            addCriterion("`Entrust_ Business` >", value, "entrustBusiness");
+            addCriterion("Entrust_Business >", value, "entrustBusiness");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessGreaterThanOrEqualTo(Integer value) {
-            addCriterion("`Entrust_ Business` >=", value, "entrustBusiness");
+            addCriterion("Entrust_Business >=", value, "entrustBusiness");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessLessThan(Integer value) {
-            addCriterion("`Entrust_ Business` <", value, "entrustBusiness");
+            addCriterion("Entrust_Business <", value, "entrustBusiness");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessLessThanOrEqualTo(Integer value) {
-            addCriterion("`Entrust_ Business` <=", value, "entrustBusiness");
+            addCriterion("Entrust_Business <=", value, "entrustBusiness");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessIn(List<Integer> values) {
-            addCriterion("`Entrust_ Business` in", values, "entrustBusiness");
+            addCriterion("Entrust_Business in", values, "entrustBusiness");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessNotIn(List<Integer> values) {
-            addCriterion("`Entrust_ Business` not in", values, "entrustBusiness");
+            addCriterion("Entrust_Business not in", values, "entrustBusiness");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessBetween(Integer value1, Integer value2) {
-            addCriterion("`Entrust_ Business` between", value1, value2, "entrustBusiness");
+            addCriterion("Entrust_Business between", value1, value2, "entrustBusiness");
             return (Criteria) this;
         }
 
         public Criteria andEntrustBusinessNotBetween(Integer value1, Integer value2) {
-            addCriterion("`Entrust_ Business` not between", value1, value2, "entrustBusiness");
+            addCriterion("Entrust_Business not between", value1, value2, "entrustBusiness");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeIsNull() {
+            addCriterion("Entrust_Time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeIsNotNull() {
+            addCriterion("Entrust_Time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeEqualTo(String value) {
+            addCriterion("Entrust_Time =", value, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeNotEqualTo(String value) {
+            addCriterion("Entrust_Time <>", value, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeGreaterThan(String value) {
+            addCriterion("Entrust_Time >", value, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("Entrust_Time >=", value, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeLessThan(String value) {
+            addCriterion("Entrust_Time <", value, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeLessThanOrEqualTo(String value) {
+            addCriterion("Entrust_Time <=", value, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeLike(String value) {
+            addCriterion("Entrust_Time like", value, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeNotLike(String value) {
+            addCriterion("Entrust_Time not like", value, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeIn(List<String> values) {
+            addCriterion("Entrust_Time in", values, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeNotIn(List<String> values) {
+            addCriterion("Entrust_Time not in", values, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeBetween(String value1, String value2) {
+            addCriterion("Entrust_Time between", value1, value2, "entrustTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andEntrustTimeNotBetween(String value1, String value2) {
+            addCriterion("Entrust_Time not between", value1, value2, "entrustTime");
             return (Criteria) this;
         }
     }

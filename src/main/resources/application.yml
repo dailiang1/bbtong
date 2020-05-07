@@ -18,7 +18,7 @@ spring:
 #logging:
 #  level:
 mybatis:
-  typeAliasesPackage: com.bbtong.Pojo,com.bbtong.Util
+  typeAliasesPackage: com.bbtong.Pojo,com.bbtong.Util,com.bbtong.Base
 #    com.bbt.Dao: debug
 
 debug: true

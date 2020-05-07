@@ -3,8 +3,8 @@ package com.bbtong.Pojo;
 import java.io.Serializable;
 
 /**
- * bbt_entrust 委托订单表
- * 戴辆
+ * bbt_entrust
+ * @author 
  */
 public class Entrust implements Serializable {
     /**
@@ -28,19 +28,19 @@ public class Entrust implements Serializable {
     private Integer finallyUserId;
 
     /**
-     * 保险公司ID(发布委托用户的保险公司的ID，用来显示是哪家保险的代理人)
+     * 保险公司名称(发布委托用户的保险公司的名称，用来显示是哪家保险的代理人)
      */
-    private Integer insuranceCompanyId;
+    private String insuranceCompanyName;
 
     /**
      * 指定对应要出的保单公司(可以为空) 默认是1表示所有公司
      */
-    private Integer companyId;
+    private Integer insuranceCompanyId;
 
     /**
-     *  必填选项，车牌号码
+     * 必填选项，车牌号码
      */
-    private String iicensePlateNumber;
+    private String licensePlateNumber;
 
     /**
      * 车的品牌(如：大众，奔驰等)
@@ -122,6 +122,11 @@ public class Entrust implements Serializable {
      */
     private Integer entrustBusiness;
 
+    /**
+     * 订单最后归还的日期(在写了评分之后获取当前的时间，然后再加上归还的期限，来确定最后归还的时间）
+     */
+    private String entrustTime;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getEntrustId() {
@@ -156,6 +161,14 @@ public class Entrust implements Serializable {
         this.finallyUserId = finallyUserId;
     }
 
+    public String getInsuranceCompanyName() {
+        return insuranceCompanyName;
+    }
+
+    public void setInsuranceCompanyName(String insuranceCompanyName) {
+        this.insuranceCompanyName = insuranceCompanyName;
+    }
+
     public Integer getInsuranceCompanyId() {
         return insuranceCompanyId;
     }
@@ -164,20 +177,12 @@ public class Entrust implements Serializable {
         this.insuranceCompanyId = insuranceCompanyId;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public String getLicensePlateNumber() {
+        return licensePlateNumber;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
-
-    public String getIicensePlateNumber() {
-        return iicensePlateNumber;
-    }
-
-    public void setIicensePlateNumber(String iicensePlateNumber) {
-        this.iicensePlateNumber = iicensePlateNumber;
+    public void setLicensePlateNumber(String licensePlateNumber) {
+        this.licensePlateNumber = licensePlateNumber;
     }
 
     public String getEntrustCarBrand() {
@@ -308,6 +313,14 @@ public class Entrust implements Serializable {
         this.entrustBusiness = entrustBusiness;
     }
 
+    public String getEntrustTime() {
+        return entrustTime;
+    }
+
+    public void setEntrustTime(String entrustTime) {
+        this.entrustTime = entrustTime;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -324,9 +337,9 @@ public class Entrust implements Serializable {
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getNewUserId() == null ? other.getNewUserId() == null : this.getNewUserId().equals(other.getNewUserId()))
             && (this.getFinallyUserId() == null ? other.getFinallyUserId() == null : this.getFinallyUserId().equals(other.getFinallyUserId()))
+            && (this.getInsuranceCompanyName() == null ? other.getInsuranceCompanyName() == null : this.getInsuranceCompanyName().equals(other.getInsuranceCompanyName()))
             && (this.getInsuranceCompanyId() == null ? other.getInsuranceCompanyId() == null : this.getInsuranceCompanyId().equals(other.getInsuranceCompanyId()))
-            && (this.getCompanyId() == null ? other.getCompanyId() == null : this.getCompanyId().equals(other.getCompanyId()))
-            && (this.getIicensePlateNumber() == null ? other.getIicensePlateNumber() == null : this.getIicensePlateNumber().equals(other.getIicensePlateNumber()))
+            && (this.getLicensePlateNumber() == null ? other.getLicensePlateNumber() == null : this.getLicensePlateNumber().equals(other.getLicensePlateNumber()))
             && (this.getEntrustCarBrand() == null ? other.getEntrustCarBrand() == null : this.getEntrustCarBrand().equals(other.getEntrustCarBrand()))
             && (this.getEntrustAddress() == null ? other.getEntrustAddress() == null : this.getEntrustAddress().equals(other.getEntrustAddress()))
             && (this.getEntrustRemark() == null ? other.getEntrustRemark() == null : this.getEntrustRemark().equals(other.getEntrustRemark()))
@@ -342,7 +355,8 @@ public class Entrust implements Serializable {
             && (this.getEntrustMoney() == null ? other.getEntrustMoney() == null : this.getEntrustMoney().equals(other.getEntrustMoney()))
             && (this.getEntrustReturnMoney() == null ? other.getEntrustReturnMoney() == null : this.getEntrustReturnMoney().equals(other.getEntrustReturnMoney()))
             && (this.getEntrustReturnTime() == null ? other.getEntrustReturnTime() == null : this.getEntrustReturnTime().equals(other.getEntrustReturnTime()))
-            && (this.getEntrustBusiness() == null ? other.getEntrustBusiness() == null : this.getEntrustBusiness().equals(other.getEntrustBusiness()));
+            && (this.getEntrustBusiness() == null ? other.getEntrustBusiness() == null : this.getEntrustBusiness().equals(other.getEntrustBusiness()))
+            && (this.getEntrustTime() == null ? other.getEntrustTime() == null : this.getEntrustTime().equals(other.getEntrustTime()));
     }
 
     @Override
@@ -353,9 +367,9 @@ public class Entrust implements Serializable {
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getNewUserId() == null) ? 0 : getNewUserId().hashCode());
         result = prime * result + ((getFinallyUserId() == null) ? 0 : getFinallyUserId().hashCode());
+        result = prime * result + ((getInsuranceCompanyName() == null) ? 0 : getInsuranceCompanyName().hashCode());
         result = prime * result + ((getInsuranceCompanyId() == null) ? 0 : getInsuranceCompanyId().hashCode());
-        result = prime * result + ((getCompanyId() == null) ? 0 : getCompanyId().hashCode());
-        result = prime * result + ((getIicensePlateNumber() == null) ? 0 : getIicensePlateNumber().hashCode());
+        result = prime * result + ((getLicensePlateNumber() == null) ? 0 : getLicensePlateNumber().hashCode());
         result = prime * result + ((getEntrustCarBrand() == null) ? 0 : getEntrustCarBrand().hashCode());
         result = prime * result + ((getEntrustAddress() == null) ? 0 : getEntrustAddress().hashCode());
         result = prime * result + ((getEntrustRemark() == null) ? 0 : getEntrustRemark().hashCode());
@@ -372,6 +386,7 @@ public class Entrust implements Serializable {
         result = prime * result + ((getEntrustReturnMoney() == null) ? 0 : getEntrustReturnMoney().hashCode());
         result = prime * result + ((getEntrustReturnTime() == null) ? 0 : getEntrustReturnTime().hashCode());
         result = prime * result + ((getEntrustBusiness() == null) ? 0 : getEntrustBusiness().hashCode());
+        result = prime * result + ((getEntrustTime() == null) ? 0 : getEntrustTime().hashCode());
         return result;
     }
 
@@ -385,9 +400,9 @@ public class Entrust implements Serializable {
         sb.append(", userId=").append(userId);
         sb.append(", newUserId=").append(newUserId);
         sb.append(", finallyUserId=").append(finallyUserId);
+        sb.append(", insuranceCompanyName=").append(insuranceCompanyName);
         sb.append(", insuranceCompanyId=").append(insuranceCompanyId);
-        sb.append(", companyId=").append(companyId);
-        sb.append(", iicensePlateNumber=").append(iicensePlateNumber);
+        sb.append(", licensePlateNumber=").append(licensePlateNumber);
         sb.append(", entrustCarBrand=").append(entrustCarBrand);
         sb.append(", entrustAddress=").append(entrustAddress);
         sb.append(", entrustRemark=").append(entrustRemark);
@@ -404,6 +419,7 @@ public class Entrust implements Serializable {
         sb.append(", entrustReturnMoney=").append(entrustReturnMoney);
         sb.append(", entrustReturnTime=").append(entrustReturnTime);
         sb.append(", entrustBusiness=").append(entrustBusiness);
+        sb.append(", entrustTime=").append(entrustTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
