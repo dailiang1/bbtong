@@ -182,4 +182,28 @@ public class EntrustController {
         return resultPage;
     }
 
+    /**
+     * 大家保险的用户查询自己待处理的委托，对委托进行操作
+     *
+     * @param userId    用户的ID
+     * @param entrustId 委托的ID
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/daparticulars")
+    public Result DaParticulars(Integer userId, Integer entrustId) {
+        //用来接收对应的数据
+        Result result = new Result();
+        //用来判断数据是否为空,如果用户的userId或entrustId为空的话则表示当前的异常
+        if (null == userId||null==entrustId) {
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        //将数据传到service层去进行查询，并接受service返回的数据
+        result=entrustService.DaParticulars(userId,entrustId);
+        return result;
+    }
+
+
 }

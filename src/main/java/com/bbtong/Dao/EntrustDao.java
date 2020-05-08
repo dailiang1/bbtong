@@ -1,6 +1,7 @@
 package com.bbtong.Dao;
 
 import com.bbtong.Base.DaEntrust;
+import com.bbtong.Base.DaParticulars;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Pojo.EntrustExample;
 import java.util.List;
@@ -53,4 +54,18 @@ public interface EntrustDao {
      * @return 戴辆
      */
     List<DaEntrust> DaSelectEntrust(Map map);
+
+    /**
+     * 先通过用户的ID和委托订单的ID查询对应有意向接单的人的ID
+     * @param map userId 和 entrustId
+     * @return 戴辆
+     */
+    String NewUserId(Map map);
+
+    /**
+     * 大脚保险用户查询对应的有意向接单的客户信息
+     * @param map
+     * @return
+     */
+    List<DaParticulars> DaParticulars(Map map);
 }

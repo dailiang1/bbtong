@@ -3,6 +3,7 @@ package com.bbtong.Service;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultPage;
+import com.sun.org.apache.regexp.internal.RE;
 
 /***
  * 委托订单表
@@ -23,4 +24,12 @@ public interface EntrustService {
      * @return 戴辆
      */
     ResultPage DaSelectEntrust(Integer userId,Integer index);
+
+    /**
+     * 大家保险的用户查询自己对应的委托的信息
+     * @param userId 用户的ID
+     * @param entrustId 委托订单的ID
+     * @return 戴辆
+     */
+    Result DaParticulars(Integer userId, Integer entrustId);
 }

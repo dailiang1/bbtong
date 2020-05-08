@@ -40,6 +40,15 @@
         <result column="Entrust_End_Time" jdbcType="VARCHAR" property="entrustEndTime"/>
         <result column="Entrust_State" jdbcType="INTEGER" property="entrustState"/>
     </resultMap>
+
+    <resultMap id="BaseDaParticulars" type="com.bbtong.Base.DaParticulars">
+        <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
+        <id column="User_Id" jdbcType="INTEGER" property="userId"/>
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
+        <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -544,4 +553,17 @@
     <select id="DaSelectEntrust" parameterType="map" resultMap="BaseDaEntrust">
     SELECT e.Entrust_Id,e.Entrust_Address,e.Entrust_Start_Time,e.Entrust_End_Time,e.Insurance_Company_Id,ic.Insurance_Company_Name,e.Entrust_State,e.Entrust_Money,e.Entrust_Return_Money,e.New_User_Id FROM bbt_entrust e LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id WHERE e.User_Id=#{userId} AND e.Entrust_State=0 ORDER BY e.Entrust_Start_Time LIMIT #{state},#{end}
   </select>
+
+    <!--大家保险的用户查询对应的信息-->
+    <select id="NewUserId" parameterType="map" resultType="string">
+        select New_User_Id from  bbt_entrust where User_Id=#{userId} and Entrust_Id=#{entrustId}
+    </select>
+
+    <!--大家保险用户查询对应的订单的信息-->
+    <select id="DaParticulars" parameterType="map" resultMap="BaseDaParticulars">
+        SELECT e.license_Plate_Number,e.Entrust_Id,u.User_Phone,u.User_Name,u.Insurance_Company_Name,u.User_Id FROM
+        bbt_user u LEFT JOIN bbt_entrust e ON u.User_Id &lt;&gt; e.New_User_Id OR u.User_Id = e.New_User_Id where INSTR((SELECT
+        New_User_Id FROM bbt_entrust where Entrust_Id=#{entrustId}
+        and User_Id=#{userId}),u.User_Id)
+    </select>
 </mapper>
