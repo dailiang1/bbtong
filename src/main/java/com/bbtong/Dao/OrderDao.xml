@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.bbtong.Pojo.Order">
     <id column="Order_Id" jdbcType="INTEGER" property="orderId" />
     <result column="User_Id" jdbcType="INTEGER" property="userId" />
-    <result column="New_User_Id" jdbcType="INTEGER" property="newUserId" />
+    <result column="Finally_User_Id" jdbcType="INTEGER" property="finallyUserId" />
     <result column="Order_State" jdbcType="INTEGER" property="orderState" />
     <result column="Order_Time" jdbcType="VARCHAR" property="orderTime" />
     <result column="Entrust_Id" jdbcType="INTEGER" property="entrustId" />
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Order_Id, User_Id, New_User_Id, Order_State, Order_Time, Entrust_Id
+    Order_Id, User_Id, Finally_User_Id, Order_State, Order_Time, Entrust_Id
   </sql>
   <select id="selectByExample" parameterType="com.bbtong.Pojo.OrderExample" resultMap="BaseResultMap">
     select
@@ -109,9 +109,9 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="Order_Id" keyProperty="orderId" parameterType="com.bbtong.Pojo.Order" useGeneratedKeys="true">
-    insert into bbt_order (User_Id, New_User_Id, Order_State, 
+    insert into bbt_order (User_Id, Finally_User_Id, Order_State, 
       Order_Time, Entrust_Id)
-    values (#{userId,jdbcType=INTEGER}, #{newUserId,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER}, 
+    values (#{userId,jdbcType=INTEGER}, #{finallyUserId,jdbcType=INTEGER}, #{orderState,jdbcType=INTEGER}, 
       #{orderTime,jdbcType=VARCHAR}, #{entrustId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="Order_Id" keyProperty="orderId" parameterType="com.bbtong.Pojo.Order" useGeneratedKeys="true">
@@ -120,8 +120,8 @@
       <if test="userId != null">
         User_Id,
       </if>
-      <if test="newUserId != null">
-        New_User_Id,
+      <if test="finallyUserId != null">
+        Finally_User_Id,
       </if>
       <if test="orderState != null">
         Order_State,
@@ -137,8 +137,8 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="newUserId != null">
-        #{newUserId,jdbcType=INTEGER},
+      <if test="finallyUserId != null">
+        #{finallyUserId,jdbcType=INTEGER},
       </if>
       <if test="orderState != null">
         #{orderState,jdbcType=INTEGER},
@@ -166,8 +166,8 @@
       <if test="record.userId != null">
         User_Id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.newUserId != null">
-        New_User_Id = #{record.newUserId,jdbcType=INTEGER},
+      <if test="record.finallyUserId != null">
+        Finally_User_Id = #{record.finallyUserId,jdbcType=INTEGER},
       </if>
       <if test="record.orderState != null">
         Order_State = #{record.orderState,jdbcType=INTEGER},
@@ -187,7 +187,7 @@
     update bbt_order
     set Order_Id = #{record.orderId,jdbcType=INTEGER},
       User_Id = #{record.userId,jdbcType=INTEGER},
-      New_User_Id = #{record.newUserId,jdbcType=INTEGER},
+      Finally_User_Id = #{record.finallyUserId,jdbcType=INTEGER},
       Order_State = #{record.orderState,jdbcType=INTEGER},
       Order_Time = #{record.orderTime,jdbcType=VARCHAR},
       Entrust_Id = #{record.entrustId,jdbcType=INTEGER}
@@ -201,8 +201,8 @@
       <if test="userId != null">
         User_Id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="newUserId != null">
-        New_User_Id = #{newUserId,jdbcType=INTEGER},
+      <if test="finallyUserId != null">
+        Finally_User_Id = #{finallyUserId,jdbcType=INTEGER},
       </if>
       <if test="orderState != null">
         Order_State = #{orderState,jdbcType=INTEGER},
@@ -219,7 +219,7 @@
   <update id="updateByPrimaryKey" parameterType="com.bbtong.Pojo.Order">
     update bbt_order
     set User_Id = #{userId,jdbcType=INTEGER},
-      New_User_Id = #{newUserId,jdbcType=INTEGER},
+      Finally_User_Id = #{finallyUserId,jdbcType=INTEGER},
       Order_State = #{orderState,jdbcType=INTEGER},
       Order_Time = #{orderTime,jdbcType=VARCHAR},
       Entrust_Id = #{entrustId,jdbcType=INTEGER}

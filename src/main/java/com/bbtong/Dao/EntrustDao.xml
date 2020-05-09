@@ -49,6 +49,12 @@
         <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
         <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
     </resultMap>
+
+    <resultMap id="BaseInformation" type="com.bbtong.Base.Information">
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -566,4 +572,36 @@
         New_User_Id FROM bbt_entrust where Entrust_Id=#{entrustId}
         and User_Id=#{userId}),u.User_Id)
     </select>
+
+    <!--第一步先将委托派给指定的人，写入数据库-->
+    <update id="UpdateEntrust" parameterType="map">
+        UPDATE bbt_entrust
+        <set>
+            <if test="finallyUserId != null ">
+                Finally_User_Id=#{finallyUserId},
+            </if>
+            Entrust_State=1
+        </set>
+        WHERE Entrust_Id=#{entrustId} and User_Id=#{userId}
+    </update>
+
+    <!--第二步将除了接单的这个人以外，其他的所有人变的可以有意向接单-->
+    <update id="UpdateNewUserId" parameterType="map">
+        UPDATE bbt_user SET Intention_state=0 where INSTR((SELECT New_User_Id FROM bbt_entrust WHERE Entrust_Id=#{entrustId} and User_Id=#{userId}),User_Id) and User_Id != (SELECT Finally_User_Id FROM bbt_entrust WHERE Entrust_Id=#{entrustId} and User_Id=#{userId})
+    </update>
+
+    <!--第三步 1.先查询委托人的电话和姓名-->
+    <select id="Information" parameterType="map" resultMap="BaseInformation">
+        select User_Name,User_Phone,Insurance_Company_Name from  bbt_user where User_Id=#{userId}
+    </select>
+
+    <!--第三步 2.将两个人添加成好友的关系-->
+    <insert id="AddFriend" parameterType="map">
+        insert  into bbt_friend(user_id, friend_user_id, friend_name, friend_phone, friend_company_name) values (#{userId},#{finallyUserId},#{friendName},#{friendPhone},#{insuranceCompanyName}),(#{finallyUserId},#{userId},#{userName},#{userPhone},#{userInsuranceCompanyName})
+    </insert>
+
+    <!--第四步 将委托的信息存到接单表中-->
+    <insert id="AddOrder" parameterType="map">
+         insert into bbt_order (User_Id, Finally_User_Id, Entrust_Id) values (#{userId},#{finallyUserId},#{entrustId})
+    </insert>
 </mapper>

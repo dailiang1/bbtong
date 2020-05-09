@@ -195,15 +195,44 @@ public class EntrustController {
         //用来接收对应的数据
         Result result = new Result();
         //用来判断数据是否为空,如果用户的userId或entrustId为空的话则表示当前的异常
-        if (null == userId||null==entrustId) {
+        if (null == userId || null == entrustId) {
             result.setCode(300);
             result.setMessage("当前异常");
             return result;
         }
         //将数据传到service层去进行查询，并接受service返回的数据
-        result=entrustService.DaParticulars(userId,entrustId);
+        result = entrustService.DaParticulars(userId, entrustId);
         return result;
     }
 
-
+    /**
+     * 将委托单派给指定的人
+     * @param entrustId  委托的ID
+     * @param userId    发布委托的人
+     * @param finallyUserId 接单的人
+     * @param friendName  接单人的姓名
+     * @param friendPhone  接单人的电话
+     * @param InsuranceCompanyName  接单人的保险公司名称
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/sendorders")
+    public ResultPage SendOrders(Integer userId, Integer finallyUserId, Integer entrustId,String friendName,String friendPhone,String InsuranceCompanyName) {
+        //创建resultPage的实体来接收数据
+        ResultPage resultPage = new ResultPage();
+        //判断userId和newUserId是否为空，如为空的话，则说明当前异常
+        if (null == userId || null == finallyUserId||null==entrustId) {
+            resultPage.setCode(300);
+            resultPage.setMessage("当前异常，请稍后再试");
+            return resultPage;
+        }
+        try {
+            resultPage=entrustService.SendOrders(userId, finallyUserId, entrustId,friendName,friendPhone,InsuranceCompanyName);
+        }catch (Exception e){
+            resultPage.setCode(500);
+            resultPage.setMessage("执行过程中出现异常");
+            return  resultPage;
+        }
+        return resultPage;
+    }
 }

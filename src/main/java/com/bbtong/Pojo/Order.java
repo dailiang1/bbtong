@@ -20,7 +20,7 @@ public class Order implements Serializable {
     /**
      * 接单人的ID
      */
-    private Integer newUserId;
+    private Integer finallyUserId;
 
     /**
      * 委托完成的状态(0待处理，1表示已完成，2表示放弃，3表示取消)
@@ -55,12 +55,12 @@ public class Order implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getNewUserId() {
-        return newUserId;
+    public Integer getFinallyUserId() {
+        return finallyUserId;
     }
 
-    public void setNewUserId(Integer newUserId) {
-        this.newUserId = newUserId;
+    public void setFinallyUserId(Integer finallyUserId) {
+        this.finallyUserId = finallyUserId;
     }
 
     public Integer getOrderState() {
@@ -101,7 +101,7 @@ public class Order implements Serializable {
         Order other = (Order) that;
         return (this.getOrderId() == null ? other.getOrderId() == null : this.getOrderId().equals(other.getOrderId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getNewUserId() == null ? other.getNewUserId() == null : this.getNewUserId().equals(other.getNewUserId()))
+            && (this.getFinallyUserId() == null ? other.getFinallyUserId() == null : this.getFinallyUserId().equals(other.getFinallyUserId()))
             && (this.getOrderState() == null ? other.getOrderState() == null : this.getOrderState().equals(other.getOrderState()))
             && (this.getOrderTime() == null ? other.getOrderTime() == null : this.getOrderTime().equals(other.getOrderTime()))
             && (this.getEntrustId() == null ? other.getEntrustId() == null : this.getEntrustId().equals(other.getEntrustId()));
@@ -113,7 +113,7 @@ public class Order implements Serializable {
         int result = 1;
         result = prime * result + ((getOrderId() == null) ? 0 : getOrderId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getNewUserId() == null) ? 0 : getNewUserId().hashCode());
+        result = prime * result + ((getFinallyUserId() == null) ? 0 : getFinallyUserId().hashCode());
         result = prime * result + ((getOrderState() == null) ? 0 : getOrderState().hashCode());
         result = prime * result + ((getOrderTime() == null) ? 0 : getOrderTime().hashCode());
         result = prime * result + ((getEntrustId() == null) ? 0 : getEntrustId().hashCode());
@@ -128,7 +128,7 @@ public class Order implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", orderId=").append(orderId);
         sb.append(", userId=").append(userId);
-        sb.append(", newUserId=").append(newUserId);
+        sb.append(", finallyUserId=").append(finallyUserId);
         sb.append(", orderState=").append(orderState);
         sb.append(", orderTime=").append(orderTime);
         sb.append(", entrustId=").append(entrustId);

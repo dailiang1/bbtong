@@ -244,63 +244,63 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdIsNull() {
-            addCriterion("New_User_Id is null");
+        public Criteria andFinallyUserIdIsNull() {
+            addCriterion("Finally_User_Id is null");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdIsNotNull() {
-            addCriterion("New_User_Id is not null");
+        public Criteria andFinallyUserIdIsNotNull() {
+            addCriterion("Finally_User_Id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdEqualTo(Integer value) {
-            addCriterion("New_User_Id =", value, "newUserId");
+        public Criteria andFinallyUserIdEqualTo(Integer value) {
+            addCriterion("Finally_User_Id =", value, "finallyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdNotEqualTo(Integer value) {
-            addCriterion("New_User_Id <>", value, "newUserId");
+        public Criteria andFinallyUserIdNotEqualTo(Integer value) {
+            addCriterion("Finally_User_Id <>", value, "finallyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdGreaterThan(Integer value) {
-            addCriterion("New_User_Id >", value, "newUserId");
+        public Criteria andFinallyUserIdGreaterThan(Integer value) {
+            addCriterion("Finally_User_Id >", value, "finallyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("New_User_Id >=", value, "newUserId");
+        public Criteria andFinallyUserIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("Finally_User_Id >=", value, "finallyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdLessThan(Integer value) {
-            addCriterion("New_User_Id <", value, "newUserId");
+        public Criteria andFinallyUserIdLessThan(Integer value) {
+            addCriterion("Finally_User_Id <", value, "finallyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdLessThanOrEqualTo(Integer value) {
-            addCriterion("New_User_Id <=", value, "newUserId");
+        public Criteria andFinallyUserIdLessThanOrEqualTo(Integer value) {
+            addCriterion("Finally_User_Id <=", value, "finallyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdIn(List<Integer> values) {
-            addCriterion("New_User_Id in", values, "newUserId");
+        public Criteria andFinallyUserIdIn(List<Integer> values) {
+            addCriterion("Finally_User_Id in", values, "finallyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdNotIn(List<Integer> values) {
-            addCriterion("New_User_Id not in", values, "newUserId");
+        public Criteria andFinallyUserIdNotIn(List<Integer> values) {
+            addCriterion("Finally_User_Id not in", values, "finallyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdBetween(Integer value1, Integer value2) {
-            addCriterion("New_User_Id between", value1, value2, "newUserId");
+        public Criteria andFinallyUserIdBetween(Integer value1, Integer value2) {
+            addCriterion("Finally_User_Id between", value1, value2, "finallyUserId");
             return (Criteria) this;
         }
 
-        public Criteria andNewUserIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("New_User_Id not between", value1, value2, "newUserId");
+        public Criteria andFinallyUserIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("Finally_User_Id not between", value1, value2, "finallyUserId");
             return (Criteria) this;
         }
 
