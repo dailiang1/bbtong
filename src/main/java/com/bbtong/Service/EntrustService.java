@@ -2,10 +2,11 @@ package com.bbtong.Service;
 
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Util.Result;
+import com.bbtong.Util.ResultHave;
 import com.bbtong.Util.ResultPage;
 import com.sun.org.apache.regexp.internal.RE;
 
-/***
+/**
  * 委托订单表
  */
 
@@ -46,4 +47,26 @@ public interface EntrustService {
      * @return 戴辆
      */
     ResultPage SendOrders(Integer userId, Integer finallyUserId, Integer entrustId,String friendName,String friendPhone,String InsuranceCompanyName);
+
+    /**
+     * 委托人查询自己发布的委托
+     * @param userId 委托人的ID
+     * @return 戴辆
+     */
+    Result IssueRecord(Integer userId);
+
+    /**
+     * 委托人查询自己接过的委托
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    Result OrderRecord(Integer userId);
+
+    /**
+     * 用户有意向委托
+     * @param userId 用户的ID
+     * @param entrustId 委托的ID
+     * @return 戴辆
+     */
+    ResultHave HavaEntrust(Integer userId, Integer entrustId);
 }

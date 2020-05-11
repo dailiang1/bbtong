@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbtong.Dao.EntrustDao">
+    <!--委托类的隐射-->
     <resultMap id="BaseResultMap" type="com.bbtong.Pojo.Entrust">
         <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
         <result column="User_Id" jdbcType="INTEGER" property="userId"/>
@@ -28,6 +29,7 @@
         <result column="Entrust_Time" jdbcType="VARCHAR" property="entrustTime"/>
     </resultMap>
 
+    <!--大家保险查询显示对应的数据的映射-->
     <resultMap id="BaseDaEntrust" type="com.bbtong.Base.DaEntrust">
         <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
         <result column="New_User_Id" jdbcType="VARCHAR" property="newUserId"/>
@@ -41,6 +43,7 @@
         <result column="Entrust_State" jdbcType="INTEGER" property="entrustState"/>
     </resultMap>
 
+    <!--通过委托订单ID，去查询信息的映射-->
     <resultMap id="BaseDaParticulars" type="com.bbtong.Base.DaParticulars">
         <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
         <id column="User_Id" jdbcType="INTEGER" property="userId"/>
@@ -50,11 +53,21 @@
         <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
     </resultMap>
 
+    <!--接收用户的电话和姓名 以及保险公司 的映射-->
     <resultMap id="BaseInformation" type="com.bbtong.Base.Information">
         <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
         <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
         <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
     </resultMap>
+
+    <!--用户对委托有意向时，需要判断用户的一些数据-->
+    <resultMap id="BaseHaveUser" type="com.bbtong.Base.HaveUser">
+        <result column="User_Integrity" jdbcType="DOUBLE" property="userIntegrity"/>
+        <result column="User_Member_State" jdbcType="INTEGER" property="userMemberState"/>
+        <result column="User_Order_State" jdbcType="CHAR" property="userOrderState"/>
+        <result column="Intention_State" jdbcType="INTEGER" property="intentionState"/>
+    </resultMap>
+
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -559,12 +572,6 @@
     <select id="DaSelectEntrust" parameterType="map" resultMap="BaseDaEntrust">
     SELECT e.Entrust_Id,e.Entrust_Address,e.Entrust_Start_Time,e.Entrust_End_Time,e.Insurance_Company_Id,ic.Insurance_Company_Name,e.Entrust_State,e.Entrust_Money,e.Entrust_Return_Money,e.New_User_Id FROM bbt_entrust e LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id WHERE e.User_Id=#{userId} AND e.Entrust_State=0 ORDER BY e.Entrust_Start_Time LIMIT #{state},#{end}
   </select>
-
-    <!--大家保险的用户查询对应的信息-->
-    <select id="NewUserId" parameterType="map" resultType="string">
-        select New_User_Id from  bbt_entrust where User_Id=#{userId} and Entrust_Id=#{entrustId}
-    </select>
-
     <!--大家保险用户查询对应的订单的信息-->
     <select id="DaParticulars" parameterType="map" resultMap="BaseDaParticulars">
         SELECT e.license_Plate_Number,e.Entrust_Id,u.User_Phone,u.User_Name,u.Insurance_Company_Name,u.User_Id FROM
@@ -604,4 +611,53 @@
     <insert id="AddOrder" parameterType="map">
          insert into bbt_order (User_Id, Finally_User_Id, Entrust_Id) values (#{userId},#{finallyUserId},#{entrustId})
     </insert>
+
+    <!--第五步 将接单的这个人是否可以接单的状态，修改成不可以接单-->
+    <update id="UpdateOrder" parameterType="map">
+        update bbt_user
+        <set>
+            User_Order_State=1
+        </set>
+        where User_Id=#{finallyUserId}
+    </update>
+
+    <!--查询自己对应的发布委托的记录-->
+    <select id="IssueRecord" parameterType="int" resultMap="BaseResultMap">
+        select  * from  bbt_entrust where User_Id=#{userId} order by Entrust_Start_Time desc
+    </select>
+
+    <!--用户查询自己对应接过的委托记录-->
+    <select id="OrderRecord" parameterType="int" resultMap="BaseResultMap">
+        SELECT e.* FROM bbt_entrust e LEFT JOIN bbt_order o ON e.Finally_User_Id=o.Finally_User_Id where o.Finally_User_Id=#{userId} ORDER BY e.Entrust_Grade_Time DESC
+    </select>
+
+    <!--第一步 先查询数据库 1.用户是否还能有意向 2.是否还能接单 3.是否开发通了年费 4.诚信是否合格-->
+    <select id="SelectUser" parameterType="map" resultMap="BaseHaveUser">
+        select User_Integrity,User_Member_State,User_Order_State,Intention_State from bbt_user where User_Id=#{userId}
+    </select>
+
+    <!--第二步 查询委托的所有，有意向的人数-->
+    <select id="NewUserId" parameterType="map" resultType="string">
+        select New_User_Id from  bbt_entrust where Entrust_Id=#{entrustId}
+    </select>
+
+    <!--第三步 将委托有意向的人更新-->
+    <update id="Update" parameterType="map">
+        update bbt_entrust
+        <set>
+            <if test="newUserId != null and newUserId != '' ">
+                New_User_Id=#{newUserId}
+            </if>
+        </set>
+        where Entrust_Id=#{entrustId}
+    </update>
+
+    <!--第四步 将用户的有意向参数改成1(表示不可以)-->
+    <update id="Intention" parameterType="map">
+        update bbt_user
+        <set>
+            Intention_State=1
+        </set>
+        where User_Id=#{userId}
+    </update>
 </mapper>

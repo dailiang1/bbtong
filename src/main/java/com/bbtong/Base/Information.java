@@ -3,7 +3,7 @@ package com.bbtong.Base;
 import lombok.Data;
 
 /**
- * 接收用户的电话和姓名
+ * 接收用户的电话和姓名 以及保险公司
  */
 
 @Data

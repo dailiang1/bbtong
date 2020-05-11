@@ -3,6 +3,7 @@ package com.bbtong.Controller;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Service.EntrustService;
 import com.bbtong.Util.Result;
+import com.bbtong.Util.ResultHave;
 import com.bbtong.Util.ResultPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -207,32 +208,92 @@ public class EntrustController {
 
     /**
      * 将委托单派给指定的人
-     * @param entrustId  委托的ID
-     * @param userId    发布委托的人
-     * @param finallyUserId 接单的人
-     * @param friendName  接单人的姓名
-     * @param friendPhone  接单人的电话
-     * @param InsuranceCompanyName  接单人的保险公司名称
+     *
+     * @param entrustId            委托的ID
+     * @param userId               发布委托的人
+     * @param finallyUserId        接单的人
+     * @param friendName           接单人的姓名
+     * @param friendPhone          接单人的电话
+     * @param InsuranceCompanyName 接单人的保险公司名称
      * @return 戴辆
      */
     @ResponseBody
     @RequestMapping(value = "/sendorders")
-    public ResultPage SendOrders(Integer userId, Integer finallyUserId, Integer entrustId,String friendName,String friendPhone,String InsuranceCompanyName) {
+    public ResultPage SendOrders(Integer userId, Integer finallyUserId, Integer entrustId, String friendName, String friendPhone, String InsuranceCompanyName) {
         //创建resultPage的实体来接收数据
         ResultPage resultPage = new ResultPage();
         //判断userId和newUserId是否为空，如为空的话，则说明当前异常
-        if (null == userId || null == finallyUserId||null==entrustId) {
+        if (null == userId || null == finallyUserId || null == entrustId) {
             resultPage.setCode(300);
             resultPage.setMessage("当前异常，请稍后再试");
             return resultPage;
         }
-        try {
-            resultPage=entrustService.SendOrders(userId, finallyUserId, entrustId,friendName,friendPhone,InsuranceCompanyName);
-        }catch (Exception e){
-            resultPage.setCode(500);
-            resultPage.setMessage("执行过程中出现异常");
-            return  resultPage;
-        }
+        //接收后面传来的数据
+        resultPage = entrustService.SendOrders(userId, finallyUserId, entrustId, friendName, friendPhone, InsuranceCompanyName);
         return resultPage;
+    }
+
+    /**
+     * 委托人查看自己发布的委托
+     *
+     * @param userId 委托人的userId
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/issue")
+    public Result IssueRecord(Integer userId) {
+        //创建result函数来接收数据
+        Result result = new Result();
+        //判断userId是不是为空，如果为空的话，则说名出现异常
+        if (null == userId) {
+            result.setCode(3000);
+            result.setMessage("当前异常");
+            return result;
+        }
+        //创建函数来接受service层返回的数据
+        result = entrustService.IssueRecord(userId);
+        return result;
+    }
+
+    /**
+     * 查看用户的接单记录
+     *
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/order")
+    public Result OrderRecord(Integer userId) {
+        //创建函数俩接受数据，以及返回数据
+        Result result = new Result();
+        //判断userId是不是为空，如果为空的话，则说名出现异常
+        if (null == userId) {
+            result.setCode(3000);
+            result.setMessage("当前异常");
+            return result;
+        }
+        //创建函数来接受service层返回的数据
+        result = entrustService.OrderRecord(userId);
+        return result;
+    }
+
+    /**
+     * 用户有意向委托
+     * @param userId 用户的ID
+     * @param entrustId 委托的ID
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/have")
+    public ResultHave HavaEntrust(Integer userId, Integer entrustId){
+        //创建函数来接受返回的值
+        ResultHave resultHave=new ResultHave();
+        if (null==userId||null==entrustId){
+            resultHave.setCode(300);
+            resultHave.setMessage("当前异常，请稍后再试");
+            return resultHave;
+        }
+        resultHave=entrustService.HavaEntrust(userId, entrustId);
+        return resultHave;
     }
 }

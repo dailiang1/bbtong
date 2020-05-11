@@ -2,6 +2,7 @@ package com.bbtong.Dao;
 
 import com.bbtong.Base.DaEntrust;
 import com.bbtong.Base.DaParticulars;
+import com.bbtong.Base.HaveUser;
 import com.bbtong.Base.Information;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Pojo.EntrustExample;
@@ -57,13 +58,6 @@ public interface EntrustDao {
     List<DaEntrust> DaSelectEntrust(Map map);
 
     /**
-     * 先通过用户的ID和委托订单的ID查询对应有意向接单的人的ID
-     * @param map userId 和 entrustId
-     * @return 戴辆
-     */
-    String NewUserId(Map map);
-
-    /**
      * 大家保险用户查询对应的有意向接单的客户信息
      * @param map
      * @return
@@ -104,4 +98,53 @@ public interface EntrustDao {
      * @return 戴辆
      */
     Integer AddOrder(Map map);
+
+    /**
+     * 第五步 将接单的这个人是否可以接单的状态，修改成不可以接单
+     * @param map 接单人的ID
+     * @return 戴辆
+     */
+    Integer UpdateOrder(Map map);
+
+    /**
+     * 委托人查询自己对应的发布过的委托
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    List<Entrust> IssueRecord(@Param("userId") Integer userId);
+
+    /**
+     * 委托人查询自己 对应接过的委托
+     * @param userId 戴辆
+     * @return 戴辆
+     */
+    List<Entrust> OrderRecord(@Param("userId") Integer userId);
+
+    /**
+     * 第一步 先查询数据库 1.用户是否还能有意向 2.是否还能接单 3.是否开发通了年费 4.诚信是否合格
+     * @param map 通过用户的 userId 来查询数据
+     * @return 戴辆
+     */
+    HaveUser SelectUser(Map map);
+
+    /**
+     * 第二步 通过用户的ID和委托订单的ID查询对应有意向接单的人的ID
+     * @param map userId 和 entrustId
+     * @return 戴辆
+     */
+    String NewUserId(Map map);
+
+    /**
+     * 第三步 将用户添加到该订单的有意向人数中
+     * @param map newUserId 有意向的用户数据
+     * @return 戴辆
+     */
+    Integer Update(Map map);
+
+    /**
+     * 第四步 将用户的意向委托次数改成1(表示不可以)
+     * @param map 用户的userId
+     * @return 戴辆
+     */
+    Integer Intention(Map map);
 }

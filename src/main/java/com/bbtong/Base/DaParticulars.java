@@ -2,7 +2,7 @@ package com.bbtong.Base;
 
 import lombok.Data;
 
-/***
+/**
  * 通过委托订单ID，去查询信息。(查询信息返回的实体类)
  */
 @Data
