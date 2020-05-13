@@ -1,15 +1,13 @@
 package com.bbtong.Service.Impl;
 
-import com.bbtong.Base.DaEntrust;
-import com.bbtong.Base.DaParticulars;
-import com.bbtong.Base.HaveUser;
-import com.bbtong.Base.Information;
+import com.bbtong.Base.*;
 import com.bbtong.Dao.EntrustDao;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Service.EntrustService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultHave;
 import com.bbtong.Util.ResultPage;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.apache.taglibs.standard.tag.common.sql.DataSourceUtil;
 import org.springframework.stereotype.Service;
@@ -17,10 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 委托订单表
@@ -131,6 +126,13 @@ public class EntrustServiceImpl implements EntrustService {
         map.put("userId", userId);
         //将entrustId存到map中用于sql的查询
         map.put("entrustId", entrustId);
+        //查询当前订单是否已经派送人了
+        Entrust entrust=entrustDao.Entrust(map);
+        if (entrust.getFinallyUserId()>0){
+            result.setCode(200);
+            result.setMessage("改委托已经派单，请您联系接单人");
+            return result;
+        }
         //查询对应订单的信息的和人数
         List<DaParticulars> daParticularsList = entrustDao.DaParticulars(map);
         if (daParticularsList.size() > 0) {//判断数组是不是为空，如果数组为空的话，则表示没有数据
@@ -252,9 +254,9 @@ public class EntrustServiceImpl implements EntrustService {
      * @param entrustId 委托的ID
      * @return 戴辆
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public ResultHave HavaEntrust(Integer userId, Integer entrustId) {
+    public ResultHave HaveEntrust(Integer userId, Integer entrustId) {
         //创建实体类来操作数据
         ResultHave resultHave = new ResultHave();
         //创建map函数来进行数据的操作
@@ -335,4 +337,80 @@ public class EntrustServiceImpl implements EntrustService {
         }
         return resultHave;
     }
+
+    /**
+     * 用户查看自己有意向委托的信息
+     *
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    @Override
+    public ResultHave UserIntention(Integer userId) {
+        //创建实体类来接受数据
+        ResultHave resultHave = new ResultHave();
+        //创建实体来接受，用户有意向并且还没有接单的委托
+        UserIntention userIntention = entrustDao.UserIntention(userId);
+        //判断有没有查到数据
+        if (null != userIntention) {
+            resultHave.setCode(200);
+            resultHave.setMessage("成功");
+            resultHave.setData(userIntention);
+        } else {
+            resultHave.setCode(300);
+            resultHave.setMessage("您当前没有有意向委托，或者出现异常");
+        }
+        return resultHave;
+    }
+
+    /**
+     * 用户查询自己当前有意向的委托信息
+     *
+     * @param userId    用户的ID
+     * @param entrustId 当前要取消委托的ID
+     * @return 戴辆
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Result OffIntention(Integer userId, Integer entrustId) {
+        //创建实体类result来接受数据
+        Result result = new Result();
+        //创建map的函数来接受参数
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);//将userId的数据存到map 中
+        map.put("entrustId", entrustId);//将entrustId 的数据存到map中
+        //第一步通过委托的ID获取，当前订单所有的有意向的人
+        String newUserId = entrustDao.NewUserId(map);
+        //创建一个数组来接受数据
+        String[] newUser = newUserId.split(",");
+        //将数组转换成list数组
+        List<String> list = Arrays.asList(newUser);
+        //将数组转换成Arrays数组
+        List<String> arrayList = new ArrayList<String>(list);
+        //便利循环数组数据
+        for (String item : list) {
+            //如果要删除的数据和循环的数据相同，就删除这个指定的数据
+            if (item.equals(userId.toString())) {
+                arrayList.remove(userId.toString());
+            }
+        }
+        //利用apeach.comment.lang3中的StringUtils方法中的strip将数据转换成数组，然后再将[]去掉。
+        newUserId = StringUtils.strip(arrayList.toString(), "[]");
+        //将数据写入到map中
+        map.put("newUserId", newUserId);
+        try {
+            //第二步 将修改之后的数据写入到数据库中
+            int DateNewUserId = entrustDao.DateNewUserId(map);
+            //第三步将用户的是否有意向委托修改成可以
+            int DateIntention = entrustDao.DateIntention(map);
+            result.setCode(200);
+            result.setMessage("取消成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            result.setCode(300);
+            result.setMessage("出现异常");
+        }
+        return result;
+    }
+
 }

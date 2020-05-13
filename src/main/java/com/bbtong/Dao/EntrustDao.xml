@@ -68,6 +68,28 @@
         <result column="Intention_State" jdbcType="INTEGER" property="intentionState"/>
     </resultMap>
 
+    <!--查询显示用户有意向委托的信息的映射-->
+    <resultMap id="BaseUserIntention" type="com.bbtong.Base.UserIntention">
+        <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
+        <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
+        <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
+        <result column="Entrust_Service_Charge" jdbcType="DOUBLE" property="entrustServiceCharge"/>
+        <result column="Entrust_Address" jdbcType="VARCHAR" property="entrustAddress"/>
+        <result column="Insurance_Company_Id" jdbcType="INTEGER" property="insuranceCompanyId"/>
+        <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
+        <result column="Entrust_Start_Time" jdbcType="VARCHAR" property="entrustStartTime"/>
+        <result column="Entrust_End_Time" jdbcType="VARCHAR" property="entrustEndTime"/>
+        <result column="Entrust_Car_Brand" jdbcType="VARCHAR" property="entrustCarBrand"/>
+        <result column="Entrust_Remark" jdbcType="VARCHAR" property="entrustRemark"/>
+        <result column="Car_Type_Id" jdbcType="INTEGER" property="carTypeId"/>
+        <result column="Car_Type_Name" jdbcType="VARCHAR" property="carTypeName"/>
+        <result column="Amount_Range_Id" jdbcType="INTEGER" property="amountRangeId"/>
+        <result column="Amount_Range_Name" jdbcType="VARCHAR" property="amountRangeName"/>
+        <result column="Entrust_Insure" jdbcType="VARCHAR" property="entrustInsure"/>
+        <result column="Entrust_Return_Money" jdbcType="DOUBLE" property="entrustReturnMoney"/>
+        <result column="Entrust_Return_Time" jdbcType="INTEGER" property="entrustReturnTime"/>
+        <result column="Entrust_Business" jdbcType="INTEGER" property="entrustBusiness"/>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -572,6 +594,11 @@
     <select id="DaSelectEntrust" parameterType="map" resultMap="BaseDaEntrust">
     SELECT e.Entrust_Id,e.Entrust_Address,e.Entrust_Start_Time,e.Entrust_End_Time,e.Insurance_Company_Id,ic.Insurance_Company_Name,e.Entrust_State,e.Entrust_Money,e.Entrust_Return_Money,e.New_User_Id FROM bbt_entrust e LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id WHERE e.User_Id=#{userId} AND e.Entrust_State=0 ORDER BY e.Entrust_Start_Time LIMIT #{state},#{end}
   </select>
+    <!--先查询订单的信息，来哦按段是否已经派送给人了-->
+    <select id="Entrust" parameterType="map" resultMap="BaseResultMap">
+        select * from bbt_entrust where User_Id=#{userId} and Entrust_Id=#{entrustId}
+    </select>
+
     <!--大家保险用户查询对应的订单的信息-->
     <select id="DaParticulars" parameterType="map" resultMap="BaseDaParticulars">
         SELECT e.license_Plate_Number,e.Entrust_Id,u.User_Phone,u.User_Name,u.Insurance_Company_Name,u.User_Id FROM
@@ -657,6 +684,31 @@
         update bbt_user
         <set>
             Intention_State=1
+        </set>
+        where User_Id=#{userId}
+    </update>
+
+    <!--用户查看自己当前有意向的委托-->
+    <select id="UserIntention" parameterType="int" resultMap="BaseUserIntention">
+        SELECT e.Entrust_Id,e.Entrust_Car_Brand,e.Entrust_Address,e.Entrust_Remark,e.Entrust_Start_Time,e.Entrust_End_Time,e.Entrust_Insure,e.Entrust_Service_Charge,e.Entrust_Money,e.Entrust_Return_Money,e.Entrust_Return_Time,e.Entrust_Business,ct.Car_Type_Id,ct.Car_Type_Name,ic.Insurance_Company_Id,ic.Insurance_Company_Name,ar.Amount_Range_Id,ar.Amount_Range_Name FROM bbt_entrust e LEFT JOIN bbt_car_type ct ON e.Car_Type_Id=ct.Car_Type_Id LEFT JOIN bbt_amount_range ar ON e.Amount_Range_Id=ar.Amount_Range_Id LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id where INSTR(e.New_User_Id,#{userId}) and e.Entrust_State=0
+    </select>
+
+    <!--第二步修改委托对应的有意向数据-->
+    <update id="DateNewUserId" parameterType="map">
+        update bbt_entrust
+        <set>
+            <if test="newUserId != null and newUserId != ''">
+                New_User_Id=#{newUserId}
+            </if>
+        </set>
+        where Entrust_Id=#{entrustId}
+    </update>
+
+    <!--第三步 将用户的可意向状态修改成可以有意向-->
+    <update id="DateIntention" parameterType="map">
+        update bbt_user
+        <set>
+            Intention_state=0
         </set>
         where User_Id=#{userId}
     </update>

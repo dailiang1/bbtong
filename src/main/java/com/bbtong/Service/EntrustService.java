@@ -39,17 +39,19 @@ public interface EntrustService {
 
     /**
      * 将委托派给指定的人
-     * @param entrustId 委托的ID，用来操作用户
-     * @param userId    发布委托人的ID
+     *
+     * @param entrustId     委托的ID，用来操作用户
+     * @param userId        发布委托人的ID
      * @param finallyUserId 接收委托人的ID
-     * @param friendName  接单人的姓名
-     * @param friendPhone  接单人的电话
+     * @param friendName    接单人的姓名
+     * @param friendPhone   接单人的电话
      * @return 戴辆
      */
-    ResultPage SendOrders(Integer userId, Integer finallyUserId, Integer entrustId,String friendName,String friendPhone,String InsuranceCompanyName);
+    ResultPage SendOrders(Integer userId, Integer finallyUserId, Integer entrustId, String friendName, String friendPhone, String InsuranceCompanyName);
 
     /**
      * 委托人查询自己发布的委托
+     *
      * @param userId 委托人的ID
      * @return 戴辆
      */
@@ -57,6 +59,7 @@ public interface EntrustService {
 
     /**
      * 委托人查询自己接过的委托
+     *
      * @param userId 用户的ID
      * @return 戴辆
      */
@@ -64,9 +67,27 @@ public interface EntrustService {
 
     /**
      * 用户有意向委托
-     * @param userId 用户的ID
+     *
+     * @param userId    用户的ID
      * @param entrustId 委托的ID
      * @return 戴辆
      */
-    ResultHave HavaEntrust(Integer userId, Integer entrustId);
+    ResultHave HaveEntrust(Integer userId, Integer entrustId);
+
+    /**
+     * 查询用户有意向的委托信息
+     *
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    ResultHave UserIntention(Integer userId);
+
+    /**
+     * 用户查询自己当前有意向的委托的信息
+     *
+     * @param userId    用户的ID
+     * @param entrustId 当前要取消委托的ID
+     * @return 戴辆
+     */
+    Result OffIntention(Integer userId, Integer entrustId);
 }

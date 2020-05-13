@@ -1,9 +1,6 @@
 package com.bbtong.Dao;
 
-import com.bbtong.Base.DaEntrust;
-import com.bbtong.Base.DaParticulars;
-import com.bbtong.Base.HaveUser;
-import com.bbtong.Base.Information;
+import com.bbtong.Base.*;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Pojo.EntrustExample;
 import java.util.List;
@@ -56,6 +53,13 @@ public interface EntrustDao {
      * @return 戴辆
      */
     List<DaEntrust> DaSelectEntrust(Map map);
+
+    /**
+     * 查询对应的
+     * @param map
+     * @return
+     */
+    Entrust  Entrust(Map map);
 
     /**
      * 大家保险用户查询对应的有意向接单的客户信息
@@ -147,4 +151,25 @@ public interface EntrustDao {
      * @return 戴辆
      */
     Integer Intention(Map map);
+
+    /**
+     * 用户查看自己有意向委托的信息
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    UserIntention UserIntention(@Param("userId") Integer userId);
+
+    /**
+     * 第二步 用户取消对应的委托意向 将用户从有意向的人中去除
+     * @param map entrustId 委托的ID newUserId 更新后的有意向委托函数
+     * @return 戴辆
+     */
+    Integer DateNewUserId(Map map);
+
+    /**
+     * 将用户的可意向状态，修改成可以有意向
+     * @param map 用来存储用户的Id
+     * @return 戴辆
+     */
+    Integer DateIntention(Map map);
 }

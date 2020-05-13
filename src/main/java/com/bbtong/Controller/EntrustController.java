@@ -279,21 +279,68 @@ public class EntrustController {
 
     /**
      * 用户有意向委托
-     * @param userId 用户的ID
+     *
+     * @param userId    用户的ID
      * @param entrustId 委托的ID
      * @return 戴辆
      */
     @ResponseBody
     @RequestMapping(value = "/have")
-    public ResultHave HavaEntrust(Integer userId, Integer entrustId){
+    public ResultHave haveEntrust(Integer userId, Integer entrustId) {
         //创建函数来接受返回的值
-        ResultHave resultHave=new ResultHave();
-        if (null==userId||null==entrustId){
+        ResultHave resultHave = new ResultHave();
+        if (null == userId || null == entrustId) {
             resultHave.setCode(300);
             resultHave.setMessage("当前异常，请稍后再试");
             return resultHave;
         }
-        resultHave=entrustService.HavaEntrust(userId, entrustId);
+        resultHave = entrustService.HaveEntrust(userId, entrustId);
         return resultHave;
     }
+
+    /**
+     * 查询显示用户有意向的订单的信息
+     *
+     * @param userId 用户的userId
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/userintention")
+    public ResultHave UserIntention(Integer userId) {
+        //创建实体来进行数据的操作
+        ResultHave resultHave = new ResultHave();
+        //判断userId是否为空，如果为空的话，则说明数据有问题
+        if (null == userId) {
+            resultHave.setCode(300);
+            resultHave.setMessage("当前异常");
+            return resultHave;
+        }
+        //将数据接收返回到前端首页
+        resultHave = entrustService.UserIntention(userId);
+        return resultHave;
+    }
+
+    /**
+     * 用户取消自己当前有意向的订单信息
+     *
+     * @param entrustId 委托的ID
+     * @param userId    用户ID
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/offintention")
+    public Result OffIntention(Integer userId, Integer entrustId) {
+        //创建实体类来接受数据，和返回数据
+        Result result = new Result();
+        if (null == userId || null == entrustId) {
+            result.setCode(300);
+            result.setMessage("当前异常，请稍后再试");
+            return result;
+        }
+        //利用实体类来接受service层返回的实体
+        result = entrustService.OffIntention(userId, entrustId);
+        return result;
+    }
+
+
 }

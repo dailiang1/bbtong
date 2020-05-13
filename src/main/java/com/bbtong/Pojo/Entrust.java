@@ -3,8 +3,8 @@ package com.bbtong.Pojo;
 import java.io.Serializable;
 
 /**
- * bbt_entrust
- * @author 
+ * bbt_entrust 委托订单表
+ * @author
  */
 public class Entrust implements Serializable {
     /**
