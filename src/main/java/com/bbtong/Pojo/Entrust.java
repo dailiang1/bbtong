@@ -83,7 +83,7 @@ public class Entrust implements Serializable {
     private Integer amountRangeId;
 
     /**
-     *  表示委托是否被接(0表示未接单，1表示已接单，2表示已完成，3表示没人接单，4表示委托人主动撤单)
+     * 表示委托是否被接(0表示未接单，1表示已接单，2表示待确认完成，3表示已完成，4表示没人接单，5表示委托人主动撤单)
      */
     private Integer entrustState;
 

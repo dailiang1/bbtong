@@ -119,6 +119,10 @@ public class EntrustController {
         if (null == entrust.getEntrustReturnMoney()) {
             entrust.setEntrustReturnMoney(entrust.getEntrustMoney() * 0.5);
         }
+        //判断还单的金额是不是大于了百分之五十，如果大于了百分之五十就设置为百分之五十
+        if (entrust.getEntrustReturnMoney() >= (entrust.getEntrustMoney() * 0.5)) {
+            entrust.setEntrustReturnMoney(entrust.getEntrustMoney() * 0.5);
+        }
         //判断有没有还单的时间期限,如果没有设置时间期限的话，就在这单完成之后的七天之内
         if (null == entrust.getEntrustReturnTime()) {
             entrust.setEntrustReturnTime(7);
@@ -342,5 +346,70 @@ public class EntrustController {
         return result;
     }
 
+    /**
+     * 用户查询他当前正在处理的委托
+     *
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "queryentrust")
+    public ResultHave QueryEntrust(Integer userId) {
+        //创建实体来接受数据
+        ResultHave resultHave = new ResultHave();
+        //判断有没有获取到userId,如果没有的话就说明出现了异常
+        if (null == userId) {
+            resultHave.setCode(300);
+            resultHave.setMessage("出现异常请稍后再试");
+            return resultHave;
+        }
+        //接受后端传来的数据
+        resultHave = entrustService.QueryEntrust(userId);
+        return resultHave;
+    }
 
+    /**
+     * 用户确认完成了委托
+     * @param userId 委托人的ID
+     * @param newUserId 接单人的ID
+     * @param entrustId 委托的ID
+     * @param entrustReturnMoney 委托需要还单的金额
+     * @param entrustReturnTime 委托还单的期限(多少天，用天做单位然后转换)
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/accomplish")
+    public Result Accomplish(Integer userId,Integer newUserId,Integer entrustId,Double entrustReturnMoney, Integer entrustReturnTime){
+        //创建函数来进行操作
+        Result result=new Result();
+        //判断有没有获取到userId，newUserId,entrustId,entrustReturnMoney,entrustReturnTime这些数据的信息
+        if (null==userId||null==newUserId||null==entrustId||null==entrustReturnMoney||null==entrustReturnTime){
+            result.setCode(300);
+            result.setMessage("当前异常，请稍后再试");
+            return result;
+        }
+        result=entrustService.Accomplish(userId, newUserId, entrustId, entrustReturnMoney, entrustReturnTime);
+        return result;
+    }
+
+    /**
+     * 委托人确认审核对应的委托是否完成了，如果完成了的话，就将委托的状态修改
+     * @param userId 用户ID
+     * @param entrustId 委托的ID
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/daaffirm")
+    public Result DaAffirm(Integer userId,Integer entrustId){
+        //创建result函数来操作数据
+        Result result=new Result();
+        //判断参数的问题，如果参数为null的话则说明出现了异常
+        if(null==userId||null==entrustId){
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        result=entrustService.DaAffirm(userId, entrustId);
+        return result;
+    }
 }

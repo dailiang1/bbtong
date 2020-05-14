@@ -364,63 +364,63 @@ public class AwaitDeliveryOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyIsNull() {
-            addCriterion("Entrust_Money is null");
+        public Criteria andEntrustReturnMoneyIsNull() {
+            addCriterion("Entrust_Return_Money is null");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyIsNotNull() {
-            addCriterion("Entrust_Money is not null");
+        public Criteria andEntrustReturnMoneyIsNotNull() {
+            addCriterion("Entrust_Return_Money is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyEqualTo(Double value) {
-            addCriterion("Entrust_Money =", value, "entrustMoney");
+        public Criteria andEntrustReturnMoneyEqualTo(Double value) {
+            addCriterion("Entrust_Return_Money =", value, "entrustReturnMoney");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyNotEqualTo(Double value) {
-            addCriterion("Entrust_Money <>", value, "entrustMoney");
+        public Criteria andEntrustReturnMoneyNotEqualTo(Double value) {
+            addCriterion("Entrust_Return_Money <>", value, "entrustReturnMoney");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyGreaterThan(Double value) {
-            addCriterion("Entrust_Money >", value, "entrustMoney");
+        public Criteria andEntrustReturnMoneyGreaterThan(Double value) {
+            addCriterion("Entrust_Return_Money >", value, "entrustReturnMoney");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyGreaterThanOrEqualTo(Double value) {
-            addCriterion("Entrust_Money >=", value, "entrustMoney");
+        public Criteria andEntrustReturnMoneyGreaterThanOrEqualTo(Double value) {
+            addCriterion("Entrust_Return_Money >=", value, "entrustReturnMoney");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyLessThan(Double value) {
-            addCriterion("Entrust_Money <", value, "entrustMoney");
+        public Criteria andEntrustReturnMoneyLessThan(Double value) {
+            addCriterion("Entrust_Return_Money <", value, "entrustReturnMoney");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyLessThanOrEqualTo(Double value) {
-            addCriterion("Entrust_Money <=", value, "entrustMoney");
+        public Criteria andEntrustReturnMoneyLessThanOrEqualTo(Double value) {
+            addCriterion("Entrust_Return_Money <=", value, "entrustReturnMoney");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyIn(List<Double> values) {
-            addCriterion("Entrust_Money in", values, "entrustMoney");
+        public Criteria andEntrustReturnMoneyIn(List<Double> values) {
+            addCriterion("Entrust_Return_Money in", values, "entrustReturnMoney");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyNotIn(List<Double> values) {
-            addCriterion("Entrust_Money not in", values, "entrustMoney");
+        public Criteria andEntrustReturnMoneyNotIn(List<Double> values) {
+            addCriterion("Entrust_Return_Money not in", values, "entrustReturnMoney");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyBetween(Double value1, Double value2) {
-            addCriterion("Entrust_Money between", value1, value2, "entrustMoney");
+        public Criteria andEntrustReturnMoneyBetween(Double value1, Double value2) {
+            addCriterion("Entrust_Return_Money between", value1, value2, "entrustReturnMoney");
             return (Criteria) this;
         }
 
-        public Criteria andEntrustMoneyNotBetween(Double value1, Double value2) {
-            addCriterion("Entrust_Money not between", value1, value2, "entrustMoney");
+        public Criteria andEntrustReturnMoneyNotBetween(Double value1, Double value2) {
+            addCriterion("Entrust_Return_Money not between", value1, value2, "entrustReturnMoney");
             return (Criteria) this;
         }
 

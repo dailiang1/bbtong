@@ -90,4 +90,30 @@ public interface EntrustService {
      * @return 戴辆
      */
     Result OffIntention(Integer userId, Integer entrustId);
+
+    /**
+     * 用户查询他当前正在处理的委托
+     * @param userId 用户的userId
+     * @return 戴辆
+     */
+    ResultHave QueryEntrust(Integer userId);
+
+    /**
+     * 用户完成委托之后确认
+     * @param userId 发布委托用户的ID
+     * @param newUserId 接单人的ID
+     * @param entrustId 委托的ID
+     * @param entrustReturnMoney 需要还单的金额
+     * @param entrustReturnTime 规定还单的期限
+     * @return 戴辆
+     */
+    Result Accomplish(Integer userId,Integer newUserId,Integer entrustId,Double entrustReturnMoney, Integer entrustReturnTime);
+
+    /**
+     * 委托人确认审核对应的委托是否完成了，如果完成了的话，就将委托的状态修改
+     * @param userId 委托人的ID
+     * @param entrustId 委托的ID
+     * @return 戴辆
+     */
+    Result DaAffirm(Integer userId,Integer entrustId);
 }

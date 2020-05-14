@@ -172,4 +172,32 @@ public interface EntrustDao {
      * @return 戴辆
      */
     Integer DateIntention(Map map);
+
+    /**
+     * 用户查询他的当前在处理的委托
+     * @param map 用来存储userId
+     * @return 戴辆
+     */
+    UserIntention QueryEntrust(Map map);
+
+    /**
+     * 第一步 将委托的状态修改成，已完成
+     * @param map map中存储着条件的数据
+     * @return 戴辆
+     */
+    Integer AlterState(Map map);
+
+    /**
+     * 第二步 将委托写入到待还单订单中
+     * @param map map函数用来存储要存储的函数
+     * @return 戴辆
+     */
+    Integer SaveAlso(Map map);
+
+    /**
+     * 将委托的状态修改
+     * @param map map中用来存储参数
+     * @return 戴辆
+     */
+    Integer DaAffirm(Map map);
 }

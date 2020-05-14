@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * bbt_await_delivery_order 待还单表
- * 戴辆
+ * @author 
  */
 public class AwaitDeliveryOrder implements Serializable {
     /**
@@ -28,9 +28,9 @@ public class AwaitDeliveryOrder implements Serializable {
     private Integer newUserId;
 
     /**
-     * 委托的金额
+     * 需要还单的金额
      */
-    private Double entrustMoney;
+    private Double entrustReturnMoney;
 
     /**
      * 委托单完成的时间
@@ -81,12 +81,12 @@ public class AwaitDeliveryOrder implements Serializable {
         this.newUserId = newUserId;
     }
 
-    public Double getEntrustMoney() {
-        return entrustMoney;
+    public Double getEntrustReturnMoney() {
+        return entrustReturnMoney;
     }
 
-    public void setEntrustMoney(Double entrustMoney) {
-        this.entrustMoney = entrustMoney;
+    public void setEntrustReturnMoney(Double entrustReturnMoney) {
+        this.entrustReturnMoney = entrustReturnMoney;
     }
 
     public String getEntrustGradeTime() {
@@ -129,7 +129,7 @@ public class AwaitDeliveryOrder implements Serializable {
             && (this.getNewEntrustId() == null ? other.getNewEntrustId() == null : this.getNewEntrustId().equals(other.getNewEntrustId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getNewUserId() == null ? other.getNewUserId() == null : this.getNewUserId().equals(other.getNewUserId()))
-            && (this.getEntrustMoney() == null ? other.getEntrustMoney() == null : this.getEntrustMoney().equals(other.getEntrustMoney()))
+            && (this.getEntrustReturnMoney() == null ? other.getEntrustReturnMoney() == null : this.getEntrustReturnMoney().equals(other.getEntrustReturnMoney()))
             && (this.getEntrustGradeTime() == null ? other.getEntrustGradeTime() == null : this.getEntrustGradeTime().equals(other.getEntrustGradeTime()))
             && (this.getEntrustReturnTime() == null ? other.getEntrustReturnTime() == null : this.getEntrustReturnTime().equals(other.getEntrustReturnTime()))
             && (this.getEntrustState() == null ? other.getEntrustState() == null : this.getEntrustState().equals(other.getEntrustState()));
@@ -143,7 +143,7 @@ public class AwaitDeliveryOrder implements Serializable {
         result = prime * result + ((getNewEntrustId() == null) ? 0 : getNewEntrustId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getNewUserId() == null) ? 0 : getNewUserId().hashCode());
-        result = prime * result + ((getEntrustMoney() == null) ? 0 : getEntrustMoney().hashCode());
+        result = prime * result + ((getEntrustReturnMoney() == null) ? 0 : getEntrustReturnMoney().hashCode());
         result = prime * result + ((getEntrustGradeTime() == null) ? 0 : getEntrustGradeTime().hashCode());
         result = prime * result + ((getEntrustReturnTime() == null) ? 0 : getEntrustReturnTime().hashCode());
         result = prime * result + ((getEntrustState() == null) ? 0 : getEntrustState().hashCode());
@@ -160,7 +160,7 @@ public class AwaitDeliveryOrder implements Serializable {
         sb.append(", newEntrustId=").append(newEntrustId);
         sb.append(", userId=").append(userId);
         sb.append(", newUserId=").append(newUserId);
-        sb.append(", entrustMoney=").append(entrustMoney);
+        sb.append(", entrustReturnMoney=").append(entrustReturnMoney);
         sb.append(", entrustGradeTime=").append(entrustGradeTime);
         sb.append(", entrustReturnTime=").append(entrustReturnTime);
         sb.append(", entrustState=").append(entrustState);

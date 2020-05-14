@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -127,8 +128,8 @@ public class EntrustServiceImpl implements EntrustService {
         //将entrustId存到map中用于sql的查询
         map.put("entrustId", entrustId);
         //查询当前订单是否已经派送人了
-        Entrust entrust=entrustDao.Entrust(map);
-        if (entrust.getFinallyUserId()>0){
+        Entrust entrust = entrustDao.Entrust(map);
+        if (entrust.getFinallyUserId() != null) {
             result.setCode(200);
             result.setMessage("改委托已经派单，请您联系接单人");
             return result;
@@ -394,7 +395,7 @@ public class EntrustServiceImpl implements EntrustService {
             }
         }
         //利用apeach.comment.lang3中的StringUtils方法中的strip将数据转换成数组，然后再将[]去掉。
-        newUserId = StringUtils.strip(arrayList.toString(), "[]");
+        newUserId = StringUtils.strip(arrayList.toString().replace(" ", ""), "[]");
         //将数据写入到map中
         map.put("newUserId", newUserId);
         try {
@@ -404,6 +405,120 @@ public class EntrustServiceImpl implements EntrustService {
             int DateIntention = entrustDao.DateIntention(map);
             result.setCode(200);
             result.setMessage("取消成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            result.setCode(300);
+            result.setMessage("出现异常");
+        }
+        return result;
+    }
+
+    /**
+     * 用户查询他当前正在处理的委托
+     *
+     * @param userId 用户的userId
+     * @return 戴辆
+     */
+    @Override
+    public ResultHave QueryEntrust(Integer userId) {
+        //创建实体类来返回数据
+        ResultHave resultHave = new ResultHave();
+        //创建map函数来接受数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        //将userId存到map中
+        map.put("userId", userId);
+        //查询数据
+        UserIntention userIntention = entrustDao.QueryEntrust(map);
+        if (null != userIntention) {
+            resultHave.setCode(200);
+            resultHave.setMessage("查询成功");
+            resultHave.setData(userIntention);
+        } else {
+            resultHave.setCode(400);
+            resultHave.setMessage("查询失败");
+        }
+        return resultHave;
+    }
+
+    /**
+     * 用户完成委托之后确认
+     *
+     * @param userId             发布委托用户的ID
+     * @param newUserId          接单人的ID
+     * @param entrustId          委托的ID
+     * @param entrustReturnMoney 需要还单的金额
+     * @param entrustReturnTime  规定还单的期限
+     * @return 戴辆
+     */
+    @Transactional(rollbackFor = Exception.class)//事务的注解，当方法中出现异常的时候事务回滚。
+    @Override
+    public Result Accomplish(Integer userId, Integer newUserId, Integer entrustId, Double entrustReturnMoney, Integer entrustReturnTime) {
+        //创建result来返回数据和存储数据
+        Result result = new Result();
+        //创建map函数来存储数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);//将userId存到map中
+        map.put("newUserId", newUserId);//将newUserId存到map中
+        map.put("entrustId", entrustId);//将entrustId存到map中
+        map.put("entrustReturnMoney", entrustReturnMoney);//将entrustReturnMoney存到map中
+        //获取当前日期
+        Date date = new Date();
+        //创建Calendar实例
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);   //设置当前时间
+        //在当前的日期上增加对应的天数
+        cal.add(Calendar.DAY_OF_WEEK, entrustReturnTime);
+        //将时间格式化成yyyy-MM-dd HH:mm:ss的格式
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //将设置好的时间存到map 中
+        map.put("entrustReturnTime", format.format(cal.getTime()));
+        try {
+            //第一步 将委托的状态修改成待审核完成
+            int AlterState = entrustDao.AlterState(map);
+            //第二步 将信息写入到还单表中
+            int SaveAlso = entrustDao.SaveAlso(map);
+            //判断是不是等于1，如果等于1的话，则说明没问题，如果不等于1的话则说明sql中出现了错误
+            if (SaveAlso != 1) {
+                throw new RuntimeException("错误信息");
+            }
+            result.setCode(200);
+            result.setMessage("委托确认成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            result.setCode(300);
+            result.setMessage("出现异常");
+        }
+        return result;
+    }
+
+    /**
+     * 委托人确认审核对应的委托是否完成了，如果完成了的话，就将委托的状态修改
+     *
+     * @param userId    委托人的ID
+     * @param entrustId 委托的ID
+     * @return 戴辆
+     */
+    @Transactional
+    @Override
+    public Result DaAffirm(Integer userId, Integer entrustId) {
+        //创建result实体来接受数据
+        Result result = new Result();
+        //创建map函数来操作数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        //将userId存到map中
+        map.put("userId", userId);
+        //将entrustId存到map参数中
+        map.put("entrustId", entrustId);
+        //将委托的状态修改
+        try {
+            int DaAffirm = entrustDao.DaAffirm(map);
+            if (DaAffirm != 1) {
+                throw new RuntimeException("错误信息");
+            }
+            result.setCode(200);
+            result.setMessage("完成成功");
         } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

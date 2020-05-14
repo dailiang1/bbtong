@@ -712,4 +712,24 @@
         </set>
         where User_Id=#{userId}
     </update>
+
+    <!--用户查询他当前正在处理的委托-->
+    <select id="QueryEntrust" parameterType="map" resultMap="BaseUserIntention">
+            SELECT e.Entrust_Id,e.Entrust_Car_Brand,e.Entrust_Address,e.Entrust_Remark,e.Entrust_Start_Time,e.Entrust_End_Time,e.Entrust_Insure,e.Entrust_Service_Charge,e.Entrust_Money,e.Entrust_Return_Money,e.Entrust_Return_Time,e.Entrust_Business,ct.Car_Type_Id,ct.Car_Type_Name,ic.Insurance_Company_Id,ic.Insurance_Company_Name,ar.Amount_Range_Id,ar.Amount_Range_Name FROM bbt_entrust e LEFT JOIN bbt_car_type ct ON e.Car_Type_Id=ct.Car_Type_Id LEFT JOIN bbt_amount_range ar ON e.Amount_Range_Id=ar.Amount_Range_Id LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id where e.Finally_User_Id=#{userId} and e.Entrust_State!=3
+    </select>
+
+    <!--第一步 将委托的状态修改成待确认完成-->
+    <update id="AlterState" parameterType="map">
+        update bbt_entrust set Entrust_State=2 where Entrust_Id=#{entrustId}
+    </update>
+
+    <!--第二步 将数据写入到待还单表中-->
+    <insert id="SaveAlso" parameterType="map">
+        insert into bbt_await_delivery_order(new_entrust_id, user_id, new_user_id, entrust_return_money, entrust_return_time)values (#{entrustId},#{userId},#{newUserId},#{entrustReturnMoney},#{entrustReturnTime})
+    </insert>
+
+    <!--将委托的状态修改成已完成-->
+    <update id="DaAffirm" parameterType="map">
+        update bbt_entrust set Entrust_State=3 where User_Id=#{userId} and Entrust_State=2 and Entrust_Id=#{entrustId}
+    </update>
 </mapper>
