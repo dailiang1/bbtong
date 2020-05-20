@@ -2,6 +2,7 @@ package com.bbtong.Service.Impl;
 
 import com.bbtong.Base.*;
 import com.bbtong.Dao.EntrustDao;
+import com.bbtong.Pojo.DeliveryOrder;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Service.EntrustService;
 import com.bbtong.Util.Result;
@@ -524,6 +525,39 @@ public class EntrustServiceImpl implements EntrustService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             result.setCode(300);
             result.setMessage("出现异常");
+        }
+        return result;
+    }
+
+    /**
+     * 用户查询正在处理委托的还单记录
+     *
+     * @param userId    用户ID
+     * @param entrustId 当前正在处理的委托的ID
+     * @return 戴辆
+     */
+    @Transactional
+    @Override
+    public Result UserSelectDeliveryOrder(Integer userId, Integer entrustId) {
+        //创建实体来来进行数据操作
+        Result result = new Result();
+        //创建map函数来存储数据，进行操作
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);//将userId存到map的数据中
+        map.put("entrustId", entrustId);//将entrustId存到map数据中
+        try {
+            //创建list数组来接受数据
+            List<DeliveryOrder> deliveryOrderList = entrustDao.selectDeliveryOrder(map);
+            if (deliveryOrderList.size() > 0) {//判断有没有查到数据，没有查到数据的话，数组的长度就不大于0
+                result.setMessage("查询查询成功");
+            } else {
+                result.setMessage("当前没有数据");
+            }
+            result.setCode(200);
+            result.setData(deliveryOrderList);
+        } catch (Exception e) {//出现异常就会进入catch
+            result.setCode(500);
+            result.setMessage("出现未知错误");
         }
         return result;
     }

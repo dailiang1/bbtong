@@ -7,7 +7,9 @@ import com.bbtong.Util.ResultHave;
 import com.bbtong.Util.ResultPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +20,7 @@ import java.util.Date;
  * 委托订单表
  */
 
+@CrossOrigin(allowCredentials = "true")
 @Controller
 @RequestMapping("/entrust")
 public class EntrustController {
@@ -410,6 +413,27 @@ public class EntrustController {
             return result;
         }
         result=entrustService.DaAffirm(userId, entrustId);
+        return result;
+    }
+
+    /**
+     * 用户查询正在处理委托，的还单记录
+     * @param userId 用户的ID
+     * @param entrustId 当前正在处理的委托的ID
+     * @return 戴辆
+     */
+    @ResponseBody
+    @RequestMapping(value = "/selectdeliveryorder")
+    public Result UserSelectDeliveryOrder(Integer userId,Integer entrustId){
+        //创建实体类来接受数据
+        Result result=new Result();
+        //判断有没有获取到userId来判断有没有异常
+        if (null==userId){
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        result=entrustService.UserSelectDeliveryOrder(userId,entrustId);
         return result;
     }
 }

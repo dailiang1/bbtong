@@ -116,4 +116,12 @@ public interface EntrustService {
      * @return 戴辆
      */
     Result DaAffirm(Integer userId,Integer entrustId);
+
+    /**
+     * 用户查询正在处理委托的还单记录
+     * @param userId 用户ID
+     * @param entrustId 当前正在处理的委托的ID
+     * @return 戴辆
+     */
+    Result UserSelectDeliveryOrder(Integer userId,Integer entrustId);
 }

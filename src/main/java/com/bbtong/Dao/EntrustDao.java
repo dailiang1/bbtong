@@ -1,6 +1,7 @@
 package com.bbtong.Dao;
 
 import com.bbtong.Base.*;
+import com.bbtong.Pojo.DeliveryOrder;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Pojo.EntrustExample;
 import java.util.List;
@@ -200,4 +201,18 @@ public interface EntrustDao {
      * @return 戴辆
      */
     Integer DaAffirm(Map map);
+
+    /**
+     * 第一步 先查询用户对应的接单还未处理的委托
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    Integer UserSelectEntrustId(@Param("userId") Integer userId);
+
+    /**
+     * 查询当前订单还单的委托有哪些，并且将数据返回
+     * @param map map 中存着entrustId和userId 分别表示还单的ID和和还单的人
+     * @return 戴辆
+     */
+    List<DeliveryOrder> selectDeliveryOrder(Map map);
 }

@@ -90,6 +90,19 @@
         <result column="Entrust_Return_Time" jdbcType="INTEGER" property="entrustReturnTime"/>
         <result column="Entrust_Business" jdbcType="INTEGER" property="entrustBusiness"/>
     </resultMap>
+
+    <!--用户查询当前订单，已经还单的委托有哪些-->
+    <resultMap id="BaseDeliveryOrderResultMap" type="com.bbtong.Pojo.DeliveryOrder">
+        <id column="Delivery_Order_Id" jdbcType="INTEGER" property="deliveryOrderId" />
+        <result column="New_Entrust_id" jdbcType="INTEGER" property="newEntrustId" />
+        <result column="User_id" jdbcType="INTEGER" property="userId" />
+        <result column="New_User_Id" jdbcType="INTEGER" property="newUserId" />
+        <result column="Delivery_Order_Number" jdbcType="VARCHAR" property="deliveryOrderNumber" />
+        <result column="Delivery_Order_Money" jdbcType="DOUBLE" property="deliveryOrderMoney" />
+        <result column="Entrust_Grade_Time" jdbcType="VARCHAR" property="entrustGradeTime" />
+        <result column="Delivery_Order_state" jdbcType="INTEGER" property="deliveryOrderState" />
+        <result column="Entrust_Grade" jdbcType="INTEGER" property="entrustGrade" />
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -732,4 +745,14 @@
     <update id="DaAffirm" parameterType="map">
         update bbt_entrust set Entrust_State=3 where User_Id=#{userId} and Entrust_State=2 and Entrust_Id=#{entrustId}
     </update>
+
+    <!--第一步 先通过用户的ID 查询对应的接单还未处理的委托-->
+    <select id="UserSelectEntrustId" parameterType="int" resultType="int">
+        select Entrust_Id from bbt_entrust where Finally_User_Id=#{userId} and Entrust_State!=3
+    </select>
+
+    <!--查询委托还单的信息有哪些-->
+    <select id="selectDeliveryOrder" parameterType="map" resultMap="BaseDeliveryOrderResultMap">
+        select * from bbt_delivery_order where New_User_Id=#{userId} and New_Entrust_id=#{entrustId}
+    </select>
 </mapper>
