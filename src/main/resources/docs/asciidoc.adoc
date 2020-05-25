@@ -1,0 +1,6919 @@
+= springboot利用swagger构建api文档
+
+
+[[_overview]]
+== 概览
+简单优雅的restfun风格
+
+
+=== 版本信息
+[%hardbreaks]
+__版本__ : 1.0
+
+
+=== 许可信息
+[%hardbreaks]
+__服务条款__ : http://www.zchb.com
+
+
+=== URI scheme
+[%hardbreaks]
+__域名__ : localhost:8888
+__基础路径__ : /
+
+
+=== 标签
+
+* entrust-controller : Entrust Controller
+
+
+
+
+[[_paths]]
+== 资源
+
+[[_entrust-controller_resource]]
+=== Entrust-controller
+Entrust Controller
+
+
+[[_accomplishusingpost]]
+==== Accomplish
+....
+POST /entrust/accomplish
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**entrustReturnMoney** +
+__可选__|entrustReturnMoney|number (double)
+|**Query**|**entrustReturnTime** +
+__可选__|entrustReturnTime|integer (int32)
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/accomplish
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "entrustReturnMoney" : 0.0,
+  "entrustReturnTime" : 0,
+  "newUserId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_accomplishusingget]]
+==== Accomplish
+....
+GET /entrust/accomplish
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**entrustReturnMoney** +
+__可选__|entrustReturnMoney|number (double)
+|**Query**|**entrustReturnTime** +
+__可选__|entrustReturnTime|integer (int32)
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/accomplish
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "entrustReturnMoney" : 0.0,
+  "entrustReturnTime" : 0,
+  "newUserId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_accomplishusingput]]
+==== Accomplish
+....
+PUT /entrust/accomplish
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**entrustReturnMoney** +
+__可选__|entrustReturnMoney|number (double)
+|**Query**|**entrustReturnTime** +
+__可选__|entrustReturnTime|integer (int32)
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/accomplish
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "entrustReturnMoney" : 0.0,
+  "entrustReturnTime" : 0,
+  "newUserId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_accomplishusingdelete]]
+==== Accomplish
+....
+DELETE /entrust/accomplish
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**entrustReturnMoney** +
+__可选__|entrustReturnMoney|number (double)
+|**Query**|**entrustReturnTime** +
+__可选__|entrustReturnTime|integer (int32)
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/accomplish
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "entrustReturnMoney" : 0.0,
+  "entrustReturnTime" : 0,
+  "newUserId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_accomplishusingpatch]]
+==== Accomplish
+....
+PATCH /entrust/accomplish
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**entrustReturnMoney** +
+__可选__|entrustReturnMoney|number (double)
+|**Query**|**entrustReturnTime** +
+__可选__|entrustReturnTime|integer (int32)
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/accomplish
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "entrustReturnMoney" : 0.0,
+  "entrustReturnTime" : 0,
+  "newUserId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_accomplishusinghead]]
+==== Accomplish
+....
+HEAD /entrust/accomplish
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**entrustReturnMoney** +
+__可选__|entrustReturnMoney|number (double)
+|**Query**|**entrustReturnTime** +
+__可选__|entrustReturnTime|integer (int32)
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/accomplish
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "entrustReturnMoney" : 0.0,
+  "entrustReturnTime" : 0,
+  "newUserId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_accomplishusingoptions]]
+==== Accomplish
+....
+OPTIONS /entrust/accomplish
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**entrustReturnMoney** +
+__可选__|entrustReturnMoney|number (double)
+|**Query**|**entrustReturnTime** +
+__可选__|entrustReturnTime|integer (int32)
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/accomplish
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "entrustReturnMoney" : 0.0,
+  "entrustReturnTime" : 0,
+  "newUserId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daaffirmusingpost]]
+==== DaAffirm
+....
+POST /entrust/daaffirm
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daaffirm
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daaffirmusingget]]
+==== DaAffirm
+....
+GET /entrust/daaffirm
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daaffirm
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daaffirmusingput]]
+==== DaAffirm
+....
+PUT /entrust/daaffirm
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daaffirm
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daaffirmusingdelete]]
+==== DaAffirm
+....
+DELETE /entrust/daaffirm
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daaffirm
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daaffirmusingpatch]]
+==== DaAffirm
+....
+PATCH /entrust/daaffirm
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daaffirm
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daaffirmusinghead]]
+==== DaAffirm
+....
+HEAD /entrust/daaffirm
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daaffirm
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daaffirmusingoptions]]
+==== DaAffirm
+....
+OPTIONS /entrust/daaffirm
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daaffirm
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daparticularsusingpost]]
+==== DaParticulars
+....
+POST /entrust/daparticulars
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daparticulars
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daparticularsusingget]]
+==== DaParticulars
+....
+GET /entrust/daparticulars
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daparticulars
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daparticularsusingput]]
+==== DaParticulars
+....
+PUT /entrust/daparticulars
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daparticulars
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daparticularsusingdelete]]
+==== DaParticulars
+....
+DELETE /entrust/daparticulars
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daparticulars
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daparticularsusingpatch]]
+==== DaParticulars
+....
+PATCH /entrust/daparticulars
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daparticulars
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daparticularsusinghead]]
+==== DaParticulars
+....
+HEAD /entrust/daparticulars
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daparticulars
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daparticularsusingoptions]]
+==== DaParticulars
+....
+OPTIONS /entrust/daparticulars
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daparticulars
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_daselectentrustusingpost]]
+==== DaSelectEntrust
+....
+POST /entrust/daselect
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**index** +
+__可选__|index|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daselect
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "index" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_daselectentrustusingget]]
+==== DaSelectEntrust
+....
+GET /entrust/daselect
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**index** +
+__可选__|index|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daselect
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "index" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_daselectentrustusingput]]
+==== DaSelectEntrust
+....
+PUT /entrust/daselect
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**index** +
+__可选__|index|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daselect
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "index" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_daselectentrustusingdelete]]
+==== DaSelectEntrust
+....
+DELETE /entrust/daselect
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**index** +
+__可选__|index|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daselect
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "index" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_daselectentrustusingpatch]]
+==== DaSelectEntrust
+....
+PATCH /entrust/daselect
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**index** +
+__可选__|index|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daselect
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "index" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_daselectentrustusinghead]]
+==== DaSelectEntrust
+....
+HEAD /entrust/daselect
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**index** +
+__可选__|index|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daselect
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "index" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_daselectentrustusingoptions]]
+==== DaSelectEntrust
+....
+OPTIONS /entrust/daselect
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**index** +
+__可选__|index|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/daselect
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "index" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_haveentrustusingpost]]
+==== haveEntrust
+....
+POST /entrust/have
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/have
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_haveentrustusingget]]
+==== haveEntrust
+....
+GET /entrust/have
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/have
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_haveentrustusingput]]
+==== haveEntrust
+....
+PUT /entrust/have
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/have
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_haveentrustusingdelete]]
+==== haveEntrust
+....
+DELETE /entrust/have
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/have
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_haveentrustusingpatch]]
+==== haveEntrust
+....
+PATCH /entrust/have
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/have
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_haveentrustusinghead]]
+==== haveEntrust
+....
+HEAD /entrust/have
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/have
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_haveentrustusingoptions]]
+==== haveEntrust
+....
+OPTIONS /entrust/have
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/have
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_issuerecordusingpost]]
+==== IssueRecord
+....
+POST /entrust/issue
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/issue
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_issuerecordusingget]]
+==== IssueRecord
+....
+GET /entrust/issue
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/issue
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_issuerecordusingput]]
+==== IssueRecord
+....
+PUT /entrust/issue
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/issue
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_issuerecordusingdelete]]
+==== IssueRecord
+....
+DELETE /entrust/issue
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/issue
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_issuerecordusingpatch]]
+==== IssueRecord
+....
+PATCH /entrust/issue
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/issue
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_issuerecordusinghead]]
+==== IssueRecord
+....
+HEAD /entrust/issue
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/issue
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_issuerecordusingoptions]]
+==== IssueRecord
+....
+OPTIONS /entrust/issue
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/issue
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_offintentionusingpost]]
+==== OffIntention
+....
+POST /entrust/offintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/offintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_offintentionusingget]]
+==== OffIntention
+....
+GET /entrust/offintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/offintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_offintentionusingput]]
+==== OffIntention
+....
+PUT /entrust/offintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/offintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_offintentionusingdelete]]
+==== OffIntention
+....
+DELETE /entrust/offintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/offintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_offintentionusingpatch]]
+==== OffIntention
+....
+PATCH /entrust/offintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/offintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_offintentionusinghead]]
+==== OffIntention
+....
+HEAD /entrust/offintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/offintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_offintentionusingoptions]]
+==== OffIntention
+....
+OPTIONS /entrust/offintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/offintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_orderrecordusingpost]]
+==== OrderRecord
+....
+POST /entrust/order
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/order
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_orderrecordusingget]]
+==== OrderRecord
+....
+GET /entrust/order
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/order
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_orderrecordusingput]]
+==== OrderRecord
+....
+PUT /entrust/order
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/order
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_orderrecordusingdelete]]
+==== OrderRecord
+....
+DELETE /entrust/order
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/order
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_orderrecordusingpatch]]
+==== OrderRecord
+....
+PATCH /entrust/order
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/order
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_orderrecordusinghead]]
+==== OrderRecord
+....
+HEAD /entrust/order
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/order
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_orderrecordusingoptions]]
+==== OrderRecord
+....
+OPTIONS /entrust/order
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/order
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_queryentrustusingpost]]
+==== QueryEntrust
+....
+POST /entrust/queryentrust
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/queryentrust
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_queryentrustusingget]]
+==== QueryEntrust
+....
+GET /entrust/queryentrust
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/queryentrust
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_queryentrustusingput]]
+==== QueryEntrust
+....
+PUT /entrust/queryentrust
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/queryentrust
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_queryentrustusingdelete]]
+==== QueryEntrust
+....
+DELETE /entrust/queryentrust
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/queryentrust
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_queryentrustusingpatch]]
+==== QueryEntrust
+....
+PATCH /entrust/queryentrust
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/queryentrust
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_queryentrustusinghead]]
+==== QueryEntrust
+....
+HEAD /entrust/queryentrust
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/queryentrust
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_queryentrustusingoptions]]
+==== QueryEntrust
+....
+OPTIONS /entrust/queryentrust
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/queryentrust
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userselectdeliveryorderusingpost]]
+==== UserSelectDeliveryOrder
+....
+POST /entrust/selectdeliveryorder
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/selectdeliveryorder
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userselectdeliveryorderusingget]]
+==== UserSelectDeliveryOrder
+....
+GET /entrust/selectdeliveryorder
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/selectdeliveryorder
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userselectdeliveryorderusingput]]
+==== UserSelectDeliveryOrder
+....
+PUT /entrust/selectdeliveryorder
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/selectdeliveryorder
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userselectdeliveryorderusingdelete]]
+==== UserSelectDeliveryOrder
+....
+DELETE /entrust/selectdeliveryorder
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/selectdeliveryorder
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userselectdeliveryorderusingpatch]]
+==== UserSelectDeliveryOrder
+....
+PATCH /entrust/selectdeliveryorder
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/selectdeliveryorder
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userselectdeliveryorderusinghead]]
+==== UserSelectDeliveryOrder
+....
+HEAD /entrust/selectdeliveryorder
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/selectdeliveryorder
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userselectdeliveryorderusingoptions]]
+==== UserSelectDeliveryOrder
+....
+OPTIONS /entrust/selectdeliveryorder
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_result,Result>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/selectdeliveryorder
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "entrustId" : 0,
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_sendordersusingpost]]
+==== SendOrders
+....
+POST /entrust/sendorders
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**InsuranceCompanyName** +
+__可选__|InsuranceCompanyName|string
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**finallyUserId** +
+__可选__|finallyUserId|integer (int32)
+|**Query**|**friendName** +
+__可选__|friendName|string
+|**Query**|**friendPhone** +
+__可选__|friendPhone|string
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/sendorders
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "InsuranceCompanyName" : "string",
+  "entrustId" : 0,
+  "finallyUserId" : 0,
+  "friendName" : "string",
+  "friendPhone" : "string",
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_sendordersusingget]]
+==== SendOrders
+....
+GET /entrust/sendorders
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**InsuranceCompanyName** +
+__可选__|InsuranceCompanyName|string
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**finallyUserId** +
+__可选__|finallyUserId|integer (int32)
+|**Query**|**friendName** +
+__可选__|friendName|string
+|**Query**|**friendPhone** +
+__可选__|friendPhone|string
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/sendorders
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "InsuranceCompanyName" : "string",
+  "entrustId" : 0,
+  "finallyUserId" : 0,
+  "friendName" : "string",
+  "friendPhone" : "string",
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_sendordersusingput]]
+==== SendOrders
+....
+PUT /entrust/sendorders
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**InsuranceCompanyName** +
+__可选__|InsuranceCompanyName|string
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**finallyUserId** +
+__可选__|finallyUserId|integer (int32)
+|**Query**|**friendName** +
+__可选__|friendName|string
+|**Query**|**friendPhone** +
+__可选__|friendPhone|string
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/sendorders
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "InsuranceCompanyName" : "string",
+  "entrustId" : 0,
+  "finallyUserId" : 0,
+  "friendName" : "string",
+  "friendPhone" : "string",
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_sendordersusingdelete]]
+==== SendOrders
+....
+DELETE /entrust/sendorders
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**InsuranceCompanyName** +
+__可选__|InsuranceCompanyName|string
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**finallyUserId** +
+__可选__|finallyUserId|integer (int32)
+|**Query**|**friendName** +
+__可选__|friendName|string
+|**Query**|**friendPhone** +
+__可选__|friendPhone|string
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/sendorders
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "InsuranceCompanyName" : "string",
+  "entrustId" : 0,
+  "finallyUserId" : 0,
+  "friendName" : "string",
+  "friendPhone" : "string",
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_sendordersusingpatch]]
+==== SendOrders
+....
+PATCH /entrust/sendorders
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**InsuranceCompanyName** +
+__可选__|InsuranceCompanyName|string
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**finallyUserId** +
+__可选__|finallyUserId|integer (int32)
+|**Query**|**friendName** +
+__可选__|friendName|string
+|**Query**|**friendPhone** +
+__可选__|friendPhone|string
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/sendorders
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "InsuranceCompanyName" : "string",
+  "entrustId" : 0,
+  "finallyUserId" : 0,
+  "friendName" : "string",
+  "friendPhone" : "string",
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_sendordersusinghead]]
+==== SendOrders
+....
+HEAD /entrust/sendorders
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**InsuranceCompanyName** +
+__可选__|InsuranceCompanyName|string
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**finallyUserId** +
+__可选__|finallyUserId|integer (int32)
+|**Query**|**friendName** +
+__可选__|friendName|string
+|**Query**|**friendPhone** +
+__可选__|friendPhone|string
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/sendorders
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "InsuranceCompanyName" : "string",
+  "entrustId" : 0,
+  "finallyUserId" : 0,
+  "friendName" : "string",
+  "friendPhone" : "string",
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_sendordersusingoptions]]
+==== SendOrders
+....
+OPTIONS /entrust/sendorders
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**InsuranceCompanyName** +
+__可选__|InsuranceCompanyName|string
+|**Query**|**entrustId** +
+__可选__|entrustId|integer (int32)
+|**Query**|**finallyUserId** +
+__可选__|finallyUserId|integer (int32)
+|**Query**|**friendName** +
+__可选__|friendName|string
+|**Query**|**friendPhone** +
+__可选__|friendPhone|string
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resultpage,ResultPage>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/sendorders
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "InsuranceCompanyName" : "string",
+  "entrustId" : 0,
+  "finallyUserId" : 0,
+  "friendName" : "string",
+  "friendPhone" : "string",
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "count" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "index" : 0,
+  "message" : "string",
+  "pageCount" : 0,
+  "size" : 0
+}
+----
+
+
+[[_useralsousingpost]]
+==== UserAlso
+....
+POST /entrust/useralso
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**deliveryOrderMoney** +
+__可选__|deliveryOrderMoney|number (double)
+|**Query**|**deliveryOrderNumber** +
+__可选__|deliveryOrderNumber|string
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/useralso
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "deliveryOrderMoney" : 0.0,
+  "deliveryOrderNumber" : "string",
+  "newUserId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_useralsousingget]]
+==== UserAlso
+....
+GET /entrust/useralso
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**deliveryOrderMoney** +
+__可选__|deliveryOrderMoney|number (double)
+|**Query**|**deliveryOrderNumber** +
+__可选__|deliveryOrderNumber|string
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/useralso
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "deliveryOrderMoney" : 0.0,
+  "deliveryOrderNumber" : "string",
+  "newUserId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_useralsousingput]]
+==== UserAlso
+....
+PUT /entrust/useralso
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**deliveryOrderMoney** +
+__可选__|deliveryOrderMoney|number (double)
+|**Query**|**deliveryOrderNumber** +
+__可选__|deliveryOrderNumber|string
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/useralso
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "deliveryOrderMoney" : 0.0,
+  "deliveryOrderNumber" : "string",
+  "newUserId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_useralsousingdelete]]
+==== UserAlso
+....
+DELETE /entrust/useralso
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**deliveryOrderMoney** +
+__可选__|deliveryOrderMoney|number (double)
+|**Query**|**deliveryOrderNumber** +
+__可选__|deliveryOrderNumber|string
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/useralso
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "deliveryOrderMoney" : 0.0,
+  "deliveryOrderNumber" : "string",
+  "newUserId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_useralsousingpatch]]
+==== UserAlso
+....
+PATCH /entrust/useralso
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**deliveryOrderMoney** +
+__可选__|deliveryOrderMoney|number (double)
+|**Query**|**deliveryOrderNumber** +
+__可选__|deliveryOrderNumber|string
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/useralso
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "deliveryOrderMoney" : 0.0,
+  "deliveryOrderNumber" : "string",
+  "newUserId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_useralsousinghead]]
+==== UserAlso
+....
+HEAD /entrust/useralso
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**deliveryOrderMoney** +
+__可选__|deliveryOrderMoney|number (double)
+|**Query**|**deliveryOrderNumber** +
+__可选__|deliveryOrderNumber|string
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/useralso
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "deliveryOrderMoney" : 0.0,
+  "deliveryOrderNumber" : "string",
+  "newUserId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_useralsousingoptions]]
+==== UserAlso
+....
+OPTIONS /entrust/useralso
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**deliveryOrderMoney** +
+__可选__|deliveryOrderMoney|number (double)
+|**Query**|**deliveryOrderNumber** +
+__可选__|deliveryOrderNumber|string
+|**Query**|**newUserId** +
+__可选__|newUserId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/useralso
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "deliveryOrderMoney" : 0.0,
+  "deliveryOrderNumber" : "string",
+  "newUserId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userintentionusingpost]]
+==== UserIntention
+....
+POST /entrust/userintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/userintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userintentionusingget]]
+==== UserIntention
+....
+GET /entrust/userintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/userintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userintentionusingput]]
+==== UserIntention
+....
+PUT /entrust/userintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**201**|Created|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|**404**|Not Found|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/userintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userintentionusingdelete]]
+==== UserIntention
+....
+DELETE /entrust/userintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/userintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userintentionusingpatch]]
+==== UserIntention
+....
+PATCH /entrust/userintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/userintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userintentionusinghead]]
+==== UserIntention
+....
+HEAD /entrust/userintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/userintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+[[_userintentionusingoptions]]
+==== UserIntention
+....
+OPTIONS /entrust/userintention
+....
+
+
+===== 参数
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|类型|名称|说明|类型
+|**Query**|**userId** +
+__可选__|userId|integer (int32)
+|===
+
+
+===== 响应
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP代码|说明|类型
+|**200**|OK|<<_resulthave,ResultHave>>
+|**204**|No Content|无内容
+|**401**|Unauthorized|无内容
+|**403**|Forbidden|无内容
+|===
+
+
+===== 消耗
+
+* `application/json`
+
+
+===== 生成
+
+* `*/*`
+
+
+===== HTTP请求示例
+
+====== 请求 path
+----
+/entrust/userintention
+----
+
+
+====== 请求 query
+[source,json]
+----
+{
+  "userId" : 0
+}
+----
+
+
+===== HTTP响应示例
+
+====== 响应 200
+[source,json]
+----
+{
+  "code" : 0,
+  "data" : "object",
+  "datas" : [ "object" ],
+  "message" : "string"
+}
+----
+
+
+
+
+[[_definitions]]
+== 定义
+
+[[_result]]
+=== Result
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**code** +
+__可选__|表示成功的状态 +
+**样例** : `0`|integer (int32)
+|**data** +
+__可选__|储存返回的数据，json格式 +
+**样例** : `"object"`|object
+|**datas** +
+__可选__|储存返回的数组List数据 +
+**样例** : `[ "object" ]`|< object > array
+|**message** +
+__可选__|对于返回的状态，文字说明 +
+**样例** : `"string"`|string
+|===
+
+
+[[_resulthave]]
+=== ResultHave
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**code** +
+__可选__|**样例** : `0`|integer (int32)
+|**data** +
+__可选__|**样例** : `"object"`|object
+|**datas** +
+__可选__|**样例** : `[ "object" ]`|< object > array
+|**message** +
+__可选__|**样例** : `"string"`|string
+|===
+
+
+[[_resultpage]]
+=== ResultPage
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|名称|说明|类型
+|**code** +
+__可选__|**样例** : `0`|integer (int32)
+|**count** +
+__可选__|**样例** : `0`|integer (int32)
+|**data** +
+__可选__|**样例** : `"object"`|object
+|**datas** +
+__可选__|**样例** : `[ "object" ]`|< object > array
+|**index** +
+__可选__|**样例** : `0`|integer (int32)
+|**message** +
+__可选__|**样例** : `"string"`|string
+|**pageCount** +
+__可选__|**样例** : `0`|integer (int32)
+|**size** +
+__可选__|**样例** : `0`|integer (int32)
+|===
+
+
+
+
+

@@ -4,6 +4,8 @@ import com.bbtong.Base.*;
 import com.bbtong.Pojo.DeliveryOrder;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Pojo.EntrustExample;
+
+import java.rmi.MarshalledObject;
 import java.util.List;
 import java.util.Map;
 
@@ -215,4 +217,25 @@ public interface EntrustDao {
      * @return 戴辆
      */
     List<DeliveryOrder> selectDeliveryOrder(Map map);
+
+    /**
+     * 根据用户ID查询当前订单的状态是多少来判断是否正常
+     * @param map 用来存储用户的ID
+     * @return 戴辆
+     */
+    Integer entrustState(Map map);
+
+    /**
+     * 第一步 根据map中的还单用户的ID到待还单表中查询  待还单的ID和待还单用户的ID
+     * @param map newUserId 还单用户的ID
+     * @return 戴辆
+     */
+    AlsoId AlsoId(Map map);
+
+    /**
+     * 第二步 根据map中的数据 将数据存到还单表中
+     * @param map map中用来存储需要添加到数据库的数据
+     * @return 戴辆
+     */
+    Integer AddDeliveryOrder(Map map);
 }

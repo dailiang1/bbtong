@@ -260,21 +260,21 @@
 
   <!--查询对应用户，对应状态的数据-->
   <select id="QueryNumber" parameterType="map" resultType="int">
-    select count(1) from bbt_beans where User_id=#{User_id} and Beans_State=#{Beans_State}
+    select count(1) from bbt_beans where User_id=#{userId} and Beans_State=#{beansState}
   </select>
 
   <!--查询对应用户，为审核的和豆申请订单-->
   <select id="Query" parameterType="map" resultMap="BaseResultMap">
-        select * from bbt_beans where User_id=#{User_id} and Beans_State=#{Beans_State} limit 0,#{end}
+        select * from bbt_beans where User_id=#{userId} and Beans_State=#{beansState} limit 0,#{end}
   </select>
 
   <!--管理员查询，对应的数据的条数-->
   <select id="SelectQueryNumber" parameterType="map" resultType="int">
-    SELECT COUNT(1) FROM bbt_beans where Beans_State=#{Beans_State}
+    SELECT COUNT(1) FROM bbt_beans where Beans_State=#{beansState}
   </select>
 
   <!--管理员查询对应数据的信息-->
   <select id="SelectQuery" parameterType="map" resultMap="BaseBeansUser">
-    SELECT b.*,u.User_Phone FROM bbt_beans b LEFT JOIN bbt_user u ON b.User_id=u.User_Id where b.Beans_State=#{Beans_State} ORDER BY b.Beans_Time LIMIT #{state},#{end }
+    SELECT b.*,u.User_Phone FROM bbt_beans b LEFT JOIN bbt_user u ON b.User_id=u.User_Id where b.Beans_State=#{beansState} ORDER BY b.Beans_Time LIMIT #{state},#{end }
   </select>
 </mapper>

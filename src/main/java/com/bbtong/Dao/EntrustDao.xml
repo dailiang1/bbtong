@@ -93,15 +93,21 @@
 
     <!--用户查询当前订单，已经还单的委托有哪些-->
     <resultMap id="BaseDeliveryOrderResultMap" type="com.bbtong.Pojo.DeliveryOrder">
-        <id column="Delivery_Order_Id" jdbcType="INTEGER" property="deliveryOrderId" />
-        <result column="New_Entrust_id" jdbcType="INTEGER" property="newEntrustId" />
-        <result column="User_id" jdbcType="INTEGER" property="userId" />
-        <result column="New_User_Id" jdbcType="INTEGER" property="newUserId" />
-        <result column="Delivery_Order_Number" jdbcType="VARCHAR" property="deliveryOrderNumber" />
-        <result column="Delivery_Order_Money" jdbcType="DOUBLE" property="deliveryOrderMoney" />
-        <result column="Entrust_Grade_Time" jdbcType="VARCHAR" property="entrustGradeTime" />
-        <result column="Delivery_Order_state" jdbcType="INTEGER" property="deliveryOrderState" />
-        <result column="Entrust_Grade" jdbcType="INTEGER" property="entrustGrade" />
+        <id column="Delivery_Order_Id" jdbcType="INTEGER" property="deliveryOrderId"/>
+        <result column="New_Entrust_id" jdbcType="INTEGER" property="newEntrustId"/>
+        <result column="User_id" jdbcType="INTEGER" property="userId"/>
+        <result column="New_User_Id" jdbcType="INTEGER" property="newUserId"/>
+        <result column="Delivery_Order_Number" jdbcType="VARCHAR" property="deliveryOrderNumber"/>
+        <result column="Delivery_Order_Money" jdbcType="DOUBLE" property="deliveryOrderMoney"/>
+        <result column="Entrust_Grade_Time" jdbcType="VARCHAR" property="entrustGradeTime"/>
+        <result column="Delivery_Order_state" jdbcType="INTEGER" property="deliveryOrderState"/>
+        <result column="Entrust_Grade" jdbcType="INTEGER" property="entrustGrade"/>
+    </resultMap>
+
+    <!--根据还单用户的ID，查询待还单用户id和待还单的ID-->
+    <resultMap id="BaseAlsoId" type="com.bbtong.Base.AlsoId">
+        <result column="New_Entrust_id" jdbcType="INTEGER" property="newEntrustId"/>
+        <result column="User_id" jdbcType="INTEGER" property="userId"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -605,7 +611,7 @@
 
     <!--大家保险的用户查看自己发布的委托-->
     <select id="DaSelectEntrust" parameterType="map" resultMap="BaseDaEntrust">
-    SELECT e.Entrust_Id,e.Entrust_Address,e.Entrust_Start_Time,e.Entrust_End_Time,e.Insurance_Company_Id,ic.Insurance_Company_Name,e.Entrust_State,e.Entrust_Money,e.Entrust_Return_Money,e.New_User_Id FROM bbt_entrust e LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id WHERE e.User_Id=#{userId} AND e.Entrust_State=0 ORDER BY e.Entrust_Start_Time LIMIT #{state},#{end}
+    SELECT e.Entrust_Id,e.Entrust_Address,e.Entrust_Start_Time,e.Entrust_End_Time,e.Insurance_Company_Id,ic.Insurance_Company_Name,e.Entrust_State,e.Entrust_Money,e.Entrust_Return_Money,e.New_User_Id FROM bbt_entrust e LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id WHERE e.User_Id=#{userId} AND e.Entrust_State!=6 ORDER BY e.Entrust_Start_Time LIMIT #{state},#{end}
   </select>
     <!--先查询订单的信息，来哦按段是否已经派送给人了-->
     <select id="Entrust" parameterType="map" resultMap="BaseResultMap">
@@ -755,4 +761,19 @@
     <select id="selectDeliveryOrder" parameterType="map" resultMap="BaseDeliveryOrderResultMap">
         select * from bbt_delivery_order where New_User_Id=#{userId} and New_Entrust_id=#{entrustId}
     </select>
+
+    <!--通过用户的ID查询，他最近接单的委托的状态为什么-->
+    <select id="entrustState" parameterType="map" resultType="int">
+        select Entrust_State from bbt_entrust where Finally_User_Id=#{newUserId} order by Entrust_Id desc limit 0,1
+    </select>
+
+    <!--第一步 先通过还单用户的ID 到待还单表中查询 待还单ID 待还单用户的ID-->
+    <select id="AlsoId" parameterType="map" resultMap="BaseAlsoId">
+        select User_Id,New_Entrust_Id from  bbt_await_delivery_order where New_User_Id=#{newUserId} and Entrust_state=0
+    </select>
+
+    <!--第二步 将数据写入到还单表中-->
+    <insert id="AddDeliveryOrder" parameterType="map">
+        insert  into bbt_delivery_order(new_entrust_id, user_id, new_user_id, delivery_order_number, delivery_order_money, entrust_grade_time)values (#{newUserId},#{userId},#{newUserId},#{deliveryOrderNumber},#{deliveryOrderMoney},#{entrustGradeTime})
+    </insert>
 </mapper>

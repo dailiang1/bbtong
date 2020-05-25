@@ -4,6 +4,7 @@ import com.bbtong.Pojo.Beans;
 import com.bbtong.Service.BeansService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultPage;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.print.attribute.standard.MediaSize;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -22,30 +24,44 @@ import java.util.Date;
 @RequestMapping("/beans")
 public class BeansController {
 
+    /**
+     * 创建调用server层实体的方法
+     */
     @Autowired
     private BeansService beansService;
 
-
     /**
      * 提交人车生活的卡号来申请和豆。
-     * @param User_id 提交的用户ID
-     * @param Card_Number 人车生活的卡号
+     *
+     * @param userId     提交的用户ID
+     * @param cardNumber 人车生活的卡号
      * @return 戴辆
      */
-    @ResponseBody
-    @RequestMapping(value = "/submit")
-    public Result Submit(Integer User_id, String Card_Number) {
+    @ApiOperation(value = "提交人车生活卡号来申请和豆", notes = "用户提交人车生活卡号来申请和豆", tags = "Submit", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "提交的用户ID", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "cardNumber", value = "人车生活的卡号", required = true, dataType = "String"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @RequestMapping(value = "/submit", method = RequestMethod.POST)
+    public @ResponseBody
+    Result Submit(Integer userId, String cardNumber) {
         //创建接收返回参数的实体类
         Result result = new Result();
-        if (User_id == null ) {
+        if (userId == null) {
             result.setCode(300);
             result.setMessage("当前异常，请稍后尝试");
-        } else if (Card_Number==""||Card_Number==null) {//判断他有没有输入人车生活卡号，并且判断输入是否正确
+        } else if (cardNumber == "" || cardNumber == null) {//判断他有没有输入人车生活卡号，并且判断输入是否正确
             result.setCode(500);
             result.setMessage("请输入正确的值");
         } else {
             //去掉前后的双引号,以及去掉前后的空格
-            Card_Number=Card_Number.replace("\"", "").trim();
+            cardNumber = cardNumber.replace("\"", "").trim();
             //创建和豆申请的实体
             Beans beans = new Beans();
             //获取当前的时间，将当前时间存到数据库中
@@ -54,9 +70,9 @@ public class BeansController {
             //将时间存到实体类中
             beans.setBeansTime(dateFormat.format(now));
             //将User_Id存到实体类中
-            beans.setUserId(User_id);
+            beans.setUserId(userId);
             //将card_Number存到实体类中
-            beans.setCardNumber(Card_Number);
+            beans.setCardNumber(cardNumber);
             result = beansService.Submit(beans);
         }
         return result;
@@ -64,47 +80,74 @@ public class BeansController {
 
     /**
      * 用户查询人车生活卡是否审核，派发了和豆
-     * @param User_id 用户的ID(是那个用户查询)
-     * @param index 用来记录当前页的页数
-     * @param Beans_State  用来查询对应状态的数据
-     * @return
+     *
+     * @param userId     用户的ID(是那个用户查询)
+     * @param index      用来记录当前页的页数
+     * @param beansState 用来查询对应状态的数据
+     * @return 戴辆
      */
-    @ResponseBody
-    @RequestMapping(value = "/query")
-    public ResultPage Query(Integer User_id, Integer index,Integer Beans_State){
-        if(index==null ||index==0){//如果没有传入页数，就默认访问第一页
-            index=1;
-        }if(Beans_State==null||Beans_State==0){//如果没有传入访问什么数据，就默认访问待审核的数据
-            Beans_State=0;
+    @ApiOperation(value = "查询人车审核卡是否审核了，默认查询没有审核的", notes = "用户查询人车生活卡是否审核，派发了和豆", tags = "Query", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的ID(是那个用户查询)", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "index", value = "用来记录当前页的页数(如果没有传入的话，就是默认为第一页)", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "beansState", value = "用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)", required = false, dataType = "Integer"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultPage.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
+            @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
+    })
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public @ResponseBody
+    ResultPage Query(Integer userId, Integer index, Integer beansState) {
+        if (index == null || index == 0) {//如果没有传入页数，就默认访问第一页
+            index = 1;
+        }
+        if (beansState == null || beansState == 0) {//如果没有传入访问什么数据，就默认访问待审核的数据
+            beansState = 0;
         }
         //用来接受返回数据的实体
-        ResultPage resultPage=new ResultPage();
-        if(User_id==null){
+        ResultPage resultPage = new ResultPage();
+        if (userId == null) {
             resultPage.setCode(300);
             resultPage.setMessage("当前异常，请稍后尝试");
-        }else{
-            resultPage=beansService.Query(User_id,index,Beans_State);
+        } else {
+            resultPage = beansService.Query(userId, index, beansState);
         }
         return resultPage;
     }
 
-    /***
+    /**
      * 管理人员审核或查看哪些审核了，
-     * @param index 当前的页数
-     * @param Beans_State 当前的状态(已审核，未审核)
-     * 戴辆
+     *
+     * @param index      当前的页数
+     * @param beansState 当前的状态(已审核，未审核)
+     *                   戴辆
      */
-    @ResponseBody
-    @RequestMapping(value = "/selectquery")
-    public ResultPage SelectQuery(Integer index,Integer Beans_State){
+    @ApiOperation(value = "管理人员审核或查看哪些审核了(人车生活卡的方法)", notes = "管理员审核或查看审核过的数据", tags = "SelectQuery", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "index", value = "当前的页数(可以不传入值，默认是第一页)", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "beansState", value = "用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)", required = false, dataType = "Integer"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultPage.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
+            @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
+    })
+    @RequestMapping(value = "/selectquery", method = RequestMethod.GET)
+    public @ResponseBody
+    ResultPage SelectQuery(Integer index, Integer beansState) {
         //用来接受返回数据的实体
-        ResultPage resultPage=new ResultPage();
-        if(index==null ||index==0){//如果没有传入页数，就默认访问第一页
-            index=1;
-        }if(Beans_State==null||Beans_State==0){//如果没有传入访问什么数据，就默认访问待审核的数据
-            Beans_State=0;
+        ResultPage resultPage = new ResultPage();
+        if (index == null || index == 0) {//如果没有传入页数，就默认访问第一页
+            index = 1;
         }
-        resultPage=beansService.SelectQuery(index,Beans_State);
+        if (beansState == null || beansState == 0) {//如果没有传入访问什么数据，就默认访问待审核的数据
+            beansState = 0;
+        }
+        resultPage = beansService.SelectQuery(index, beansState);
         return resultPage;
     }
 }

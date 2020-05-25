@@ -124,4 +124,13 @@ public interface EntrustService {
      * @return 戴辆
      */
     Result UserSelectDeliveryOrder(Integer userId,Integer entrustId);
+
+    /**
+     * 用户还单的时候提交 信息写入到数据库中去
+     * @param newUserId 还单人的ID
+     * @param deliveryOrderNumber 委托的车牌号
+     * @param deliveryOrderMoney 还的委托的金额
+     * @return 戴辆
+     */
+    ResultHave UserAlso(Integer newUserId, String deliveryOrderNumber, Double deliveryOrderMoney);
 }

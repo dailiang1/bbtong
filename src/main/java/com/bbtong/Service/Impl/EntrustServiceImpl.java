@@ -105,8 +105,8 @@ public class EntrustServiceImpl implements EntrustService {
             resultPage.setMessage("查询成功");
             resultPage.setData(daEntrustList);
         } else {
-            resultPage.setCode(400);
-            resultPage.setMessage("查询失败");
+            resultPage.setCode(200);
+            resultPage.setMessage("当前没有数据");
         }
         return resultPage;
     }
@@ -562,4 +562,56 @@ public class EntrustServiceImpl implements EntrustService {
         return result;
     }
 
+    /**
+     * 用户还单的时候提交 信息写入到数据库中去
+     *
+     * @param newUserId           还单人的ID
+     * @param deliveryOrderNumber 委托的车牌号
+     * @param deliveryOrderMoney  还的委托的金额
+     * @return 戴辆
+     */
+    @Transactional
+    @Override
+    public ResultHave UserAlso(Integer newUserId, String deliveryOrderNumber, Double deliveryOrderMoney) {
+        //创建实体来接受数据 和 操作数据
+        ResultHave resultHave = new ResultHave();
+        //创建map函数来存储数据用于数据库的查询
+        Map<String, Object> map = new HashMap<String, Object>();
+        //将还委托单的人的ID存到map中，用来查询(待还单的Id和待还单的用户ID)
+        map.put("newUserId", newUserId);
+        //防止有人跳过数据审核，直接调用端口来提交数据，判断这一单是否已经完成
+        Integer entrustState = entrustDao.entrustState(map);
+        if (entrustState == null || entrustState != 3) {
+            resultHave.setCode(100011);
+            resultHave.setMessage("非法访问");
+            return resultHave;
+        }
+        //将还单委托的车牌号存到map中
+        map.put("deliveryOrderNumber", deliveryOrderNumber);
+        //将还单的金额存到map中
+        map.put("deliveryOrderMoney", deliveryOrderMoney);
+        //获取当前的时间，将当前时间存到数据库中
+        Date now = new Date();
+        //设置时间的编码格式
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        //将当前时间存到map中，也就是提交委托的时间
+        map.put("deliveryGradeTime", dateFormat.format(now));
+        try {
+            //第一步 先通过还单人的ID 查询数据
+            AlsoId alsoId = entrustDao.AlsoId(map);
+            //将查到的数据存到map中用于后面的操作
+            map.put("newEntrustId", alsoId.getNewEntrustId());//待还单的ID
+            map.put("userId", alsoId.getUserId());//待还单的用户(即发布委托的委托人)
+            //第二步将委托写入到数据库中，也就是存到还单表中
+            int cun = entrustDao.AddDeliveryOrder(map);
+            resultHave.setCode(200);
+            resultHave.setMessage("提交成功，等待审核");
+        } catch (Exception e) {
+            //表示未知错误
+            resultHave.setCode(100010);
+            resultHave.setMessage("出现未知错误");
+            return resultHave;
+        }
+        return resultHave;
+    }
 }
