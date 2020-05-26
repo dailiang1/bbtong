@@ -2,6 +2,703 @@
 [[_paths]]
 == Paths
 
+[[_selectusingget]]
+=== 查询车保金额表中类型的方法
+....
+GET /amount/select
+....
+
+
+==== Description
+查询车保类型的方法
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Select
+
+
+[[_queryusingget]]
+=== 查询人车审核卡是否审核了，默认查询没有审核的
+....
+GET /beans/query
+....
+
+
+==== Description
+用户查询人车生活卡是否审核，派发了和豆
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**beansState** +
+__optional__|用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)|<<_integer,Integer>>
+|**Body**|**index** +
+__optional__|用来记录当前页的页数(如果没有传入的话，就是默认为第一页)|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的ID(是那个用户查询)|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_resultpage,ResultPage>>
+|**300**|异常|<<_resultpage,ResultPage>>
+|**400**|失败|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resultpage,ResultPage>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Query
+
+
+[[_selectqueryusingget]]
+=== 管理人员审核或查看哪些审核了(人车生活卡的方法)
+....
+GET /beans/selectquery
+....
+
+
+==== Description
+管理员审核或查看审核过的数据
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**beansState** +
+__optional__|用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)|<<_integer,Integer>>
+|**Body**|**index** +
+__optional__|当前的页数(可以不传入值，默认是第一页)|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_resultpage,ResultPage>>
+|**300**|异常|<<_resultpage,ResultPage>>
+|**400**|失败|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resultpage,ResultPage>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* SelectQuery
+
+
+[[_submitusingpost]]
+=== 提交人车生活卡号来申请和豆
+....
+POST /beans/submit
+....
+
+
+==== Description
+用户提交人车生活卡号来申请和豆
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**cardNumber** +
+__required__|人车生活的卡号|<<_string,String>>
+|**Body**|**userId** +
+__required__|提交的用户ID|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**201**|Created|No Content
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Submit
+
+
+[[_selectcartypeusingget]]
+=== 查询所有车类型的方法
+....
+GET /cartype/select
+....
+
+
+==== Description
+查询所以车类型的方法
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Select
+
+
+[[_addcilentusingpost]]
+=== 添加客户的方法
+....
+POST /client/add
+....
+
+
+==== Description
+用户添加自己客服的方法
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**clientBirthday** +
+__optional__||string
+|**Query**|**clientId** +
+__optional__||integer (int32)
+|**Body**|**clientAddress** +
+__optional__|客户投保城市(前端传过来的值)|<<_string,String>>
+|**Body**|**clientComeTime** +
+__optional__|判断用户是否选择了投保日期|<<_string,String>>
+|**Body**|**clientDrivingLicense** +
+__optional__|客户的行驶证副本图片|<<_string,String>>
+|**Body**|**clientExpirationTime** +
+__optional__|如果没有选择的日期的话就默认在当前日期上加一年|<<_string,String>>
+|**Body**|**clientIdentityCard** +
+__required__|客户的身份证号码|<<_string,String>>
+|**Body**|**clientIdentityCardFront** +
+__optional__|客户身份证的正面|<<_string,String>>
+|**Body**|**clientIdentityCardVerso** +
+__optional__|客户身份证的反面|<<_string,String>>
+|**Body**|**clientName** +
+__required__|客户的姓名|<<_string,String>>
+|**Body**|**clientRemark** +
+__optional__|用户给客户的备注|<<_string,String>>
+|**Body**|**clientType** +
+__optional__|客户车型(自己备注客户车的类型)|<<_string,String>>
+|**Body**|**clientWay** +
+__optional__|客户的手机，非必填项|<<_string,String>>
+|**Body**|**insuranceCompanyId** +
+__optional__|保险公司的id|<<_integer,Integer>>
+|**Body**|**typeId** +
+__optional__|客户类型表的ID,如果没有选择的话，就默认为本网客户|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**201**|Created|No Content
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Add
+
+
+[[_birthdayusingget]]
+=== 客户生日提醒
+....
+GET /client/birthday
+....
+
+
+==== Description
+用户生日提醒
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**index** +
+__optional__|当前的页数可以为空|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_resultpage,ResultPage>>
+|**300**|异常|<<_resultpage,ResultPage>>
+|**400**|失败|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resultpage,ResultPage>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Birthday
+
+
+[[_insurancewarnusingget]]
+=== 用户快到车险的用户
+....
+GET /client/insurance
+....
+
+
+==== Description
+在这一个月车险到期的客户
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**index** +
+__optional__|当前页的页数|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_resultpage,ResultPage>>
+|**300**|异常|<<_resultpage,ResultPage>>
+|**400**|失败|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resultpage,ResultPage>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* InsuranceWarn
+
+
+[[_particularsusingget]]
+=== 查询客户信息
+....
+GET /client/particulars
+....
+
+
+==== Description
+用户查询对应客户的个人信息
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**clientId** +
+__required__|要查询的客户的id|string
+|**Body**|**userId** +
+__required__|用户的ID(可能要用到后面进行操作)|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_session,Session>>
+|**300**|当前异常|<<_session,Session>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Particulars
+
+
+[[_selectqueryusingget_1]]
+=== 查询自己的客户
+....
+GET /client/selectquery
+....
+
+
+==== Description
+用户查询自己的对应的客户，显示客户对应的信息
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**index** +
+__optional__|当前是多少页|<<_integer,Integer>>
+|**Body**|**typeId** +
+__required__|查询什么类型的数据(本网，他网)|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_resultpage,ResultPage>>
+|**300**|异常|<<_resultpage,ResultPage>>
+|**400**|失败|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resultpage,ResultPage>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* SelectQuery
+
+
+[[_queryusingget_1]]
+=== 查询消费卡申请状态
+....
+GET /consume/query
+....
+
+
+==== Description
+用户查询自己对应状态的消费卡申请
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**consumeState** +
+__optional__|当前是什么状态(0表示未审核，1表示已审核)|<<_integer,Integer>>
+|**Body**|**index** +
+__optional__|当前是多少页(默认是多少)|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的ID|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_resultpage,ResultPage>>
+|**300**|异常|<<_resultpage,ResultPage>>
+|**400**|失败|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resultpage,ResultPage>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Query
+
+
+[[_selectqueryusingget_9]]
+=== 管理员审核消费卡申请的订单
+....
+GET /consume/selectquery
+....
+
+
+==== Description
+管理员审核消费卡申请的订单的
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**consumeState** +
+__optional__|当前是什么状态(0表示未审核，1表示已审核)|<<_integer,Integer>>
+|**Body**|**index** +
+__optional__|当前是多少页(默认是多少)|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_resultpage,ResultPage>>
+|**204**|No Content|No Content
+|**300**|异常|<<_resultpage,ResultPage>>
+|**400**|失败|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**500**|内部错误|<<_resultpage,ResultPage>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* SelectQuery
+
+
+[[_submitusingpost_1]]
+=== 提交消费卡申请
+....
+POST /consume/submit
+....
+
+
+==== Description
+用户提交消费卡的申请
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**consumeNumber** +
+__required__|大家保险的保险单号|<<_string,String>>
+|**Body**|**userId** +
+__required__|用户的ID|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_resultpage,ResultPage>>
+|**201**|Created|No Content
+|**300**|异常|<<_resultpage,ResultPage>>
+|**400**|失败|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resultpage,ResultPage>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Submit
+
+
 [[_accomplishusingpost]]
 === 用户完成委托，提交完成申请
 ....
@@ -845,6 +1542,398 @@ __required__|用户的Id|<<_integer,Integer>>
 ==== Tags
 
 * UserIntention
+
+
+[[_selectinsuranceusingget]]
+=== 查询保险公司表
+....
+GET /insurance/select
+....
+
+
+==== Description
+查询保险公司表的数据，来进行操作
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Select
+
+
+[[_selecttypeusingget]]
+=== 查询客户类型的表
+....
+GET /type/select
+....
+
+
+==== Description
+查询客户类型表的数据
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Select
+
+
+[[_tostringusingpost]]
+=== toString
+....
+POST /user/login
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**userOpendid** +
+__optional__|userOpendid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|string
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+[[_tostringusingget]]
+=== toString
+....
+GET /user/login
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**userOpendid** +
+__optional__|userOpendid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|string
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+[[_tostringusingput]]
+=== toString
+....
+PUT /user/login
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**userOpendid** +
+__optional__|userOpendid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|string
+|**201**|Created|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+[[_tostringusingdelete]]
+=== toString
+....
+DELETE /user/login
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**userOpendid** +
+__optional__|userOpendid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|string
+|**204**|No Content|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+[[_tostringusingpatch]]
+=== toString
+....
+PATCH /user/login
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**userOpendid** +
+__optional__|userOpendid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|string
+|**204**|No Content|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+[[_tostringusinghead]]
+=== toString
+....
+HEAD /user/login
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**userOpendid** +
+__optional__|userOpendid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|string
+|**204**|No Content|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
+
+
+[[_tostringusingoptions]]
+=== toString
+....
+OPTIONS /user/login
+....
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**userOpendid** +
+__optional__|userOpendid|string
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|OK|string
+|**204**|No Content|No Content
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* user-controller
 
 
 

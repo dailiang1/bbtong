@@ -2,6 +2,262 @@
 [[_definitions]]
 == Definitions
 
+[[_address]]
+=== Address
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**type** +
+__optional__|string
+|===
+
+
+[[_commandinfo]]
+=== CommandInfo
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**commandClass** +
+__optional__|string
+|**commandName** +
+__optional__|string
+|===
+
+
+[[_dataflavor]]
+=== DataFlavor
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**defaultRepresentationClassAsString** +
+__optional__|string
+|**flavorJavaFileListType** +
+__optional__|boolean
+|**flavorRemoteObjectType** +
+__optional__|boolean
+|**flavorSerializedObjectType** +
+__optional__|boolean
+|**flavorTextType** +
+__optional__|boolean
+|**humanPresentableName** +
+__optional__|string
+|**mimeType** +
+__optional__|string
+|**mimeTypeSerializedObject** +
+__optional__|boolean
+|**primaryType** +
+__optional__|string
+|**representationClassByteBuffer** +
+__optional__|boolean
+|**representationClassCharBuffer** +
+__optional__|boolean
+|**representationClassInputStream** +
+__optional__|boolean
+|**representationClassReader** +
+__optional__|boolean
+|**representationClassRemote** +
+__optional__|boolean
+|**representationClassSerializable** +
+__optional__|boolean
+|**subType** +
+__optional__|string
+|===
+
+
+[[_datahandler]]
+=== DataHandler
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**allCommands** +
+__optional__|< <<_commandinfo,CommandInfo>> > array
+|**content** +
+__optional__|object
+|**contentType** +
+__optional__|string
+|**dataSource** +
+__optional__|<<_datasource,DataSource>>
+|**inputStream** +
+__optional__|<<_inputstream,InputStream>>
+|**name** +
+__optional__|string
+|**outputStream** +
+__optional__|<<_outputstream,OutputStream>>
+|**preferredCommands** +
+__optional__|< <<_commandinfo,CommandInfo>> > array
+|**transferDataFlavors** +
+__optional__|< <<_dataflavor,DataFlavor>> > array
+|===
+
+
+[[_datasource]]
+=== DataSource
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**contentType** +
+__optional__|string
+|**inputStream** +
+__optional__|<<_inputstream,InputStream>>
+|**name** +
+__optional__|string
+|**outputStream** +
+__optional__|<<_outputstream,OutputStream>>
+|===
+
+
+[[_enumeration]]
+=== Enumeration
+__Type__ : object
+
+
+[[_flag]]
+=== Flag
+__Type__ : object
+
+
+[[_flags]]
+=== Flags
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**systemFlags** +
+__optional__|< <<_flag,Flag>> > array
+|**userFlags** +
+__optional__|< string > array
+|===
+
+
+[[_folder]]
+=== Folder
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**deletedMessageCount** +
+__optional__|integer (int32)
+|**fullName** +
+__optional__|string
+|**messageCount** +
+__optional__|integer (int32)
+|**messages** +
+__optional__|< <<_message,Message>> > array
+|**mode** +
+__optional__|integer (int32)
+|**name** +
+__optional__|string
+|**newMessageCount** +
+__optional__|integer (int32)
+|**open** +
+__optional__|boolean
+|**parent** +
+__optional__|<<_folder,Folder>>
+|**permanentFlags** +
+__optional__|<<_flags,Flags>>
+|**separator** +
+__optional__|string
+|**store** +
+__optional__|<<_store,Store>>
+|**subscribed** +
+__optional__|boolean
+|**type** +
+__optional__|integer (int32)
+|**unreadMessageCount** +
+__optional__|integer (int32)
+|**urlname** +
+__optional__|<<_urlname,URLName>>
+|===
+
+
+[[_inputstream]]
+=== InputStream
+__Type__ : object
+
+
+[[_message]]
+=== Message
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**allHeaders** +
+__optional__|<<_enumeration,Enumeration>>
+|**allRecipients** +
+__optional__|< <<_address,Address>> > array
+|**content** +
+__optional__|object
+|**contentType** +
+__optional__|string
+|**dataHandler** +
+__optional__|<<_datahandler,DataHandler>>
+|**description** +
+__optional__|string
+|**disposition** +
+__optional__|string
+|**expunged** +
+__optional__|boolean
+|**fileName** +
+__optional__|string
+|**flags** +
+__optional__|<<_flags,Flags>>
+|**folder** +
+__optional__|<<_folder,Folder>>
+|**from** +
+__optional__|< <<_address,Address>> > array
+|**inputStream** +
+__optional__|<<_inputstream,InputStream>>
+|**lineCount** +
+__optional__|integer (int32)
+|**messageNumber** +
+__optional__|integer (int32)
+|**receivedDate** +
+__optional__|string (date-time)
+|**replyTo** +
+__optional__|< <<_address,Address>> > array
+|**sentDate** +
+__optional__|string (date-time)
+|**size** +
+__optional__|integer (int32)
+|**subject** +
+__optional__|string
+|===
+
+
+[[_outputstream]]
+=== OutputStream
+__Type__ : object
+
+
+[[_printstream]]
+=== PrintStream
+__Type__ : object
+
+
+[[_provider]]
+=== Provider
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**className** +
+__optional__|string
+|**protocol** +
+__optional__|string
+|**type** +
+__optional__|<<_type,Type>>
+|**vendor** +
+__optional__|string
+|**version** +
+__optional__|string
+|===
+
+
 [[_result]]
 === Result
 
@@ -58,6 +314,120 @@ __optional__|string
 __optional__|integer (int32)
 |**size** +
 __optional__|integer (int32)
+|===
+
+
+[[_session]]
+=== Session
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**debug** +
+__optional__|boolean
+|**debugOut** +
+__optional__|<<_printstream,PrintStream>>
+|**properties** +
+__optional__|< string, object > map
+|**providers** +
+__optional__|< <<_provider,Provider>> > array
+|**store** +
+__optional__|<<_store,Store>>
+|**transport** +
+__optional__|<<_transport,Transport>>
+|===
+
+
+[[_store]]
+=== Store
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**connected** +
+__optional__|boolean
+|**defaultFolder** +
+__optional__|<<_folder,Folder>>
+|**personalNamespaces** +
+__optional__|< <<_folder,Folder>> > array
+|**sharedNamespaces** +
+__optional__|< <<_folder,Folder>> > array
+|**urlname** +
+__optional__|<<_urlname,URLName>>
+|===
+
+
+[[_transport]]
+=== Transport
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**connected** +
+__optional__|boolean
+|**urlname** +
+__optional__|<<_urlname,URLName>>
+|===
+
+
+[[_type]]
+=== Type
+__Type__ : object
+
+
+[[_url]]
+=== URL
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**authority** +
+__optional__|string
+|**content** +
+__optional__|object
+|**defaultPort** +
+__optional__|integer (int32)
+|**file** +
+__optional__|string
+|**host** +
+__optional__|string
+|**path** +
+__optional__|string
+|**port** +
+__optional__|integer (int32)
+|**protocol** +
+__optional__|string
+|**query** +
+__optional__|string
+|**ref** +
+__optional__|string
+|**userInfo** +
+__optional__|string
+|===
+
+
+[[_urlname]]
+=== URLName
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**file** +
+__optional__|string
+|**host** +
+__optional__|string
+|**password** +
+__optional__|string
+|**port** +
+__optional__|integer (int32)
+|**protocol** +
+__optional__|string
+|**ref** +
+__optional__|string
+|**url** +
+__optional__|<<_url,URL>>
+|**username** +
+__optional__|string
 |===
 
 

@@ -25,11 +25,12 @@ public class Swagger2 {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("宝保通")
                 .apiInfo(apiInfo())
                 .select()
-                //扫描basePackage包下面的“/rest/”路径下的内容作为接口文档构建的目标
+                //扫描basePackage包下面的所有文件
                 .apis(RequestHandlerSelectors.basePackage("com.bbtong"))
-                .paths(PathSelectors.regex("/entrust/.*"))
+                .paths(PathSelectors.any())
                 .build();
     }
 }

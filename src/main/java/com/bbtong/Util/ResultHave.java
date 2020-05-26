@@ -1,5 +1,8 @@
 package com.bbtong.Util;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.List;
  */
 
 @Data
+@ApiModel
 public class ResultHave {
     /**
      * 判断执行编码
@@ -28,14 +32,18 @@ public class ResultHave {
      * 100010出现未知错误
      * 100011非法访问
      */
+    @ApiModelProperty("表示返回的状态,通过返回的状态来判断结果")
     private Integer code;
 
+    @ApiModelProperty("对返回的code进行文字修饰,以及文字的说明")
     private String message;
     //用来存储返回的结果或者数据
 
+    @ApiModelProperty("用来存储返回的数据")
     private Object data;
     //返回结果集，单条
 
+    @ApiModelProperty("用来存储返回的数据数组")
     private List<Object> datas;
     //返回结果集，集合
 }

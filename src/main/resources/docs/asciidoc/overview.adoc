@@ -24,7 +24,15 @@ __BasePath__ : /
 
 === Tags
 
+* amount-range-controller : Amount Range Controller
+* beans-controller : Beans Controller
+* car-type-controller : Car Type Controller
+* client-controller : Client Controller
+* consume-controller : Consume Controller
 * entrust-controller : Entrust Controller
+* insurance-company-controller : Insurance Company Controller
+* type-controller : Type Controller
+* user-controller : User Controller
 
 
 
