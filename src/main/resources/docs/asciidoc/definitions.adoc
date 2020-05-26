@@ -1,0 +1,64 @@
+
+[[_definitions]]
+== Definitions
+
+[[_result]]
+=== Result
+
+[options="header", cols=".^3,.^11,.^4"]
+|===
+|Name|Description|Schema
+|**code** +
+__optional__|表示成功的状态|integer (int32)
+|**data** +
+__optional__|储存返回的数据，json格式|object
+|**datas** +
+__optional__|储存返回的数组List数据|< object > array
+|**message** +
+__optional__|对于返回的状态，文字说明|string
+|===
+
+
+[[_resulthave]]
+=== ResultHave
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**code** +
+__optional__|integer (int32)
+|**data** +
+__optional__|object
+|**datas** +
+__optional__|< object > array
+|**message** +
+__optional__|string
+|===
+
+
+[[_resultpage]]
+=== ResultPage
+
+[options="header", cols=".^3,.^4"]
+|===
+|Name|Schema
+|**code** +
+__optional__|integer (int32)
+|**count** +
+__optional__|integer (int32)
+|**data** +
+__optional__|object
+|**datas** +
+__optional__|< object > array
+|**index** +
+__optional__|integer (int32)
+|**message** +
+__optional__|string
+|**pageCount** +
+__optional__|integer (int32)
+|**size** +
+__optional__|integer (int32)
+|===
+
+
+

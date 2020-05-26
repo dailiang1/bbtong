@@ -1,0 +1,850 @@
+
+[[_paths]]
+== Paths
+
+[[_accomplishusingpost]]
+=== 用户完成委托，提交完成申请
+....
+POST /entrust/accomplish
+....
+
+
+==== Description
+用户完成了大家保险的委托，向委托人提交完成委托的申请
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**entrustId** +
+__required__|委托的ID|<<_integer,Integer>>
+|**Body**|**entrustReturnMoney** +
+__required__|委托需要还单的金额|<<_double,Double>>
+|**Body**|**entrustReturnTime** +
+__required__|委托还单的期限(多少天，用天做单位然后转换)|<<_integer,Integer>>
+|**Body**|**newUserId** +
+__required__|接单人的ID|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|委托人的ID|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**201**|Created|No Content
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Accomplish
+
+
+[[_addentrustusingpost]]
+=== 用户发布委托的方法
+....
+POST /entrust/add
+....
+
+
+==== Description
+大家保险用户发布委托的方法
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Query**|**entrustEndTime** +
+__optional__||string
+|**Query**|**entrustGrade** +
+__optional__||integer (int32)
+|**Query**|**entrustGradeTime** +
+__optional__||string
+|**Query**|**entrustId** +
+__optional__||integer (int32)
+|**Query**|**entrustStartTime** +
+__optional__||string
+|**Query**|**entrustState** +
+__optional__||integer (int32)
+|**Query**|**entrustTime** +
+__optional__||string
+|**Query**|**finallyUserId** +
+__optional__||integer (int32)
+|**Query**|**newUserId** +
+__optional__||string
+|**Body**|**amountRangeId** +
+__optional__|车保类型的价格范围表ID(可以不传默认为30以上)|<<_integer,Integer>>
+|**Body**|**carTypeId** +
+__optional__|车类型表的ID(表示新车或旧车,可以不传默认为旧车)|<<_integer,Integer>>
+|**Body**|**entrustAddress** +
+__required__|前端选择对应的城市，直接存储城市的字符串|<<_string,String>>
+|**Body**|**entrustBusiness** +
+__required__|是否投保商业车损险(0表示不投，1表示投。默认选择是1)|<<_integer,Integer>>
+|**Body**|**entrustCarBrand** +
+__required__|车的品牌(如：大众，奔驰等)|<<_string,String>>
+|**Body**|**entrustInsure** +
+__required__|需要投保些什么类型的保险，自己语言描述|<<_string,String>>
+|**Body**|**entrustMoney** +
+__required__|委托的金额|<<_double,Double>>
+|**Body**|**entrustRemark** +
+__required__|委托的备注|<<_string,String>>
+|**Body**|**entrustReturnMoney** +
+__optional__|需要还单的金额(默认为委托订单的百分之50)但是也可以自己手动设置，为空的话就为百分之50|<<_double,Double>>
+|**Body**|**entrustReturnTime** +
+__optional__|还单的时间，多久之内把单给还了(用天来做单位) 在评分结束之后在评分的时间上，再加上这个日期，可以为空默认为一个月（按三十天计算）|<<_integer,Integer>>
+|**Body**|**entrustServiceCharge** +
+__optional__|期望委托的服务费(可以为空，私下交易联系)|<<_double,Double>>
+|**Body**|**insuranceCompanyId** +
+__required__|指定对应要出的保单公司的ID|<<_integer,Integer>>
+|**Body**|**insuranceCompanyName** +
+__required__|保险公司名称(发布委托用户的保险公司的名称，用来显示是哪家保险的代理人)|<<_string,String>>
+|**Body**|**licensePlateNumber** +
+__required__|必填选项，车牌号码|<<_string,String>>
+|**Body**|**userId** +
+__required__|用户的ID|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**201**|Created|No Content
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Add
+
+
+[[_daaffirmusingpost]]
+=== 委托人确认委托完成(接单人完成委托，还没有还单)
+....
+POST /entrust/daaffirm
+....
+
+
+==== Description
+委托人确认审核对应的委托是否完成了，如果完成了的话，就将委托的状态修改
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**entrustId** +
+__required__|委托的Id|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的Id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**201**|Created|No Content
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* DaAffirm
+
+
+[[_daparticularsusingget]]
+=== 对指定委托进行操作的方法
+....
+GET /entrust/daparticulars
+....
+
+
+==== Description
+大家保险用户通过，查询自己指定的委托，对委托进行操作(指定接单人)
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**entrustId** +
+__optional__|委托的Id|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的ID|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**201**|Created|No Content
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* DaParticulars
+
+
+[[_daselectentrustusingget]]
+=== 待处理的委托的方法
+....
+GET /entrust/daselect
+....
+
+
+==== Description
+大家保险用户查询自己待处理的委托
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**index** +
+__optional__|当前页的页数，可以为空(为空的话默认为第一页)|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的ID|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* DaSelect
+
+
+[[_haveentrustusingpost]]
+=== 用户对委托提交有意向的方法
+....
+POST /entrust/have
+....
+
+
+==== Description
+用户对当前委托，提交有意向申请
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**entrustId** +
+__required__|委托的Id|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的Id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**100001**|表示没有开通年费|<<_resulthave,ResultHave>>
+|**100002**|表示诚信不够|<<_resulthave,ResultHave>>
+|**100003**|表示已经接单|<<_resulthave,ResultHave>>
+|**100004**|表示没有意向的机会|<<_resulthave,ResultHave>>
+|**100005**|表示没有实名|<<_resulthave,ResultHave>>
+|**100006**|表示实名待审核|<<_resulthave,ResultHave>>
+|**100007**|表示实名审核没有通过|<<_resulthave,ResultHave>>
+|**100008**|表示没有同意同意委托公约|<<_resulthave,ResultHave>>
+|**100009**|当前已经意向了|<<_resulthave,ResultHave>>
+|**100010**|出现未知错误|<<_resulthave,ResultHave>>
+|**100011**|非法访问|<<_resulthave,ResultHave>>
+|**200**|成功|<<_resulthave,ResultHave>>
+|**201**|Created|No Content
+|**300**|异常|<<_resulthave,ResultHave>>
+|**400**|失败|<<_resulthave,ResultHave>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resulthave,ResultHave>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Have
+
+
+[[_issuerecordusingget]]
+=== 查看自己所有的委托的方法
+....
+GET /entrust/issue
+....
+
+
+==== Description
+大家保险用户查看自己发布过的所有委托，根据时间排序
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**userId** +
+__required__|用户的Id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Issue
+
+
+[[_offintentionusingget]]
+=== 用户取消委托意向方法
+....
+GET /entrust/offintention
+....
+
+
+==== Description
+用户取消自己当前有意向的委托的方法
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**entrustId** +
+__required__|委托的Id|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的Id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* OffIntention
+
+
+[[_orderrecordusingget]]
+=== 查看用户的接单记录的方法
+....
+GET /entrust/order
+....
+
+
+==== Description
+其他保险公司的用户查看自己接单的记录
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**userId** +
+__required__|用户的Id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Order
+
+
+[[_queryentrustusingget]]
+=== 查询用户当前正在处理的委托
+....
+GET /entrust/queryentrust
+....
+
+
+==== Description
+用户查询他当前正在处理的委托
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**userId** +
+__required__|用户的Id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**100001**|表示没有开通年费|<<_resulthave,ResultHave>>
+|**100002**|表示诚信不够|<<_resulthave,ResultHave>>
+|**100003**|表示已经接单|<<_resulthave,ResultHave>>
+|**100004**|表示没有意向的机会|<<_resulthave,ResultHave>>
+|**100005**|表示没有实名|<<_resulthave,ResultHave>>
+|**100006**|表示实名待审核|<<_resulthave,ResultHave>>
+|**100007**|表示实名审核没有通过|<<_resulthave,ResultHave>>
+|**100008**|表示没有同意同意委托公约|<<_resulthave,ResultHave>>
+|**100009**|当前已经意向了|<<_resulthave,ResultHave>>
+|**100010**|出现未知错误|<<_resulthave,ResultHave>>
+|**100011**|非法访问|<<_resulthave,ResultHave>>
+|**200**|成功|<<_resulthave,ResultHave>>
+|**300**|异常|<<_resulthave,ResultHave>>
+|**400**|失败|<<_resulthave,ResultHave>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resulthave,ResultHave>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* QueryEntrust
+
+
+[[_userselectdeliveryorderusingget]]
+=== 用户查询正在处理的委托的还单记录
+....
+GET /entrust/selectdeliveryorder
+....
+
+
+==== Description
+用户查询正在处理委托的还单记录
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**entrustId** +
+__required__|委托的Id|<<_integer,Integer>>
+|**Body**|**userId** +
+__required__|用户的Id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_result,Result>>
+|**300**|异常|<<_result,Result>>
+|**400**|失败|<<_result,Result>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_result,Result>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* SelectDeliveryOrder
+
+
+[[_sendordersusingpost]]
+=== 委托指定对应的人的方法
+....
+POST /entrust/sendorders
+....
+
+
+==== Description
+大家保险将对应的订单指定给对应的人，1.在有委托有意向的人里面，指派对应的人，并且将这个人的状态修改成不可接单，2.并且将其他人修改成可以有意向其他委托,3.两个人确定好友关系，4.将信息写入到接单表中
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**InsuranceCompanyName** +
+__required__|接单人的保险公司名称|<<_string,String>>
+|**Body**|**entrustId** +
+__required__|委托的Id|<<_integer,Integer>>
+|**Body**|**finallyUserId** +
+__required__|接单人的Id|<<_integer,Integer>>
+|**Body**|**friendName** +
+__required__|接单人的id|<<_string,String>>
+|**Body**|**friendPhone** +
+__required__|接单人的电话|<<_string,String>>
+|**Body**|**userId** +
+__required__|发布委托人的ID|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**200**|成功|<<_resultpage,ResultPage>>
+|**201**|Created|No Content
+|**300**|异常|<<_resultpage,ResultPage>>
+|**400**|失败|<<_resultpage,ResultPage>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resultpage,ResultPage>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* Sendorders
+
+
+[[_useralsousingpost]]
+=== 用户对委托进行还单的方法
+....
+POST /entrust/useralso
+....
+
+
+==== Description
+用户完成接单的委托之后，对委托进行还单
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**deliveryOrderMoney** +
+__required__|还单委托的金额|<<_double,Double>>
+|**Body**|**deliveryOrderNumber** +
+__required__|还单的车牌号|<<_string,String>>
+|**Body**|**newUserId** +
+__required__|用户的ID (还单人的ID)|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**100001**|表示没有开通年费|<<_resulthave,ResultHave>>
+|**100002**|表示诚信不够|<<_resulthave,ResultHave>>
+|**100003**|表示已经接单|<<_resulthave,ResultHave>>
+|**100004**|表示没有意向的机会|<<_resulthave,ResultHave>>
+|**100005**|表示没有实名|<<_resulthave,ResultHave>>
+|**100006**|表示实名待审核|<<_resulthave,ResultHave>>
+|**100007**|表示实名审核没有通过|<<_resulthave,ResultHave>>
+|**100008**|表示没有同意同意委托公约|<<_resulthave,ResultHave>>
+|**100009**|当前已经意向了|<<_resulthave,ResultHave>>
+|**100010**|出现未知错误|<<_resulthave,ResultHave>>
+|**100011**|非法访问|<<_resulthave,ResultHave>>
+|**200**|成功|<<_resulthave,ResultHave>>
+|**201**|Created|No Content
+|**300**|异常|<<_resulthave,ResultHave>>
+|**400**|失败|<<_resulthave,ResultHave>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resulthave,ResultHave>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* UserAlso
+
+
+[[_userintentionusingget]]
+=== 用户显示自己有意向的订单的信息方法
+....
+GET /entrust/userintention
+....
+
+
+==== Description
+查询用户有意向的订单信息
+
+
+==== Parameters
+
+[options="header", cols=".^2,.^3,.^9,.^4"]
+|===
+|Type|Name|Description|Schema
+|**Body**|**userId** +
+__required__|用户的Id|<<_integer,Integer>>
+|===
+
+
+==== Responses
+
+[options="header", cols=".^2,.^14,.^4"]
+|===
+|HTTP Code|Description|Schema
+|**100001**|表示没有开通年费|<<_resulthave,ResultHave>>
+|**100002**|表示诚信不够|<<_resulthave,ResultHave>>
+|**100003**|表示已经接单|<<_resulthave,ResultHave>>
+|**100004**|表示没有意向的机会|<<_resulthave,ResultHave>>
+|**100005**|表示没有实名|<<_resulthave,ResultHave>>
+|**100006**|表示实名待审核|<<_resulthave,ResultHave>>
+|**100007**|表示实名审核没有通过|<<_resulthave,ResultHave>>
+|**100008**|表示没有同意同意委托公约|<<_resulthave,ResultHave>>
+|**100009**|当前已经意向了|<<_resulthave,ResultHave>>
+|**100010**|出现未知错误|<<_resulthave,ResultHave>>
+|**100011**|非法访问|<<_resulthave,ResultHave>>
+|**200**|成功|<<_resulthave,ResultHave>>
+|**300**|异常|<<_resulthave,ResultHave>>
+|**400**|失败|<<_resulthave,ResultHave>>
+|**401**|Unauthorized|No Content
+|**403**|Forbidden|No Content
+|**404**|Not Found|No Content
+|**500**|内部错误|<<_resulthave,ResultHave>>
+|===
+
+
+==== Consumes
+
+* `application/json`
+
+
+==== Produces
+
+* `*/*`
+
+
+==== Tags
+
+* UserIntention
+
+
+
