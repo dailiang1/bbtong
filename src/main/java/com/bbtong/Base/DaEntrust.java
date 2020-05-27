@@ -20,7 +20,7 @@ public class DaEntrust {
     private Double entrustMoney;
 
     /**
-     *  期望委托的服务费(可以为空，私下交易联系)
+     * 期望委托的服务费(可以为空，私下交易联系)
      */
     private Double entrustServiceCharge;
 
@@ -28,6 +28,11 @@ public class DaEntrust {
      * 前端选择对应的城市，直接存储城市的字符串
      */
     private String entrustAddress;
+
+    /**
+     * 必填选项，车牌号码
+     */
+    private String licensePlateNumber;
 
     /**
      * 指定对应要出的保单公司(可以为空) 默认是1表示所有公司
@@ -50,7 +55,7 @@ public class DaEntrust {
     private String entrustEndTime;
 
     /**
-     *  表示委托是否被接(0表示未接单，1表示已接单，2表示已完成，3表示没人接单，4表示委托人主动撤单)
+     * 表示委托是否被接(0表示未接单，1表示已接单，2表示已完成，3表示没人接单，4表示委托人主动撤单)
      */
     private Integer entrustState;
 
@@ -62,5 +67,5 @@ public class DaEntrust {
     /**
      * 用来切割分离之后储存有意向的人数
      */
-    private  Integer number;
+    private Integer number;
 }

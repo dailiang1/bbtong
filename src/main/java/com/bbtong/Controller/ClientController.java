@@ -9,10 +9,7 @@ import io.swagger.annotations.*;
 import org.apache.commons.collections4.Get;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.Session;
 import javax.print.attribute.standard.MediaSize;
@@ -42,20 +39,20 @@ public class ClientController {
      */
     @ApiOperation(value = "添加客户的方法", notes = "用户添加自己客服的方法", tags = "Add", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "typeId", value = "客户类型表的ID,如果没有选择的话，就默认为本网客户", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "clientWay", value = "客户的手机，非必填项", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "clientName", value = "客户的姓名", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "insuranceCompanyId", value = "保险公司的id", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "clientIdentityCard", value = "客户的身份证号码", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "clientIdentityCardFront", value = "客户身份证的正面", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "clientIdentityCardVerso", value = "客户身份证的反面", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "clientAddress", value = "客户投保城市(前端传过来的值)", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "clientComeTime", value = "判断用户是否选择了投保日期", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "clientExpirationTime", value = "如果没有选择的日期的话就默认在当前日期上加一年", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "clientDrivingLicense", value = "客户的行驶证副本图片", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "clientType", value = "客户车型(自己备注客户车的类型)", required = false, dataType = "String"),
-            @ApiImplicitParam(name = "clientRemark", value = "用户给客户的备注", required = false, dataType = "String")
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "typeId", value = "客户类型表的ID,如果没有选择的话，就默认为本网客户", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "clientWay", value = "客户的手机，非必填项", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientName", value = "客户的姓名", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "insuranceCompanyId", value = "保险公司的id", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "clientIdentityCard", value = "客户的身份证号码", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientIdentityCardFront", value = "客户身份证的正面", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientIdentityCardVerso", value = "客户身份证的反面", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientAddress", value = "客户投保城市(前端传过来的值)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientComeTime", value = "判断用户是否选择了投保日期", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientExpirationTime", value = "如果没有选择的日期的话就默认在当前日期上加一年", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientDrivingLicense", value = "客户的行驶证副本图片", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientType", value = "客户车型(自己备注客户车的类型)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientRemark", value = "用户给客户的备注", required = false, dataType = "String", paramType = "query")
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -63,7 +60,7 @@ public class ClientController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add", produces = "application/json")
     public @ResponseBody
     Result AddCilent(Client client) throws ParseException {
         //创建接收数据的实体
@@ -139,9 +136,9 @@ public class ClientController {
      */
     @ApiOperation(value = "查询自己的客户", notes = "用户查询自己的对应的客户，显示客户对应的信息", tags = "SelectQuery", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "typeId", value = "查询什么类型的数据(本网，他网)", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "index", value = "当前是多少页", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "typeId", value = "查询什么类型的数据(本网，他网)", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前是多少页", required = false, dataType = "Integer", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -149,7 +146,7 @@ public class ClientController {
             @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
             @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
     })
-    @RequestMapping(value = "/selectquery", method = RequestMethod.GET)
+    @GetMapping(value = "/selectquery", produces = "application/json")
     public @ResponseBody
     ResultPage SelectQuery(Integer userId, Integer typeId, Integer index) {
         //创建接收数据的实体类，来接收数据
@@ -176,14 +173,14 @@ public class ClientController {
      */
     @ApiOperation(value = "查询客户信息", notes = "用户查询对应客户的个人信息", tags = "Particulars", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的ID(可能要用到后面进行操作)", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "clientId", value = "要查询的客户的id", required = true, dataType = ""),
+            @ApiImplicitParam(name = "userId", value = "用户的ID(可能要用到后面进行操作)", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "clientId", value = "要查询的客户的id", required = true, dataType = "Integer", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Session.class),
             @ApiResponse(code = 300, message = "当前异常", response = Session.class)
     })
-    @RequestMapping(value = "/particulars", method = RequestMethod.GET)
+    @GetMapping(value = "/particulars", produces = "application/json")
     public String Particulars(Integer userId, Integer clientId, HttpSession session) {
         ResultPage resultPage = new ResultPage();
         if (null == userId || null == clientId) {
@@ -206,8 +203,8 @@ public class ClientController {
      */
     @ApiOperation(value = "客户生日提醒", notes = "用户生日提醒", tags = "Birthday", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "index", value = "当前的页数可以为空", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前的页数可以为空", required = false, dataType = "Integer", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -215,7 +212,7 @@ public class ClientController {
             @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
             @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
     })
-    @RequestMapping(value = "/birthday", method = RequestMethod.GET)
+    @GetMapping(value = "/birthday", produces = "application/json")
     public @ResponseBody
     ResultPage Birthday(Integer userId, Integer index) {
         //创建获取数据的实体
@@ -258,8 +255,8 @@ public class ClientController {
      */
     @ApiOperation(value = "用户快到车险的用户", notes = "在这一个月车险到期的客户", tags = "InsuranceWarn", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "index", value = "当前页的页数", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前页的页数", required = false, dataType = "Integer", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -267,7 +264,7 @@ public class ClientController {
             @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
             @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
     })
-    @RequestMapping(value = "/insurance", method = RequestMethod.GET)
+    @GetMapping(value = "/insurance", produces = "application/json")
     public @ResponseBody
     ResultPage InsuranceWarn(Integer userId, Integer index) {
         //创建接受数据的实体来接受数据

@@ -36,6 +36,7 @@
         <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
         <result column="Entrust_Service_Charge" jdbcType="DOUBLE" property="entrustServiceCharge"/>
         <result column="Entrust_Address" jdbcType="VARCHAR" property="entrustAddress"/>
+        <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
         <result column="Insurance_Company_Id" jdbcType="INTEGER" property="insuranceCompanyId"/>
         <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
         <result column="Entrust_Start_Time" jdbcType="VARCHAR" property="entrustStartTime"/>
@@ -611,7 +612,7 @@
 
     <!--大家保险的用户查看自己发布的委托-->
     <select id="DaSelectEntrust" parameterType="map" resultMap="BaseDaEntrust">
-    SELECT e.Entrust_Id,e.Entrust_Address,e.Entrust_Start_Time,e.Entrust_End_Time,e.Insurance_Company_Id,ic.Insurance_Company_Name,e.Entrust_State,e.Entrust_Money,e.Entrust_Return_Money,e.New_User_Id FROM bbt_entrust e LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id WHERE e.User_Id=#{userId} AND e.Entrust_State!=6 ORDER BY e.Entrust_Start_Time LIMIT #{state},#{end}
+    SELECT e.license_Plate_Number,e.Entrust_Id,e.Entrust_Address,e.Entrust_Start_Time,e.Entrust_End_Time,e.Insurance_Company_Id,ic.Insurance_Company_Name,e.Entrust_State,e.Entrust_Money,e.Entrust_Return_Money,e.New_User_Id FROM bbt_entrust e LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id WHERE e.User_Id=#{userId} AND e.Entrust_State!=6 ORDER BY e.Entrust_Start_Time LIMIT #{state},#{end}
   </select>
     <!--先查询订单的信息，来哦按段是否已经派送给人了-->
     <select id="Entrust" parameterType="map" resultMap="BaseResultMap">

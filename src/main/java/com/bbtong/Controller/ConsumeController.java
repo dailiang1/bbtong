@@ -6,9 +6,7 @@ import com.bbtong.Util.ResultPage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,8 +34,8 @@ public class ConsumeController {
      */
     @ApiOperation(value = "提交消费卡申请", notes = "用户提交消费卡的申请", tags = "Submit", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "consumeNumber", value = "大家保险的保险单号", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "consumeNumber", value = "大家保险的保险单号", required = true, dataType = "String", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -45,7 +43,7 @@ public class ConsumeController {
             @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
             @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
     })
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
+    @PostMapping(value = "/submit", produces = "application/json")
     public @ResponseBody
     ResultPage Submit(Integer userId, String consumeNumber) {
         //创建Resultpage的实体来接受参数
@@ -85,9 +83,9 @@ public class ConsumeController {
      */
     @ApiOperation(value = "查询消费卡申请状态", notes = "用户查询自己对应状态的消费卡申请", tags = "Query", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "index", value = "当前是多少页(默认是多少)", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "consumeState", value = "当前是什么状态(0表示未审核，1表示已审核)", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前是多少页(默认是多少)", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "consumeState", value = "当前是什么状态(0表示未审核，1表示已审核)", required = false, dataType = "Integer", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -95,13 +93,13 @@ public class ConsumeController {
             @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
             @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
     })
-    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    @GetMapping(value = "/query", produces = "application/json")
     public @ResponseBody
     ResultPage Query(Integer userId, Integer index, Integer consumeState) {
-        if (index == null || index == 0) {//如果没有传入页数，就默认访问第一页
+        if (index == null) {//如果没有传入页数，就默认访问第一页
             index = 1;
         }
-        if (consumeState == null || consumeState == 0) {//如果没有传入访问什么数据，就默认访问待审核的数据
+        if (consumeState == null) {//如果没有传入访问什么数据，就默认访问待审核的数据
             consumeState = 0;
         }
         //用来接受返回数据的实体
@@ -124,8 +122,8 @@ public class ConsumeController {
      */
     @ApiOperation(value = "管理员审核消费卡申请的订单", notes = "管理员审核消费卡申请的订单的", tags = "SelectQuery", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "index", value = "当前是多少页(默认是多少)", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "consumeState", value = "当前是什么状态(0表示未审核，1表示已审核)", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "index", value = "当前是多少页(默认是多少)", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "consumeState", value = "当前是什么状态(0表示未审核，1表示已审核)", required = false, dataType = "Integer", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -133,7 +131,7 @@ public class ConsumeController {
             @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
             @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
     })
-    @RequestMapping(value = "/selectquery")
+    @GetMapping(value = "/selectquery", produces = "application/json")
     public @ResponseBody
     ResultPage SelectQuery(Integer index, Integer consumeState) {
         //用来接受返回数据的实体

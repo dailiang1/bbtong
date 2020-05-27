@@ -7,9 +7,7 @@ import com.bbtong.Util.ResultPage;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.print.attribute.standard.MediaSize;
@@ -39,8 +37,8 @@ public class BeansController {
      */
     @ApiOperation(value = "提交人车生活卡号来申请和豆", notes = "用户提交人车生活卡号来申请和豆", tags = "Submit", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "提交的用户ID", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "cardNumber", value = "人车生活的卡号", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "userId", value = "提交的用户ID", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "cardNumber", value = "人车生活的卡号", required = true, dataType = "String", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -48,7 +46,7 @@ public class BeansController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
+    @PostMapping(value = "/submit", produces = "application/json")
     public @ResponseBody
     Result Submit(Integer userId, String cardNumber) {
         //创建接收返回参数的实体类
@@ -88,9 +86,9 @@ public class BeansController {
      */
     @ApiOperation(value = "查询人车审核卡是否审核了，默认查询没有审核的", notes = "用户查询人车生活卡是否审核，派发了和豆", tags = "Query", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的ID(是那个用户查询)", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "index", value = "用来记录当前页的页数(如果没有传入的话，就是默认为第一页)", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "beansState", value = "用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "userId", value = "用户的ID(是那个用户查询)", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "用来记录当前页的页数(如果没有传入的话，就是默认为第一页)", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "beansState", value = "用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)", required = false, dataType = "Integer", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -98,7 +96,7 @@ public class BeansController {
             @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
             @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
     })
-    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    @GetMapping(value = "/query", produces = "application/json")
     public @ResponseBody
     ResultPage Query(Integer userId, Integer index, Integer beansState) {
         if (index == null || index == 0) {//如果没有传入页数，就默认访问第一页
@@ -127,8 +125,8 @@ public class BeansController {
      */
     @ApiOperation(value = "管理人员审核或查看哪些审核了(人车生活卡的方法)", notes = "管理员审核或查看审核过的数据", tags = "SelectQuery", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "index", value = "当前的页数(可以不传入值，默认是第一页)", required = false, dataType = "Integer"),
-            @ApiImplicitParam(name = "beansState", value = "用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)", required = false, dataType = "Integer"),
+            @ApiImplicitParam(name = "index", value = "当前的页数(可以不传入值，默认是第一页)", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "beansState", value = "用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)", required = false, dataType = "Integer", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -136,7 +134,7 @@ public class BeansController {
             @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
             @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
     })
-    @RequestMapping(value = "/selectquery", method = RequestMethod.GET)
+    @GetMapping(value = "/selectquery", produces = "application/json")
     public @ResponseBody
     ResultPage SelectQuery(Integer index, Integer beansState) {
         //用来接受返回数据的实体
