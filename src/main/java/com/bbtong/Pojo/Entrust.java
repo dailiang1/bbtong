@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * bbt_entrust 委托订单表
+ *
  * @author
  */
 public class Entrust implements Serializable {
@@ -83,7 +84,7 @@ public class Entrust implements Serializable {
     private Integer amountRangeId;
 
     /**
-     * 表示委托是否被接(0表示未接单，1表示已接单，2表示待确认完成，3表示已完成，4表示没人接单，5表示委托人主动撤单)
+     * 表示委托是否被接(0表示未接单，1表示已接单，2表示待确认完成，3表示已完成，4表示没人接单，5表示委托人主动撤单,6表示委托还单结束)
      */
     private Integer entrustState;
 
@@ -98,7 +99,7 @@ public class Entrust implements Serializable {
     private String entrustGradeTime;
 
     /**
-     *  期望委托的服务费(可以为空，私下交易联系)
+     * 期望委托的服务费(可以为空，私下交易联系)
      */
     private Double entrustServiceCharge;
 
@@ -108,7 +109,7 @@ public class Entrust implements Serializable {
     private Double entrustMoney;
 
     /**
-     *  需要还单的金额(默认为委托订单的百分之50)但是也可以自己手动设置
+     * 需要还单的金额(默认为委托订单的百分之50)但是也可以自己手动设置
      */
     private Double entrustReturnMoney;
 
@@ -118,7 +119,7 @@ public class Entrust implements Serializable {
     private Integer entrustReturnTime;
 
     /**
-     *  是否投保商业车损险(0表示不投，1表示投。默认选择是1)
+     * 是否投保商业车损险(0表示不投，1表示投。默认选择是1)
      */
     private Integer entrustBusiness;
 
@@ -334,29 +335,29 @@ public class Entrust implements Serializable {
         }
         Entrust other = (Entrust) that;
         return (this.getEntrustId() == null ? other.getEntrustId() == null : this.getEntrustId().equals(other.getEntrustId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getNewUserId() == null ? other.getNewUserId() == null : this.getNewUserId().equals(other.getNewUserId()))
-            && (this.getFinallyUserId() == null ? other.getFinallyUserId() == null : this.getFinallyUserId().equals(other.getFinallyUserId()))
-            && (this.getInsuranceCompanyName() == null ? other.getInsuranceCompanyName() == null : this.getInsuranceCompanyName().equals(other.getInsuranceCompanyName()))
-            && (this.getInsuranceCompanyId() == null ? other.getInsuranceCompanyId() == null : this.getInsuranceCompanyId().equals(other.getInsuranceCompanyId()))
-            && (this.getLicensePlateNumber() == null ? other.getLicensePlateNumber() == null : this.getLicensePlateNumber().equals(other.getLicensePlateNumber()))
-            && (this.getEntrustCarBrand() == null ? other.getEntrustCarBrand() == null : this.getEntrustCarBrand().equals(other.getEntrustCarBrand()))
-            && (this.getEntrustAddress() == null ? other.getEntrustAddress() == null : this.getEntrustAddress().equals(other.getEntrustAddress()))
-            && (this.getEntrustRemark() == null ? other.getEntrustRemark() == null : this.getEntrustRemark().equals(other.getEntrustRemark()))
-            && (this.getEntrustGrade() == null ? other.getEntrustGrade() == null : this.getEntrustGrade().equals(other.getEntrustGrade()))
-            && (this.getEntrustStartTime() == null ? other.getEntrustStartTime() == null : this.getEntrustStartTime().equals(other.getEntrustStartTime()))
-            && (this.getEntrustEndTime() == null ? other.getEntrustEndTime() == null : this.getEntrustEndTime().equals(other.getEntrustEndTime()))
-            && (this.getCarTypeId() == null ? other.getCarTypeId() == null : this.getCarTypeId().equals(other.getCarTypeId()))
-            && (this.getAmountRangeId() == null ? other.getAmountRangeId() == null : this.getAmountRangeId().equals(other.getAmountRangeId()))
-            && (this.getEntrustState() == null ? other.getEntrustState() == null : this.getEntrustState().equals(other.getEntrustState()))
-            && (this.getEntrustInsure() == null ? other.getEntrustInsure() == null : this.getEntrustInsure().equals(other.getEntrustInsure()))
-            && (this.getEntrustGradeTime() == null ? other.getEntrustGradeTime() == null : this.getEntrustGradeTime().equals(other.getEntrustGradeTime()))
-            && (this.getEntrustServiceCharge() == null ? other.getEntrustServiceCharge() == null : this.getEntrustServiceCharge().equals(other.getEntrustServiceCharge()))
-            && (this.getEntrustMoney() == null ? other.getEntrustMoney() == null : this.getEntrustMoney().equals(other.getEntrustMoney()))
-            && (this.getEntrustReturnMoney() == null ? other.getEntrustReturnMoney() == null : this.getEntrustReturnMoney().equals(other.getEntrustReturnMoney()))
-            && (this.getEntrustReturnTime() == null ? other.getEntrustReturnTime() == null : this.getEntrustReturnTime().equals(other.getEntrustReturnTime()))
-            && (this.getEntrustBusiness() == null ? other.getEntrustBusiness() == null : this.getEntrustBusiness().equals(other.getEntrustBusiness()))
-            && (this.getEntrustTime() == null ? other.getEntrustTime() == null : this.getEntrustTime().equals(other.getEntrustTime()));
+                && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+                && (this.getNewUserId() == null ? other.getNewUserId() == null : this.getNewUserId().equals(other.getNewUserId()))
+                && (this.getFinallyUserId() == null ? other.getFinallyUserId() == null : this.getFinallyUserId().equals(other.getFinallyUserId()))
+                && (this.getInsuranceCompanyName() == null ? other.getInsuranceCompanyName() == null : this.getInsuranceCompanyName().equals(other.getInsuranceCompanyName()))
+                && (this.getInsuranceCompanyId() == null ? other.getInsuranceCompanyId() == null : this.getInsuranceCompanyId().equals(other.getInsuranceCompanyId()))
+                && (this.getLicensePlateNumber() == null ? other.getLicensePlateNumber() == null : this.getLicensePlateNumber().equals(other.getLicensePlateNumber()))
+                && (this.getEntrustCarBrand() == null ? other.getEntrustCarBrand() == null : this.getEntrustCarBrand().equals(other.getEntrustCarBrand()))
+                && (this.getEntrustAddress() == null ? other.getEntrustAddress() == null : this.getEntrustAddress().equals(other.getEntrustAddress()))
+                && (this.getEntrustRemark() == null ? other.getEntrustRemark() == null : this.getEntrustRemark().equals(other.getEntrustRemark()))
+                && (this.getEntrustGrade() == null ? other.getEntrustGrade() == null : this.getEntrustGrade().equals(other.getEntrustGrade()))
+                && (this.getEntrustStartTime() == null ? other.getEntrustStartTime() == null : this.getEntrustStartTime().equals(other.getEntrustStartTime()))
+                && (this.getEntrustEndTime() == null ? other.getEntrustEndTime() == null : this.getEntrustEndTime().equals(other.getEntrustEndTime()))
+                && (this.getCarTypeId() == null ? other.getCarTypeId() == null : this.getCarTypeId().equals(other.getCarTypeId()))
+                && (this.getAmountRangeId() == null ? other.getAmountRangeId() == null : this.getAmountRangeId().equals(other.getAmountRangeId()))
+                && (this.getEntrustState() == null ? other.getEntrustState() == null : this.getEntrustState().equals(other.getEntrustState()))
+                && (this.getEntrustInsure() == null ? other.getEntrustInsure() == null : this.getEntrustInsure().equals(other.getEntrustInsure()))
+                && (this.getEntrustGradeTime() == null ? other.getEntrustGradeTime() == null : this.getEntrustGradeTime().equals(other.getEntrustGradeTime()))
+                && (this.getEntrustServiceCharge() == null ? other.getEntrustServiceCharge() == null : this.getEntrustServiceCharge().equals(other.getEntrustServiceCharge()))
+                && (this.getEntrustMoney() == null ? other.getEntrustMoney() == null : this.getEntrustMoney().equals(other.getEntrustMoney()))
+                && (this.getEntrustReturnMoney() == null ? other.getEntrustReturnMoney() == null : this.getEntrustReturnMoney().equals(other.getEntrustReturnMoney()))
+                && (this.getEntrustReturnTime() == null ? other.getEntrustReturnTime() == null : this.getEntrustReturnTime().equals(other.getEntrustReturnTime()))
+                && (this.getEntrustBusiness() == null ? other.getEntrustBusiness() == null : this.getEntrustBusiness().equals(other.getEntrustBusiness()))
+                && (this.getEntrustTime() == null ? other.getEntrustTime() == null : this.getEntrustTime().equals(other.getEntrustTime()));
     }
 
     @Override

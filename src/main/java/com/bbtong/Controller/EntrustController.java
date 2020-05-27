@@ -77,7 +77,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add", produces = "application/json")
     public @ResponseBody
     Result AddEntrust(Entrust entrust) {
         //创建实体类数据来接受serviceImpl层的数据
@@ -208,7 +208,7 @@ public class EntrustController {
     })
     @GetMapping(value = "/daselect", produces = "application/json")
     public @ResponseBody
-    ResultPage DaSelectEntrust(@RequestParam Integer userId, Integer index) {
+    ResultPage DaSelectEntrust(Integer userId, Integer index) {
         //创建实体来接受后面的数据
         ResultPage resultPage = new ResultPage();
         //用来判断是否获取到userId，如果没有则表示异常
@@ -244,7 +244,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/daparticulars", method = RequestMethod.POST)
+    @PostMapping(value = "/daparticulars", produces = "application/json")
     public @ResponseBody
     Result DaParticulars(Integer userId, Integer entrustId) {
         //用来接收对应的数据
@@ -286,7 +286,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
             @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
     })
-    @RequestMapping(value = "/sendorders", method = RequestMethod.POST)
+    @PostMapping(value = "/sendorders", produces = "application/json")
     public @ResponseBody
     ResultPage SendOrders(Integer userId, Integer finallyUserId, Integer entrustId, String friendName, String friendPhone, String InsuranceCompanyName) {
         //创建resultPage的实体来接收数据
@@ -318,7 +318,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/issue", method = RequestMethod.GET)
+    @GetMapping(value = "/issue", produces = "application/json")
     public @ResponseBody
     Result IssueRecord(Integer userId) {
         //创建result函数来接收数据
@@ -350,7 +350,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    @GetMapping(value = "/order", produces = "application/json")
     public @ResponseBody
     Result OrderRecord(Integer userId) {
         //创建函数俩接受数据，以及返回数据
@@ -395,7 +395,7 @@ public class EntrustController {
             @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
             @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
     })
-    @RequestMapping(value = "/have", method = RequestMethod.POST)
+    @PostMapping(value = "/have", produces = "application/json")
     public @ResponseBody
     ResultHave HaveEntrust(Integer userId, Integer entrustId) {
         //创建函数来接受返回的值
@@ -436,7 +436,7 @@ public class EntrustController {
             @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
             @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
     })
-    @RequestMapping(value = "/userintention", method = RequestMethod.GET)
+    @GetMapping(value = "/userintention", produces = "application/json")
     public @ResponseBody
     ResultHave UserIntention(Integer userId) {
         //创建实体来进行数据的操作
@@ -470,7 +470,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/offintention", method = RequestMethod.GET)
+    @GetMapping(value = "/offintention", produces = "application/json")
     public @ResponseBody
     Result OffIntention(Integer userId, Integer entrustId) {
         //创建实体类来接受数据，和返回数据
@@ -512,7 +512,7 @@ public class EntrustController {
             @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
             @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
     })
-    @RequestMapping(value = "/queryentrust", method = RequestMethod.GET)
+    @GetMapping(value = "/queryentrust", produces = "application/json")
     public @ResponseBody
     ResultHave QueryEntrust(Integer userId) {
         //创建实体来接受数据
@@ -585,7 +585,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/daaffirm", method = RequestMethod.POST)
+    @PostMapping(value = "/daaffirm", produces = "application/json")
     public @ResponseBody
     Result DaAffirm(Integer userId, Integer entrustId) {
         //创建result函数来操作数据
@@ -618,7 +618,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/selectdeliveryorder", method = RequestMethod.GET)
+    @GetMapping(value = "/selectdeliveryorder", produces = "application/json")
     public @ResponseBody
     Result UserSelectDeliveryOrder(Integer userId, Integer entrustId) {
         //创建实体类来接受数据
@@ -664,7 +664,7 @@ public class EntrustController {
             @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
             @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
     })
-    @RequestMapping(value = "/useralso", method = RequestMethod.POST)
+    @PostMapping(value = "/useralso", produces = "application/json")
     public @ResponseBody
     ResultHave UserAlso(Integer newUserId, String deliveryOrderNumber, Double deliveryOrderMoney) {
         //创建实体类来接受数据，和返回数据
@@ -678,5 +678,34 @@ public class EntrustController {
         //接受serverImpl中传来的数据,将用户的ID 还单委托的车牌号 还单委托的金额传到下一层中去
         resultHave = entrustService.UserAlso(newUserId, deliveryOrderNumber, deliveryOrderMoney);
         return resultHave;
+    }
+
+    /**
+     * 大家保险用户查看哪些自己，已经完成了的委托(历史委托的方法)
+     *
+     * @param userId 用户的id
+     * @return 戴辆
+     */
+    @ApiOperation(value = "大家保险查看历史委托", notes = "大家保险的用户查看:自己已经完成了的委托", tags = "GetDaHistory", httpMethod = "POST")
+    @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @PostMapping(value = "/getdahistory", produces = "application/json")
+    public Result GetDaHistoryEntrust(Integer userId) {
+        //创建实体接受serviceimpl层返回的数据
+        Result result = new Result();
+        //判断userId是否存在，如果userId存在的话，就说明请求正常
+        if (null == userId) {
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        result = entrustService.GetDaHistoryEntrust(userId);
+        return result;
+
     }
 }

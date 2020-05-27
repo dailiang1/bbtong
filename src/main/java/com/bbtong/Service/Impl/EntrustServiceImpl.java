@@ -614,4 +614,28 @@ public class EntrustServiceImpl implements EntrustService {
         }
         return resultHave;
     }
+
+    /**
+     * 大家保险用户查看自己已经完成了的委托(历史委托方法)
+     *
+     * @param userId 用户id
+     * @return 戴辆
+     */
+    @Override
+    public Result GetDaHistoryEntrust(Integer userId) {
+        //创建实体类，来存储数据库返回的数据
+        Result result = new Result();
+        //创建list数组来接受已经完成的委托数据
+        List<GetDaEntrust> getDaEntrustList = entrustDao.GetDaHistoryEntru(userId);
+        if (getDaEntrustList.size() > 0 && getDaEntrustList.size() != 0) {
+            result.setCode(200);//表示成功
+            result.setMessage("查询成功");
+            //将数据存到data中
+            result.setData(getDaEntrustList);
+        } else {
+            result.setCode(400);
+            result.setMessage("没有数据");
+        }
+        return result;
+    }
 }

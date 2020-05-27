@@ -92,7 +92,7 @@
         <result column="Entrust_Business" jdbcType="INTEGER" property="entrustBusiness"/>
     </resultMap>
 
-    <!--用户查询当前订单，已经还单的委托有哪些-->
+    <!--用户查询当前订单，已经还单的委托有哪些 的映射-->
     <resultMap id="BaseDeliveryOrderResultMap" type="com.bbtong.Pojo.DeliveryOrder">
         <id column="Delivery_Order_Id" jdbcType="INTEGER" property="deliveryOrderId"/>
         <result column="New_Entrust_id" jdbcType="INTEGER" property="newEntrustId"/>
@@ -109,6 +109,15 @@
     <resultMap id="BaseAlsoId" type="com.bbtong.Base.AlsoId">
         <result column="New_Entrust_id" jdbcType="INTEGER" property="newEntrustId"/>
         <result column="User_id" jdbcType="INTEGER" property="userId"/>
+    </resultMap>
+
+    <!--大家保险的用户，查询自己的已经完成的委托的实体类的映射-->
+    <resultMap id="BaseGetDaEntrust" type="com.bbtong.Base.GetDaEntrust">
+        <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
+        <result column="Entrust_Return_Time" jdbcType="INTEGER" property="entrustReturnTime"/>
+        <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
+        <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
+        <result column="Entrust_Return_Money" jdbcType="DOUBLE" property="entrustReturnMoney"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -777,4 +786,8 @@
     <insert id="AddDeliveryOrder" parameterType="map">
         insert  into bbt_delivery_order(new_entrust_id, user_id, new_user_id, delivery_order_number, delivery_order_money, entrust_grade_time)values (#{newUserId},#{userId},#{newUserId},#{deliveryOrderNumber},#{deliveryOrderMoney},#{entrustGradeTime})
     </insert>
+
+    <select id="GetDaHistoryEntru" parameterType="int" resultMap="BaseGetDaEntrust">
+        SELECT Entrust_Id,Entrust_Grade_Time,license_Plate_Number,Entrust_Money,Entrust_Return_Money FROM bbt_entrust WHERE User_Id=#{userId} and Entrust_State=6
+    </select>
 </mapper>

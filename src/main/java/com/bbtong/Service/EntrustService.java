@@ -93,6 +93,7 @@ public interface EntrustService {
 
     /**
      * 用户查询他当前正在处理的委托
+     *
      * @param userId 用户的userId
      * @return 戴辆
      */
@@ -100,37 +101,49 @@ public interface EntrustService {
 
     /**
      * 用户完成委托之后确认
-     * @param userId 发布委托用户的ID
-     * @param newUserId 接单人的ID
-     * @param entrustId 委托的ID
+     *
+     * @param userId             发布委托用户的ID
+     * @param newUserId          接单人的ID
+     * @param entrustId          委托的ID
      * @param entrustReturnMoney 需要还单的金额
-     * @param entrustReturnTime 规定还单的期限
+     * @param entrustReturnTime  规定还单的期限
      * @return 戴辆
      */
-    Result Accomplish(Integer userId,Integer newUserId,Integer entrustId,Double entrustReturnMoney, Integer entrustReturnTime);
+    Result Accomplish(Integer userId, Integer newUserId, Integer entrustId, Double entrustReturnMoney, Integer entrustReturnTime);
 
     /**
      * 委托人确认审核对应的委托是否完成了，如果完成了的话，就将委托的状态修改
-     * @param userId 委托人的ID
+     *
+     * @param userId    委托人的ID
      * @param entrustId 委托的ID
      * @return 戴辆
      */
-    Result DaAffirm(Integer userId,Integer entrustId);
+    Result DaAffirm(Integer userId, Integer entrustId);
 
     /**
      * 用户查询正在处理委托的还单记录
-     * @param userId 用户ID
+     *
+     * @param userId    用户ID
      * @param entrustId 当前正在处理的委托的ID
      * @return 戴辆
      */
-    Result UserSelectDeliveryOrder(Integer userId,Integer entrustId);
+    Result UserSelectDeliveryOrder(Integer userId, Integer entrustId);
 
     /**
      * 用户还单的时候提交 信息写入到数据库中去
-     * @param newUserId 还单人的ID
+     *
+     * @param newUserId           还单人的ID
      * @param deliveryOrderNumber 委托的车牌号
-     * @param deliveryOrderMoney 还的委托的金额
+     * @param deliveryOrderMoney  还的委托的金额
      * @return 戴辆
      */
     ResultHave UserAlso(Integer newUserId, String deliveryOrderNumber, Double deliveryOrderMoney);
+
+    /**
+     * 大家保险用户查看自己那些已经完成了的委托(历史委托方法)
+     *
+     * @param userId 用户id
+     * @return 戴辆
+     */
+    Result GetDaHistoryEntrust(Integer userId);
 }
