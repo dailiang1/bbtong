@@ -638,4 +638,35 @@ public class EntrustServiceImpl implements EntrustService {
         }
         return result;
     }
+
+    /**
+     * 大家保险用户 查看对应委托还单的还单信息
+     *
+     * @param user_Id   用户的id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    @Override
+    public Result GetOrderEntrust(Integer user_Id, Integer entrustId) {
+        //创建实体类来接受操作数据
+        Result result = new Result();
+        //创建map数据在接受数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        //将userId存到map中
+        map.put("userId", user_Id);
+        //将entrustId存到map中
+        map.put("entrustId", entrustId);
+        //通过userId和entrustId去查询数据,用list数组来接收返回的数据
+        List<OrderEntrust> orderEntrustList = entrustDao.GetOrderEntrust(map);
+        //判断数据是否正常，如果数组小于0则说明数据错误
+        if (orderEntrustList.size() > 0) {
+            result.setCode(200);
+            result.setMessage("查询成功");
+            result.setData(orderEntrustList);
+        } else {
+            result.setCode(500);
+            result.setMessage("内部错误");
+        }
+        return result;
+    }
 }

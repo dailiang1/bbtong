@@ -275,4 +275,12 @@ public interface EntrustDao {
      * @return 戴辆
      */
     List<GetDaEntrust> GetDaHistoryEntru(@Param("userId") Integer userId);
+
+    /**
+     * 大家保险用户 查看对应委托还单的还单信息
+     *
+     * @param map 里面存储这userId 和entrustId
+     * @return 戴辆
+     */
+    List<OrderEntrust> GetOrderEntrust(Map map);
 }

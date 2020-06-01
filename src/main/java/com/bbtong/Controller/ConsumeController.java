@@ -34,7 +34,7 @@ public class ConsumeController {
      */
     @ApiOperation(value = "提交消费卡申请", notes = "用户提交消费卡的申请", tags = "Submit", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "consumeNumber", value = "大家保险的保险单号", required = true, dataType = "String", paramType = "query"),
     })
     @ApiResponses({
@@ -83,9 +83,9 @@ public class ConsumeController {
      */
     @ApiOperation(value = "查询消费卡申请状态", notes = "用户查询自己对应状态的消费卡申请", tags = "Query", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "index", value = "当前是多少页(默认是多少)", required = false, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "consumeState", value = "当前是什么状态(0表示未审核，1表示已审核)", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前是多少页(默认是多少)", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "consumeState", value = "当前是什么状态(0表示未审核，1表示已审核)", required = false, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -122,8 +122,8 @@ public class ConsumeController {
      */
     @ApiOperation(value = "管理员审核消费卡申请的订单", notes = "管理员审核消费卡申请的订单的", tags = "SelectQuery", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "index", value = "当前是多少页(默认是多少)", required = false, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "consumeState", value = "当前是什么状态(0表示未审核，1表示已审核)", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前是多少页(默认是多少)", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "consumeState", value = "当前是什么状态(0表示未审核，1表示已审核)", required = false, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),

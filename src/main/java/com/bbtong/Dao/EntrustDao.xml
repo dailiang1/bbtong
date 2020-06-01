@@ -114,10 +114,20 @@
     <!--大家保险的用户，查询自己的已经完成的委托的实体类的映射-->
     <resultMap id="BaseGetDaEntrust" type="com.bbtong.Base.GetDaEntrust">
         <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
-        <result column="Entrust_Return_Time" jdbcType="INTEGER" property="entrustReturnTime"/>
+        <result column="Entrust_Grade_Time" jdbcType="VARCHAR" property="entrustGradeTime"/>
         <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
         <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
         <result column="Entrust_Return_Money" jdbcType="DOUBLE" property="entrustReturnMoney"/>
+    </resultMap>
+
+    <!--大家保险用户查询对应委托的，还单情况(根据委托id，查询这个id对应的还单委托)的映射-->
+    <resultMap id="BaseOrderEntrust" type="com.bbtong.Base.OrderEntrust">
+        <id column="Delivery_Order_Id" jdbcType="INTEGER" property="deliveryOrderId"/>
+        <result column="New_User_Id" jdbcType="INTEGER" property="newUserId"/>
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="Delivery_Order_Number" jdbcType="VARCHAR" property="deliveryOrderNumber"/>
+        <result column="Delivery_Order_Money" jdbcType="DOUBLE" property="deliveryOrderMoney"/>
+        <result column="Entrust_Grade_Time" jdbcType="VARCHAR" property="entrustGradeTime"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -633,7 +643,7 @@
         SELECT e.license_Plate_Number,e.Entrust_Id,u.User_Phone,u.User_Name,u.Insurance_Company_Name,u.User_Id FROM
         bbt_user u LEFT JOIN bbt_entrust e ON u.User_Id &lt;&gt; e.New_User_Id OR u.User_Id = e.New_User_Id where INSTR((SELECT
         New_User_Id FROM bbt_entrust where Entrust_Id=#{entrustId}
-        and User_Id=#{userId}),u.User_Id)
+        and User_Id=#{userId}),u.User_Id) and e.Entrust_State=0
     </select>
 
     <!--第一步先将委托派给指定的人，写入数据库-->
@@ -787,7 +797,13 @@
         insert  into bbt_delivery_order(new_entrust_id, user_id, new_user_id, delivery_order_number, delivery_order_money, entrust_grade_time)values (#{newUserId},#{userId},#{newUserId},#{deliveryOrderNumber},#{deliveryOrderMoney},#{entrustGradeTime})
     </insert>
 
+    <!--大家保险用户查看自己已经完成了的委托(历史委托方法)-->
     <select id="GetDaHistoryEntru" parameterType="int" resultMap="BaseGetDaEntrust">
         SELECT Entrust_Id,Entrust_Grade_Time,license_Plate_Number,Entrust_Money,Entrust_Return_Money FROM bbt_entrust WHERE User_Id=#{userId} and Entrust_State=6
+    </select>
+
+    <!--大家保险用户 查看对应委托还单的还单信息-->
+    <select id="GetOrderEntrust" parameterType="map" resultMap="BaseOrderEntrust">
+        SELECT do.Entrust_Grade_Time,do.Delivery_Order_Number,do.Delivery_Order_Money,do.Delivery_Order_Id,u.User_Name FROM bbt_delivery_order do LEFT JOIN bbt_user u ON do.New_User_Id=u.User_Id WHERE do.User_Id=#{userId} AND New_Entrust_Id=#{entrustId}
     </select>
 </mapper>

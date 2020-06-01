@@ -146,4 +146,12 @@ public interface EntrustService {
      * @return 戴辆
      */
     Result GetDaHistoryEntrust(Integer userId);
+
+    /**
+     * 大家保险用户 查看对应委托还单的还单信息
+     * @param user_Id 用户的id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    Result GetOrderEntrust(Integer user_Id, Integer entrustId);
 }

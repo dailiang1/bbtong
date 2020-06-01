@@ -125,8 +125,8 @@ public class BeansController {
      */
     @ApiOperation(value = "管理人员审核或查看哪些审核了(人车生活卡的方法)", notes = "管理员审核或查看审核过的数据", tags = "SelectQuery", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "index", value = "当前的页数(可以不传入值，默认是第一页)", required = false, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "beansState", value = "用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前的页数(可以不传入值，默认是第一页)", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "beansState", value = "用来查询对应状态的数据(如果没有传入的话，就默查询待审核数据)", required = false, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),

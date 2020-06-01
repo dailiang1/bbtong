@@ -39,11 +39,11 @@ public class ClientController {
      */
     @ApiOperation(value = "添加客户的方法", notes = "用户添加自己客服的方法", tags = "Add", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "typeId", value = "客户类型表的ID,如果没有选择的话，就默认为本网客户", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "typeId", value = "客户类型表的ID,如果没有选择的话，就默认为本网客户", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "clientWay", value = "客户的手机，非必填项", required = false, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "clientName", value = "客户的姓名", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "insuranceCompanyId", value = "保险公司的id", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "insuranceCompanyId", value = "保险公司的id", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "clientIdentityCard", value = "客户的身份证号码", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "clientIdentityCardFront", value = "客户身份证的正面", required = false, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "clientIdentityCardVerso", value = "客户身份证的反面", required = false, dataType = "String", paramType = "query"),
@@ -136,9 +136,9 @@ public class ClientController {
      */
     @ApiOperation(value = "查询自己的客户", notes = "用户查询自己的对应的客户，显示客户对应的信息", tags = "SelectQuery", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "typeId", value = "查询什么类型的数据(本网，他网)", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "index", value = "当前是多少页", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "typeId", value = "查询什么类型的数据(本网，他网)", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前是多少页", required = false, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -173,8 +173,8 @@ public class ClientController {
      */
     @ApiOperation(value = "查询客户信息", notes = "用户查询对应客户的个人信息", tags = "Particulars", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的ID(可能要用到后面进行操作)", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "clientId", value = "要查询的客户的id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的ID(可能要用到后面进行操作)", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "clientId", value = "要查询的客户的id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Session.class),
@@ -203,8 +203,8 @@ public class ClientController {
      */
     @ApiOperation(value = "客户生日提醒", notes = "用户生日提醒", tags = "Birthday", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "index", value = "当前的页数可以为空", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前的页数可以为空", required = false, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
@@ -255,8 +255,8 @@ public class ClientController {
      */
     @ApiOperation(value = "用户快到车险的用户", notes = "在这一个月车险到期的客户", tags = "InsuranceWarn", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "index", value = "当前页的页数", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前页的页数", required = false, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultPage.class),

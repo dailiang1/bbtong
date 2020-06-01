@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.spring.web.json.Json;
 
@@ -57,18 +58,18 @@ public class EntrustController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "insuranceCompanyName", value = "保险公司名称(发布委托用户的保险公司的名称，用来显示是哪家保险的代理人)", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "insuranceCompanyId", value = "指定对应要出的保单公司的ID", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "insuranceCompanyId", value = "指定对应要出的保单公司的ID", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "licensePlateNumber", value = "必填选项，车牌号码", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "entrustCarBrand", value = "车的品牌(如：大众，奔驰等)", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "entrustAddress", value = "前端选择对应的城市，直接存储城市的字符串", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "entrustRemark", value = "委托的备注", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "carTypeId", value = "车类型表的ID(表示新车或旧车,可以不传默认为旧车)", required = false, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "amountRangeId", value = "车保类型的价格范围表ID(可以不传默认为30以上)", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "carTypeId", value = "车类型表的ID(表示新车或旧车,可以不传默认为旧车)", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "amountRangeId", value = "车保类型的价格范围表ID(可以不传默认为30以上)", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "entrustInsure", value = "需要投保些什么类型的保险，自己语言描述", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "entrustServiceCharge", value = "期望委托的服务费(可以为空，私下交易联系)", required = false, dataType = "Double", paramType = "query"),
             @ApiImplicitParam(name = "entrustMoney", value = "委托的金额", required = true, dataType = "Double", paramType = "query"),
             @ApiImplicitParam(name = "entrustReturnMoney", value = "需要还单的金额(默认为委托订单的百分之50)但是也可以自己手动设置，为空的话就为百分之50", required = false, dataType = "Double", paramType = "query"),
-            @ApiImplicitParam(name = "entrustReturnTime", value = "还单的时间，多久之内把单给还了(用天来做单位) 在评分结束之后在评分的时间上，再加上这个日期，可以为空默认为一个月（按三十天计算）", required = false, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "entrustReturnTime", value = "还单的时间，多久之内把单给还了(用天来做单位) 在评分结束之后在评分的时间上，再加上这个日期，可以为空默认为一个月（按三十天计算）", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "entrustBusiness", value = "是否投保商业车损险(0表示不投，1表示投。默认选择是1)", required = true, dataType = "Integer"),
     })
     @ApiResponses({
@@ -77,9 +78,9 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @PostMapping(value = "/add", produces = "application/json")
+    @PostMapping(value = "/add", produces = "application/json;charset=UTF-8")
     public @ResponseBody
-    Result AddEntrust(Entrust entrust) {
+    Result AddEntrust(@Validated  @RequestBody Entrust entrust) {
         //创建实体类数据来接受serviceImpl层的数据
         Result result = new Result();
         //用null和userId去比较，如果为true的话则表示，没有获取到用户的userId
@@ -197,8 +198,8 @@ public class EntrustController {
      */
     @ApiOperation(value = "待处理的委托的方法", notes = "大家保险用户查询自己待处理的委托", tags = "DaSelect", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "index", value = "当前页的页数，可以为空(为空的话默认为第一页)", required = false, dataType = "Integer", paramType = "query")
+            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前页的页数，可以为空(为空的话默认为第一页)", required = false, dataType = "int", paramType = "query")
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -235,8 +236,8 @@ public class EntrustController {
      */
     @ApiOperation(value = "对指定委托进行操作的方法", notes = "大家保险用户通过，查询自己指定的委托，对委托进行操作(指定接单人)", tags = "DaParticulars", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = false, dataType = "Integer", paramType = "query")
+            @ApiImplicitParam(name = "userId", value = "用户的ID", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = false, dataType = "int", paramType = "query")
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -244,7 +245,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @PostMapping(value = "/daparticulars", produces = "application/json")
+    @GetMapping(value = "/daparticulars", produces = "application/json")
     public @ResponseBody
     Result DaParticulars(Integer userId, Integer entrustId) {
         //用来接收对应的数据
@@ -273,9 +274,9 @@ public class EntrustController {
      */
     @ApiOperation(value = "委托指定对应的人的方法", notes = "大家保险将对应的订单指定给对应的人，1.在有委托有意向的人里面，指派对应的人，并且将这个人的状态修改成不可接单，2.并且将其他人修改成可以有意向其他委托,3.两个人确定好友关系，4.将信息写入到接单表中", tags = "Sendorders", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "发布委托人的ID", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "finallyUserId", value = "接单人的Id", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "发布委托人的ID", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "finallyUserId", value = "接单人的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "friendName", value = "接单人的id", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "friendPhone", value = "接单人的电话", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "InsuranceCompanyName", value = "接单人的保险公司名称", required = true, dataType = "String", paramType = "query")
@@ -310,7 +311,7 @@ public class EntrustController {
      */
     @ApiOperation(value = "查看自己所有的委托的方法", notes = "大家保险用户查看自己发布过的所有委托，根据时间排序", tags = "Issue", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -342,7 +343,7 @@ public class EntrustController {
      */
     @ApiOperation(value = "查看用户的接单记录的方法", notes = "其他保险公司的用户查看自己接单的记录", tags = "Order", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -375,8 +376,8 @@ public class EntrustController {
      */
     @ApiOperation(value = "用户对委托提交有意向的方法", notes = "用户对当前委托，提交有意向申请", tags = "Have", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
@@ -417,7 +418,7 @@ public class EntrustController {
      */
     @ApiOperation(value = "用户显示自己有意向的订单的信息方法", notes = "查询用户有意向的订单信息", tags = "UserIntention", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
@@ -461,8 +462,8 @@ public class EntrustController {
      */
     @ApiOperation(value = "用户取消委托意向方法", notes = "用户取消自己当前有意向的委托的方法", tags = "OffIntention", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -493,7 +494,7 @@ public class EntrustController {
      */
     @ApiOperation(value = "查询用户当前正在处理的委托", notes = "用户查询他当前正在处理的委托", tags = "QueryEntrust", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
@@ -540,11 +541,11 @@ public class EntrustController {
      */
     @ApiOperation(value = "用户完成委托，提交完成申请", notes = "用户完成了大家保险的委托，向委托人提交完成委托的申请", tags = "Accomplish", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "委托人的ID", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "newUserId", value = "接单人的ID", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的ID", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "委托人的ID", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "newUserId", value = "接单人的ID", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的ID", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "entrustReturnMoney", value = "委托需要还单的金额", required = true, dataType = "Double", paramType = "query"),
-            @ApiImplicitParam(name = "entrustReturnTime", value = "委托还单的期限(多少天，用天做单位然后转换)", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "entrustReturnTime", value = "委托还单的期限(多少天，用天做单位然后转换)", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -576,8 +577,8 @@ public class EntrustController {
      */
     @ApiOperation(value = "委托人确认委托完成(接单人完成委托，还没有还单)", notes = "委托人确认审核对应的委托是否完成了，如果完成了的话，就将委托的状态修改", tags = "DaAffirm", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -609,8 +610,8 @@ public class EntrustController {
      */
     @ApiOperation(value = "用户查询正在处理的委托的还单记录", notes = "用户查询正在处理委托的还单记录", tags = "SelectDeliveryOrder", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
@@ -643,7 +644,7 @@ public class EntrustController {
      */
     @ApiOperation(value = "用户对委托进行还单的方法", notes = "用户完成接单的委托之后，对委托进行还单", tags = "UserAlso", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "newUserId", value = "  用户的ID (还单人的ID)", required = true, dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "newUserId", value = "  用户的ID (还单人的ID)", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "deliveryOrderNumber", value = "还单的车牌号", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "deliveryOrderMoney", value = "还单委托的金额", required = true, dataType = "Double", paramType = "query"),
     })
@@ -686,16 +687,17 @@ public class EntrustController {
      * @param userId 用户的id
      * @return 戴辆
      */
-    @ApiOperation(value = "大家保险查看历史委托", notes = "大家保险的用户查看:自己已经完成了的委托", tags = "GetDaHistory", httpMethod = "POST")
-    @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "Integer", paramType = "query")
+    @ApiOperation(value = "大家保险查看历史委托", notes = "大家保险的用户查看:自己已经完成了的委托", tags = "GetDaHistory", httpMethod = "GET")
+    @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query")
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功", response = Result.class),
             @ApiResponse(code = 300, message = "异常", response = Result.class),
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @PostMapping(value = "/getdahistory", produces = "application/json")
-    public Result GetDaHistoryEntrust(Integer userId) {
+    @GetMapping(value = "/getdahistory", produces = "application/json")
+    public @ResponseBody
+    Result GetDaHistoryEntrust(Integer userId) {
         //创建实体接受serviceimpl层返回的数据
         Result result = new Result();
         //判断userId是否存在，如果userId存在的话，就说明请求正常
@@ -706,6 +708,45 @@ public class EntrustController {
         }
         result = entrustService.GetDaHistoryEntrust(userId);
         return result;
+    }
 
+    /**
+     * 大家保险用户 查看对应委托还单的还单信息
+     *
+     * @param user_Id   用户的id （多一个用户id来防止别人请求端口查询数据）
+     * @param entrustId 委托id
+     * @return 戴辆
+     */
+    @ApiOperation(value = "查看委托还单信息 的方法", notes = "大家保险用 查看对应委托还单的信息", tags = "GetOrderEntrust", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的id", required = true, dataType = "int", paramType = "query")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @GetMapping(value = "/getorderentrust", produces = "application/json")
+    public @ResponseBody
+    Result GetOrderEntrust(Integer entrustId, Integer user_Id) {
+        //创建实体来接受service层返回的结果
+        Result result = new Result();
+        //判断是否获取到了userId
+        if (null == user_Id) {
+            result.setCode(300);
+            result.setMessage("异常访问");
+            return result;
+        }
+        //判断有没有获取到entrustId
+        if (null == entrustId) {
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        //接受service层返回的数据
+        result = entrustService.GetOrderEntrust(user_Id, entrustId);
+        return result;
     }
 }

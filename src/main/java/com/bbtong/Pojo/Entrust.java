@@ -1,5 +1,7 @@
 package com.bbtong.Pojo;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,8 @@ import java.io.Serializable;
  *
  * @author
  */
+
+@Data
 public class Entrust implements Serializable {
     /**
      * 主键ID (委托订单表)
