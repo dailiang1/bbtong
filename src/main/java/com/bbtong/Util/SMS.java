@@ -52,13 +52,13 @@ public class SMS {
 ////    }
 
     //2.发送短信
-    public Result getRequest2(String phone, int num) {
+    public UserResult getRequest2(String userPhone, int num) {
         //创建返回的实体来接受数据
-        Result re = new Result();
+        UserResult userResult = new UserResult();
         String result = null;
         String url = "http://v.juhe.cn/sms/send";//请求接口地址
         Map params = new HashMap();//请求参数
-        params.put("mobile", phone);//接收短信的手机号码
+        params.put("mobile", userPhone);//接收短信的手机号码
         params.put("tpl_id", 115770);//短信模板ID，请参考个人中心短信模板设置
         params.put("tpl_value", "#code#="+num);//变量名和变量值对。如果你的变量名或者变量值中带有#&=中的任意一个特殊符号，请先分别进行urlencode编码后再传递，<a href="http://www.juhe.cn/news/index/id/50" target="_blank">详细说明></a>
         params.put("key", APPKEY);//应用APPKEY(应用详细页查询)
@@ -68,18 +68,18 @@ public class SMS {
             result = net(url, params, "GET");
             JSONObject object = JSONObject.fromObject(result);
             if (object.getInt("error_code") == 0) {
-                re.setCode(200);
-                re.setData(object.get("result"));
-                re.setMessage("发送成功");
+                userResult.setCode(200);
+                userResult.setData(object.get("result"));
+                userResult.setMessage("发送成功");
             } else {
-                re.setCode(200);
-                re.setData(object.get("error_code") + ":" + object.get("reason"));
-                re.setMessage("出现异常");
+                userResult.setCode(200);
+                userResult.setData(object.get("error_code") + ":" + object.get("reason"));
+                userResult.setMessage("出现异常");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return re;
+        return userResult;
     }
 
 

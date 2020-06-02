@@ -39,54 +39,74 @@ public class UserController {
 
     /**
      * 用户用手机号登录的方法
-     * @param userPhone 用户的手机号码
-     * @param session session用来存储数据
+     *
+     * @param userPhone          用户的手机号码
+     * @param session            session用来存储数据
      * @param httpServletRequest 用来接受session中的数据
      * @return 戴辆
      */
     @GetMapping(value = "/note", produces = "application/json")
     public @ResponseBody
-    UserResult UserNote(@RequestParam(value = "userPhone") String userPhone, HttpSession session,HttpServletRequest httpServletRequest) {
+    UserResult UserNote(@RequestParam(value = "userPhone") String userPhone, HttpSession session, HttpServletRequest httpServletRequest) {
+        //获取session
+        session = httpServletRequest.getSession();
+        //先判断有没有session
+        if (session != null) {
+            // 获取session中所有的键值
+            Enumeration<String> attrs = session.getAttributeNames();
+            // 遍历attrs中的
+            while (attrs.hasMoreElements()) {
+                // 获取session键值
+                String newPhone = attrs.nextElement().toString();
+                System.out.println(newPhone);
+                // 根据键值取session中的值
+                Object num = session.getAttribute(newPhone);
+                System.out.println(num);
+                if (newPhone.equals(userPhone)) {
+                    session.removeAttribute(newPhone);
+                }
+            }
+
+        }
         //创建Result的实体来接受数据
         UserResult userResult = new UserResult();
-        //创建实体类的数据来操作
-        NewUser newUser=new NewUser();
         //随机生成六位随机数
         int num = (int) ((Math.random() * 9 + 1) * 100000);
-        //将数据存到session中电话号码为key，验证码为value
+        //将数据存到newUser的实体中，然后将数据存到session中
 
-        newUser.setUserPhone(userPhone);
-        newUser.setNum(num);
-        session.setAttribute("newUser", newUser);
+        //将newUser存到session中，用于登陆的判断
+        session.setAttribute(userPhone, num);
         //设置session的过期时间，这是设置成5分钟
         session.setMaxInactiveInterval(5);
-        session.setAttribute("newUser", newUser);
+
+//       userResult=sms.getRequest2(userPhone,num);
         return userResult;
     }
 
     @GetMapping(value = "/login", produces = "application/json")
     public @ResponseBody
-    UserResult UserLogin(String userPhone, int num) {
+    UserResult UserLogin(String userPhone, int num, HttpSession session) {
         //创建实体类Result来接受数据
         UserResult userResult = new UserResult();
-        //创建request实体来接受和操作session数据
-        HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        //创建session接受数据
-        HttpSession session=request.getSession();
+//        //创建request实体来接受和操作session数据
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+//        //创建session接受数据
+        session = request.getSession();
         //创建NewUser实体来判断数据是否一致
-        NewUser newUser=(NewUser)session.getAttribute("newUser");
-        if (userPhone!=newUser.getUserPhone()) {
+        Enumeration<String> attrs = session.getAttributeNames();
+        String newPhone=attrs.nextElement().toString();
+        if (!userPhone.equals(newPhone)) {
             userResult.setCode(300);
             userResult.setMessage("手机号码错误");
             return userResult;
         }
-        if (num!=newUser.getNum()) {
+        if (num != (int) session.getAttribute(userPhone)) {
             userResult.setCode(300);
             userResult.setMessage("验证码错误");
             return userResult;
         }
         //第一步先根据手机号，去查询有没有注册账号
-        userResult=userService.PutUser(userPhone);
+        userResult = userService.PutUser(userPhone);
         return userResult;
     }
 }
