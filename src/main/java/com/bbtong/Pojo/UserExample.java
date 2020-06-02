@@ -1504,62 +1504,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserPactEqualTo(String value) {
+        public Criteria andUserPactEqualTo(Integer value) {
             addCriterion("User_Pact =", value, "userPact");
             return (Criteria) this;
         }
 
-        public Criteria andUserPactNotEqualTo(String value) {
+        public Criteria andUserPactNotEqualTo(Integer value) {
             addCriterion("User_Pact <>", value, "userPact");
             return (Criteria) this;
         }
 
-        public Criteria andUserPactGreaterThan(String value) {
+        public Criteria andUserPactGreaterThan(Integer value) {
             addCriterion("User_Pact >", value, "userPact");
             return (Criteria) this;
         }
 
-        public Criteria andUserPactGreaterThanOrEqualTo(String value) {
+        public Criteria andUserPactGreaterThanOrEqualTo(Integer value) {
             addCriterion("User_Pact >=", value, "userPact");
             return (Criteria) this;
         }
 
-        public Criteria andUserPactLessThan(String value) {
+        public Criteria andUserPactLessThan(Integer value) {
             addCriterion("User_Pact <", value, "userPact");
             return (Criteria) this;
         }
 
-        public Criteria andUserPactLessThanOrEqualTo(String value) {
+        public Criteria andUserPactLessThanOrEqualTo(Integer value) {
             addCriterion("User_Pact <=", value, "userPact");
             return (Criteria) this;
         }
 
-        public Criteria andUserPactLike(String value) {
-            addCriterion("User_Pact like", value, "userPact");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserPactNotLike(String value) {
-            addCriterion("User_Pact not like", value, "userPact");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserPactIn(List<String> values) {
+        public Criteria andUserPactIn(List<Integer> values) {
             addCriterion("User_Pact in", values, "userPact");
             return (Criteria) this;
         }
 
-        public Criteria andUserPactNotIn(List<String> values) {
+        public Criteria andUserPactNotIn(List<Integer> values) {
             addCriterion("User_Pact not in", values, "userPact");
             return (Criteria) this;
         }
 
-        public Criteria andUserPactBetween(String value1, String value2) {
+        public Criteria andUserPactBetween(Integer value1, Integer value2) {
             addCriterion("User_Pact between", value1, value2, "userPact");
             return (Criteria) this;
         }
 
-        public Criteria andUserPactNotBetween(String value1, String value2) {
+        public Criteria andUserPactNotBetween(Integer value1, Integer value2) {
             addCriterion("User_Pact not between", value1, value2, "userPact");
             return (Criteria) this;
         }
@@ -1574,62 +1564,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateEqualTo(String value) {
+        public Criteria andUserOrderStateEqualTo(Integer value) {
             addCriterion("User_Order_State =", value, "userOrderState");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateNotEqualTo(String value) {
+        public Criteria andUserOrderStateNotEqualTo(Integer value) {
             addCriterion("User_Order_State <>", value, "userOrderState");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateGreaterThan(String value) {
+        public Criteria andUserOrderStateGreaterThan(Integer value) {
             addCriterion("User_Order_State >", value, "userOrderState");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateGreaterThanOrEqualTo(String value) {
+        public Criteria andUserOrderStateGreaterThanOrEqualTo(Integer value) {
             addCriterion("User_Order_State >=", value, "userOrderState");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateLessThan(String value) {
+        public Criteria andUserOrderStateLessThan(Integer value) {
             addCriterion("User_Order_State <", value, "userOrderState");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateLessThanOrEqualTo(String value) {
+        public Criteria andUserOrderStateLessThanOrEqualTo(Integer value) {
             addCriterion("User_Order_State <=", value, "userOrderState");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateLike(String value) {
-            addCriterion("User_Order_State like", value, "userOrderState");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserOrderStateNotLike(String value) {
-            addCriterion("User_Order_State not like", value, "userOrderState");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserOrderStateIn(List<String> values) {
+        public Criteria andUserOrderStateIn(List<Integer> values) {
             addCriterion("User_Order_State in", values, "userOrderState");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateNotIn(List<String> values) {
+        public Criteria andUserOrderStateNotIn(List<Integer> values) {
             addCriterion("User_Order_State not in", values, "userOrderState");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateBetween(String value1, String value2) {
+        public Criteria andUserOrderStateBetween(Integer value1, Integer value2) {
             addCriterion("User_Order_State between", value1, value2, "userOrderState");
             return (Criteria) this;
         }
 
-        public Criteria andUserOrderStateNotBetween(String value1, String value2) {
+        public Criteria andUserOrderStateNotBetween(Integer value1, Integer value2) {
             addCriterion("User_Order_State not between", value1, value2, "userOrderState");
             return (Criteria) this;
         }
@@ -1644,62 +1624,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongEqualTo(String value) {
+        public Criteria andUserTietongEqualTo(Integer value) {
             addCriterion("User_tietong =", value, "userTietong");
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongNotEqualTo(String value) {
+        public Criteria andUserTietongNotEqualTo(Integer value) {
             addCriterion("User_tietong <>", value, "userTietong");
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongGreaterThan(String value) {
+        public Criteria andUserTietongGreaterThan(Integer value) {
             addCriterion("User_tietong >", value, "userTietong");
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongGreaterThanOrEqualTo(String value) {
+        public Criteria andUserTietongGreaterThanOrEqualTo(Integer value) {
             addCriterion("User_tietong >=", value, "userTietong");
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongLessThan(String value) {
+        public Criteria andUserTietongLessThan(Integer value) {
             addCriterion("User_tietong <", value, "userTietong");
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongLessThanOrEqualTo(String value) {
+        public Criteria andUserTietongLessThanOrEqualTo(Integer value) {
             addCriterion("User_tietong <=", value, "userTietong");
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongLike(String value) {
-            addCriterion("User_tietong like", value, "userTietong");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserTietongNotLike(String value) {
-            addCriterion("User_tietong not like", value, "userTietong");
-            return (Criteria) this;
-        }
-
-        public Criteria andUserTietongIn(List<String> values) {
+        public Criteria andUserTietongIn(List<Integer> values) {
             addCriterion("User_tietong in", values, "userTietong");
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongNotIn(List<String> values) {
+        public Criteria andUserTietongNotIn(List<Integer> values) {
             addCriterion("User_tietong not in", values, "userTietong");
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongBetween(String value1, String value2) {
+        public Criteria andUserTietongBetween(Integer value1, Integer value2) {
             addCriterion("User_tietong between", value1, value2, "userTietong");
             return (Criteria) this;
         }
 
-        public Criteria andUserTietongNotBetween(String value1, String value2) {
+        public Criteria andUserTietongNotBetween(Integer value1, Integer value2) {
             addCriterion("User_tietong not between", value1, value2, "userTietong");
             return (Criteria) this;
         }
@@ -1901,6 +1871,66 @@ public class UserExample {
 
         public Criteria andIntentionStateNotBetween(Integer value1, Integer value2) {
             addCriterion("Intention_State not between", value1, value2, "intentionState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateIsNull() {
+            addCriterion("test_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateIsNotNull() {
+            addCriterion("test_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateEqualTo(Integer value) {
+            addCriterion("test_state =", value, "testState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateNotEqualTo(Integer value) {
+            addCriterion("test_state <>", value, "testState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateGreaterThan(Integer value) {
+            addCriterion("test_state >", value, "testState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("test_state >=", value, "testState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateLessThan(Integer value) {
+            addCriterion("test_state <", value, "testState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateLessThanOrEqualTo(Integer value) {
+            addCriterion("test_state <=", value, "testState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateIn(List<Integer> values) {
+            addCriterion("test_state in", values, "testState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateNotIn(List<Integer> values) {
+            addCriterion("test_state not in", values, "testState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateBetween(Integer value1, Integer value2) {
+            addCriterion("test_state between", value1, value2, "testState");
+            return (Criteria) this;
+        }
+
+        public Criteria andTestStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("test_state not between", value1, value2, "testState");
             return (Criteria) this;
         }
     }

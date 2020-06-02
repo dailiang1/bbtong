@@ -17,7 +17,7 @@ import java.util.Date;
 /***
  * 和豆申请表
  */
-
+@CrossOrigin(allowCredentials = "true")
 @Controller
 @RequestMapping("/beans")
 public class BeansController {

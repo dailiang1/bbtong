@@ -3,8 +3,8 @@ package com.bbtong.Pojo;
 import java.io.Serializable;
 
 /**
- * bbt_user代理人表
- * 戴辆
+ * bbt_user
+ * @author 
  */
 public class User implements Serializable {
     /**
@@ -115,17 +115,17 @@ public class User implements Serializable {
     /**
      * 首次访问需确认统一委托公约(0表示未同意，1表示已同意)
      */
-    private String userPact;
+    private Integer userPact;
 
     /**
      *  用来判断他当前是否还能接单(0表示可以接单，1表示不可以)
      */
-    private String userOrderState;
+    private Integer userOrderState;
 
     /**
      * A类表示：大保险代理(铁通员工)，B类表示大家保险代理(非铁通员工)，C类表示非大家保险代理。分别用0，1， 2表示
      */
-    private String userTietong;
+    private Integer userTietong;
 
     /**
      *  委托人所在的城市(需自己选择，精确到县级即可)
@@ -141,6 +141,11 @@ public class User implements Serializable {
      * 表示当前委托人是否可以。选择有意向委托(0表示可以，1表示不可以)
      */
     private Integer intentionState;
+
+    /**
+     * 表示第一次测试的时候，注册的人是否审核了(0为审核，1已审核)
+     */
+    private Integer testState;
 
     private static final long serialVersionUID = 1L;
 
@@ -312,27 +317,27 @@ public class User implements Serializable {
         this.userNumber = userNumber;
     }
 
-    public String getUserPact() {
+    public Integer getUserPact() {
         return userPact;
     }
 
-    public void setUserPact(String userPact) {
+    public void setUserPact(Integer userPact) {
         this.userPact = userPact;
     }
 
-    public String getUserOrderState() {
+    public Integer getUserOrderState() {
         return userOrderState;
     }
 
-    public void setUserOrderState(String userOrderState) {
+    public void setUserOrderState(Integer userOrderState) {
         this.userOrderState = userOrderState;
     }
 
-    public String getUserTietong() {
+    public Integer getUserTietong() {
         return userTietong;
     }
 
-    public void setUserTietong(String userTietong) {
+    public void setUserTietong(Integer userTietong) {
         this.userTietong = userTietong;
     }
 
@@ -358,6 +363,14 @@ public class User implements Serializable {
 
     public void setIntentionState(Integer intentionState) {
         this.intentionState = intentionState;
+    }
+
+    public Integer getTestState() {
+        return testState;
+    }
+
+    public void setTestState(Integer testState) {
+        this.testState = testState;
     }
 
     @Override
@@ -398,7 +411,8 @@ public class User implements Serializable {
             && (this.getUserTietong() == null ? other.getUserTietong() == null : this.getUserTietong().equals(other.getUserTietong()))
             && (this.getUserAddress() == null ? other.getUserAddress() == null : this.getUserAddress().equals(other.getUserAddress()))
             && (this.getTietongNumber() == null ? other.getTietongNumber() == null : this.getTietongNumber().equals(other.getTietongNumber()))
-            && (this.getIntentionState() == null ? other.getIntentionState() == null : this.getIntentionState().equals(other.getIntentionState()));
+            && (this.getIntentionState() == null ? other.getIntentionState() == null : this.getIntentionState().equals(other.getIntentionState()))
+            && (this.getTestState() == null ? other.getTestState() == null : this.getTestState().equals(other.getTestState()));
     }
 
     @Override
@@ -432,6 +446,7 @@ public class User implements Serializable {
         result = prime * result + ((getUserAddress() == null) ? 0 : getUserAddress().hashCode());
         result = prime * result + ((getTietongNumber() == null) ? 0 : getTietongNumber().hashCode());
         result = prime * result + ((getIntentionState() == null) ? 0 : getIntentionState().hashCode());
+        result = prime * result + ((getTestState() == null) ? 0 : getTestState().hashCode());
         return result;
     }
 
@@ -468,6 +483,7 @@ public class User implements Serializable {
         sb.append(", userAddress=").append(userAddress);
         sb.append(", tietongNumber=").append(tietongNumber);
         sb.append(", intentionState=").append(intentionState);
+        sb.append(", testState=").append(testState);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

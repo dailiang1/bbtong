@@ -4,17 +4,13 @@ import com.bbtong.Pojo.Client;
 import com.bbtong.Service.ClientService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultPage;
-import com.sun.deploy.util.SessionState;
 import io.swagger.annotations.*;
-import org.apache.commons.collections4.Get;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.Session;
-import javax.print.attribute.standard.MediaSize;
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,6 +20,7 @@ import java.util.Date;
  * 客户表
  */
 
+@CrossOrigin(allowCredentials = "true")
 @Controller
 @RequestMapping("/client")
 public class ClientController {

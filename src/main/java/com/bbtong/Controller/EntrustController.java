@@ -209,7 +209,7 @@ public class EntrustController {
     })
     @GetMapping(value = "/daselect", produces = "application/json")
     public @ResponseBody
-    ResultPage DaSelectEntrust(Integer userId, Integer index) {
+    ResultPage DaSelectEntrust( Integer userId, Integer index) {
         //创建实体来接受后面的数据
         ResultPage resultPage = new ResultPage();
         //用来判断是否获取到userId，如果没有则表示异常

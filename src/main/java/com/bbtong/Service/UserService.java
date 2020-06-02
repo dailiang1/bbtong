@@ -1,7 +1,16 @@
 package com.bbtong.Service;
 
 import com.bbtong.Pojo.User;
+import com.bbtong.Util.UserResult;
 
+/**
+ * 用户登录查询的方法
+ */
 public interface UserService {
-    int login(User user);
+    /**
+     * 登录第一步，先通过手机号查询是否有这个用户
+     * @param userPhone 手机号码
+     * @return 戴辆
+     */
+    UserResult PutUser(String userPhone);
 }

@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * 消费卡申请表
  */
-
+@CrossOrigin(allowCredentials = "true")
 @Controller
 @RequestMapping("/consume")
 public class ConsumeController {

@@ -23,12 +23,13 @@
     <result column="User_Entrust_Money" jdbcType="DOUBLE" property="userEntrustMoney" />
     <result column="User_order_Money" jdbcType="DOUBLE" property="userOrderMoney" />
     <result column="User_Number" jdbcType="VARCHAR" property="userNumber" />
-    <result column="User_Pact" jdbcType="CHAR" property="userPact" />
-    <result column="User_Order_State" jdbcType="CHAR" property="userOrderState" />
-    <result column="User_tietong" jdbcType="CHAR" property="userTietong" />
+    <result column="User_Pact" jdbcType="INTEGER" property="userPact" />
+    <result column="User_Order_State" jdbcType="INTEGER" property="userOrderState" />
+    <result column="User_tietong" jdbcType="INTEGER" property="userTietong" />
     <result column="User_Address" jdbcType="VARCHAR" property="userAddress" />
     <result column="Tietong_Number" jdbcType="VARCHAR" property="tietongNumber" />
     <result column="Intention_State" jdbcType="INTEGER" property="intentionState" />
+    <result column="test_state" jdbcType="INTEGER" property="testState" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -94,7 +95,7 @@
     User_Identity_Card, User_Identity_Card_Front, User_Identity_Card_Verso, User_Satisfaction, 
     User_OpenId, User_State, User_Entrust_number, User_Order_numer, User_Entrust_Money, 
     User_order_Money, User_Number, User_Pact, User_Order_State, User_tietong, User_Address, 
-    Tietong_Number, Intention_State
+    Tietong_Number, Intention_State, test_state
   </sql>
   <select id="selectByExample" parameterType="com.bbtong.Pojo.UserExample" resultMap="BaseResultMap">
     select
@@ -144,7 +145,7 @@
       User_Order_numer, User_Entrust_Money, User_order_Money, 
       User_Number, User_Pact, User_Order_State, 
       User_tietong, User_Address, Tietong_Number, 
-      Intention_State)
+      Intention_State, test_state)
     values (#{userName,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR}, #{insuranceCompanyName,jdbcType=VARCHAR}, 
       #{insuranceCompanyId,jdbcType=INTEGER}, #{userIntegrity,jdbcType=DOUBLE}, #{userMemberState,jdbcType=INTEGER}, 
       #{userMemberBegin,jdbcType=VARCHAR}, #{userMemberFinish,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
@@ -152,9 +153,9 @@
       #{userIdentityCardVerso,jdbcType=VARCHAR}, #{userSatisfaction,jdbcType=INTEGER}, 
       #{userOpenid,jdbcType=VARCHAR}, #{userState,jdbcType=INTEGER}, #{userEntrustNumber,jdbcType=INTEGER}, 
       #{userOrderNumer,jdbcType=INTEGER}, #{userEntrustMoney,jdbcType=DOUBLE}, #{userOrderMoney,jdbcType=DOUBLE}, 
-      #{userNumber,jdbcType=VARCHAR}, #{userPact,jdbcType=CHAR}, #{userOrderState,jdbcType=CHAR}, 
-      #{userTietong,jdbcType=CHAR}, #{userAddress,jdbcType=VARCHAR}, #{tietongNumber,jdbcType=VARCHAR}, 
-      #{intentionState,jdbcType=INTEGER})
+      #{userNumber,jdbcType=VARCHAR}, #{userPact,jdbcType=INTEGER}, #{userOrderState,jdbcType=INTEGER}, 
+      #{userTietong,jdbcType=INTEGER}, #{userAddress,jdbcType=VARCHAR}, #{tietongNumber,jdbcType=VARCHAR}, 
+      #{intentionState,jdbcType=INTEGER}, #{testState,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="User_Id" keyProperty="userId" parameterType="com.bbtong.Pojo.User" useGeneratedKeys="true">
     insert into bbt_user
@@ -237,6 +238,9 @@
       <if test="intentionState != null">
         Intention_State,
       </if>
+      <if test="testState != null">
+        test_state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userName != null">
@@ -300,13 +304,13 @@
         #{userNumber,jdbcType=VARCHAR},
       </if>
       <if test="userPact != null">
-        #{userPact,jdbcType=CHAR},
+        #{userPact,jdbcType=INTEGER},
       </if>
       <if test="userOrderState != null">
-        #{userOrderState,jdbcType=CHAR},
+        #{userOrderState,jdbcType=INTEGER},
       </if>
       <if test="userTietong != null">
-        #{userTietong,jdbcType=CHAR},
+        #{userTietong,jdbcType=INTEGER},
       </if>
       <if test="userAddress != null">
         #{userAddress,jdbcType=VARCHAR},
@@ -316,6 +320,9 @@
       </if>
       <if test="intentionState != null">
         #{intentionState,jdbcType=INTEGER},
+      </if>
+      <if test="testState != null">
+        #{testState,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -392,13 +399,13 @@
         User_Number = #{record.userNumber,jdbcType=VARCHAR},
       </if>
       <if test="record.userPact != null">
-        User_Pact = #{record.userPact,jdbcType=CHAR},
+        User_Pact = #{record.userPact,jdbcType=INTEGER},
       </if>
       <if test="record.userOrderState != null">
-        User_Order_State = #{record.userOrderState,jdbcType=CHAR},
+        User_Order_State = #{record.userOrderState,jdbcType=INTEGER},
       </if>
       <if test="record.userTietong != null">
-        User_tietong = #{record.userTietong,jdbcType=CHAR},
+        User_tietong = #{record.userTietong,jdbcType=INTEGER},
       </if>
       <if test="record.userAddress != null">
         User_Address = #{record.userAddress,jdbcType=VARCHAR},
@@ -408,6 +415,9 @@
       </if>
       <if test="record.intentionState != null">
         Intention_State = #{record.intentionState,jdbcType=INTEGER},
+      </if>
+      <if test="record.testState != null">
+        test_state = #{record.testState,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -437,12 +447,13 @@
       User_Entrust_Money = #{record.userEntrustMoney,jdbcType=DOUBLE},
       User_order_Money = #{record.userOrderMoney,jdbcType=DOUBLE},
       User_Number = #{record.userNumber,jdbcType=VARCHAR},
-      User_Pact = #{record.userPact,jdbcType=CHAR},
-      User_Order_State = #{record.userOrderState,jdbcType=CHAR},
-      User_tietong = #{record.userTietong,jdbcType=CHAR},
+      User_Pact = #{record.userPact,jdbcType=INTEGER},
+      User_Order_State = #{record.userOrderState,jdbcType=INTEGER},
+      User_tietong = #{record.userTietong,jdbcType=INTEGER},
       User_Address = #{record.userAddress,jdbcType=VARCHAR},
       Tietong_Number = #{record.tietongNumber,jdbcType=VARCHAR},
-      Intention_State = #{record.intentionState,jdbcType=INTEGER}
+      Intention_State = #{record.intentionState,jdbcType=INTEGER},
+      test_state = #{record.testState,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -511,13 +522,13 @@
         User_Number = #{userNumber,jdbcType=VARCHAR},
       </if>
       <if test="userPact != null">
-        User_Pact = #{userPact,jdbcType=CHAR},
+        User_Pact = #{userPact,jdbcType=INTEGER},
       </if>
       <if test="userOrderState != null">
-        User_Order_State = #{userOrderState,jdbcType=CHAR},
+        User_Order_State = #{userOrderState,jdbcType=INTEGER},
       </if>
       <if test="userTietong != null">
-        User_tietong = #{userTietong,jdbcType=CHAR},
+        User_tietong = #{userTietong,jdbcType=INTEGER},
       </if>
       <if test="userAddress != null">
         User_Address = #{userAddress,jdbcType=VARCHAR},
@@ -527,6 +538,9 @@
       </if>
       <if test="intentionState != null">
         Intention_State = #{intentionState,jdbcType=INTEGER},
+      </if>
+      <if test="testState != null">
+        test_state = #{testState,jdbcType=INTEGER},
       </if>
     </set>
     where User_Id = #{userId,jdbcType=INTEGER}
@@ -553,12 +567,18 @@
       User_Entrust_Money = #{userEntrustMoney,jdbcType=DOUBLE},
       User_order_Money = #{userOrderMoney,jdbcType=DOUBLE},
       User_Number = #{userNumber,jdbcType=VARCHAR},
-      User_Pact = #{userPact,jdbcType=CHAR},
-      User_Order_State = #{userOrderState,jdbcType=CHAR},
-      User_tietong = #{userTietong,jdbcType=CHAR},
+      User_Pact = #{userPact,jdbcType=INTEGER},
+      User_Order_State = #{userOrderState,jdbcType=INTEGER},
+      User_tietong = #{userTietong,jdbcType=INTEGER},
       User_Address = #{userAddress,jdbcType=VARCHAR},
       Tietong_Number = #{tietongNumber,jdbcType=VARCHAR},
-      Intention_State = #{intentionState,jdbcType=INTEGER}
+      Intention_State = #{intentionState,jdbcType=INTEGER},
+      test_state = #{testState,jdbcType=INTEGER}
     where User_Id = #{userId,jdbcType=INTEGER}
   </update>
+
+  <!--第一步通过用户的手机查询对应的信息-->
+  <select id="PutUser" parameterType="string" resultMap="BaseResultMap">
+    select * from  bbt_user where User_Phone=#{userPhone}
+  </select>
 </mapper>

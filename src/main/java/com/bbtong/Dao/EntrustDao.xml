@@ -626,7 +626,7 @@
 
     <!--大家保险的用户查询自己发布的委托条数-->
     <select id="DaSelectEntrustNumber" parameterType="map" resultType="int">
-    select count(1) from bbt_entrust where User_Id=#{userId} and Entrust_State=0
+    select count(1) from bbt_entrust where User_Id=#{userId} and Entrust_State!=6
   </select>
 
     <!--大家保险的用户查看自己发布的委托-->
