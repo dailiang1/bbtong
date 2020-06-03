@@ -447,7 +447,7 @@
                 and User_Id=#{userId}
             </if>
             <if test="typeId != null and typeId != ''">
-                and Type_Id=#{typeId}
+                and c.Type_Id=#{typeId}
             </if>
         </where>
             ORDER BY  c.Client_Expiration_Time LIMIT #{state},#{end}
@@ -467,7 +467,7 @@
         <where>
             User_Id=#{userId}
             <if test="Time != null and Time != ''">
-                and c.Client_Birthday>=#{Time}
+                 c.Client_Birthday>=#{Time}
             </if>
             <if test="NewTime != null and NewTime != ''">
                 or #{NewTime}>=c.Client_Birthday
