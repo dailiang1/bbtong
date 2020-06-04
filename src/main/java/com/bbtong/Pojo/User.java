@@ -123,7 +123,7 @@ public class User implements Serializable {
     private Integer userOrderState;
 
     /**
-     * A类表示：大保险代理(铁通员工)，B类表示大家保险代理(非铁通员工)，C类表示非大家保险代理。分别用0，1， 2表示
+     * A类表示：大保险代理(铁通员工)，B类表示大家保险代理(非铁通员工)，C类表示非大家保险代理。分别用1，2， 2表示
      */
     private Integer userTietong;
 

@@ -1,6 +1,8 @@
 package com.bbtong.Service;
 
+import com.bbtong.Base.PostUser;
 import com.bbtong.Pojo.User;
+import com.bbtong.Util.Result;
 import com.bbtong.Util.UserResult;
 
 /**
@@ -13,4 +15,11 @@ public interface UserService {
      * @return 戴辆
      */
     UserResult PutUser(String userPhone);
+
+    /**
+     * 注册用户
+     * @param postUser 用户基本信息
+     * @return 戴辆
+     */
+    Result PostUser(PostUser postUser);
 }

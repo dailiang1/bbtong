@@ -1,8 +1,10 @@
 package com.bbtong.Service.Impl;
 
+import com.bbtong.Base.PostUser;
 import com.bbtong.Dao.UserDao;
 import com.bbtong.Pojo.User;
 import com.bbtong.Service.UserService;
+import com.bbtong.Util.Result;
 import com.bbtong.Util.UserResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,9 +36,12 @@ public class UserServiceImpl implements UserService {
         try {
             //创建User的实体来接受数据
             User user=userDao.PutUser(userPhone);
-            if (user.getUserId()!=null){
+            if (user!=null){
                 userResult.setCode(200);
                 userResult.setMessage("登录成功");
+                userResult.setUserId(user.getUserId());//将用户的userId单独存起来
+                userResult.setInsuranceCompanyId(user.getInsuranceCompanyId());//将用户的保险公司名称单独存起来
+                userResult.setUserPhone(user.getUserPhone());//将用户的手机号单独的存起来
                 userResult.setData(user);
             }else {
                 userResult.setCode(205);
@@ -46,5 +51,26 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return userResult;
+    }
+
+    /**
+     * 注册用户
+     * @param postUser 用户基本信息
+     * @return 戴辆
+     */
+    @Override
+    public Result PostUser(PostUser postUser) {
+        //创建Result来接受和返回数据
+        Result result=new Result();
+        //创建接受返回数据
+        int zhi=userDao.PostUser(postUser);
+        if (zhi>0){
+            result.setCode(200);
+            result.setMessage("注册成功");
+        }else {
+            result.setCode(400);
+            result.setMessage("注册失败");
+        }
+        return result;
     }
 }

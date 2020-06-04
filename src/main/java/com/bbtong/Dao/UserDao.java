@@ -1,5 +1,6 @@
 package com.bbtong.Dao;
 
+import com.bbtong.Base.PostUser;
 import com.bbtong.Pojo.User;
 import com.bbtong.Pojo.UserExample;
 import java.util.List;
@@ -37,4 +38,11 @@ public interface UserDao {
      * @return 戴辆
      */
     User PutUser(@Param("userPhone") String userPhone);
+
+    /**
+     * 注册用户
+     * @param postUser 用户提交的信息
+     * @return 戴辆
+     */
+    Integer PostUser(PostUser postUser);
 }

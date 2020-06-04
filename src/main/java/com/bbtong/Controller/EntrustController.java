@@ -262,7 +262,7 @@ public class EntrustController {
     }
 
     /**
-     * 将委托单派给指定的人
+     * 大家保险委托人 将委托单派给指定的人
      *
      * @param entrustId            委托的ID
      * @param userId               发布委托的人
@@ -304,7 +304,7 @@ public class EntrustController {
     }
 
     /**
-     * 委托人查看自己发布的委托
+     * 大家保险委托人查看自己发布的委托
      *
      * @param userId 委托人的userId
      * @return 戴辆
@@ -336,240 +336,7 @@ public class EntrustController {
     }
 
     /**
-     * 查看用户的接单记录
-     *
-     * @param userId 用户的ID
-     * @return 戴辆
-     */
-    @ApiOperation(value = "查看用户的接单记录的方法", notes = "其他保险公司的用户查看自己接单的记录", tags = "Order", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
-    })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "成功", response = Result.class),
-            @ApiResponse(code = 300, message = "异常", response = Result.class),
-            @ApiResponse(code = 400, message = "失败", response = Result.class),
-            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
-    })
-    @GetMapping(value = "/order", produces = "application/json")
-    public @ResponseBody
-    Result OrderRecord(Integer userId) {
-        //创建函数俩接受数据，以及返回数据
-        Result result = new Result();
-        //判断userId是不是为空，如果为空的话，则说名出现异常
-        if (null == userId) {
-            result.setCode(3000);
-            result.setMessage("当前异常");
-            return result;
-        }
-        //创建函数来接受service层返回的数据
-        result = entrustService.OrderRecord(userId);
-        return result;
-    }
-
-    /**
-     * 用户有意向委托
-     *
-     * @param userId    用户的ID
-     * @param entrustId 委托的ID
-     * @return 戴辆
-     */
-    @ApiOperation(value = "用户对委托提交有意向的方法", notes = "用户对当前委托，提交有意向申请", tags = "Have", httpMethod = "POST")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
-    })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
-            @ApiResponse(code = 300, message = "异常", response = ResultHave.class),
-            @ApiResponse(code = 400, message = "失败", response = ResultHave.class),
-            @ApiResponse(code = 500, message = "内部错误", response = ResultHave.class),
-            @ApiResponse(code = 100001, message = "表示没有开通年费", response = ResultHave.class),
-            @ApiResponse(code = 100002, message = "表示诚信不够", response = ResultHave.class),
-            @ApiResponse(code = 100003, message = "表示已经接单", response = ResultHave.class),
-            @ApiResponse(code = 100004, message = "表示没有意向的机会", response = ResultHave.class),
-            @ApiResponse(code = 100005, message = "表示没有实名", response = ResultHave.class),
-            @ApiResponse(code = 100006, message = "表示实名待审核", response = ResultHave.class),
-            @ApiResponse(code = 100007, message = "表示实名审核没有通过", response = ResultHave.class),
-            @ApiResponse(code = 100008, message = "表示没有同意同意委托公约", response = ResultHave.class),
-            @ApiResponse(code = 100009, message = "当前已经意向了", response = ResultHave.class),
-            @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
-            @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
-    })
-    @PostMapping(value = "/have", produces = "application/json")
-    public @ResponseBody
-    ResultHave HaveEntrust(Integer userId, Integer entrustId) {
-        //创建函数来接受返回的值
-        ResultHave resultHave = new ResultHave();
-        if (null == userId || null == entrustId) {
-            resultHave.setCode(300);
-            resultHave.setMessage("当前异常，请稍后再试");
-            return resultHave;
-        }
-        resultHave = entrustService.HaveEntrust(userId, entrustId);
-        return resultHave;
-    }
-
-    /**
-     * 查询显示用户有意向的订单的信息
-     *
-     * @param userId 用户的userId
-     * @return 戴辆
-     */
-    @ApiOperation(value = "用户显示自己有意向的订单的信息方法", notes = "查询用户有意向的订单信息", tags = "UserIntention", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
-    })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
-            @ApiResponse(code = 300, message = "异常", response = ResultHave.class),
-            @ApiResponse(code = 400, message = "失败", response = ResultHave.class),
-            @ApiResponse(code = 500, message = "内部错误", response = ResultHave.class),
-            @ApiResponse(code = 100001, message = "表示没有开通年费", response = ResultHave.class),
-            @ApiResponse(code = 100002, message = "表示诚信不够", response = ResultHave.class),
-            @ApiResponse(code = 100003, message = "表示已经接单", response = ResultHave.class),
-            @ApiResponse(code = 100004, message = "表示没有意向的机会", response = ResultHave.class),
-            @ApiResponse(code = 100005, message = "表示没有实名", response = ResultHave.class),
-            @ApiResponse(code = 100006, message = "表示实名待审核", response = ResultHave.class),
-            @ApiResponse(code = 100007, message = "表示实名审核没有通过", response = ResultHave.class),
-            @ApiResponse(code = 100008, message = "表示没有同意同意委托公约", response = ResultHave.class),
-            @ApiResponse(code = 100009, message = "当前已经意向了", response = ResultHave.class),
-            @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
-            @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
-    })
-    @GetMapping(value = "/userintention", produces = "application/json")
-    public @ResponseBody
-    ResultHave UserIntention(Integer userId) {
-        //创建实体来进行数据的操作
-        ResultHave resultHave = new ResultHave();
-        //判断userId是否为空，如果为空的话，则说明数据有问题
-        if (null == userId) {
-            resultHave.setCode(300);
-            resultHave.setMessage("当前异常");
-            return resultHave;
-        }
-        //将数据接收返回到前端首页
-        resultHave = entrustService.UserIntention(userId);
-        return resultHave;
-    }
-
-    /**
-     * 用户取消自己当前有意向的订单信息
-     *
-     * @param entrustId 委托的ID
-     * @param userId    用户ID
-     * @return 戴辆
-     */
-    @ApiOperation(value = "用户取消委托意向方法", notes = "用户取消自己当前有意向的委托的方法", tags = "OffIntention", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
-    })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "成功", response = Result.class),
-            @ApiResponse(code = 300, message = "异常", response = Result.class),
-            @ApiResponse(code = 400, message = "失败", response = Result.class),
-            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
-    })
-    @GetMapping(value = "/offintention", produces = "application/json")
-    public @ResponseBody
-    Result OffIntention(Integer userId, Integer entrustId) {
-        //创建实体类来接受数据，和返回数据
-        Result result = new Result();
-        if (null == userId || null == entrustId) {
-            result.setCode(300);
-            result.setMessage("当前异常，请稍后再试");
-            return result;
-        }
-        //利用实体类来接受service层返回的实体
-        result = entrustService.OffIntention(userId, entrustId);
-        return result;
-    }
-
-    /**
-     * 用户查询他当前正在处理的委托
-     *
-     * @param userId 用户的ID
-     * @return 戴辆
-     */
-    @ApiOperation(value = "查询用户当前正在处理的委托", notes = "用户查询他当前正在处理的委托", tags = "QueryEntrust", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
-    })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
-            @ApiResponse(code = 300, message = "异常", response = ResultHave.class),
-            @ApiResponse(code = 400, message = "失败", response = ResultHave.class),
-            @ApiResponse(code = 500, message = "内部错误", response = ResultHave.class),
-            @ApiResponse(code = 100001, message = "表示没有开通年费", response = ResultHave.class),
-            @ApiResponse(code = 100002, message = "表示诚信不够", response = ResultHave.class),
-            @ApiResponse(code = 100003, message = "表示已经接单", response = ResultHave.class),
-            @ApiResponse(code = 100004, message = "表示没有意向的机会", response = ResultHave.class),
-            @ApiResponse(code = 100005, message = "表示没有实名", response = ResultHave.class),
-            @ApiResponse(code = 100006, message = "表示实名待审核", response = ResultHave.class),
-            @ApiResponse(code = 100007, message = "表示实名审核没有通过", response = ResultHave.class),
-            @ApiResponse(code = 100008, message = "表示没有同意同意委托公约", response = ResultHave.class),
-            @ApiResponse(code = 100009, message = "当前已经意向了", response = ResultHave.class),
-            @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
-            @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
-    })
-    @GetMapping(value = "/queryentrust", produces = "application/json")
-    public @ResponseBody
-    ResultHave QueryEntrust(Integer userId) {
-        //创建实体来接受数据
-        ResultHave resultHave = new ResultHave();
-        //判断有没有获取到userId,如果没有的话就说明出现了异常
-        if (null == userId) {
-            resultHave.setCode(300);
-            resultHave.setMessage("出现异常请稍后再试");
-            return resultHave;
-        }
-        //接受后端传来的数据
-        resultHave = entrustService.QueryEntrust(userId);
-        return resultHave;
-    }
-
-    /**
-     * 用户确认完成了委托
-     *
-     * @param userId             委托人的ID
-     * @param newUserId          接单人的ID
-     * @param entrustId          委托的ID
-     * @param entrustReturnMoney 委托需要还单的金额
-     * @param entrustReturnTime  委托还单的期限(多少天，用天做单位然后转换)
-     * @return 戴辆
-     */
-    @ApiOperation(value = "用户完成委托，提交完成申请", notes = "用户完成了大家保险的委托，向委托人提交完成委托的申请", tags = "Accomplish", httpMethod = "POST")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "委托人的ID", required = true, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "newUserId", value = "接单人的ID", required = true, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "entrustId", value = "委托的ID", required = true, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "entrustReturnMoney", value = "委托需要还单的金额", required = true, dataType = "Double", paramType = "query"),
-            @ApiImplicitParam(name = "entrustReturnTime", value = "委托还单的期限(多少天，用天做单位然后转换)", required = true, dataType = "int", paramType = "query"),
-    })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "成功", response = Result.class),
-            @ApiResponse(code = 300, message = "异常", response = Result.class),
-            @ApiResponse(code = 400, message = "失败", response = Result.class),
-            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
-    })
-    @RequestMapping(value = "/accomplish", method = RequestMethod.POST)
-    public @ResponseBody
-    Result Accomplish(Integer userId, Integer newUserId, Integer entrustId, Double entrustReturnMoney, Integer entrustReturnTime) {
-        //创建函数来进行操作
-        Result result = new Result();
-        //判断有没有获取到userId，newUserId,entrustId,entrustReturnMoney,entrustReturnTime这些数据的信息
-        if (null == userId || null == newUserId || null == entrustId || null == entrustReturnMoney || null == entrustReturnTime) {
-            result.setCode(300);
-            result.setMessage("当前异常，请稍后再试");
-            return result;
-        }
-        result = entrustService.Accomplish(userId, newUserId, entrustId, entrustReturnMoney, entrustReturnTime);
-        return result;
-    }
-
-    /**
-     * 委托人确认审核对应的委托是否完成了，如果完成了的话，就将委托的状态修改
+     * （大家保险用户）委托人确认审核对应的委托是否完成了，如果完成了的话，就将委托的状态修改
      *
      * @param userId    用户ID
      * @param entrustId 委托的ID
@@ -602,7 +369,7 @@ public class EntrustController {
     }
 
     /**
-     * 用户查询正在处理委托，的还单记录
+     * 大家保险用户查询正在处理委托，的还单记录
      *
      * @param userId    用户的ID
      * @param entrustId 当前正在处理的委托的ID
@@ -632,53 +399,6 @@ public class EntrustController {
         }
         result = entrustService.UserSelectDeliveryOrder(userId, entrustId);
         return result;
-    }
-
-    /**
-     * 接单的用户还单的方法 将数据存的还单表中
-     *
-     * @param newUserId           用户的ID (还单人的ID)
-     * @param deliveryOrderNumber (还单的车牌号)
-     * @param deliveryOrderMoney  (还单委托的金额)
-     * @return 戴辆
-     */
-    @ApiOperation(value = "用户对委托进行还单的方法", notes = "用户完成接单的委托之后，对委托进行还单", tags = "UserAlso", httpMethod = "POST")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "newUserId", value = "  用户的ID (还单人的ID)", required = true, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "deliveryOrderNumber", value = "还单的车牌号", required = true, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "deliveryOrderMoney", value = "还单委托的金额", required = true, dataType = "Double", paramType = "query"),
-    })
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
-            @ApiResponse(code = 300, message = "异常", response = ResultHave.class),
-            @ApiResponse(code = 400, message = "失败", response = ResultHave.class),
-            @ApiResponse(code = 500, message = "内部错误", response = ResultHave.class),
-            @ApiResponse(code = 100001, message = "表示没有开通年费", response = ResultHave.class),
-            @ApiResponse(code = 100002, message = "表示诚信不够", response = ResultHave.class),
-            @ApiResponse(code = 100003, message = "表示已经接单", response = ResultHave.class),
-            @ApiResponse(code = 100004, message = "表示没有意向的机会", response = ResultHave.class),
-            @ApiResponse(code = 100005, message = "表示没有实名", response = ResultHave.class),
-            @ApiResponse(code = 100006, message = "表示实名待审核", response = ResultHave.class),
-            @ApiResponse(code = 100007, message = "表示实名审核没有通过", response = ResultHave.class),
-            @ApiResponse(code = 100008, message = "表示没有同意同意委托公约", response = ResultHave.class),
-            @ApiResponse(code = 100009, message = "当前已经意向了", response = ResultHave.class),
-            @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
-            @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
-    })
-    @PostMapping(value = "/useralso", produces = "application/json")
-    public @ResponseBody
-    ResultHave UserAlso(Integer newUserId, String deliveryOrderNumber, Double deliveryOrderMoney) {
-        //创建实体类来接受数据，和返回数据
-        ResultHave resultHave = new ResultHave();
-        //判断数据有没有写入，如果数据为null 的话，则表示当前操作异常
-        if (null == newUserId || null == deliveryOrderMoney || null == deliveryOrderNumber) {
-            resultHave.setCode(300);
-            resultHave.setMessage("当前异常");
-            return resultHave;
-        }
-        //接受serverImpl中传来的数据,将用户的ID 还单委托的车牌号 还单委托的金额传到下一层中去
-        resultHave = entrustService.UserAlso(newUserId, deliveryOrderNumber, deliveryOrderMoney);
-        return resultHave;
     }
 
     /**
@@ -748,5 +468,291 @@ public class EntrustController {
         //接受service层返回的数据
         result = entrustService.GetOrderEntrust(user_Id, entrustId);
         return result;
+    }
+
+
+
+
+
+
+
+    /**
+     * 其他保险用户有意向委托(对委托有意向)
+     *
+     * @param userId    用户的ID
+     * @param entrustId 委托的ID
+     * @return 戴辆
+     */
+    @ApiOperation(value = "用户对委托提交有意向的方法", notes = "用户对当前委托，提交有意向申请", tags = "Have", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultHave.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultHave.class),
+            @ApiResponse(code = 500, message = "内部错误", response = ResultHave.class),
+            @ApiResponse(code = 100001, message = "表示没有开通年费", response = ResultHave.class),
+            @ApiResponse(code = 100002, message = "表示诚信不够", response = ResultHave.class),
+            @ApiResponse(code = 100003, message = "表示已经接单", response = ResultHave.class),
+            @ApiResponse(code = 100004, message = "表示没有意向的机会", response = ResultHave.class),
+            @ApiResponse(code = 100005, message = "表示没有实名", response = ResultHave.class),
+            @ApiResponse(code = 100006, message = "表示实名待审核", response = ResultHave.class),
+            @ApiResponse(code = 100007, message = "表示实名审核没有通过", response = ResultHave.class),
+            @ApiResponse(code = 100008, message = "表示没有同意同意委托公约", response = ResultHave.class),
+            @ApiResponse(code = 100009, message = "当前已经意向了", response = ResultHave.class),
+            @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
+            @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
+    })
+    @PostMapping(value = "/have", produces = "application/json")
+    public @ResponseBody
+    ResultHave HaveEntrust(Integer userId, Integer entrustId) {
+        //创建函数来接受返回的值
+        ResultHave resultHave = new ResultHave();
+        if (null == userId || null == entrustId) {
+            resultHave.setCode(300);
+            resultHave.setMessage("当前异常，请稍后再试");
+            return resultHave;
+        }
+        resultHave = entrustService.HaveEntrust(userId, entrustId);
+        return resultHave;
+    }
+
+    /**
+     * 其他保险用户查看自己有意向的委托的信息
+     *
+     * @param userId 用户的userId
+     * @return 戴辆
+     */
+    @ApiOperation(value = "用户显示自己有意向的订单的信息方法", notes = "查询用户有意向的订单信息", tags = "UserIntention", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultHave.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultHave.class),
+            @ApiResponse(code = 500, message = "内部错误", response = ResultHave.class),
+            @ApiResponse(code = 100001, message = "表示没有开通年费", response = ResultHave.class),
+            @ApiResponse(code = 100002, message = "表示诚信不够", response = ResultHave.class),
+            @ApiResponse(code = 100003, message = "表示已经接单", response = ResultHave.class),
+            @ApiResponse(code = 100004, message = "表示没有意向的机会", response = ResultHave.class),
+            @ApiResponse(code = 100005, message = "表示没有实名", response = ResultHave.class),
+            @ApiResponse(code = 100006, message = "表示实名待审核", response = ResultHave.class),
+            @ApiResponse(code = 100007, message = "表示实名审核没有通过", response = ResultHave.class),
+            @ApiResponse(code = 100008, message = "表示没有同意同意委托公约", response = ResultHave.class),
+            @ApiResponse(code = 100009, message = "当前已经意向了", response = ResultHave.class),
+            @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
+            @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
+    })
+    @GetMapping(value = "/userintention", produces = "application/json")
+    public @ResponseBody
+    ResultHave UserIntention(Integer userId) {
+        //创建实体来进行数据的操作
+        ResultHave resultHave = new ResultHave();
+        //判断userId是否为空，如果为空的话，则说明数据有问题
+        if (null == userId) {
+            resultHave.setCode(300);
+            resultHave.setMessage("当前异常");
+            return resultHave;
+        }
+        //将数据接收返回到前端首页
+        resultHave = entrustService.UserIntention(userId);
+        return resultHave;
+    }
+
+    /**
+     * 其他保险用户取消自己当前有意向的委托信息
+     *
+     * @param entrustId 委托的ID
+     * @param userId    用户ID
+     * @return 戴辆
+     */
+    @ApiOperation(value = "用户取消委托意向方法", notes = "用户取消自己当前有意向的委托的方法", tags = "OffIntention", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @GetMapping(value = "/offintention", produces = "application/json")
+    public @ResponseBody
+    Result OffIntention(Integer userId, Integer entrustId) {
+        //创建实体类来接受数据，和返回数据
+        Result result = new Result();
+        if (null == userId || null == entrustId) {
+            result.setCode(300);
+            result.setMessage("当前异常，请稍后再试");
+            return result;
+        }
+        //利用实体类来接受service层返回的实体
+        result = entrustService.OffIntention(userId, entrustId);
+        return result;
+    }
+
+    /**
+     * 其他保险查看自己的接单记录
+     *
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    @ApiOperation(value = "查看用户的接单记录的方法", notes = "其他保险公司的用户查看自己接单的记录", tags = "Order", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @GetMapping(value = "/order", produces = "application/json")
+    public @ResponseBody
+    Result OrderRecord(Integer userId) {
+        //创建函数俩接受数据，以及返回数据
+        Result result = new Result();
+        //判断userId是不是为空，如果为空的话，则说名出现异常
+        if (null == userId) {
+            result.setCode(3000);
+            result.setMessage("当前异常");
+            return result;
+        }
+        //创建函数来接受service层返回的数据
+        result = entrustService.OrderRecord(userId);
+        return result;
+    }
+
+    /**
+     * 其他保险用户查询他当前正在处理的委托
+     *
+     * @param userId 用户的ID
+     * @return 戴辆
+     */
+    @ApiOperation(value = "查询用户当前正在处理的委托", notes = "用户查询他当前正在处理的委托", tags = "QueryEntrust", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultHave.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultHave.class),
+            @ApiResponse(code = 500, message = "内部错误", response = ResultHave.class),
+            @ApiResponse(code = 100001, message = "表示没有开通年费", response = ResultHave.class),
+            @ApiResponse(code = 100002, message = "表示诚信不够", response = ResultHave.class),
+            @ApiResponse(code = 100003, message = "表示已经接单", response = ResultHave.class),
+            @ApiResponse(code = 100004, message = "表示没有意向的机会", response = ResultHave.class),
+            @ApiResponse(code = 100005, message = "表示没有实名", response = ResultHave.class),
+            @ApiResponse(code = 100006, message = "表示实名待审核", response = ResultHave.class),
+            @ApiResponse(code = 100007, message = "表示实名审核没有通过", response = ResultHave.class),
+            @ApiResponse(code = 100008, message = "表示没有同意同意委托公约", response = ResultHave.class),
+            @ApiResponse(code = 100009, message = "当前已经意向了", response = ResultHave.class),
+            @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
+            @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
+    })
+    @GetMapping(value = "/queryentrust", produces = "application/json")
+    public @ResponseBody
+    ResultHave QueryEntrust(Integer userId) {
+        //创建实体来接受数据
+        ResultHave resultHave = new ResultHave();
+        //判断有没有获取到userId,如果没有的话就说明出现了异常
+        if (null == userId) {
+            resultHave.setCode(300);
+            resultHave.setMessage("出现异常请稍后再试");
+            return resultHave;
+        }
+        //接受后端传来的数据
+        resultHave = entrustService.QueryEntrust(userId);
+        return resultHave;
+    }
+
+    /**
+     * 其他保险用户确认完成了委托（提交申请）
+     *
+     * @param userId             委托人的ID
+     * @param newUserId          接单人的ID
+     * @param entrustId          委托的ID
+     * @param entrustReturnMoney 委托需要还单的金额
+     * @param entrustReturnTime  委托还单的期限(多少天，用天做单位然后转换)
+     * @return 戴辆
+     */
+    @ApiOperation(value = "用户完成委托，提交完成申请", notes = "用户完成了大家保险的委托，向委托人提交完成委托的申请", tags = "Accomplish", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "委托人的ID", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "newUserId", value = "接单人的ID", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的ID", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustReturnMoney", value = "委托需要还单的金额", required = true, dataType = "Double", paramType = "query"),
+            @ApiImplicitParam(name = "entrustReturnTime", value = "委托还单的期限(多少天，用天做单位然后转换)", required = true, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @RequestMapping(value = "/accomplish", method = RequestMethod.POST)
+    public @ResponseBody
+    Result Accomplish(Integer userId, Integer newUserId, Integer entrustId, Double entrustReturnMoney, Integer entrustReturnTime) {
+        //创建函数来进行操作
+        Result result = new Result();
+        //判断有没有获取到userId，newUserId,entrustId,entrustReturnMoney,entrustReturnTime这些数据的信息
+        if (null == userId || null == newUserId || null == entrustId || null == entrustReturnMoney || null == entrustReturnTime) {
+            result.setCode(300);
+            result.setMessage("当前异常，请稍后再试");
+            return result;
+        }
+        result = entrustService.Accomplish(userId, newUserId, entrustId, entrustReturnMoney, entrustReturnTime);
+        return result;
+    }
+
+    /**
+     * 其他保险用户还单的方法 将数据存的还单表中(对接单委托进行还单申请)
+     *
+     * @param newUserId           用户的ID (还单人的ID)
+     * @param deliveryOrderNumber (还单的车牌号)
+     * @param deliveryOrderMoney  (还单委托的金额)
+     * @return 戴辆
+     */
+    @ApiOperation(value = "用户对委托进行还单的方法", notes = "用户完成接单的委托之后，对委托进行还单", tags = "UserAlso", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "newUserId", value = "  用户的ID (还单人的ID)", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "deliveryOrderNumber", value = "还单的车牌号", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "deliveryOrderMoney", value = "还单委托的金额", required = true, dataType = "Double", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultHave.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultHave.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultHave.class),
+            @ApiResponse(code = 500, message = "内部错误", response = ResultHave.class),
+            @ApiResponse(code = 100001, message = "表示没有开通年费", response = ResultHave.class),
+            @ApiResponse(code = 100002, message = "表示诚信不够", response = ResultHave.class),
+            @ApiResponse(code = 100003, message = "表示已经接单", response = ResultHave.class),
+            @ApiResponse(code = 100004, message = "表示没有意向的机会", response = ResultHave.class),
+            @ApiResponse(code = 100005, message = "表示没有实名", response = ResultHave.class),
+            @ApiResponse(code = 100006, message = "表示实名待审核", response = ResultHave.class),
+            @ApiResponse(code = 100007, message = "表示实名审核没有通过", response = ResultHave.class),
+            @ApiResponse(code = 100008, message = "表示没有同意同意委托公约", response = ResultHave.class),
+            @ApiResponse(code = 100009, message = "当前已经意向了", response = ResultHave.class),
+            @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
+            @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
+    })
+    @PostMapping(value = "/useralso", produces = "application/json")
+    public @ResponseBody
+    ResultHave UserAlso(Integer newUserId, String deliveryOrderNumber, Double deliveryOrderMoney) {
+        //创建实体类来接受数据，和返回数据
+        ResultHave resultHave = new ResultHave();
+        //判断数据有没有写入，如果数据为null 的话，则表示当前操作异常
+        if (null == newUserId || null == deliveryOrderMoney || null == deliveryOrderNumber) {
+            resultHave.setCode(300);
+            resultHave.setMessage("当前异常");
+            return resultHave;
+        }
+        //接受serverImpl中传来的数据,将用户的ID 还单委托的车牌号 还单委托的金额传到下一层中去
+        resultHave = entrustService.UserAlso(newUserId, deliveryOrderNumber, deliveryOrderMoney);
+        return resultHave;
     }
 }
