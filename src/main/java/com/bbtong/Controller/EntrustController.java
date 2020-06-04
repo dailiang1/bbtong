@@ -755,4 +755,5 @@ public class EntrustController {
         resultHave = entrustService.UserAlso(newUserId, deliveryOrderNumber, deliveryOrderMoney);
         return resultHave;
     }
+
 }

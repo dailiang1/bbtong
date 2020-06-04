@@ -119,7 +119,11 @@ public class UserController {
         session = request.getSession();
         //创建NewUser实体来判断数据是否一致
         Enumeration<String> attrs = session.getAttributeNames();
-        String newPhone = attrs.nextElement().toString();
+        String newPhone="";
+        while (attrs.hasMoreElements()){
+            newPhone = attrs.nextElement().toString();
+        }
+
         if (!userPhone.equals(newPhone)) {
             userResult.setCode(300);
             userResult.setMessage("手机号码错误");
