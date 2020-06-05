@@ -283,4 +283,30 @@ public interface EntrustDao {
      * @return 戴辆
      */
     List<OrderEntrust> GetOrderEntrust(Map map);
+
+    /**
+     * 其他保险的大厅显示
+     * 第一步 先查询有多少条数据
+     *
+     * @param map
+     * @return
+     */
+    Integer GetEntrustNumber(Map map);
+
+    /**
+     * 其他保险的大厅显示
+     * 第二步 查询对应的数据
+     *
+     * @param map map中存储着数据
+     * @return 戴辆
+     */
+    List<AtEntrust> GetEntrust(Map map);
+
+    /**
+     * 其他保险 历史委托 查询还单明细
+     *
+     * @param map 里面存储着查询数据的信息
+     * @return 戴辆
+     */
+    List<OrderEntrust> GetOrder(Map map);
 }

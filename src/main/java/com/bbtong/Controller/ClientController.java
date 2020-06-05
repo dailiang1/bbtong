@@ -127,14 +127,12 @@ public class ClientController {
      * 用户查询自己对应的客户，有哪些然后查询显示对应的信息
      *
      * @param userId 用户的ID
-     * @param typeId 查询什么类型的数据
      * @param index  当前是多少页
      * @return 戴辆
      */
     @ApiOperation(value = "查询自己的客户", notes = "用户查询自己的对应的客户，显示客户对应的信息", tags = "SelectQuery", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "typeId", value = "查询什么类型的数据(本网，他网)", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "index", value = "当前是多少页", required = false, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
@@ -145,7 +143,7 @@ public class ClientController {
     })
     @GetMapping(value = "/selectquery", produces = "application/json")
     public @ResponseBody
-    ResultPage SelectQuery(Integer userId, Integer typeId, Integer index) {
+    ResultPage SelectQuery(Integer userId, Integer index) {
         //创建接收数据的实体类，来接收数据
         ResultPage resultPage = new ResultPage();
         if (null == userId) {//判断userId是否为空，如果userId为空的话，择表示没有获取到用户的信息，直接提示异常
@@ -156,7 +154,7 @@ public class ClientController {
         if (null == index) {//如果没有输入页数的话，择默认显示第一页
             index = 1;
         }
-        resultPage = clientService.SelectQuery(userId, typeId, index);
+        resultPage = clientService.SelectQuery(userId, index);
         return resultPage;
     }
 
@@ -178,7 +176,9 @@ public class ClientController {
             @ApiResponse(code = 300, message = "当前异常", response = Session.class)
     })
     @GetMapping(value = "/particulars", produces = "application/json")
-    public String Particulars(Integer userId, Integer clientId, HttpSession session) {
+    public @ResponseBody
+    ResultPage
+    Particulars(Integer userId, Integer clientId, HttpSession session) {
         ResultPage resultPage = new ResultPage();
         if (null == userId || null == clientId) {
             session.setAttribute("code", 300);
@@ -189,7 +189,7 @@ public class ClientController {
             //存到session中，带到其他页面中去
             session.setAttribute("resultPage", resultPage);
         }
-        return "index";
+        return resultPage;
     }
 
     /**
@@ -296,4 +296,6 @@ public class ClientController {
         resultPage = clientService.InsuranceWarn(userId, Time, NewTime, index);
         return resultPage;
     }
+
+
 }

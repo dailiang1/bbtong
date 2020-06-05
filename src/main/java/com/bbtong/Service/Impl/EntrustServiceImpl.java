@@ -669,4 +669,68 @@ public class EntrustServiceImpl implements EntrustService {
         }
         return result;
     }
+
+    /**
+     * 其他保险的用户 进入到委托大厅
+     *
+     * @param userId             用户的id
+     * @param insuranceCompanyId 对应保险公司的id
+     * @return
+     */
+    @Override
+    public ResultPage GetEntrust(Integer userId, Integer insuranceCompanyId) {
+        //创建接受数据和返回数据的实体
+        ResultPage resultPage = new ResultPage();
+        //创建map函数来村吹数据，用于数据库的查询
+        Map<String, Object> map = new HashMap<String, Object>();
+        //将用户的信息存到map中
+        map.put("userId", userId);//用户的userid
+        map.put("insuranceCompanyId", insuranceCompanyId);//用户保险公司的id
+        //第一步 先通过查询有多少条数据
+        int number = entrustDao.GetEntrustNumber(map);
+        //查询条数之后，判断条数是不是大于0，如果不大于0的话，则说明没有数据，直接存储数据，然后返回
+        if (number != 0) {
+            //如果条数不等于0则说明有数据，将数据查出来，然后存储返回给前台
+            List<AtEntrust> atEntrustList = entrustDao.GetEntrust(map);
+            //将查询数据，存储返回给controller层
+            resultPage.setCode(200);
+            resultPage.setMessage("查询成功");
+            resultPage.setData(atEntrustList);
+        } else {
+            resultPage.setCode(200);
+            resultPage.setMessage("查询成功");
+            resultPage.setCount(number);
+        }
+        return resultPage;
+    }
+
+    /**
+     * 其他保险 查看历史委托 还单订单明细
+     *
+     * @param userId    用户的useriD
+     * @param entrustId 查询委托的id
+     * @return 戴辆
+     */
+    @Override
+    public Result GetOrder(Integer userId, Integer entrustId) {
+        //创建Result来接受和存储数据
+        Result result = new Result();
+        //创建map函数来存储数据用于数据库查询
+        Map<String, Object> map = new HashMap<String, Object>();
+        //将数据存到map函数中
+        map.put("userId", userId);//用户的userId
+        map.put("entrustId", entrustId);//对应委托的id
+        // 创建对应list数组来接受函数
+        List<OrderEntrust> orderEntrustList = entrustDao.GetOrder(map);
+        //通过list数组的长度来判断有没有数据，如果没有数据的话，就说明内部错误
+        if (orderEntrustList.size() > 0) {
+            result.setCode(200);
+            result.setMessage("查询成功");
+            result.setData(orderEntrustList);
+        } else {
+            result.setCode(500);
+            result.setMessage("内部错误，请稍后再试");
+        }
+        return result;
+    }
 }

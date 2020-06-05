@@ -149,9 +149,28 @@ public interface EntrustService {
 
     /**
      * 大家保险用户 查看对应委托还单的还单信息
-     * @param user_Id 用户的id
+     *
+     * @param user_Id   用户的id
      * @param entrustId 委托的id
      * @return 戴辆
      */
     Result GetOrderEntrust(Integer user_Id, Integer entrustId);
+
+    /**
+     * 其他保险的用户 进入到委托大厅
+     *
+     * @param userId             用户的id
+     * @param insuranceCompanyId 对应保险公司的id
+     * @return 戴辆
+     */
+    ResultPage GetEntrust(Integer userId, Integer insuranceCompanyId);
+
+    /**
+     * 其他保险 查看历史委托 还单订单明细
+     *
+     * @param userId    用户的useriD
+     * @param entrustId 查询委托的id
+     * @return 戴辆
+     */
+    Result GetOrder(Integer userId, Integer entrustId);
 }

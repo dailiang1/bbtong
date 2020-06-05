@@ -129,6 +129,15 @@
         <result column="Delivery_Order_Money" jdbcType="DOUBLE" property="deliveryOrderMoney"/>
         <result column="Entrust_Grade_Time" jdbcType="VARCHAR" property="entrustGradeTime"/>
     </resultMap>
+
+    <!--其他保险 委托大厅显示数据的依赖-->
+    <resultMap id="BaseAtEntrust" type="com.bbtong.Base.AtEntrust">
+        <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
+        <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
+        <result column="Entrust_Return_Money" jdbcType="DOUBLE" property="entrustReturnMoney"/>
+        <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
+        <result column="Entrust_Start_Time" jdbcType="VARCHAR" property="entrustStartTime"/>
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -805,5 +814,20 @@
     <!--大家保险用户 查看对应委托还单的还单信息-->
     <select id="GetOrderEntrust" parameterType="map" resultMap="BaseOrderEntrust">
         SELECT do.Entrust_Grade_Time,do.Delivery_Order_Number,do.Delivery_Order_Money,do.Delivery_Order_Id,u.User_Name FROM bbt_delivery_order do LEFT JOIN bbt_user u ON do.New_User_Id=u.User_Id WHERE do.User_Id=#{userId} AND New_Entrust_Id=#{entrustId}
+    </select>
+
+    <!--其他保险的大厅显示 第一步：先查询有多少条数据-->
+    <select id="GetEntrustNumber" parameterType="map" resultType="int">
+        select count(1) from  bbt_entrust where Entrust_State=0 and (Car_Type_Id=1 or Car_Type_Id=#{insuranceCompanyId})
+    </select>
+
+    <!--其他保险的大厅显示 第二步:查询对应的数据-->
+    <select id="GetEntrust" parameterType="map" resultMap="BaseAtEntrust">
+        SELECT Entrust_Id,license_Plate_Number,Entrust_Start_Time,Entrust_Money,Entrust_Return_Money FROM bbt_entrust WHERE Entrust_State=0 and (Car_Type_Id=1 or Car_Type_Id=#{insuranceCompanyId})
+    </select>
+
+    <!--其他保险 历史委托 查看还单明细-->
+    <select id="GetOrder" parameterType="map" resultMap="BaseOrderEntrust">
+         SELECT do.Entrust_Grade_Time,do.Delivery_Order_Number,do.Delivery_Order_Money,do.Delivery_Order_Id,u.User_Name FROM bbt_delivery_order do LEFT JOIN bbt_user u ON do.User_Id=u.User_Id WHERE do.New_User_Id=#{userId} AND do.New_Entrust_Id=#{entrustId}
     </select>
 </mapper>

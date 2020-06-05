@@ -32,6 +32,7 @@
         <result column="test_state" jdbcType="INTEGER" property="testState"/>
     </resultMap>
 
+    <!--用户注册的方法-->
     <resultMap id="BasePostUser" type="com.bbtong.Base.PostUser">
         <id column="User_Id" jdbcType="INTEGER" property="userId"/>
         <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
@@ -42,6 +43,17 @@
         <result column="User_tietong" jdbcType="INTEGER" property="userTietong"/>
         <result column="User_Address" jdbcType="VARCHAR" property="userAddress"/>
         <result column="User_Identity_Card" jdbcType="VARCHAR" property="userIdentityCard"/>
+    </resultMap>
+
+    <!--用户查询我的好友，显示的依赖-->
+    <resultMap id="BaseFriend" type="com.bbtong.Pojo.Friend">
+        <id column="Friend_Id" jdbcType="INTEGER" property="friendId"/>
+        <result column="User_Id" jdbcType="INTEGER" property="userId"/>
+        <result column="Friend_User_Id" jdbcType="INTEGER" property="friendUserId"/>
+        <result column="Friend_Remark" jdbcType="VARCHAR" property="friendRemark"/>
+        <result column="Friend_Name" jdbcType="VARCHAR" property="friendName"/>
+        <result column="Friend_phone" jdbcType="VARCHAR" property="friendPhone"/>
+        <result column="Friend_Company_Name" jdbcType="VARCHAR" property="friendCompanyName"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -598,8 +610,28 @@
     select * from  bbt_user where User_Phone=#{userPhone}
   </select>
 
-  <!--注册用户-->
-  <insert id="PostUser" parameterType="postUser">
-    insert into bbt_user(user_name, insurance_company_id, user_phone, user_identity_card, user_number, user_tietong, user_address)values (#{userName},#{insuranceCompanyId},#{userPhone},#{userIdentityCard},#{userNumber},#{userTietong},#{userAddress})
+    <!--通过保险公司的id 查询保险公司的名称-->
+    <select id="insuranceCompanyName" parameterType="int" resultType="string">
+        select Insurance_Company_Name from  bbt_insurance_company where Insurance_Company_Id=#{insuranceCompanyId}
+    </select>
+
+    <!--注册用户-->
+    <insert id="PostUser" parameterType="postUser">
+    insert into bbt_user(user_name, User_Nickname,insurance_company_id, Insurance_Company_Name,user_phone, user_identity_card, user_number, user_tietong, user_address)values (#{userName},#{userName},#{insuranceCompanyId},#{insuranceCompanyName},#{userPhone},#{userIdentityCard},#{userNumber},#{userTietong},#{userAddress})
   </insert>
+
+    <!--第一步 先查询好友的条数-->
+    <select id="GetFriendNumber" parameterType="int" resultType="int">
+        select count(1) from bbt_friend where User_Id=#{userId}
+    </select>
+
+    <!--第二步 查询对应好友的信息-->
+    <select id="GetFriend" parameterType="int" resultMap="BaseFriend">
+        select * from bbt_friend where User_Id=#{userId}
+    </select>
+
+    <!--查看个人资料的方法-->
+    <select id="GetUser" parameterType="int" resultMap="BaseResultMap">
+        select * from bbt_user where  User_Id=#{userId}
+    </select>
 </mapper>

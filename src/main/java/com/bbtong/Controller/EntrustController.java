@@ -80,7 +80,7 @@ public class EntrustController {
     })
     @PostMapping(value = "/add", produces = "application/json;charset=UTF-8")
     public @ResponseBody
-    Result AddEntrust(@Validated  @RequestBody Entrust entrust) {
+    Result AddEntrust(@Validated @RequestBody Entrust entrust) {
         //创建实体类数据来接受serviceImpl层的数据
         Result result = new Result();
         //用null和userId去比较，如果为true的话则表示，没有获取到用户的userId
@@ -209,7 +209,7 @@ public class EntrustController {
     })
     @GetMapping(value = "/daselect", produces = "application/json")
     public @ResponseBody
-    ResultPage DaSelectEntrust( Integer userId, Integer index) {
+    ResultPage DaSelectEntrust(Integer userId, Integer index) {
         //创建实体来接受后面的数据
         ResultPage resultPage = new ResultPage();
         //用来判断是否获取到userId，如果没有则表示异常
@@ -469,11 +469,6 @@ public class EntrustController {
         result = entrustService.GetOrderEntrust(user_Id, entrustId);
         return result;
     }
-
-
-
-
-
 
 
     /**
@@ -756,4 +751,72 @@ public class EntrustController {
         return resultHave;
     }
 
+    /**
+     * 其他保险的用户 进入到委托大厅
+     *
+     * @param userId             用户的id
+     * @param insuranceCompanyId 对应保险公司的id
+     * @return 戴辆
+     */
+    @ApiOperation(value = "其他保险进入委托大厅", notes = "其他保险进入委托大厅 查询显示对应委托的方法", tags = "GetEntrust", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "insuranceCompanyId", value = "用户对应的保险公司id", required = true, dataType = "int", paramType = "query")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @GetMapping(value = "/getentrust", produces = "application/json")
+    public @ResponseBody
+    ResultPage GetEntrust(Integer userId, Integer insuranceCompanyId) {
+        //创建Result对象来接受数据
+        ResultPage resultPage = new ResultPage();
+        //判断用户的id和保险公司的id是否为空，如果为空的话则说明数据没有获取到。或者异常访问
+        if (null == userId || null == insuranceCompanyId) {
+            resultPage.setCode(300);
+            resultPage.setMessage("异常访问");
+            return resultPage;
+        }
+        //接受service层传来的数据
+        resultPage = entrustService.GetEntrust(userId, insuranceCompanyId);
+        return resultPage;
+    }
+
+
+    /**
+     * 其他保险 历史委托 查看还单明细
+     *
+     * @param userId    用户id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    @ApiOperation(value = "其他保险 历史委托 查看详情", notes = "其他保险 历史委托 查看详情", tags = "GetOrder", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "对应的委托Id", required = true, dataType = "int", paramType = "query")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @GetMapping(value = "/getorder", produces = "application/json")
+    public @ResponseBody
+    Result GetOrder(Integer userId, Integer entrustId) {
+        //创建Rusult的实体来接受和储存数据
+        Result result = new Result();
+        //判断userId和entrustId是否为null，如果为null的话则说，没有获取到数据，获取异常访问
+        if (null == userId || null == entrustId) {
+            result.setCode(300);
+            result.setMessage("异常访问");
+            return result;
+        }
+        //接受service层返回的数据
+        result = entrustService.GetOrder(userId, entrustId);
+        return result;
+    }
 }

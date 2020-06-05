@@ -20,11 +20,10 @@ public interface ClientService {
     /**
      * 用户查询自己对应的客户信息，然后显示
      * @param userId 用户自己的ID
-     * @param typeId 客户是什么类型的客户(本网客户，准客服，他网客服)
      * @param index 当前是多少页
      * @return 戴辆
      */
-    ResultPage SelectQuery(Integer userId,Integer typeId,Integer index);
+    ResultPage SelectQuery(Integer userId,Integer index);
 
     /**
      * 查询对应的客户的详情信息

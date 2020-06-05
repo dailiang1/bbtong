@@ -6,6 +6,7 @@ import com.bbtong.Base.NewUser;
 import com.bbtong.Base.PostUser;
 import com.bbtong.Service.UserService;
 import com.bbtong.Util.Result;
+import com.bbtong.Util.ResultPage;
 import com.bbtong.Util.SMS;
 import com.bbtong.Util.UserResult;
 import io.swagger.annotations.*;
@@ -119,8 +120,8 @@ public class UserController {
         session = request.getSession();
         //创建NewUser实体来判断数据是否一致
         Enumeration<String> attrs = session.getAttributeNames();
-        String newPhone="";
-        while (attrs.hasMoreElements()){
+        String newPhone = "";
+        while (attrs.hasMoreElements()) {
             newPhone = attrs.nextElement().toString();
         }
 
@@ -167,17 +168,96 @@ public class UserController {
      * @param postUser 里面用来存储数据
      * @return戴辆
      */
+    @ApiOperation(value = "注册用户", notes = "用户注册的方法 提交注册申请", tags = "PostUser", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userPhone", value = "用户的手机号", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "userName", value = "用户的姓名", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "insuranceCompanyId", value = "用户的保险公司id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "userIdentityCard", value = "用户的身份证编号", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "userNumber", value = "保险公司的代理编号", required = true, dataType = "strinng", paramType = "query"),
+            @ApiImplicitParam(name = "userTietong", value = "保险代理人的类别(1:大家保险(铁通员工),2:大家保险员工,3其他保险的员工)", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "userAddress", value = "保险人的地址", required = true, dataType = "string", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
     @PostMapping(value = "/postuser", produces = "application/json")
     public @ResponseBody
     Result PostUser(PostUser postUser) {
         //创建接受数据返回的实体类
         Result result = new Result();
+        //判断获取的用户信息是不是为null，如果为null的话就返回异常
         if (null == postUser.getInsuranceCompanyId() || null == postUser.getUserNumber() || null == postUser.getUserAddress() || null == postUser.getUserName() || null == postUser.getUserTietong() || null == postUser.getUserPhone() || null == postUser.getUserIdentityCard()) {
             result.setCode(300);
             result.setMessage("当前异常");
             return result;
         }
+        //接受service层传来的数据
         result = userService.PostUser(postUser);
+        return result;
+    }
+
+    /**
+     * 用户查询我的好友的方法
+     *
+     * @param userId 用户id
+     * @return 戴辆
+     */
+    @ApiOperation(value = "用户查询好友的方法", notes = "用户查询我的好友的方法", tags = "GetFriend", httpMethod = "GET")
+    @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultPage.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
+            @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
+    })
+    @GetMapping(value = "/getfriend", produces = "application/json")
+    public @ResponseBody
+    ResultPage GetFriend(Integer userId) {
+        //创建ResultPage实体来接受和返回数据
+        ResultPage resultPage = new ResultPage();
+        //判断userId是不是为null，如果userId为null的话，则说明访问异常或没有获取到数据
+        if (null == userId) {
+            resultPage.setCode(300);
+            resultPage.setMessage("当前异常");
+            return resultPage;
+        }
+        //接受service层传来的数据
+        resultPage = userService.GetFriend(userId);
+        return resultPage;
+    }
+
+
+    /**
+     * 查看自己的个人资料
+     *
+     * @param userId 用户的id
+     * @return 戴辆
+     */
+    @ApiOperation(value = "查看自己的个人资料", notes = "查看个人资料的方法", tags = "GetUser", httpMethod = "GET")
+    @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @GetMapping(value = "/getuser")
+    public @ResponseBody
+    Result GetUser(Integer userId) {
+        //创建Result存储数据和返回数据
+        Result result = new Result();
+        //判断userId是不是为null，如果userId为null的话，则说明访问异常或没有获取到数据
+        if (null == userId) {
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        //接受service层传来的数据
+        result = userService.GetUser(userId);
         return result;
     }
 }

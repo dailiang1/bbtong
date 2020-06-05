@@ -25,6 +25,11 @@ public class PostUser {
     private Integer insuranceCompanyId;
 
     /**
+     * 保险公司名称(如大家保险，平安保险)
+     */
+    private String insuranceCompanyName;
+
+    /**
      * 电话号码(需要验证)
      */
     private String userPhone;
@@ -45,7 +50,7 @@ public class PostUser {
     private Integer userTietong;
 
     /**
-     *  委托人所在的城市(需自己选择，精确到县级即可)
+     * 委托人所在的城市(需自己选择，精确到县级即可)
      */
     private String userAddress;
 }
