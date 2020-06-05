@@ -31,6 +31,7 @@ public class ResultHave {
      * 100009当前已经意向了
      * 100010出现未知错误
      * 100011非法访问
+     * 100012实名审核中
      */
     @ApiModelProperty("表示返回的状态,通过返回的状态来判断结果")
     private Integer code;

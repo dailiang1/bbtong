@@ -65,8 +65,9 @@
     <resultMap id="BaseHaveUser" type="com.bbtong.Base.HaveUser">
         <result column="User_Integrity" jdbcType="DOUBLE" property="userIntegrity"/>
         <result column="User_Member_State" jdbcType="INTEGER" property="userMemberState"/>
-        <result column="User_Order_State" jdbcType="CHAR" property="userOrderState"/>
+        <result column="User_Order_State" jdbcType="INTEGER" property="userOrderState"/>
         <result column="Intention_State" jdbcType="INTEGER" property="intentionState"/>
+        <result column="test_state" jdbcType="INTEGER" property="testState"/>
     </resultMap>
 
     <!--查询显示用户有意向委托的信息的映射-->
@@ -708,7 +709,7 @@
 
     <!--第一步 先查询数据库 1.用户是否还能有意向 2.是否还能接单 3.是否开发通了年费 4.诚信是否合格-->
     <select id="SelectUser" parameterType="map" resultMap="BaseHaveUser">
-        select User_Integrity,User_Member_State,User_Order_State,Intention_State from bbt_user where User_Id=#{userId}
+        select User_Integrity,User_Member_State,User_Order_State,Intention_State,test_state from bbt_user where User_Id=#{userId}
     </select>
 
     <!--第二步 查询委托的所有，有意向的人数-->
@@ -830,4 +831,22 @@
     <select id="GetOrder" parameterType="map" resultMap="BaseOrderEntrust">
          SELECT do.Entrust_Grade_Time,do.Delivery_Order_Number,do.Delivery_Order_Money,do.Delivery_Order_Id,u.User_Name FROM bbt_delivery_order do LEFT JOIN bbt_user u ON do.User_Id=u.User_Id WHERE do.New_User_Id=#{userId} AND do.New_Entrust_Id=#{entrustId}
     </select>
+
+    <!--将委托的状态修改成 2 待确认完成-->
+    <update id="PutEntrust" parameterType="map">
+        update bbt_entrust
+        <set>
+            Entrust_State=2
+        </set>
+        where Finally_User_Id=#{userId} and Entrust_Id=#{entrustId}
+    </update>
+
+    <!--将委托的状态修改成 3 表示已完成-->
+    <update id="daPutEntrust" parameterType="map">
+        update bbt_entrust
+        <set>
+            Entrust_State=3
+        </set>
+        where User_Id=#{userId} and Entrust_Id=#{entrustId}
+    </update>
 </mapper>

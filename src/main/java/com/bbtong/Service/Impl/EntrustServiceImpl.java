@@ -268,18 +268,23 @@ public class EntrustServiceImpl implements EntrustService {
         try {
             //第一步 先查询数据库 1.用户是否还能有意向 2.是否还能接单 3.是否开发通了年费 4.诚信是否合格
             HaveUser haveUser = entrustDao.SelectUser(map);
-            //2.判断诚信是否达标
+            //1.判断诚信是否达标
             if (haveUser.getUserIntegrity() == 0) {
                 resultHave.setCode(100002);
                 resultHave.setMessage("当前诚信不合格");
                 return resultHave;
             }
-            //2.判断其诚信是否达标
-            if (haveUser.getUserMemberState() == 0) {
-                resultHave.setCode(100001);
-                resultHave.setMessage("请先开通年费");
+            if (haveUser.getTestState() == 0) {
+                resultHave.setCode(10000);
+                resultHave.setMessage("实名审核中");
                 return resultHave;
             }
+            //2.判断其开通年费没有
+//            if (haveUser.getUserMemberState() == 0) {
+//                resultHave.setCode(100001);
+//                resultHave.setMessage("请先开通年费");
+//                return resultHave;
+//            }
             //3.判断他当前是否还可以接单
             if (haveUser.getUserOrderState().equals("1")) {
                 resultHave.setCode(100003);
@@ -730,6 +735,68 @@ public class EntrustServiceImpl implements EntrustService {
         } else {
             result.setCode(500);
             result.setMessage("内部错误，请稍后再试");
+        }
+        return result;
+    }
+
+    /**
+     * 其他保险用户 提交完成委托申请
+     *
+     * @param userId    用户id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    @Transactional
+    @Override
+    public Result PutEntrust(Integer userId, Integer entrustId) {
+        //创建Result的实体来接受和操作数据
+        Result result = new Result();
+        //创建map函数来存储数据用于数据库查询
+        Map<String, Object> map = new HashMap<String, Object>();
+        //将数据存到map函数中
+        map.put("userId", userId);//用户的userId
+        map.put("entrustId", entrustId);//对应委托的id
+        //将委托的状态修改成2，表示待确认完成
+        try {
+            int zhi = entrustDao.PutEntrust(map);
+            result.setCode(200);
+            result.setMessage("修改成功");
+        } catch (Exception e) {
+            //表示未知错误
+            result.setCode(500);
+            result.setMessage("出现未知错误");
+            return result;
+        }
+        return result;
+    }
+
+    /**
+     * 大家保险用户处理 用户提交委托完成的申请
+     *
+     * @param userId    用户id
+     * @param entrustId 委托的id
+     * @return
+     */
+    @Transactional
+    @Override
+    public Result daPutEntrust(Integer userId, Integer entrustId) {
+        //创建Result的实体来接受和操作数据
+        Result result = new Result();
+        //创建map函数来存储数据用于数据库查询
+        Map<String, Object> map = new HashMap<String, Object>();
+        //将数据存到map函数中
+        map.put("userId", userId);//用户的userId
+        map.put("entrustId", entrustId);//对应委托的id
+        //将委托的状态修改成2，表示待确认完成
+        try {
+            int zhi = entrustDao.daPutEntrust(map);
+            result.setCode(200);
+            result.setMessage("修改成功");
+        } catch (Exception e) {
+            //表示未知错误
+            result.setCode(500);
+            result.setMessage("出现未知错误");
+            return result;
         }
         return result;
     }

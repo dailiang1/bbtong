@@ -173,4 +173,22 @@ public interface EntrustService {
      * @return 戴辆
      */
     Result GetOrder(Integer userId, Integer entrustId);
+
+    /**
+     * 其他保险用户 完成委托提交申请
+     *
+     * @param userId    用户id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    Result PutEntrust(Integer userId, Integer entrustId);
+
+    /**
+     * 大家保险用户处理 用户提交委托完成的申请
+     *
+     * @param userId    用户id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    Result daPutEntrust(Integer userId, Integer entrustId);
 }

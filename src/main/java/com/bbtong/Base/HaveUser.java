@@ -27,4 +27,9 @@ public class HaveUser {
      * 表示当前委托人是否可以。选择有意向委托(0表示可以，1表示不可以)
      */
     private Integer intentionState;
+
+    /**
+     * 第一次测试的时候判断其有没有验证身份
+     */
+    private Integer testState;
 }

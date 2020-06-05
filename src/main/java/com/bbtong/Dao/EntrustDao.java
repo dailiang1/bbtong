@@ -309,4 +309,19 @@ public interface EntrustDao {
      * @return 戴辆
      */
     List<OrderEntrust> GetOrder(Map map);
+
+    /**
+     * 将委托的状态修改成待确认完成
+     *
+     * @param map 里面存储着用户的id和委托的id
+     * @return 戴辆
+     */
+    Integer PutEntrust(Map map);
+
+    /**
+     * 大家保险的用户 处理其他保险提交的完成委托申请
+     * @param map 里面存储这保险的id 和用户的id
+     * @return 戴辆
+     */
+    Integer daPutEntrust(Map map);
 }

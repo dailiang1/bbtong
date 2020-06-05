@@ -277,7 +277,7 @@ public class EntrustController {
             @ApiImplicitParam(name = "userId", value = "发布委托人的ID", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "finallyUserId", value = "接单人的Id", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "friendName", value = "接单人的id", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "friendName", value = "接单人的姓名", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "friendPhone", value = "接单人的电话", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "InsuranceCompanyName", value = "接单人的保险公司名称", required = true, dataType = "String", paramType = "query")
     })
@@ -417,7 +417,7 @@ public class EntrustController {
     })
     @GetMapping(value = "/getdahistory", produces = "application/json")
     public @ResponseBody
-    Result GetDaHistoryEntrust(Integer userId) {
+    Result GetDaHistoryEntrust(@RequestBody Integer userId) {
         //创建实体接受serviceimpl层返回的数据
         Result result = new Result();
         //判断userId是否存在，如果userId存在的话，就说明请求正常
@@ -467,6 +467,22 @@ public class EntrustController {
         }
         //接受service层返回的数据
         result = entrustService.GetOrderEntrust(user_Id, entrustId);
+        return result;
+    }
+
+    @PostMapping(value = "/daputentrust")
+    public @ResponseBody
+    Result daPutEntrust(Integer userId, Integer entrustId) {
+        //创建Result实体来操作参数
+        Result result = new Result();
+        //判断userId和entrustId是否为空
+        if (null == userId || null == entrustId) {
+            result.setCode(300);
+            result.setMessage("异常访问");
+            return result;
+        }
+        //接受service层传来的数据
+        result = entrustService.daPutEntrust(userId, entrustId);
         return result;
     }
 
@@ -689,7 +705,7 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @RequestMapping(value = "/accomplish", method = RequestMethod.POST)
+    @PostMapping(value = "/accomplish", produces = "application/json")
     public @ResponseBody
     Result Accomplish(Integer userId, Integer newUserId, Integer entrustId, Double entrustReturnMoney, Integer entrustReturnTime) {
         //创建函数来进行操作
@@ -819,4 +835,28 @@ public class EntrustController {
         result = entrustService.GetOrder(userId, entrustId);
         return result;
     }
+
+    /**
+     * 其他保险 完成了委托提交申请
+     *
+     * @param userId    用户的id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    @PostMapping(value = "/putentrust", produces = "application/json")
+    public @ResponseBody
+    Result PutEntrust(Integer userId, Integer entrustId) {
+        //创建Result实体来操作参数
+        Result result = new Result();
+        //判断userId和entrustId是否为空
+        if (null == userId || null == entrustId) {
+            result.setCode(300);
+            result.setMessage("异常访问");
+            return result;
+        }
+        //接受service层传来的数据
+        result = entrustService.PutEntrust(userId, entrustId);
+        return result;
+    }
+
 }
