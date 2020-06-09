@@ -8,8 +8,10 @@ import com.bbtong.Service.EntrustService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultHave;
 import com.bbtong.Util.ResultPage;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import javafx.beans.property.MapProperty;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.apache.taglibs.standard.tag.common.sql.DataSourceUtil;
 import org.springframework.stereotype.Service;
@@ -517,7 +519,7 @@ public class EntrustServiceImpl implements EntrustService {
      * @param entrustId 委托的ID
      * @return 戴辆
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Result DaAffirm(Integer userId, Integer entrustId) {
         //创建result实体来接受数据
@@ -552,7 +554,7 @@ public class EntrustServiceImpl implements EntrustService {
      * @param entrustId 当前正在处理的委托的ID
      * @return 戴辆
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Result UserSelectDeliveryOrder(Integer userId, Integer entrustId) {
         //创建实体来来进行数据操作
@@ -585,7 +587,7 @@ public class EntrustServiceImpl implements EntrustService {
      * @param alsoOrder 用户还单的实体 有三个参数（1. newUserId 用户的ID (还单人的ID),2.deliveryOrderNumber (还单的车牌号),3.deliveryOrderMoney  (还单委托的金额)）
      * @return 戴辆
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public ResultHave UserAlso(AlsoOrder alsoOrder) {
         //创建实体来接受数据 和 操作数据
@@ -757,7 +759,7 @@ public class EntrustServiceImpl implements EntrustService {
      * @param entrustId 委托的id
      * @return 戴辆
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Result PutEntrust(Integer userId, Integer entrustId) {
         //创建Result的实体来接受和操作数据
@@ -788,7 +790,7 @@ public class EntrustServiceImpl implements EntrustService {
      * @param entrustId 委托的id
      * @return
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Result daPutEntrust(Integer userId, Integer entrustId) {
         //创建Result的实体来接受和操作数据
@@ -847,7 +849,7 @@ public class EntrustServiceImpl implements EntrustService {
      * @param newUserId    接单用户的id
      * @return 戴辆
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public ResultPage GetDeliveryOrder(Integer newEntrustId, Integer newUserId) {
         //创建Result的实体来操作数据
@@ -879,6 +881,34 @@ public class EntrustServiceImpl implements EntrustService {
             return resultPage;
         }
         return resultPage;
+    }
+
+    /**
+     * 大家保险的用户 确定用户的还单信息
+     *
+     * @param userId             用户的id(为之前委托发布人id，而不是还单人的id)
+     * @param newEntrustId       委托的id
+     * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
+     * @return 戴辆
+     */
+    @Transactional
+    @Override
+    public Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState) {
+        //创建Result的实体来接受数据 和 返回数据
+        Result result = new Result();
+        //创建map函数来接受和存储参数
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId); //将newUserId(用户的id)存到map中
+        map.put("newEntrustId", newEntrustId);//将newEntrustId(委托的id)存到map中
+        map.put("deliveryOrderState", deliveryOrderState);//将deliveryOrderState(表示要修改的状态1：确定，2：驳回)存到map中
+        try {
+
+        } catch (Exception e) {
+            result.setCode(500);
+            result.setMessage("内部错误");
+            return result;
+        }
+        return result;
     }
 
 

@@ -25,6 +25,11 @@ public class DaEntrust {
     private Double entrustServiceCharge;
 
     /**
+     * 需要还单的金额(默认为委托订单的百分之50)但是也可以自己手动设置
+     */
+    private Double entrustReturnMoney;
+
+    /**
      * 前端选择对应的城市，直接存储城市的字符串
      */
     private String entrustAddress;

@@ -349,4 +349,12 @@ public interface EntrustDao {
      * @return 戴辆
      */
     List<AlsoOrder> GetDeliveryOrder(Map map);
+
+    /**
+     * 大家保险的用户 确定还单的信息
+     *
+     * @param map
+     * @return
+     */
+    Integer DaPutOrder(Map map);
 }

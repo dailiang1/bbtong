@@ -204,8 +204,18 @@ public interface EntrustService {
      * 其他保险的用户查询 当前订单 还单的信息
      *
      * @param newEntrustId 委托的id
-     * @param newUserId 接单用户的id
+     * @param newUserId    接单用户的id
      * @return 戴辆
      */
     ResultPage GetDeliveryOrder(Integer newEntrustId, Integer newUserId);
+
+    /**
+     * 大家保险的用户 确定用户的还单信息
+     *
+     * @param userId             用户的id(为之前委托发布人id，而不是还单人的id)
+     * @param newEntrustId       委托的id
+     * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
+     * @return 戴辆
+     */
+    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState);
 }

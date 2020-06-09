@@ -34,6 +34,7 @@
         <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
         <result column="New_User_Id" jdbcType="VARCHAR" property="newUserId"/>
         <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
+        <result column="Entrust_Return_Money" jdbcType="DOUBLE" property="entrustReturnMoney"/>
         <result column="Entrust_Service_Charge" jdbcType="DOUBLE" property="entrustServiceCharge"/>
         <result column="Entrust_Address" jdbcType="VARCHAR" property="entrustAddress"/>
         <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
@@ -75,6 +76,7 @@
         <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
         <result column="Entrust_State" jdbcType="INTEGER" property="entrustState"/>
         <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="User_Id" jdbcType="INTEGER" property="userId"/>
         <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
         <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
         <result column="Entrust_Service_Charge" jdbcType="DOUBLE" property="entrustServiceCharge"/>
@@ -785,7 +787,7 @@
 
     <!--用户查询他当前正在处理的委托-->
     <select id="QueryEntrust" parameterType="map" resultMap="BaseUserIntention">
-            SELECT u.User_Phone, e.license_Plate_Number,e.Entrust_State,e.Entrust_Id,e.Entrust_Car_Brand,e.Entrust_Address,e.Entrust_Remark,e.Entrust_Start_Time,e.Entrust_End_Time,e.Entrust_Insure,e.Entrust_Service_Charge,e.Entrust_Money,e.Entrust_Return_Money,e.Entrust_Return_Time,e.Entrust_Business,ct.Car_Type_Id,ct.Car_Type_Name,ic.Insurance_Company_Id,ic.Insurance_Company_Name,ar.Amount_Range_Id,ar.Amount_Range_Name FROM bbt_entrust e LEFT JOIN bbt_car_type ct ON e.Car_Type_Id=ct.Car_Type_Id LEFT JOIN bbt_amount_range ar ON e.Amount_Range_Id=ar.Amount_Range_Id LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id left join bbt_user u on u.User_Id=e.User_Id where e.Finally_User_Id=#{userId} and e.Entrust_State!=6
+            SELECT e.User_Id,u.User_Phone, e.license_Plate_Number,e.Entrust_State,e.Entrust_Id,e.Entrust_Car_Brand,e.Entrust_Address,e.Entrust_Remark,e.Entrust_Start_Time,e.Entrust_End_Time,e.Entrust_Insure,e.Entrust_Service_Charge,e.Entrust_Money,e.Entrust_Return_Money,e.Entrust_Return_Time,e.Entrust_Business,ct.Car_Type_Id,ct.Car_Type_Name,ic.Insurance_Company_Id,ic.Insurance_Company_Name,ar.Amount_Range_Id,ar.Amount_Range_Name FROM bbt_entrust e LEFT JOIN bbt_car_type ct ON e.Car_Type_Id=ct.Car_Type_Id LEFT JOIN bbt_amount_range ar ON e.Amount_Range_Id=ar.Amount_Range_Id LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id left join bbt_user u on u.User_Id=e.User_Id where e.Finally_User_Id=#{userId} and e.Entrust_State!=6
     </select>
 
     <!--第一步 将委托的状态修改成待确认完成-->
@@ -810,7 +812,7 @@
 
     <!--查询委托还单的信息有哪些-->
     <select id="selectDeliveryOrder" parameterType="map" resultMap="BaseDeliveryOrderResultMap">
-        select * from bbt_delivery_order where New_User_Id=#{userId} and New_Entrust_id=#{entrustId}
+        select * from bbt_delivery_order where User_Id=#{userId} and New_Entrust_id=#{entrustId}
     </select>
 
     <!--通过用户的ID查询，他最近接单的委托的状态为什么-->
@@ -825,7 +827,7 @@
 
     <!--第二步 将数据写入到还单表中-->
     <insert id="AddDeliveryOrder" parameterType="map">
-        insert  into bbt_delivery_order(new_entrust_id, user_id, new_user_id, delivery_order_number, delivery_order_money, entrust_grade_time)values (#{newUserId},#{userId},#{newUserId},#{deliveryOrderNumber},#{deliveryOrderMoney},#{entrustGradeTime})
+        insert  into bbt_delivery_order(new_entrust_id, user_id, new_user_id, delivery_order_number, delivery_order_money, entrust_grade_time)values (#{newEntrustId},#{userId},#{newUserId},#{deliveryOrderNumber},#{deliveryOrderMoney},#{entrustGradeTime})
     </insert>
 
     <!--大家保险用户查看自己已经完成了的委托(历史委托方法)-->
@@ -885,4 +887,15 @@
     <select id="GetDeliveryOrder" parameterType="map" resultMap="BaseAlsoOrder">
         select Delivery_Order_Id,Delivery_Order_Number,Delivery_Order_Money,Delivery_Order_State from  bbt_delivery_order where New_Entrust_Id=#{newEntrustId} and New_User_Id=#{newUserId}
     </select>
+
+    <!--大家保险的用户 确定还单的信息-->
+    <update id="DaPutOrder" parameterType="map">
+        update bbt_delivery_order
+        <set>
+            <if test="deliveryOrderState != null and deliveryOrderState!= ''">
+                Delivery_Order_State=#{deliveryOrderState}
+            </if>
+        </set>
+        where User_Id=#{userId} and New_Entrust_Id=#{newEntrustId}
+    </update>
 </mapper>

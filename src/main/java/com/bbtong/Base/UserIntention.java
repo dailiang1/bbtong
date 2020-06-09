@@ -16,7 +16,12 @@ public class UserIntention {
     /**
      * 用户的手机号
      */
-    private  String userPhone;
+    private String userPhone;
+
+    /**
+     * 发布委托人的id
+     */
+    private Integer userId;
 
     /**
      * 委托当前的状态
@@ -34,7 +39,7 @@ public class UserIntention {
     private Double entrustMoney;
 
     /**
-     *  期望委托的服务费(可以为空，私下交易联系)
+     * 期望委托的服务费(可以为空，私下交易联系)
      */
     private Double entrustServiceCharge;
 
@@ -100,7 +105,7 @@ public class UserIntention {
     private String entrustInsure;
 
     /**
-     *  需要还单的金额(默认为委托订单的百分之50)但是也可以自己手动设置
+     * 需要还单的金额(默认为委托订单的百分之50)但是也可以自己手动设置
      */
     private Double entrustReturnMoney;
 
@@ -110,7 +115,7 @@ public class UserIntention {
     private Integer entrustReturnTime;
 
     /**
-     *  是否投保商业车损险(0表示不投，1表示投。默认选择是1)
+     * 是否投保商业车损险(0表示不投，1表示投。默认选择是1)
      */
     private Integer entrustBusiness;
 

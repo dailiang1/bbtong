@@ -6,6 +6,7 @@ import com.bbtong.Service.EntrustService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultHave;
 import com.bbtong.Util.ResultPage;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import io.swagger.annotations.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -471,7 +472,6 @@ public class EntrustController {
         return result;
     }
 
-
     /**
      * 大家保险用户查询对应待处理的委托
      *
@@ -479,7 +479,7 @@ public class EntrustController {
      * @param entrustId 委托id
      * @return
      */
-    @GetMapping(value = "/dagetentrust")
+    @GetMapping(value = "/dagetentrust", produces = "application/json")
     public @ResponseBody
     Result DaGetEntrust(Integer userId, Integer entrustId) {
         //创建Result实体来操作参数
@@ -501,9 +501,9 @@ public class EntrustController {
      * @param entrustId 委托id
      * @return 戴辆
      */
-    @GetMapping(value = "/daputentrust")
+    @GetMapping(value = "/daputentrust", produces = "application/json")
     public @ResponseBody
-    Result daPutEntrust(Integer userId, Integer entrustId) {
+    Result DaPutEntrust(Integer userId, Integer entrustId) {
         //创建Result实体来操作参数
         Result result = new Result();
         //判断userId和entrustId是否为空
@@ -514,6 +514,30 @@ public class EntrustController {
         }
         //接受service层传来的数据
         result = entrustService.daPutEntrust(userId, entrustId);
+        return result;
+    }
+
+
+    /**
+     * 大家保险的用户 确定用户还单的信息
+     *
+     * @param userId             用户的id(为之前委托发布人id，而不是还单人的id)
+     * @param newEntrustId       委托的id
+     * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
+     * @return 戴辆
+     */
+    @GetMapping(value = "/daputorder", produces = "application/json")
+    public @ResponseBody
+    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState) {
+        //1.创建Result的实体来 进行接收数据和返回数据
+        Result result = new Result();
+        //2.判断前端传来的数据是不是为空， 如果数据为空的话 则说明异常
+        if (null == userId || null == newEntrustId || null == deliveryOrderState) {//如果有一个数据为空的话，就说明数据异常
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        result = entrustService.DaPutOrder(userId, newEntrustId, deliveryOrderState);
         return result;
     }
 
