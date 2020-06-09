@@ -14,6 +14,16 @@ public class UserIntention {
     private Integer entrustId;
 
     /**
+     * 用户的手机号
+     */
+    private  String userPhone;
+
+    /**
+     * 委托当前的状态
+     */
+    private Integer entrustState;
+
+    /**
      * 必填选项，车牌号码
      */
     private String licensePlateNumber;

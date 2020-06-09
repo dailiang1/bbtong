@@ -1,5 +1,6 @@
 package com.bbtong.Service;
 
+import com.bbtong.Base.AlsoOrder;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultHave;
@@ -132,12 +133,10 @@ public interface EntrustService {
     /**
      * 用户还单的时候提交 信息写入到数据库中去
      *
-     * @param newUserId           还单人的ID
-     * @param deliveryOrderNumber 委托的车牌号
-     * @param deliveryOrderMoney  还的委托的金额
+     * @param alsoOrder 用户还单的实体 有三个参数（1. newUserId 用户的ID (还单人的ID),2.deliveryOrderNumber (还单的车牌号),3.deliveryOrderMoney  (还单委托的金额)）
      * @return 戴辆
      */
-    ResultHave UserAlso(Integer newUserId, String deliveryOrderNumber, Double deliveryOrderMoney);
+    ResultHave UserAlso(AlsoOrder alsoOrder);
 
     /**
      * 大家保险用户查看自己那些已经完成了的委托(历史委托方法)
@@ -191,4 +190,22 @@ public interface EntrustService {
      * @return 戴辆
      */
     Result daPutEntrust(Integer userId, Integer entrustId);
+
+    /**
+     * 大家保险的用户查询对应的待处理的委托
+     *
+     * @param userId    用户id
+     * @param entrustId 委托id
+     * @return 戴辆
+     */
+    Result DaGetEntrust(Integer userId, Integer entrustId);
+
+    /**
+     * 其他保险的用户查询 当前订单 还单的信息
+     *
+     * @param newEntrustId 委托的id
+     * @param newUserId 接单用户的id
+     * @return 戴辆
+     */
+    ResultPage GetDeliveryOrder(Integer newEntrustId, Integer newUserId);
 }

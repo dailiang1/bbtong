@@ -433,23 +433,33 @@
             <if test="userId != null and userId != ''">
                 and User_Id=#{userId}
             </if>
+            <if test="typeId != null and typeId != ''">
+                and Type_Id=#{typeId}
+            </if>
         </where>
     </select>
 
     <!--查询显示用户对应客户的信息-->
     <select id="SelectQuery" resultMap="BaseSelectClient" parameterType="map">
-    select c.Client_Id,c.Client_Name,ic.Insurance_Company_Name,t.Type_Name,c.Client_Come_Time,c.Client_Expiration_Time,c.Type_Id from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        select
+        c.Client_way,c.Client_Id,c.Client_Name,ic.Insurance_Company_Name,t.Type_Name,c.Client_Come_Time,c.Client_Expiration_Time,c.Type_Id
+        from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON
+        c.Insurance_Company_Id=ic.Insurance_Company_Id
         <where>
             <if test="userId != null and userId != ''">
-                and User_Id=#{userId}
+                and c.User_Id=#{userId}
+            </if>
+            <if test="typeId != null and typeId != ''">
+                and c.Type_Id=#{typeId}
             </if>
         </where>
-            ORDER BY  c.Client_Expiration_Time LIMIT #{state},#{end}
+        ORDER BY c.Client_Expiration_Time LIMIT #{state},#{end}
     </select>
 
     <!--用户查询对应客户的详情信息-->
     <select id="Particulars" parameterType="map" resultMap="BaseSelectClient">
-        select c.*,ic.*,t.* from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        select c.*,ic.*,t.* from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN
+        bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
         <where>
             User_Id=#{userId} and Client_Id=#{clientId}
         </where>
@@ -457,22 +467,24 @@
 
     <!--查询十二月到一月生日的客户-->
     <select id="Birthday" parameterType="map" resultMap="BaseSelectClient">
-        select c.*,ic.*,t.* from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        select c.*,ic.*,t.* from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN
+        bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
         <where>
             User_Id=#{userId}
             <if test="Time != null and Time != ''">
-                 c.Client_Birthday>=#{Time}
+                c.Client_Birthday>=#{Time}
             </if>
             <if test="NewTime != null and NewTime != ''">
                 or #{NewTime}>=c.Client_Birthday
             </if>
         </where>
-        order  by c.Client_Birthday limit #{state},#{end}
+        order by c.Client_Birthday limit #{state},#{end}
     </select>
 
     <!--查询十二月到一月生日的客户条数-->
     <select id="BirthdayNumber" parameterType="map" resultType="int">
-        select count(1) from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        select count(1) from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic
+        ON c.Insurance_Company_Id=ic.Insurance_Company_Id
         <where>
             User_Id=#{userId}
             <if test="Time != null and Time != ''">
@@ -486,9 +498,10 @@
 
     <!--查询用户在这一个月内生日的客户,除去12月到1月生日的-->
     <select id="NewBirthday" parameterType="map" resultMap="BaseSelectClient">
-        select * from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        select * from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON
+        c.Insurance_Company_Id=ic.Insurance_Company_Id
         <where>
-                User_Id=#{userId}
+            User_Id=#{userId}
             <if test="Time != null and Time != ''">
                 and c.Client_Birthday>=#{Time}
             </if>
@@ -496,12 +509,13 @@
                 and #{NewTime}>=c.Client_Birthday
             </if>
         </where>
-            order by c.Client_Birthday limit #{state},#{end}
+        order by c.Client_Birthday limit #{state},#{end}
     </select>
 
     <!--查询用户在这一个月内生日的客户的总条数，除去12月到1月生日的-->
     <select id="NewBirthdayNumber" parameterType="map" resultType="int">
-        select count(1) from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        select count(1) from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic
+        ON c.Insurance_Company_Id=ic.Insurance_Company_Id
         <where>
             User_Id=#{userId}
             <if test="Time != null and Time != ''">
@@ -530,7 +544,8 @@
     </select>
 
     <select id="InsuranceWarna" parameterType="map" resultMap="BaseSelectClient">
-         select * from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON c.Insurance_Company_Id=ic.Insurance_Company_Id
+        select * from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON
+        c.Insurance_Company_Id=ic.Insurance_Company_Id
         <where>
             <if test="userId != null and userId != ''">
                 and User_Id=#{userId}
@@ -542,6 +557,6 @@
                 and #{NewTime}>=Client_Expiration_Time
             </if>
         </where>
-            order by c.Client_Birthday limit #{state},#{end}
+        order by c.Client_Birthday limit #{state},#{end}
     </select>
 </mapper>

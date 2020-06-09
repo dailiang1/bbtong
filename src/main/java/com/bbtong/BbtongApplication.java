@@ -19,4 +19,10 @@ public class BbtongApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(BbtongApplication.class);
     }
+
+//        @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//        return super.configure(application);
+//    }
+
 }

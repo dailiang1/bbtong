@@ -50,12 +50,11 @@ public class ClientServiceImpl implements ClientService {
      * 用户查询自己的客户的方法
      *
      * @param userId 用户自己的ID
-
      * @param index  当前是多少页
      * @return 戴辆
      */
     @Override
-    public ResultPage SelectQuery(Integer userId, Integer index) {
+    public ResultPage SelectQuery(Integer userId, Integer typeId, Integer index) {
         //用来接受数据库返回的数据，传到controller层中
         ResultPage resultPage = new ResultPage();
         //创建map函数用来存储数据，用于sql语句的查询
@@ -64,11 +63,23 @@ public class ClientServiceImpl implements ClientService {
         resultPage.setSize(5);
         //将用户的ID存到map中
         map.put("userId", userId);
-        //如果typeId为null(空)的话，择查询所有的类型的客户并且注明是什么客户
+        //如果typeId为null(空)的话，择查询准客户 类型的客户
+        if (null == typeId) {
+            typeId = 1;
+        }
+        //将typeId存到map中，用于后面的查询
+        map.put("typeId", typeId);
         //先查询用户一共有多少客户，然后再来计算有多少页
         resultPage.setCount(clientDao.SelectQueryNumber(map));
         //计算总的页数，先将计算的结果转化成double类型然后再向下取整，再将值转换成int的类型
         resultPage.setPageCount((int) Math.ceil((double) resultPage.getCount() / resultPage.getCount()));
+        //判断有没有数据，如果条数为0，则说明没有客户
+        if (resultPage.getCount() == 0) {
+            resultPage.setCode(200);
+            resultPage.setMessage("没有客户");
+            resultPage.setCount(0);
+            return resultPage;
+        }
 
         //从多少条
         map.put("state", 0);

@@ -73,6 +73,8 @@
     <!--查询显示用户有意向委托的信息的映射-->
     <resultMap id="BaseUserIntention" type="com.bbtong.Base.UserIntention">
         <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
+        <result column="Entrust_State" jdbcType="INTEGER" property="entrustState"/>
+        <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
         <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
         <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
         <result column="Entrust_Service_Charge" jdbcType="DOUBLE" property="entrustServiceCharge"/>
@@ -138,6 +140,23 @@
         <result column="Entrust_Return_Money" jdbcType="DOUBLE" property="entrustReturnMoney"/>
         <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
         <result column="Entrust_Start_Time" jdbcType="VARCHAR" property="entrustStartTime"/>
+    </resultMap>
+
+    <!---大家保险用户查询对应的待处理信息-->
+    <resultMap id="BaseDaGetEntrust" type="com.bbtong.Base.DaGetEntrust">
+        <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
+        <result column="Entrust_State" jdbcType="INTEGER" property="entrustState"/>
+        <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
+    </resultMap>
+
+    <!--其他保险的用户 查询还单的数据的依赖-->
+    <resultMap id="BaseAlsoOrder" type="com.bbtong.Base.AlsoOrder">
+        <id column="Delivery_Order_Id" jdbcType="INTEGER" property="deliveryOrderId"/>
+        <result column="New_User_Id" jdbcType="INTEGER" property="newUserId"/>
+        <result column="Delivery_Order_Money" jdbcType="DOUBLE" property="deliveryOrderMoney"/>
+        <result column="Delivery_Order_Number" jdbcType="VARCHAR" property="deliveryOrderNumber"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -653,7 +672,7 @@
         SELECT e.license_Plate_Number,e.Entrust_Id,u.User_Phone,u.User_Name,u.Insurance_Company_Name,u.User_Id FROM
         bbt_user u LEFT JOIN bbt_entrust e ON u.User_Id &lt;&gt; e.New_User_Id OR u.User_Id = e.New_User_Id where INSTR((SELECT
         New_User_Id FROM bbt_entrust where Entrust_Id=#{entrustId}
-        and User_Id=#{userId}),u.User_Id) and e.Entrust_State=0
+        and User_Id=#{userId}),u.User_Id) and e.Entrust_State=0 and e.Entrust_Id=#{entrustId}
     </select>
 
     <!--第一步先将委托派给指定的人，写入数据库-->
@@ -739,14 +758,16 @@
 
     <!--用户查看自己当前有意向的委托-->
     <select id="UserIntention" parameterType="int" resultMap="BaseUserIntention">
-        SELECT e.Entrust_Id,e.Entrust_Car_Brand,e.Entrust_Address,e.Entrust_Remark,e.Entrust_Start_Time,e.Entrust_End_Time,e.Entrust_Insure,e.Entrust_Service_Charge,e.Entrust_Money,e.Entrust_Return_Money,e.Entrust_Return_Time,e.Entrust_Business,ct.Car_Type_Id,ct.Car_Type_Name,ic.Insurance_Company_Id,ic.Insurance_Company_Name,ar.Amount_Range_Id,ar.Amount_Range_Name FROM bbt_entrust e LEFT JOIN bbt_car_type ct ON e.Car_Type_Id=ct.Car_Type_Id LEFT JOIN bbt_amount_range ar ON e.Amount_Range_Id=ar.Amount_Range_Id LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id where INSTR(e.New_User_Id,#{userId}) and e.Entrust_State=0
-    </select>
-
+        SELECT e.Entrust_State, e.license_Plate_Number,e.Entrust_Business,u.User_Phone, e.Entrust_Id,e.Entrust_Remark,e.Entrust_Start_Time,e.Entrust_End_Time,e.Entrust_Insure,e.Entrust_Service_Charge,e.Entrust_Money,e.Entrust_Return_Money,e.Entrust_Return_Time,e.Entrust_Business,ct.Car_Type_Id,ct.Car_Type_Name,ic.Insurance_Company_Id,ic.Insurance_Company_Name,ar.Amount_Range_Id,ar.Amount_Range_Name FROM bbt_entrust e LEFT JOIN bbt_car_type ct ON e.Car_Type_Id=ct.Car_Type_Id LEFT JOIN bbt_amount_range ar ON e.Amount_Range_Id=ar.Amount_Range_Id LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id LEFT JOIN bbt_user u ON u.User_Id=e.User_Id where INSTR(e.New_User_Id,#{userId}) and e.Entrust_State=0
+        </select>
     <!--第二步修改委托对应的有意向数据-->
     <update id="DateNewUserId" parameterType="map">
         update bbt_entrust
         <set>
             <if test="newUserId != null and newUserId != ''">
+                New_User_Id=#{newUserId}
+            </if>
+            <if test="newUserId == null">
                 New_User_Id=#{newUserId}
             </if>
         </set>
@@ -764,7 +785,7 @@
 
     <!--用户查询他当前正在处理的委托-->
     <select id="QueryEntrust" parameterType="map" resultMap="BaseUserIntention">
-            SELECT e.Entrust_Id,e.Entrust_Car_Brand,e.Entrust_Address,e.Entrust_Remark,e.Entrust_Start_Time,e.Entrust_End_Time,e.Entrust_Insure,e.Entrust_Service_Charge,e.Entrust_Money,e.Entrust_Return_Money,e.Entrust_Return_Time,e.Entrust_Business,ct.Car_Type_Id,ct.Car_Type_Name,ic.Insurance_Company_Id,ic.Insurance_Company_Name,ar.Amount_Range_Id,ar.Amount_Range_Name FROM bbt_entrust e LEFT JOIN bbt_car_type ct ON e.Car_Type_Id=ct.Car_Type_Id LEFT JOIN bbt_amount_range ar ON e.Amount_Range_Id=ar.Amount_Range_Id LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id where e.Finally_User_Id=#{userId} and e.Entrust_State!=3
+            SELECT u.User_Phone, e.license_Plate_Number,e.Entrust_State,e.Entrust_Id,e.Entrust_Car_Brand,e.Entrust_Address,e.Entrust_Remark,e.Entrust_Start_Time,e.Entrust_End_Time,e.Entrust_Insure,e.Entrust_Service_Charge,e.Entrust_Money,e.Entrust_Return_Money,e.Entrust_Return_Time,e.Entrust_Business,ct.Car_Type_Id,ct.Car_Type_Name,ic.Insurance_Company_Id,ic.Insurance_Company_Name,ar.Amount_Range_Id,ar.Amount_Range_Name FROM bbt_entrust e LEFT JOIN bbt_car_type ct ON e.Car_Type_Id=ct.Car_Type_Id LEFT JOIN bbt_amount_range ar ON e.Amount_Range_Id=ar.Amount_Range_Id LEFT JOIN bbt_insurance_company ic ON e.Insurance_Company_Id=ic.Insurance_Company_Id left join bbt_user u on u.User_Id=e.User_Id where e.Finally_User_Id=#{userId} and e.Entrust_State!=6
     </select>
 
     <!--第一步 将委托的状态修改成待确认完成-->
@@ -819,12 +840,12 @@
 
     <!--其他保险的大厅显示 第一步：先查询有多少条数据-->
     <select id="GetEntrustNumber" parameterType="map" resultType="int">
-        select count(1) from  bbt_entrust where Entrust_State=0 and (Car_Type_Id=1 or Car_Type_Id=#{insuranceCompanyId})
+        select count(1) from  bbt_entrust where Entrust_State=0 and (Insurance_Company_Id=1 or Insurance_Company_Id=#{insuranceCompanyId})
     </select>
 
     <!--其他保险的大厅显示 第二步:查询对应的数据-->
     <select id="GetEntrust" parameterType="map" resultMap="BaseAtEntrust">
-        SELECT Entrust_Id,license_Plate_Number,Entrust_Start_Time,Entrust_Money,Entrust_Return_Money FROM bbt_entrust WHERE Entrust_State=0 and (Car_Type_Id=1 or Car_Type_Id=#{insuranceCompanyId})
+        SELECT Entrust_Id,license_Plate_Number,Entrust_Start_Time,Entrust_Money,Entrust_Return_Money FROM bbt_entrust WHERE Entrust_State=0 and (Insurance_Company_Id=1 or Insurance_Company_Id=#{insuranceCompanyId}) ORDER BY Entrust_Start_Time DESC
     </select>
 
     <!--其他保险 历史委托 查看还单明细-->
@@ -849,4 +870,19 @@
         </set>
         where User_Id=#{userId} and Entrust_Id=#{entrustId}
     </update>
+
+    <!--大家保险的用户查询对应的待处理的订单-->
+    <select id="DaGetEntrust" parameterType="map" resultMap="BaseDaGetEntrust">
+        SELECT e.Entrust_Id,u.User_Name,u.User_Phone,u.Insurance_Company_Name,e.Entrust_State FROM bbt_entrust e LEFT JOIN bbt_user u ON e.Finally_User_Id=u.User_Id WHERE e.User_Id=#{userId} and e.Entrust_Id=#{entrustId}
+    </select>
+
+    <!--第一步 先查询当前订单 还单的总条数-->
+    <select id="GetDeliveryOrderNumber" parameterType="map" resultType="int">
+        select count(1) from  bbt_delivery_order where New_Entrust_Id=#{newEntrustId} and New_User_Id=#{newUserId}
+    </select>
+
+    <!--第二步 查询对应的数据 将数据提交到service层-->
+    <select id="GetDeliveryOrder" parameterType="map" resultMap="BaseAlsoOrder">
+        select Delivery_Order_Id,Delivery_Order_Number,Delivery_Order_Money,Delivery_Order_State from  bbt_delivery_order where New_Entrust_Id=#{newEntrustId} and New_User_Id=#{newUserId}
+    </select>
 </mapper>

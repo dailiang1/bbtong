@@ -320,8 +320,33 @@ public interface EntrustDao {
 
     /**
      * 大家保险的用户 处理其他保险提交的完成委托申请
+     *
      * @param map 里面存储这保险的id 和用户的id
      * @return 戴辆
      */
     Integer daPutEntrust(Map map);
+
+    /**
+     * 大家保险的用户查询对应的待处理订单
+     *
+     * @param map
+     * @return
+     */
+    DaGetEntrust DaGetEntrust(Map map);
+
+    /**
+     * 第一步 先查询当前订单的还单的中能够条数
+     *
+     * @param map 里面存储的着 查询的数据 用户的id 和当前还单的id
+     * @return戴辆
+     */
+    Integer GetDeliveryOrderNumber(Map map);
+
+    /**
+     * 第二步 根据对应的信息 查询对应的数据
+     *
+     * @param map map中存储的查询的数据 用户的id 订单的id
+     * @return 戴辆
+     */
+    List<AlsoOrder> GetDeliveryOrder(Map map);
 }

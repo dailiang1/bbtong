@@ -120,11 +120,15 @@ public class UserController {
         session = request.getSession();
         //创建NewUser实体来判断数据是否一致
         Enumeration<String> attrs = session.getAttributeNames();
-        String newPhone = "";
+        String newPhone = null;
         while (attrs.hasMoreElements()) {
             newPhone = attrs.nextElement().toString();
         }
-
+        if (null == newPhone) {
+            userResult.setCode(500);
+            userResult.setMessage("没有获取到cookie");
+            return userResult;
+        }
         if (!userPhone.equals(newPhone)) {
             userResult.setCode(300);
             userResult.setMessage("手机号码错误");
@@ -186,7 +190,7 @@ public class UserController {
     })
     @PostMapping(value = "/postuser", produces = "application/json")
     public @ResponseBody
-    Result PostUser(PostUser postUser) {
+    Result PostUser(@RequestBody PostUser postUser) {
         //创建接受数据返回的实体类
         Result result = new Result();
         //判断获取的用户信息是不是为null，如果为null的话就返回异常

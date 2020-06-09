@@ -1,5 +1,6 @@
 package com.bbtong.Controller;
 
+import com.bbtong.Base.AlsoOrder;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Service.EntrustService;
 import com.bbtong.Util.Result;
@@ -417,7 +418,7 @@ public class EntrustController {
     })
     @GetMapping(value = "/getdahistory", produces = "application/json")
     public @ResponseBody
-    Result GetDaHistoryEntrust(@RequestBody Integer userId) {
+    Result GetDaHistoryEntrust(Integer userId) {
         //创建实体接受serviceimpl层返回的数据
         Result result = new Result();
         //判断userId是否存在，如果userId存在的话，就说明请求正常
@@ -470,7 +471,37 @@ public class EntrustController {
         return result;
     }
 
-    @PostMapping(value = "/daputentrust")
+
+    /**
+     * 大家保险用户查询对应待处理的委托
+     *
+     * @param userId    用户id
+     * @param entrustId 委托id
+     * @return
+     */
+    @GetMapping(value = "/dagetentrust")
+    public @ResponseBody
+    Result DaGetEntrust(Integer userId, Integer entrustId) {
+        //创建Result实体来操作参数
+        Result result = new Result();
+        if (null == userId || null == entrustId) {
+            result.setCode(300);
+            result.setMessage("异常访问");
+            return result;
+        }
+        //接受service层传来的数据
+        result = entrustService.DaGetEntrust(userId, entrustId);
+        return result;
+    }
+
+    /**
+     * 大家保险确认委托完成 状态变成3
+     *
+     * @param userId    用户id
+     * @param entrustId 委托id
+     * @return 戴辆
+     */
+    @GetMapping(value = "/daputentrust")
     public @ResponseBody
     Result daPutEntrust(Integer userId, Integer entrustId) {
         //创建Result实体来操作参数
@@ -494,7 +525,7 @@ public class EntrustController {
      * @param entrustId 委托的ID
      * @return 戴辆
      */
-    @ApiOperation(value = "用户对委托提交有意向的方法", notes = "用户对当前委托，提交有意向申请", tags = "Have", httpMethod = "POST")
+    @ApiOperation(value = "用户对委托提交有意向的方法", notes = "用户对当前委托，提交有意向申请", tags = "Have", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
@@ -516,7 +547,7 @@ public class EntrustController {
             @ApiResponse(code = 100010, message = "出现未知错误", response = ResultHave.class),
             @ApiResponse(code = 100011, message = "非法访问", response = ResultHave.class),
     })
-    @PostMapping(value = "/have", produces = "application/json")
+    @GetMapping(value = "/have", produces = "application/json")
     public @ResponseBody
     ResultHave HaveEntrust(Integer userId, Integer entrustId) {
         //创建函数来接受返回的值
@@ -683,6 +714,8 @@ public class EntrustController {
 
     /**
      * 其他保险用户确认完成了委托（提交申请）
+     * <p>
+     * 说明 提交数据应该是post请求 但是post请求接受数据需要用 实体类来接受数据
      *
      * @param userId             委托人的ID
      * @param newUserId          接单人的ID
@@ -691,7 +724,7 @@ public class EntrustController {
      * @param entrustReturnTime  委托还单的期限(多少天，用天做单位然后转换)
      * @return 戴辆
      */
-    @ApiOperation(value = "用户完成委托，提交完成申请", notes = "用户完成了大家保险的委托，向委托人提交完成委托的申请", tags = "Accomplish", httpMethod = "POST")
+    @ApiOperation(value = "用户完成委托，提交完成申请", notes = "用户完成了大家保险的委托，向委托人提交完成委托的申请", tags = "Accomplish", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "委托人的ID", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "newUserId", value = "接单人的ID", required = true, dataType = "int", paramType = "query"),
@@ -705,16 +738,20 @@ public class EntrustController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @PostMapping(value = "/accomplish", produces = "application/json")
+    @GetMapping(value = "/accomplish", produces = "application/json")
     public @ResponseBody
     Result Accomplish(Integer userId, Integer newUserId, Integer entrustId, Double entrustReturnMoney, Integer entrustReturnTime) {
         //创建函数来进行操作
         Result result = new Result();
         //判断有没有获取到userId，newUserId,entrustId,entrustReturnMoney,entrustReturnTime这些数据的信息
-        if (null == userId || null == newUserId || null == entrustId || null == entrustReturnMoney || null == entrustReturnTime) {
+        if (null == userId || null == newUserId || null == entrustId || null == entrustReturnMoney) {
             result.setCode(300);
             result.setMessage("当前异常，请稍后再试");
             return result;
+        }
+        //如果entrustReturnTime为空的话就默认为30天
+        if (null == entrustReturnTime) {
+            entrustReturnTime = 30;
         }
         result = entrustService.Accomplish(userId, newUserId, entrustId, entrustReturnMoney, entrustReturnTime);
         return result;
@@ -723,9 +760,7 @@ public class EntrustController {
     /**
      * 其他保险用户还单的方法 将数据存的还单表中(对接单委托进行还单申请)
      *
-     * @param newUserId           用户的ID (还单人的ID)
-     * @param deliveryOrderNumber (还单的车牌号)
-     * @param deliveryOrderMoney  (还单委托的金额)
+     * @param alsoOrder 用户还单的实体 有三个参数（1. newUserId 用户的ID (还单人的ID),2.deliveryOrderNumber (还单的车牌号),3.deliveryOrderMoney  (还单委托的金额)）
      * @return 戴辆
      */
     @ApiOperation(value = "用户对委托进行还单的方法", notes = "用户完成接单的委托之后，对委托进行还单", tags = "UserAlso", httpMethod = "POST")
@@ -753,17 +788,17 @@ public class EntrustController {
     })
     @PostMapping(value = "/useralso", produces = "application/json")
     public @ResponseBody
-    ResultHave UserAlso(Integer newUserId, String deliveryOrderNumber, Double deliveryOrderMoney) {
+    ResultHave UserAlso(@RequestBody AlsoOrder alsoOrder) {
         //创建实体类来接受数据，和返回数据
         ResultHave resultHave = new ResultHave();
         //判断数据有没有写入，如果数据为null 的话，则表示当前操作异常
-        if (null == newUserId || null == deliveryOrderMoney || null == deliveryOrderNumber) {
+        if (null == alsoOrder.getNewUserId() || null == alsoOrder.getDeliveryOrderMoney() || null == alsoOrder.getDeliveryOrderNumber()) {
             resultHave.setCode(300);
             resultHave.setMessage("当前异常");
             return resultHave;
         }
         //接受serverImpl中传来的数据,将用户的ID 还单委托的车牌号 还单委托的金额传到下一层中去
-        resultHave = entrustService.UserAlso(newUserId, deliveryOrderNumber, deliveryOrderMoney);
+        resultHave = entrustService.UserAlso(alsoOrder);
         return resultHave;
     }
 
@@ -843,7 +878,7 @@ public class EntrustController {
      * @param entrustId 委托的id
      * @return 戴辆
      */
-    @PostMapping(value = "/putentrust", produces = "application/json")
+    @GetMapping(value = "/putentrust", produces = "application/json")
     public @ResponseBody
     Result PutEntrust(Integer userId, Integer entrustId) {
         //创建Result实体来操作参数
@@ -857,6 +892,38 @@ public class EntrustController {
         //接受service层传来的数据
         result = entrustService.PutEntrust(userId, entrustId);
         return result;
+    }
+
+    /**
+     * 其他保险的用户查询 当前订单 还单的信息
+     *
+     * @param newEntrustId 委托的id
+     * @param newUserId    接单用户的id
+     * @return 戴辆
+     */
+    @ApiOperation(value = "其他保险查询当前订单 还单的信息", notes = "其他保险的用户 查询当前订单 还单信息的方法", tags = "GetDeliveryOrder", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "newEntrustId", value = "委托的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "newUserId", value = "用户的id", required = true, dataType = "int", paramType = "query")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultPage.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
+            @ApiResponse(code = 500, message = "内部错误", response = ResultPage.class),
+    })
+    @GetMapping(value = "/getdeliveryorder", produces = "application/json")
+    public @ResponseBody
+    ResultPage GetDeliveryOrder(Integer newEntrustId, Integer newUserId) {
+        //创建Result函数来进行操作
+        ResultPage resultPage = new ResultPage();
+        //判断订单id和用户id是不是为空，如果为空的话，则说明没有获取到数据，或异常访问
+        if (null == newEntrustId || null == newUserId) {
+            resultPage.setCode(300);
+            resultPage.setMessage("当前异常");
+        }
+        resultPage = entrustService.GetDeliveryOrder(newEntrustId, newUserId);
+        return resultPage;
     }
 
 }

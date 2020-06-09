@@ -59,7 +59,7 @@ public class ClientController {
     })
     @PostMapping(value = "/add", produces = "application/json")
     public @ResponseBody
-    Result AddCilent(Client client) throws ParseException {
+    Result AddCilent(@RequestBody Client client) throws ParseException {
         //创建接收数据的实体
         Result result = new Result();
         if (null == client.getUserId()) {//先判断是否获取到了用户的ID，如果获取到了就证明当前没有问题，如果没有就表示当前异常
@@ -127,12 +127,14 @@ public class ClientController {
      * 用户查询自己对应的客户，有哪些然后查询显示对应的信息
      *
      * @param userId 用户的ID
+     * @param typeId 查询什么类型的数据
      * @param index  当前是多少页
      * @return 戴辆
      */
     @ApiOperation(value = "查询自己的客户", notes = "用户查询自己的对应的客户，显示客户对应的信息", tags = "SelectQuery", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "typeId", value = "查询什么类型的数据(本网，他网)", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "index", value = "当前是多少页", required = false, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
@@ -143,7 +145,7 @@ public class ClientController {
     })
     @GetMapping(value = "/selectquery", produces = "application/json")
     public @ResponseBody
-    ResultPage SelectQuery(Integer userId, Integer index) {
+    ResultPage SelectQuery(Integer userId, Integer typeId, Integer index) {
         //创建接收数据的实体类，来接收数据
         ResultPage resultPage = new ResultPage();
         if (null == userId) {//判断userId是否为空，如果userId为空的话，择表示没有获取到用户的信息，直接提示异常
@@ -154,7 +156,7 @@ public class ClientController {
         if (null == index) {//如果没有输入页数的话，择默认显示第一页
             index = 1;
         }
-        resultPage = clientService.SelectQuery(userId, index);
+        resultPage = clientService.SelectQuery(userId, typeId, index);
         return resultPage;
     }
 
@@ -163,7 +165,6 @@ public class ClientController {
      *
      * @param userId   用户的ID(可能要用到后面进行操作)
      * @param clientId 查询那个客户的信息
-     * @param session  将数据存到session中，用于跳转页面的显示
      * @return 戴辆
      */
     @ApiOperation(value = "查询客户信息", notes = "用户查询对应客户的个人信息", tags = "Particulars", httpMethod = "GET")
@@ -172,22 +173,21 @@ public class ClientController {
             @ApiImplicitParam(name = "clientId", value = "要查询的客户的id", required = true, dataType = "int", paramType = "query"),
     })
     @ApiResponses({
-            @ApiResponse(code = 200, message = "成功", response = Session.class),
-            @ApiResponse(code = 300, message = "当前异常", response = Session.class)
+            @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
+            @ApiResponse(code = 300, message = "当前异常", response = ResultPage.class)
     })
     @GetMapping(value = "/particulars", produces = "application/json")
     public @ResponseBody
     ResultPage
-    Particulars(Integer userId, Integer clientId, HttpSession session) {
+    Particulars(Integer userId, Integer clientId) {
         ResultPage resultPage = new ResultPage();
         if (null == userId || null == clientId) {
-            session.setAttribute("code", 300);
-            session.setAttribute("message", "当前异常");
+            resultPage.setCode(300);
+            resultPage.setMessage("当前异常请稍后再试");
+            return resultPage;
         } else {
             //接受数据库传来的数据
             resultPage = clientService.Particulars(userId, clientId);
-            //存到session中，带到其他页面中去
-            session.setAttribute("resultPage", resultPage);
         }
         return resultPage;
     }

@@ -14,6 +14,7 @@ import javax.annotation.Resource;
  * 保险公司表
  */
 @CrossOrigin(allowCredentials = "true")
+
 @Controller
 @RequestMapping("/insurance")
 public class InsuranceCompanyController {
@@ -39,7 +40,6 @@ public class InsuranceCompanyController {
     Result selectInsurance() {
         Result result = new Result();
         result = insuranceCompanyService.selectInsurance();
-
         return result;
     }
 }

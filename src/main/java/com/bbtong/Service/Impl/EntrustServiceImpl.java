@@ -8,6 +8,7 @@ import com.bbtong.Service.EntrustService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultHave;
 import com.bbtong.Util.ResultPage;
+import javafx.beans.property.MapProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.apache.taglibs.standard.tag.common.sql.DataSourceUtil;
@@ -299,24 +300,31 @@ public class EntrustServiceImpl implements EntrustService {
             }
             //第二步 通过委托ID查询对应的所有有意向人的ID
             String newUserId = entrustDao.NewUserId(map);
-            //创建一个数组来接受数据
-            String[] newUser = newUserId.split(",");
-            //创建foreach循环来循环函数
-            for (String item : newUser
-            ) {
-                if (item.equals(userId.toString())) {
-                    resultHave.setCode(100009);
-                    resultHave.setMessage("当前已经意向了");
-                    return resultHave;
+            //判断有没有人有意向
+            if (null != newUserId) {
+                //创建一个数组来接受数据
+                String[] newUser = newUserId.split(",");
+                //创建foreach循环来循环函数
+                for (String item : newUser
+                ) {
+                    if (item.equals(userId.toString())) {
+                        resultHave.setCode(100009);
+                        resultHave.setMessage("当前已经意向了");
+                        return resultHave;
+                    }
                 }
-            }
-            //判断长度是否大于0，如果大于零则说明不是第一个添加到数组中的时候就需要加","号,如果是第一个就直接添加
-            if (newUser.length > 0) {
-                newUserId = newUserId + "," + userId;
+                //判断长度是否大于0，如果大于零则说明不是第一个添加到数组中的时候就需要加","号,如果是第一个就直接添加
+                if (newUser.length > 0) {
+                    newUserId = newUserId + "," + userId;
+                } else {
+                    //将int类型转换成string类型
+                    newUserId = userId.toString();
+                }
             } else {
                 //将int类型转换成string类型
                 newUserId = userId.toString();
             }
+
             //创建map函数来将数据存储起来
             map.put("newUserId", newUserId);
 
@@ -402,6 +410,9 @@ public class EntrustServiceImpl implements EntrustService {
         }
         //利用apeach.comment.lang3中的StringUtils方法中的strip将数据转换成数组，然后再将[]去掉。
         newUserId = StringUtils.strip(arrayList.toString().replace(" ", ""), "[]");
+        if (newUserId.length() == 0) {
+            newUserId = null;
+        }
         //将数据写入到map中
         map.put("newUserId", newUserId);
         try {
@@ -567,34 +578,33 @@ public class EntrustServiceImpl implements EntrustService {
         return result;
     }
 
+
     /**
-     * 用户还单的时候提交 信息写入到数据库中去
+     * 其他保险 还单的时候提交 信息写入到数据库中去
      *
-     * @param newUserId           还单人的ID
-     * @param deliveryOrderNumber 委托的车牌号
-     * @param deliveryOrderMoney  还的委托的金额
+     * @param alsoOrder 用户还单的实体 有三个参数（1. newUserId 用户的ID (还单人的ID),2.deliveryOrderNumber (还单的车牌号),3.deliveryOrderMoney  (还单委托的金额)）
      * @return 戴辆
      */
     @Transactional
     @Override
-    public ResultHave UserAlso(Integer newUserId, String deliveryOrderNumber, Double deliveryOrderMoney) {
+    public ResultHave UserAlso(AlsoOrder alsoOrder) {
         //创建实体来接受数据 和 操作数据
         ResultHave resultHave = new ResultHave();
         //创建map函数来存储数据用于数据库的查询
         Map<String, Object> map = new HashMap<String, Object>();
         //将还委托单的人的ID存到map中，用来查询(待还单的Id和待还单的用户ID)
-        map.put("newUserId", newUserId);
+        map.put("newUserId", alsoOrder.getNewUserId());
         //防止有人跳过数据审核，直接调用端口来提交数据，判断这一单是否已经完成
         Integer entrustState = entrustDao.entrustState(map);
-        if (entrustState == null || entrustState != 3) {
+        if (entrustState == null || entrustState == 6) {
             resultHave.setCode(100011);
             resultHave.setMessage("非法访问");
             return resultHave;
         }
         //将还单委托的车牌号存到map中
-        map.put("deliveryOrderNumber", deliveryOrderNumber);
+        map.put("deliveryOrderNumber", alsoOrder.getDeliveryOrderNumber());
         //将还单的金额存到map中
-        map.put("deliveryOrderMoney", deliveryOrderMoney);
+        map.put("deliveryOrderMoney", alsoOrder.getDeliveryOrderMoney());
         //获取当前的时间，将当前时间存到数据库中
         Date now = new Date();
         //设置时间的编码格式
@@ -700,6 +710,7 @@ public class EntrustServiceImpl implements EntrustService {
             //将查询数据，存储返回给controller层
             resultPage.setCode(200);
             resultPage.setMessage("查询成功");
+            resultPage.setCount(number);
             resultPage.setData(atEntrustList);
         } else {
             resultPage.setCode(200);
@@ -800,4 +811,75 @@ public class EntrustServiceImpl implements EntrustService {
         }
         return result;
     }
+
+    /**
+     * 大家保险的用户查询对应的待处理的委托
+     *
+     * @param userId    用户id
+     * @param entrustId 委托id
+     * @return 戴辆
+     */
+    @Override
+    public Result DaGetEntrust(Integer userId, Integer entrustId) {
+        //创建Result的实体来接受和操作数据
+        Result result = new Result();
+        //创建map函数来存储数据用于数据库查询
+        Map<String, Object> map = new HashMap<String, Object>();
+        //将数据存到map函数中
+        map.put("userId", userId);//用户的userId
+        map.put("entrustId", entrustId);//对应委托的id
+        DaGetEntrust daGetEntrust = entrustDao.DaGetEntrust(map);
+        if (daGetEntrust != null) {
+            result.setCode(200);
+            result.setMessage("查询成功");
+            result.setData(daGetEntrust);
+        } else {
+            result.setCode(400);
+            result.setMessage("查询失败");
+        }
+        return result;
+    }
+
+    /**
+     * 其他保险的用户查询 当前订单 还单的信息
+     *
+     * @param newEntrustId 委托的id
+     * @param newUserId    接单用户的id
+     * @return 戴辆
+     */
+    @Transactional
+    @Override
+    public ResultPage GetDeliveryOrder(Integer newEntrustId, Integer newUserId) {
+        //创建Result的实体来操作数据
+        ResultPage resultPage = new ResultPage();
+        //创建map函数来存储数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("newEntrustId", newEntrustId);//将订单的id存到map中
+        map.put("newUserId", newUserId);//将用户的id存到map中
+        try {
+            //第一步 先查询当前订单 还单的总条数
+            int count = entrustDao.GetDeliveryOrderNumber(map);
+            //判断条数是否大于0，如果条数不大于0的话，则说明当前还没有还单
+            if (count > 0) {
+                //第二步 查询当前订单的 还单的信息
+                List<AlsoOrder> alsoOrderList = entrustDao.GetDeliveryOrder(map);
+                resultPage.setCode(200);
+                resultPage.setMessage("查询成功");
+                resultPage.setData(alsoOrderList);
+                resultPage.setCount(count);
+            } else {
+                resultPage.setCode(200);
+                resultPage.setMessage("当前没有数据");
+                resultPage.setCount(count);
+            }
+        } catch (Exception e) {
+            //表示未知错误
+            resultPage.setCode(500);
+            resultPage.setMessage("出现未知错误");
+            return resultPage;
+        }
+        return resultPage;
+    }
+
+
 }

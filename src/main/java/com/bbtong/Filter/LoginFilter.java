@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,13 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+@CrossOrigin(allowCredentials = "true")
 @Component
 public class LoginFilter implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        response.setHeader("Access-Control-Allow-Origin", "*"); //解决跨域访问报错 
-//        response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
 //        response.setHeader("Access-Control-Max-Age", "3600"); //设置过期时间 
 //        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, client_id, uuid, Authorization");
 //        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // 支持HTTP 1.1. 
@@ -35,6 +37,7 @@ public class LoginFilter implements HandlerInterceptor {
         HttpSession session = request.getSession();
         //这个是自己定义的用户实体类
         SessionUser sessionUser = new SessionUser();
+        System.out.println(request.getSession().getAttribute("userId"));
         //在session中取出用户数据
         if (request.getSession().getAttribute("userId") == null) {
             Cookie loginCookie = getLoginCookie(request, "userName");
@@ -83,7 +86,7 @@ public class LoginFilter implements HandlerInterceptor {
     /**
      * 自定义判断cookie的方法
      *
-     * @param request    传入的req
+     * @param request  传入的req
      * @param userName 传入cookie
      * @return
      */
