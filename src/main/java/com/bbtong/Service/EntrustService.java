@@ -218,4 +218,13 @@ public interface EntrustService {
      * @return 戴辆
      */
     Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState);
+
+    /**
+     * 大家保险委托人 确定委托完成(全部完成，接委托的用户已经还完单)
+     *
+     * @param userId       用户的id(发布委托用户的id)
+     * @param newEntrustId (委托的id)
+     * @return 戴辆
+     */
+    Result DaConfirmEntrust(Integer userId, Integer newEntrustId);
 }

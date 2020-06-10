@@ -357,4 +357,68 @@ public interface EntrustDao {
      * @return
      */
     Integer DaPutOrder(Map map);
+
+    /**
+     * 第一步 先先根据委托人的id和委托的id 查询出，已还单的总金额
+     *
+     * @param map 里面存储着数据 委托人的id和委托的id
+     * @return 戴辆
+     */
+    Double ZdeliveryOrderMoney(Map map);
+
+    /**
+     * 第二步 根据委托人的id和委托的id 查询出需要还单的金额 接单人的id
+     *
+     * @param map 里面存储着数据 委托人的id和委托的id
+     * @return 戴辆
+     */
+    DaEntrust DaEntrust(Map map);
+
+    /**
+     * 第三步 将待还单表中委托的状态 修改成1 表示完成
+     *
+     * @param map 里面存储着数据 委托人的id和委托的id
+     * @return 戴辆
+     */
+    Integer UpdateAwaitDeliveryOrder(Map map);
+
+    /**
+     * 第四步 将委托表中的状态 修改成6 表示已完成，并且设置好完成时间
+     *
+     * @param map 里面存储着数据 委托人的id和委托的id
+     * @return 戴辆
+     */
+    Integer NewUpdateEntrust(Map map);
+
+    /**
+     * 第五步 通过用户的id将用户的信誉积分查出来
+     *
+     * @param map 里面存储着数据  用户的id newUserId
+     * @return 戴辆
+     */
+    Double userIntegrity(Map map);
+
+    /**
+     * 第六步 将当前委托的金额查询出来
+     *
+     * @param map 里面存着委托的id
+     * @return 戴辆
+     */
+    Double entrustMoney(Map map);
+
+    /**
+     * 第8步 将用户的接单状态和有意向状态，全部修改成0 代表可以重新接单和有意向 并且接单数量+1 金额数量增加
+     *
+     * @param map 里面存储着数据
+     * @return 戴辆
+     */
+    Integer updateNewUser(Map map);
+
+    /**
+     * 第九步将委托用户的委托单的总数量+1 委托单的总金额加上当前委托的
+     *
+     * @param map 里面存着用数据 userId 和当前订单的金额 entrustReturnMoney
+     * @return 戴辆
+     */
+    Integer updateUser(Map map);
 }

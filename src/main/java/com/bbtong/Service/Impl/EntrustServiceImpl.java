@@ -567,11 +567,12 @@ public class EntrustServiceImpl implements EntrustService {
             //创建list数组来接受数据
             List<DeliveryOrder> deliveryOrderList = entrustDao.selectDeliveryOrder(map);
             if (deliveryOrderList.size() > 0) {//判断有没有查到数据，没有查到数据的话，数组的长度就不大于0
+                result.setCode(200);
                 result.setMessage("查询查询成功");
             } else {
+                result.setCode(300);
                 result.setMessage("当前没有数据");
             }
-            result.setCode(200);
             result.setData(deliveryOrderList);
         } catch (Exception e) {//出现异常就会进入catch
             result.setCode(500);
@@ -891,7 +892,7 @@ public class EntrustServiceImpl implements EntrustService {
      * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
      * @return 戴辆
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState) {
         //创建Result的实体来接受数据 和 返回数据
@@ -902,7 +903,9 @@ public class EntrustServiceImpl implements EntrustService {
         map.put("newEntrustId", newEntrustId);//将newEntrustId(委托的id)存到map中
         map.put("deliveryOrderState", deliveryOrderState);//将deliveryOrderState(表示要修改的状态1：确定，2：驳回)存到map中
         try {
-
+            int zhi = entrustDao.DaPutOrder(map);
+            result.setCode(200);
+            result.setMessage("审核成功");
         } catch (Exception e) {
             result.setCode(500);
             result.setMessage("内部错误");
@@ -911,5 +914,88 @@ public class EntrustServiceImpl implements EntrustService {
         return result;
     }
 
+    /**
+     * 大家保险委托人 确定委托完成(全部完成，接委托的用户已经还完单)
+     *
+     * @param userId       用户的id(发布委托用户的id)
+     * @param newEntrustId (委托的id)
+     * @return 戴辆
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Result DaConfirmEntrust(Integer userId, Integer newEntrustId) {
+        //创建Result的实体来接受返回的数据
+        Result result = new Result();
+        //创建map函数来存储数据和用于存储后面查询的数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);//将userId存到map 中
+        map.put("newEntrustId", newEntrustId);//将newEntrustId存到map中
+        try {
+            //第一步 先根据委托人的id和委托的id 查询出，已还单的总金额
+            double ZdeliveryOrderMoney = entrustDao.ZdeliveryOrderMoney(map);
+            //第二步 根据委托人的id和委托的id 查询出需要还单的金额 接单人的id
+            DaEntrust daEntrust = entrustDao.DaEntrust(map);
+            map.put("newUserId", daEntrust.getNewUserId());//将接单用户的人的id存到map中
+            //判断已还单的总金额，如果总金额大于需还单金额，就可以进行下面的操作，否则就提示他当前金额不够
+            if (ZdeliveryOrderMoney >= daEntrust.getEntrustReturnMoney()) {
+                //获取当前日期
+                Date date = new Date();
+                //创建Calendar实例
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);   //设置当前时间
+                //将时间格式化成yyyy-MM-dd HH:mm:ss的格式
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                //将设置好的时间存到map 中
+                map.put("entrustGradeTime", format.format(cal.getTime()));
+                String entrustGradeTime;
+                String entrustReturnTime;
+                //将当前日期时间转换成时间戳
+                entrustGradeTime = format.format(cal.getTime());
+                entrustReturnTime = daEntrust.getEntrustReturnTime();
 
+                //第三步 将待还单表中委托的状态 修改成1,并且获取当前的时间为完成的时间 表示完成
+                int entrustState = entrustDao.UpdateAwaitDeliveryOrder(map);
+                //第四步 将委托表中的状态 修改成6 表示已完成，并且设置好完成时间
+                int state = entrustDao.NewUpdateEntrust(map);
+                //第五步 通过用户的id将用户的诚信等级查出来
+                double userIntegrity = entrustDao.userIntegrity(map);
+                //第六步 将当前委托的金额查询出来
+                double entrustMoney = entrustDao.entrustMoney(map);
+                map.put("entrustMoney", entrustMoney);//将委托的金额存到map中
+                //第7步 判断时间是否达标，如果完成的时间大于还单的时间 则将用户的诚信等级下降十点
+
+                //将两个时间来比较判断，如果是true的话，就是在规定时间之内完成的，如果是false的话就是超出了时间
+                if (entrustReturnTime.compareTo(entrustGradeTime) > 0) {
+                    //第8步 将用户的接单状态和有意向状态，全部修改成0 代表可以重新接单和有意向 并且接单数量+1 金额数量增加
+                    int updateNewUser = entrustDao.updateNewUser(map);
+                } else {
+                    //第八步 第8步 将用户的接单状态和有意向状态，全部修改成0 代表可以重新接单和有意向 并且接单数量+1 金额数量增加，并且将诚信等级修改
+                    if (userIntegrity > 10) {
+                        userIntegrity = userIntegrity - 10;
+                    } else {
+                        userIntegrity = 0;
+                    }
+                    map.put("userIntegrity", userIntegrity);//将用户的个人诚信等级写到map中
+                    int updateNewUser = entrustDao.updateNewUser(map);
+                }
+                //第九步将委托用户的委托单的总数量+1 委托单的总金额加上当前委托的
+                int updateUser = entrustDao.updateUser(map);
+                if (updateUser > 0) {
+                    result.setCode(200);
+                    result.setMessage("成功");
+                } else {
+                    result.setCode(400);
+                    result.setMessage("失败");
+                }
+            } else {
+                result.setCode(300);
+                result.setMessage("还单金额没达标");
+                return result;
+            }
+        } catch (Exception e) {
+            result.setCode(500);
+            result.setMessage("出现未知错误");
+        }
+        return result;
+    }
 }

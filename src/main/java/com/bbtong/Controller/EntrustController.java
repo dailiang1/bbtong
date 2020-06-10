@@ -543,6 +543,29 @@ public class EntrustController {
 
 
     /**
+     * 大家保险委托人 确定委托完成(全部完成，接委托的用户已经还完单)
+     *
+     * @param userId       大家保险用户的id
+     * @param newEntrustId 委托的id
+     * @return 戴辆
+     */
+    @GetMapping(value = "/daconfirmentrust", produces = "application/json")
+    public @ResponseBody
+    Result DaConfirmEntrust(Integer userId, Integer newEntrustId) {
+        //创建Result的实体来接受和存储数据
+        Result result = new Result();
+        //先判断userId和newEntrustId是不是为空，如果为空的话，则说明数据有问题
+        if (null == userId || null == newEntrustId) {
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        result = entrustService.DaConfirmEntrust(userId, newEntrustId);
+        return result;
+    }
+
+
+    /**
      * 其他保险用户有意向委托(对委托有意向)
      *
      * @param userId    用户的ID

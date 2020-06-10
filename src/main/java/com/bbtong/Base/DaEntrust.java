@@ -60,6 +60,10 @@ public class DaEntrust {
     private String entrustEndTime;
 
     /**
+     * 还单的时间期限(获取委托表中的时间)
+     */
+    private String entrustReturnTime;
+    /**
      * 表示委托是否被接(0表示未接单，1表示已接单，2表示已完成，3表示没人接单，4表示委托人主动撤单)
      */
     private Integer entrustState;

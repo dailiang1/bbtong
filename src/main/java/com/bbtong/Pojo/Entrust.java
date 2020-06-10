@@ -122,6 +122,7 @@ public class Entrust implements Serializable {
      */
     private Integer entrustReturnTime;
 
+
     /**
      * 是否投保商业车损险(0表示不投，1表示投。默认选择是1)
      */

@@ -153,6 +153,10 @@ public class ClientController {
             resultPage.setMessage("当前异常请稍后再试");
             return resultPage;
         }
+        //判断有没有输入页数，如果没有输入页数的话，就默认为本网客户
+        if (null == typeId) {
+            typeId = 1;
+        }
         if (null == index) {//如果没有输入页数的话，择默认显示第一页
             index = 1;
         }

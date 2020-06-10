@@ -40,6 +40,7 @@
         <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
         <result column="Insurance_Company_Id" jdbcType="INTEGER" property="insuranceCompanyId"/>
         <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
+        <result column="Entrust_Return_Time" jdbcType="INTEGER" property="entrustReturnTime"/>
         <result column="Entrust_Start_Time" jdbcType="VARCHAR" property="entrustStartTime"/>
         <result column="Entrust_End_Time" jdbcType="VARCHAR" property="entrustEndTime"/>
         <result column="Entrust_State" jdbcType="INTEGER" property="entrustState"/>
@@ -897,5 +898,71 @@
             </if>
         </set>
         where User_Id=#{userId} and New_Entrust_Id=#{newEntrustId}
+    </update>
+
+    <!--第一步 先先根据委托人的id和委托的id 查询出，已还单的总金额-->
+    <select id="ZdeliveryOrderMoney" parameterType="map" resultType="double">
+        SELECT sum(Delivery_Order_Money) FROM bbt_delivery_order where User_Id=#{userId} and New_Entrust_Id=#{newUserId}
+    </select>
+
+    <!--第二步 根据委托人的id和委托的id 查询出需要还单的金额 接单人的id 还有还单的时间-->
+    <select id="DaEntrust" parameterType="map" resultMap="BaseDaEntrust">
+        SELECT Entrust_Return_Money,New_User_Id ,Entrust_Return_Time FROM bbt_await_delivery_order where User_Id=#{userId} and New_Entrust_Id=#{newEntrustId}
+    </select>
+
+    <!--第三步 将待还单表中委托的状态 修改成1 表示完成-->
+    <update id="UpdateAwaitDeliveryOrder" parameterType="map">
+        update bbt_await_delivery_order
+        <set>
+            Entrust_state=1,
+            <if test="entrustGradeTime != null">
+                Entrust_Grade_Time=#{entrustGradeTime}
+            </if>
+        </set>
+        where User_Id=#{userId} and New_Entrust_Id=#{newEntrustId}
+    </update>
+
+    <!--第四步 将委托表中的状态 修改成6 表示已完成，并且设置好完成时间-->
+    <update id="NewUpdateEntrust" parameterType="map">
+        update bbt_entrust
+        <set>
+            Entrust_state=6,
+            <if test="entrustGradeTime != null">
+                Entrust_Grade_Time=#{entrustGradeTime}
+            </if>
+
+        </set>
+        where User_Id=#{userId} and Entrust_Id=#{newEntrustId}
+    </update>
+
+    <!--第五步 通过用户的id将用户的信誉积分查出来-->
+    <select id="userIntegrity" parameterType="map" resultType="double">
+        select User_Integrity from  bbt_user where  User_Id=#{newUserId}
+    </select>
+
+    <!--第六步 将委托的金额查询出来-->
+    <select id="entrustMoney" parameterType="map" resultType="double">
+        select  * from bbt_entrust where  Entrust_Id=#{newEntrustId}
+    </select>
+
+    <!--第8步 将用户的接单状态和有意向状态，全部修改成0 代表可以重新接单和有意向 并且接单数量+1 金额数量增加-->
+    <update id="updateNewUser" parameterType="map">
+        update bbt_user
+        <set>
+            Intention_State=0,User_Order_State=0,User_Order_numer=User_Order_numer+1,User_order_Money=User_order_Money+#{entrustMoney},
+            <if test="userIntegrity != null">
+                User_Integrity=#{userIntegrity}
+            </if>
+        </set>
+        where User_Id=#{newUserId}
+    </update>
+
+    <!--第九步将委托用户的委托单的总数量+1 委托单的总金额加上当前委托的-->
+    <update id="updateUser" parameterType="map">
+        update bbt_user
+        <set>
+            User_Entrust_number=User_Entrust_number+1,User_Entrust_Money=User_Entrust_Money+#{entrustMoney}
+        </set>
+        where User_Id=#{userId}
     </update>
 </mapper>
