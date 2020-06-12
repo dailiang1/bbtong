@@ -5,7 +5,7 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   datasource:
-      url: jdbc:mysql://localhost:3306/bbt_db
+      url: jdbc:mysql://www.dwhlzchb.com:3306/bbt_db?createDatabaseIfNotExist=true&useSSL=false
       username: root
       password: root123
       driver-class-name: com.mysql.jdbc.Driver

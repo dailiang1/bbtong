@@ -186,8 +186,13 @@ public class EntrustServiceImpl implements EntrustService {
             int UpdateEntrust = entrustDao.UpdateEntrust(map);
             //第二步将除了接单的人之外的其他人，变的可以有意向委托
             int UpdateNewUserId = entrustDao.UpdateNewUserId(map);
-            //第三步将两个人确认好友关系
-            int AddFriend = entrustDao.AddFriend(map);
+                //在这之前先确定两个人有没有成为好友关系，如果成为了好友关系的话，就不用添加好友了
+            Integer haoyou=entrustDao.HaoYou(map);
+                //判断返回的数据是不是为空，如果为空的话，就让其添加好友
+            if (null==haoyou) {
+                //第三步将两个人确认好友关系
+                int AddFriend = entrustDao.AddFriend(map);
+            }
             //第四步将信息写入到接单表中
             int AddOrder = entrustDao.AddOrder(map);
             //第五步将接单人可以接单的状态修改成不可以接单
@@ -660,18 +665,18 @@ public class EntrustServiceImpl implements EntrustService {
     /**
      * 大家保险用户 查看对应委托还单的还单信息
      *
-     * @param user_Id   用户的id
+     * @param userId   用户的id
      * @param entrustId 委托的id
      * @return 戴辆
      */
     @Override
-    public Result GetOrderEntrust(Integer user_Id, Integer entrustId) {
+    public Result GetOrderEntrust(Integer userId, Integer entrustId) {
         //创建实体类来接受操作数据
         Result result = new Result();
         //创建map数据在接受数据
         Map<String, Object> map = new HashMap<String, Object>();
         //将userId存到map中
-        map.put("userId", user_Id);
+        map.put("userId", userId);
         //将entrustId存到map中
         map.put("entrustId", entrustId);
         //通过userId和entrustId去查询数据,用list数组来接收返回的数据
@@ -801,7 +806,7 @@ public class EntrustServiceImpl implements EntrustService {
         //将数据存到map函数中
         map.put("userId", userId);//用户的userId
         map.put("entrustId", entrustId);//对应委托的id
-        //将委托的状态修改成2，表示待确认完成
+        //将委托的状态修改成3，表示待确认完成
         try {
             int zhi = entrustDao.daPutEntrust(map);
             result.setCode(200);
@@ -902,6 +907,15 @@ public class EntrustServiceImpl implements EntrustService {
         map.put("userId", userId); //将newUserId(用户的id)存到map中
         map.put("newEntrustId", newEntrustId);//将newEntrustId(委托的id)存到map中
         map.put("deliveryOrderState", deliveryOrderState);//将deliveryOrderState(表示要修改的状态1：确定，2：驳回)存到map中
+        //获取当前日期
+        Date date = new Date();
+        //创建Calendar实例
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);   //设置当前时间
+        //将时间格式化成yyyy-MM-dd HH:mm:ss的格式
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //将设置好的时间存到map 中
+        map.put("entrustGradeTime", format.format(cal.getTime()));
         try {
             int zhi = entrustDao.DaPutOrder(map);
             result.setCode(200);
@@ -963,7 +977,16 @@ public class EntrustServiceImpl implements EntrustService {
                 double entrustMoney = entrustDao.entrustMoney(map);
                 map.put("entrustMoney", entrustMoney);//将委托的金额存到map中
                 //第7步 判断时间是否达标，如果完成的时间大于还单的时间 则将用户的诚信等级下降十点
-
+                //创建接受用户的数据
+                UserEntrust userEntrust = new UserEntrust();
+                //先查询发布委托人的数据
+                userEntrust = entrustDao.NewUser(map);
+                //再查询接单人的数据
+                userEntrust = entrustDao.User(map);
+                map.put("userEntrustNumber", userEntrust.getUserEntrustNumber() + 1);//将委托单的总数+1，添加到map函数中
+                map.put("userOrderNumer", userEntrust.getUserOrderNumer() + 1);//将用户接单的总数+1，添加到map函数中
+                map.put("userEntrustMoney", userEntrust.getUserEntrustMoney() + entrustMoney);//将委托单的总金额+上当前订单的金额，然后存到map中
+                map.put("userOrderMoney", userEntrust.getUserOrderMoney() + entrustMoney);//将接单的总金额+上当前订单的金额，然后存到map中
                 //将两个时间来比较判断，如果是true的话，就是在规定时间之内完成的，如果是false的话就是超出了时间
                 if (entrustReturnTime.compareTo(entrustGradeTime) > 0) {
                     //第8步 将用户的接单状态和有意向状态，全部修改成0 代表可以重新接单和有意向 并且接单数量+1 金额数量增加

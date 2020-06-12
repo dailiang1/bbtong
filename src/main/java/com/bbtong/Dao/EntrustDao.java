@@ -421,4 +421,28 @@ public interface EntrustDao {
      * @return 戴辆
      */
     Integer updateUser(Map map);
+
+    /**
+     * 先查询发布委托人的数据
+     *
+     * @param map 用户的id
+     * @return 戴辆
+     */
+    UserEntrust NewUser(Map map);
+
+    /**
+     * 再查询接单人的数据
+     *
+     * @param map 用户的id
+     * @return 戴辆
+     */
+    UserEntrust User(Map map);
+
+    /**
+     * 查询两个人有没有成为好友
+     *
+     * @param map 里面存储着个人的数据
+     * @return 戴辆
+     */
+    Integer HaoYou(Map map);
 }

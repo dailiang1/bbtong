@@ -149,11 +149,11 @@ public interface EntrustService {
     /**
      * 大家保险用户 查看对应委托还单的还单信息
      *
-     * @param user_Id   用户的id
+     * @param userId   用户的id
      * @param entrustId 委托的id
      * @return 戴辆
      */
-    Result GetOrderEntrust(Integer user_Id, Integer entrustId);
+    Result GetOrderEntrust(Integer userId, Integer entrustId);
 
     /**
      * 其他保险的用户 进入到委托大厅

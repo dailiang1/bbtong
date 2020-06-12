@@ -160,6 +160,15 @@
         <result column="New_User_Id" jdbcType="INTEGER" property="newUserId"/>
         <result column="Delivery_Order_Money" jdbcType="DOUBLE" property="deliveryOrderMoney"/>
         <result column="Delivery_Order_Number" jdbcType="VARCHAR" property="deliveryOrderNumber"/>
+        <result column="Delivery_Order_state" jdbcType="INTEGER" property="deliveryOrderState"/>
+    </resultMap>
+
+    <!--在还单确认委托的时候 查询委托人和用户的信息-->
+    <resultMap id="BaseUserEntrust" type="com.bbtong.Base.UserEntrust">
+        <result column="User_Entrust_number" jdbcType="INTEGER" property="userEntrustNumber"/>
+        <result column="User_Order_numer" jdbcType="INTEGER" property="userOrderNumer"/>
+        <result column="User_Entrust_Money" jdbcType="DOUBLE" property="userEntrustMoney"/>
+        <result column="User_order_Money" jdbcType="DOUBLE" property="userOrderMoney"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -726,7 +735,7 @@
 
     <!--用户查询自己对应接过的委托记录-->
     <select id="OrderRecord" parameterType="int" resultMap="BaseResultMap">
-        SELECT e.* FROM bbt_entrust e LEFT JOIN bbt_order o ON e.Finally_User_Id=o.Finally_User_Id where o.Finally_User_Id=#{userId} ORDER BY e.Entrust_Grade_Time DESC
+        SELECT e.* FROM bbt_entrust e LEFT JOIN bbt_order o ON e.Entrust_Id=o.Entrust_Id where o.Finally_User_Id=#{userId} ORDER BY e.Entrust_Grade_Time DESC
     </select>
 
     <!--第一步 先查询数据库 1.用户是否还能有意向 2.是否还能接单 3.是否开发通了年费 4.诚信是否合格-->
@@ -828,7 +837,7 @@
 
     <!--第二步 将数据写入到还单表中-->
     <insert id="AddDeliveryOrder" parameterType="map">
-        insert  into bbt_delivery_order(new_entrust_id, user_id, new_user_id, delivery_order_number, delivery_order_money, entrust_grade_time)values (#{newEntrustId},#{userId},#{newUserId},#{deliveryOrderNumber},#{deliveryOrderMoney},#{entrustGradeTime})
+        insert  into bbt_delivery_order(new_entrust_id, user_id, new_user_id, delivery_order_number, delivery_order_money, entrust_grade_time)values (#{newEntrustId},#{userId},#{newUserId},#{deliveryOrderNumber},#{deliveryOrderMoney},#{deliveryGradeTime})
     </insert>
 
     <!--大家保险用户查看自己已经完成了的委托(历史委托方法)-->
@@ -896,13 +905,16 @@
             <if test="deliveryOrderState != null and deliveryOrderState!= ''">
                 Delivery_Order_State=#{deliveryOrderState}
             </if>
+            <if test="entrustGradeTime != null">
+                Entrust_Grade_Time=#{entrustGradeTime}
+            </if>
         </set>
         where User_Id=#{userId} and New_Entrust_Id=#{newEntrustId}
     </update>
 
     <!--第一步 先先根据委托人的id和委托的id 查询出，已还单的总金额-->
     <select id="ZdeliveryOrderMoney" parameterType="map" resultType="double">
-        SELECT sum(Delivery_Order_Money) FROM bbt_delivery_order where User_Id=#{userId} and New_Entrust_Id=#{newUserId}
+        SELECT sum(Delivery_Order_Money) FROM bbt_delivery_order where User_Id=#{userId} and New_Entrust_Id=#{newEntrustId}
     </select>
 
     <!--第二步 根据委托人的id和委托的id 查询出需要还单的金额 接单人的id 还有还单的时间-->
@@ -949,7 +961,13 @@
     <update id="updateNewUser" parameterType="map">
         update bbt_user
         <set>
-            Intention_State=0,User_Order_State=0,User_Order_numer=User_Order_numer+1,User_order_Money=User_order_Money+#{entrustMoney},
+            Intention_State=0,User_Order_State=0,
+            <if test="userOrderNumer != null">
+                User_Order_numer=#{userOrderNumer},
+            </if>
+            <if test="userOrderMoney != null">
+                User_order_Money=#{userOrderMoney}
+            </if>
             <if test="userIntegrity != null">
                 User_Integrity=#{userIntegrity}
             </if>
@@ -961,8 +979,28 @@
     <update id="updateUser" parameterType="map">
         update bbt_user
         <set>
-            User_Entrust_number=User_Entrust_number+1,User_Entrust_Money=User_Entrust_Money+#{entrustMoney}
+            <if test="userEntrustNumber != null">
+                User_Entrust_number=#{userEntrustNumber},
+            </if>
+            <if test="userEntrustMoney != null">
+                User_Entrust_Money=#{userEntrustMoney}
+            </if>
         </set>
         where User_Id=#{userId}
     </update>
+
+    <!--先查询发布委托人的数据-->
+    <select id="NewUser" parameterType="map" resultMap="BaseUserEntrust">
+        select User_Entrust_number,User_Entrust_Money from bbt_user where User_Id=#{userId}
+    </select>
+
+    <!--查询接单人的数据-->
+    <select id="User" parameterType="map" resultMap="BaseUserEntrust">
+        select User_Order_numer,User_order_Money from  bbt_user where  User_Id=#{newUserId}
+    </select>
+
+    <!--查询两个人是不是好友关系-->
+    <select id="HaoYou" parameterType="map" resultType="int">
+        SELECT Friend_Id FROM bbt_friend  where User_Id=#{userId} and Friend_User_Id=#{finallyUserId}
+    </select>
 </mapper>

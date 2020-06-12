@@ -235,7 +235,7 @@
                 <filtering>false</filtering>
             </resource>
         </resources>
-
+        <finalName>bbt</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -32,4 +32,14 @@ public class AlsoOrder {
      * 还单的状态 (0表示未确认 1确定 2驳回订单信息有误)
      */
     private Integer deliveryOrderState;
+
+    /**
+     * 用户的姓名
+     */
+    private String userName;
+
+    /**
+     * 表示这一单更新的时间
+     */
+    private String entrustGradeTime;
 }

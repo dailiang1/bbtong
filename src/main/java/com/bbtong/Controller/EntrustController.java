@@ -435,7 +435,7 @@ public class EntrustController {
     /**
      * 大家保险用户 查看对应委托还单的还单信息
      *
-     * @param user_Id   用户的id （多一个用户id来防止别人请求端口查询数据）
+     * @param userId   用户的id （多一个用户id来防止别人请求端口查询数据）
      * @param entrustId 委托id
      * @return 戴辆
      */
@@ -452,11 +452,11 @@ public class EntrustController {
     })
     @GetMapping(value = "/getorderentrust", produces = "application/json")
     public @ResponseBody
-    Result GetOrderEntrust(Integer entrustId, Integer user_Id) {
+    Result GetOrderEntrust(Integer entrustId, Integer userId) {
         //创建实体来接受service层返回的结果
         Result result = new Result();
         //判断是否获取到了userId
-        if (null == user_Id) {
+        if (null == userId) {
             result.setCode(300);
             result.setMessage("异常访问");
             return result;
@@ -468,7 +468,7 @@ public class EntrustController {
             return result;
         }
         //接受service层返回的数据
-        result = entrustService.GetOrderEntrust(user_Id, entrustId);
+        result = entrustService.GetOrderEntrust(userId, entrustId);
         return result;
     }
 
@@ -563,6 +563,7 @@ public class EntrustController {
         result = entrustService.DaConfirmEntrust(userId, newEntrustId);
         return result;
     }
+
 
 
     /**

@@ -15,14 +15,26 @@ public class BbtongApplication extends SpringBootServletInitializer {
     }
 
 
+    /**
+     * 正常启动的方法
+     *
+     * @param application
+     * @return
+     */
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//        return application.sources(BbtongApplication.class);
+//    }
+
+    /**
+     * 打包启动的方法
+     *
+     * @param application
+     * @return
+     */
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(BbtongApplication.class);
+        return super.configure(application);
     }
-
-//        @Override
-//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//        return super.configure(application);
-//    }
 
 }
