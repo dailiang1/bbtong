@@ -66,7 +66,6 @@ public class LoginFilter implements HandlerInterceptor {
                 }
             } else {
                 setReturn(response, 0, "请重新登陆");
-                System.out.println("请登录");
                 return false;
             }
         }

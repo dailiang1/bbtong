@@ -215,9 +215,10 @@ public interface EntrustService {
      * @param userId             用户的id(为之前委托发布人id，而不是还单人的id)
      * @param newEntrustId       委托的id
      * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
+     * @param deliveryOrderId     表示当前还单委托的id
      * @return 戴辆
      */
-    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState);
+    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState,Integer deliveryOrderId);
 
     /**
      * 大家保险委托人 确定委托完成(全部完成，接委托的用户已经还完单)

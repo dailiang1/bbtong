@@ -895,11 +895,12 @@ public class EntrustServiceImpl implements EntrustService {
      * @param userId             用户的id(为之前委托发布人id，而不是还单人的id)
      * @param newEntrustId       委托的id
      * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
+     * @param deliveryOrderId     表示当前还单委托的id
      * @return 戴辆
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState) {
+    public Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState,Integer deliveryOrderId) {
         //创建Result的实体来接受数据 和 返回数据
         Result result = new Result();
         //创建map函数来接受和存储参数
@@ -907,6 +908,7 @@ public class EntrustServiceImpl implements EntrustService {
         map.put("userId", userId); //将newUserId(用户的id)存到map中
         map.put("newEntrustId", newEntrustId);//将newEntrustId(委托的id)存到map中
         map.put("deliveryOrderState", deliveryOrderState);//将deliveryOrderState(表示要修改的状态1：确定，2：驳回)存到map中
+        map.put("deliveryOrderId",deliveryOrderId);//将deliveryOrderId(表示当前还单的id)存到map中
         //获取当前日期
         Date date = new Date();
         //创建Calendar实例
@@ -979,13 +981,14 @@ public class EntrustServiceImpl implements EntrustService {
                 //第7步 判断时间是否达标，如果完成的时间大于还单的时间 则将用户的诚信等级下降十点
                 //创建接受用户的数据
                 UserEntrust userEntrust = new UserEntrust();
+                UserEntrust userEntrust1 = new UserEntrust();
                 //先查询发布委托人的数据
-                userEntrust = entrustDao.NewUser(map);
+                userEntrust1 = entrustDao.NewUser(map);
                 //再查询接单人的数据
                 userEntrust = entrustDao.User(map);
-                map.put("userEntrustNumber", userEntrust.getUserEntrustNumber() + 1);//将委托单的总数+1，添加到map函数中
+                map.put("userEntrustNumber", userEntrust1.getUserEntrustNumber() + 1);//将委托单的总数+1，添加到map函数中
                 map.put("userOrderNumer", userEntrust.getUserOrderNumer() + 1);//将用户接单的总数+1，添加到map函数中
-                map.put("userEntrustMoney", userEntrust.getUserEntrustMoney() + entrustMoney);//将委托单的总金额+上当前订单的金额，然后存到map中
+                map.put("userEntrustMoney", userEntrust1.getUserEntrustMoney() + entrustMoney);//将委托单的总金额+上当前订单的金额，然后存到map中
                 map.put("userOrderMoney", userEntrust.getUserOrderMoney() + entrustMoney);//将接单的总金额+上当前订单的金额，然后存到map中
                 //将两个时间来比较判断，如果是true的话，就是在规定时间之内完成的，如果是false的话就是超出了时间
                 if (entrustReturnTime.compareTo(entrustGradeTime) > 0) {

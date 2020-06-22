@@ -903,13 +903,13 @@
         update bbt_delivery_order
         <set>
             <if test="deliveryOrderState != null and deliveryOrderState!= ''">
-                Delivery_Order_State=#{deliveryOrderState}
+                Delivery_Order_State=#{deliveryOrderState},
             </if>
             <if test="entrustGradeTime != null">
                 Entrust_Grade_Time=#{entrustGradeTime}
             </if>
         </set>
-        where User_Id=#{userId} and New_Entrust_Id=#{newEntrustId}
+        where User_Id=#{userId} and New_Entrust_Id=#{newEntrustId} and Delivery_Order_Id=#{deliveryOrderId}
     </update>
 
     <!--第一步 先先根据委托人的id和委托的id 查询出，已还单的总金额-->
@@ -954,7 +954,7 @@
 
     <!--第六步 将委托的金额查询出来-->
     <select id="entrustMoney" parameterType="map" resultType="double">
-        select  * from bbt_entrust where  Entrust_Id=#{newEntrustId}
+        select  Entrust_Money from bbt_entrust where  Entrust_Id=#{newEntrustId}
     </select>
 
     <!--第8步 将用户的接单状态和有意向状态，全部修改成0 代表可以重新接单和有意向 并且接单数量+1 金额数量增加-->
@@ -966,10 +966,10 @@
                 User_Order_numer=#{userOrderNumer},
             </if>
             <if test="userOrderMoney != null">
-                User_order_Money=#{userOrderMoney}
+                User_order_Money=#{userOrderMoney},
             </if>
             <if test="userIntegrity != null">
-                User_Integrity=#{userIntegrity}
+                User_Integrity=#{userIntegrity},
             </if>
         </set>
         where User_Id=#{newUserId}
@@ -983,7 +983,7 @@
                 User_Entrust_number=#{userEntrustNumber},
             </if>
             <if test="userEntrustMoney != null">
-                User_Entrust_Money=#{userEntrustMoney}
+                User_Entrust_Money=#{userEntrustMoney},
             </if>
         </set>
         where User_Id=#{userId}

@@ -524,11 +524,12 @@ public class EntrustController {
      * @param userId             用户的id(为之前委托发布人id，而不是还单人的id)
      * @param newEntrustId       委托的id
      * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
+     * @param deliveryOrderId 表示当前还单信息id
      * @return 戴辆
      */
     @GetMapping(value = "/daputorder", produces = "application/json")
     public @ResponseBody
-    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState) {
+    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState,Integer deliveryOrderId) {
         //1.创建Result的实体来 进行接收数据和返回数据
         Result result = new Result();
         //2.判断前端传来的数据是不是为空， 如果数据为空的话 则说明异常
@@ -537,7 +538,7 @@ public class EntrustController {
             result.setMessage("当前异常");
             return result;
         }
-        result = entrustService.DaPutOrder(userId, newEntrustId, deliveryOrderState);
+        result = entrustService.DaPutOrder(userId, newEntrustId, deliveryOrderState,deliveryOrderId);
         return result;
     }
 
@@ -549,6 +550,11 @@ public class EntrustController {
      * @param newEntrustId 委托的id
      * @return 戴辆
      */
+    @ApiOperation(value = "大家保险用户确定委托全部完成",notes = "委托全部完成的方法",tags = "DaConfirmEntrust",httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "newEntrustId", value = "委托的id", required = true, dataType = "int", paramType = "query")
+    })
     @GetMapping(value = "/daconfirmentrust", produces = "application/json")
     public @ResponseBody
     Result DaConfirmEntrust(Integer userId, Integer newEntrustId) {

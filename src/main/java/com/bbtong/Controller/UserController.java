@@ -10,14 +10,9 @@ import com.bbtong.Util.ResultPage;
 import com.bbtong.Util.SMS;
 import com.bbtong.Util.UserResult;
 import io.swagger.annotations.*;
-import net.sf.json.JSONObject;
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -70,7 +65,6 @@ public class UserController {
                 System.out.println(newPhone);
                 // 根据键值取session中的值
                 Object num = session.getAttribute(newPhone);
-                System.out.println(num);
                 if (newPhone.equals(userPhone)) {
                     session.removeAttribute(newPhone);
                 }
@@ -79,15 +73,16 @@ public class UserController {
         //创建Result的实体来接受数据
         UserResult userResult = new UserResult();
         //随机生成六位随机数
-        int num = (int) ((Math.random() * 9 + 1) * 1000);
+//        int num = (int) ((Math.random() * 9 + 1) * 1000);
+        int num=1111;
         //将数据存到newUser的实体中，然后将数据存到session中
 
         //将newUser存到session中，用于登陆的判断
         session.setAttribute(userPhone, num);
         //设置session的过期时间，这是设置成5分钟
-        session.setMaxInactiveInterval(5 * 60);
+        session.setMaxInactiveInterval(1 * 60);
 
-        userResult = sms.getRequest2(userPhone, num);
+//        userResult = sms.getRequest2(userPhone, num);
         return userResult;
     }
 
@@ -114,6 +109,7 @@ public class UserController {
     @GetMapping(value = "/login", produces = "application/json")
     public @ResponseBody
     UserResult UserLogin(String userPhone, Integer num, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+        response.setHeader("Set-Cookie", "flavor=choco; SameSite=None; Secure");
         //创建实体类Result来接受数据
         UserResult userResult = new UserResult();
         //创建session接受数据
@@ -122,11 +118,16 @@ public class UserController {
         Enumeration<String> attrs = session.getAttributeNames();
         String newPhone = null;
         while (attrs.hasMoreElements()) {
+            //取出数据中的电话号码,将数据赋值给对应的值
             newPhone = attrs.nextElement().toString();
+            //判断数据有没有和手机号码相同的，如果相同的话则结束循环
+            if(userPhone.equals(newPhone)){
+               break;
+            }
         }
         if (null == newPhone) {
             userResult.setCode(500);
-            userResult.setMessage("没有获取到cookie");
+            userResult.setMessage("请发送验证码");
             return userResult;
         }
         if (!userPhone.equals(newPhone)) {
