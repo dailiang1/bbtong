@@ -328,7 +328,7 @@ public class EntrustController {
         Result result = new Result();
         //判断userId是不是为空，如果为空的话，则说名出现异常
         if (null == userId) {
-            result.setCode(3000);
+            result.setCode(300);
             result.setMessage("当前异常");
             return result;
         }

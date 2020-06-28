@@ -97,7 +97,11 @@ public class EntrustServiceImpl implements EntrustService {
                 //如果没有人对此单有意向的话就让其为0
                 if (null == item.getNewUserId()) {
                     item.setNumber(0);
-                    break;//break跳出当前的循环，进入下面的循环
+                    continue;//break跳出当前的循环，进入下面的循环
+                }
+                if (item.getNewUserId().length()<2){
+                    item.setNumber(1);
+                    continue;//break跳出当前的循环，进入下面的循环
                 }
                 //创建一个数组来接受有多少人数
                 String list[] = item.getNewUserId().split(",");

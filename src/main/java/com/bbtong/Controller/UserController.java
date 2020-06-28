@@ -13,6 +13,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -74,7 +75,7 @@ public class UserController {
         UserResult userResult = new UserResult();
         //随机生成六位随机数
 //        int num = (int) ((Math.random() * 9 + 1) * 1000);
-        int num=1111;
+        int num = 1111;
         //将数据存到newUser的实体中，然后将数据存到session中
 
         //将newUser存到session中，用于登陆的判断
@@ -109,7 +110,6 @@ public class UserController {
     @GetMapping(value = "/login", produces = "application/json")
     public @ResponseBody
     UserResult UserLogin(String userPhone, Integer num, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
-        response.setHeader("Set-Cookie", "flavor=choco; SameSite=None; Secure");
         //创建实体类Result来接受数据
         UserResult userResult = new UserResult();
         //创建session接受数据
@@ -121,8 +121,8 @@ public class UserController {
             //取出数据中的电话号码,将数据赋值给对应的值
             newPhone = attrs.nextElement().toString();
             //判断数据有没有和手机号码相同的，如果相同的话则结束循环
-            if(userPhone.equals(newPhone)){
-               break;
+            if (userPhone.equals(newPhone)) {
+                break;
             }
         }
         if (null == newPhone) {
@@ -263,6 +263,51 @@ public class UserController {
         }
         //接受service层传来的数据
         result = userService.GetUser(userId);
+        return result;
+    }
+
+    /**
+     * 修改自己的个人信息
+     *
+     * @param postUser 里面存储着数据
+     * @return 戴辆
+     */
+    @GetMapping(value = "/userredact")
+    public @ResponseBody
+    Result UserRedact(PostUser postUser) {
+        //创建result的实体来接收和返回数据
+        Result result = new Result();
+        if (null == postUser.getUserId()) {
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        result = userService.UserRedact(postUser);
+        return result;
+    }
+
+    /**
+     * 用户退出删除cookie的方法
+     *
+     * @param response
+     * @param request
+     * @return
+     */
+    @GetMapping(value = "/exit")
+    public @ResponseBody
+    Result exit(HttpServletResponse response, HttpServletRequest request) {
+        Result result = new Result();
+        try {
+            Cookie cookie = new Cookie("userName", null);//cookie名字要相同
+            cookie.setMaxAge(0); //将cookie的时间设置成0
+            cookie.setPath(request.getContextPath());  // 相同路径
+            response.addCookie(cookie);//将新的cookie写到response中
+            result.setCode(200);
+            result.setMessage("成功");
+        } catch (Exception e) {
+            result.setCode(400);
+            result.setMessage("失败");
+        }
         return result;
     }
 }

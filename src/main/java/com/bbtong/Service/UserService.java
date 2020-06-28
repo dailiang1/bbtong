@@ -41,4 +41,12 @@ public interface UserService {
      * @return 戴辆
      */
     Result GetUser(Integer userId);
+
+    /**
+     * 修改个人资料
+     *
+     * @param postUser 里面存储这对应的数据
+     * @return 戴辆
+     */
+    Result UserRedact(PostUser postUser);
 }

@@ -634,4 +634,33 @@
     <select id="GetUser" parameterType="int" resultMap="BaseResultMap">
         select * from bbt_user where  User_Id=#{userId}
     </select>
+
+    <!--用户修改自己的个人资料-->
+    <update id="UserRedact" parameterType="postUser">
+        update bbt_user
+        <set>
+            <if test="userName != null">
+                User_Name=#{userName},
+            </if>
+            <if test="insuranceCompanyId != null">
+                Insurance_Company_Id=#{insuranceCompanyId},
+            </if>
+            <if test="userPhone != null">
+                User_Phone=#{userPhone},
+            </if>
+            <if test="userIdentityCard != null">
+                User_Identity_Card=#{userIdentityCard},
+            </if>
+            <if test="userNumber != null">
+                User_Number=#{userNumber},
+            </if>
+            <if test="userName != null">
+                User_Name=#{userAddress},
+            </if>
+            <if test="userTietong != null">
+                User_tietong=#{userTietong},
+            </if>
+        </set>
+        where  User_Id=#{userId}
+    </update>
 </mapper>

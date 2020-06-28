@@ -1203,6 +1203,76 @@ public class ClientExample {
             addCriterion("Client_Remark not between", value1, value2, "clientRemark");
             return (Criteria) this;
         }
+
+        public Criteria andClientLicenseNumberIsNull() {
+            addCriterion("Client_License_Number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberIsNotNull() {
+            addCriterion("Client_License_Number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberEqualTo(String value) {
+            addCriterion("Client_License_Number =", value, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberNotEqualTo(String value) {
+            addCriterion("Client_License_Number <>", value, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberGreaterThan(String value) {
+            addCriterion("Client_License_Number >", value, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("Client_License_Number >=", value, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberLessThan(String value) {
+            addCriterion("Client_License_Number <", value, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberLessThanOrEqualTo(String value) {
+            addCriterion("Client_License_Number <=", value, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberLike(String value) {
+            addCriterion("Client_License_Number like", value, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberNotLike(String value) {
+            addCriterion("Client_License_Number not like", value, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberIn(List<String> values) {
+            addCriterion("Client_License_Number in", values, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberNotIn(List<String> values) {
+            addCriterion("Client_License_Number not in", values, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberBetween(String value1, String value2) {
+            addCriterion("Client_License_Number between", value1, value2, "clientLicenseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientLicenseNumberNotBetween(String value1, String value2) {
+            addCriterion("Client_License_Number not between", value1, value2, "clientLicenseNumber");
+            return (Criteria) this;
+        }
     }
 
     /**

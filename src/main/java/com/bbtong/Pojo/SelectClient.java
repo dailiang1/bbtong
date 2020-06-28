@@ -97,4 +97,9 @@ public class SelectClient {
      * 给客户的备注
      */
     private String clientRemark;
+
+    /**
+     * 客户的车牌号
+     */
+    private String clientLicenseNumber;
 }

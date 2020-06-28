@@ -1,9 +1,11 @@
 package com.bbtong.Controller;
 
 import com.bbtong.Pojo.Client;
+import com.bbtong.Pojo.SelectClient;
 import com.bbtong.Service.ClientService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultPage;
+import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -112,7 +114,7 @@ public class ClientController {
                     cal.add(Calendar.DAY_OF_WEEK, 1);
                 }
             }
-            if (null == client.getTypeId()) {//如果没有选择客户的话，就默认为本网客户
+            if (null == client.getTypeId()) {//如果没有选择客户的话，就默认为续保客户
                 client.setTypeId(2);
             }
             if (null != client.getClientIdentityCard()) {//判断是否输入了用户的身份证
@@ -301,5 +303,72 @@ public class ClientController {
         return resultPage;
     }
 
+    @ApiOperation(value = "用户修改客户信息", notes = "用户修改客户信息的方法", tags = "ClientRedact", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "typeId", value = "客户类型表的ID,如果没有选择的话，就默认为本网客户", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "clientWay", value = "客户的手机，非必填项", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientName", value = "客户的姓名", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "insuranceCompanyId", value = "保险公司的id", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "clientIdentityCard", value = "客户的身份证号码", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientIdentityCardFront", value = "客户身份证的正面", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientIdentityCardVerso", value = "客户身份证的反面", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientAddress", value = "客户投保城市(前端传过来的值)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientComeTime", value = "判断用户是否选择了投保日期", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientExpirationTime", value = "如果没有选择的日期的话就默认在当前日期上加一年", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientDrivingLicense", value = "客户的行驶证副本图片", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientType", value = "客户车型(自己备注客户车的类型)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientRemark", value = "用户给客户的备注", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "clientLicenseNumber", value = "客户的车牌号", required = false, dataType = "String", paramType = "query")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    /**
+     * 用户修改客户信息的方法
+     *
+     * @param selectClient 里面存储着修改之后 客户的信息
+     * @return 戴辆
+     */
+    @GetMapping(value = "/clientredact", produces = "application/json")
+    public @ResponseBody
+    Result ClientRedact(SelectClient selectClient) {
+        //创建实体类来获取service层传回的数据
+        Result result = new Result();
+        if (null == selectClient.getUserId()) {
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        //判断用户的身份证是否为null，如果不为null的话就截取对应的字段。为用户的生日
+        if (selectClient.getClientIdentityCard() != null) {
+            selectClient.setClientBirthday(selectClient.getClientIdentityCard().substring(10, 14));
+        }
+        result = clientService.ClientRedact(selectClient);
+        return result;
+    }
 
+    /**
+     * 删除客户的方法
+     *
+     * @param userId   用户的id
+     * @param ClientId 客户的id
+     * @return 戴辆
+     */
+    @GetMapping(value = "/delectclient", produces = "application/json")
+    public @ResponseBody
+    Result DelectClient(Integer userId, Integer ClientId) {
+        //创建实体类来接受和返回
+        Result result = new Result();
+        if(null==userId||null==ClientId){
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        result=clientService.DelectClient(userId, ClientId);
+        return result;
+    }
 }

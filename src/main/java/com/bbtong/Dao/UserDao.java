@@ -75,4 +75,12 @@ public interface UserDao {
      * @return 戴辆
      */
     User GetUser(@Param("userId") Integer userId);
+
+    /**
+     * 修改用户自己的个人信息
+     *
+     * @param postUser 里面存储着修改之后的参数
+     * @return 戴辆
+     */
+    int UserRedact(PostUser postUser);
 }

@@ -87,6 +87,16 @@ public class Client implements Serializable {
      */
     private String clientRemark;
 
+    /**
+     * 客户的车牌号
+     */
+    private String clientLicenseNumber;
+
+    /**
+     * 客户的状态(1表示正常，2表示删除)。默认是1
+     */
+    private Integer clientState;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getClientId() {
@@ -217,6 +227,14 @@ public class Client implements Serializable {
         this.clientRemark = clientRemark;
     }
 
+    public String getClientLicenseNumber() {
+        return clientLicenseNumber;
+    }
+
+    public void setClientLicenseNumber(String clientLicenseNumber) {
+        this.clientLicenseNumber = clientLicenseNumber;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -244,7 +262,8 @@ public class Client implements Serializable {
             && (this.getClientType() == null ? other.getClientType() == null : this.getClientType().equals(other.getClientType()))
             && (this.getTypeId() == null ? other.getTypeId() == null : this.getTypeId().equals(other.getTypeId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getClientRemark() == null ? other.getClientRemark() == null : this.getClientRemark().equals(other.getClientRemark()));
+            && (this.getClientRemark() == null ? other.getClientRemark() == null : this.getClientRemark().equals(other.getClientRemark()))
+            && (this.getClientLicenseNumber() == null ? other.getClientLicenseNumber() == null : this.getClientLicenseNumber().equals(other.getClientLicenseNumber()));
     }
 
     @Override
@@ -267,6 +286,7 @@ public class Client implements Serializable {
         result = prime * result + ((getTypeId() == null) ? 0 : getTypeId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getClientRemark() == null) ? 0 : getClientRemark().hashCode());
+        result = prime * result + ((getClientLicenseNumber() == null) ? 0 : getClientLicenseNumber().hashCode());
         return result;
     }
 
@@ -292,6 +312,7 @@ public class Client implements Serializable {
         sb.append(", typeId=").append(typeId);
         sb.append(", userId=").append(userId);
         sb.append(", clientRemark=").append(clientRemark);
+        sb.append(", clientLicenseNumber=").append(clientLicenseNumber);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -19,7 +19,7 @@ public class AtEntrust {
     private Double entrustMoney;
 
     /**
-     * 期望委托的服务费(可以为空，私下交易联系)
+     * 需要还单的金额
      */
     private Double entrustReturnMoney;
 
@@ -32,4 +32,10 @@ public class AtEntrust {
      * 委托单开始的时间(获取下单时候的时间)
      */
     private String entrustStartTime;
+
+    /**
+     *期望委托的服务费(可以为空，私下交易联系)
+     */
+    private Double entrustServiceCharge;
+
 }

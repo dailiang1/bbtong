@@ -10,6 +10,8 @@ import com.bbtong.Util.ResultPage;
 import com.bbtong.Util.UserResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -129,6 +131,24 @@ public class UserServiceImpl implements UserService {
         } else {
             result.setCode(500);
             result.setMessage("内部错误");
+        }
+        return result;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Result UserRedact(PostUser postUser) {
+        //创建对应实体类来操作对应的数据
+        Result result = new Result();
+        try {
+            int zhi = userDao.UserRedact(postUser);
+            result.setCode(200);
+            result.setMessage("修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            result.setCode(300);
+            result.setMessage("出现异常");
         }
         return result;
     }

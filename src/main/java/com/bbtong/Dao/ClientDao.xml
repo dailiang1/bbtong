@@ -18,6 +18,8 @@
         <result column="Type_Id" jdbcType="INTEGER" property="typeId"/>
         <result column="User_Id" jdbcType="INTEGER" property="userId"/>
         <result column="Client_Remark" jdbcType="VARCHAR" property="clientRemark"/>
+        <result column="Client_License_Number" jdbcType="VARCHAR" property="clientLicenseNumber"/>
+        <result column="Client_State" jdbcType="INTEGER" property="clientState"/>
     </resultMap>
 
     <resultMap id="BaseSelectClient" type="com.bbtong.Pojo.SelectClient">
@@ -39,6 +41,8 @@
         <result column="Type_Name" jdbcType="VARCHAR" property="typeName"/>
         <result column="User_Id" jdbcType="INTEGER" property="userId"/>
         <result column="Client_Remark" jdbcType="VARCHAR" property="clientRemark"/>
+        <result column="Client_License_Number" jdbcType="VARCHAR" property="clientLicenseNumber"/>
+        <result column="Client_State" jdbcType="INTEGER" property="clientState"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -103,7 +107,8 @@
     <sql id="Base_Column_List">
     Client_Id, Client_way, Client_Name, Insurance_Company_Id, Client_Identity_Card, Client_Identity_Card_Front, 
     Client_Identity_Card_Verso, Client_Address, Client_Come_Time, Client_Expiration_Time, 
-    Client_Driving_License, Client_Birthday, Client_Type, Type_Id, User_Id, Client_Remark
+    Client_Driving_License, Client_Birthday, Client_Type, Type_Id, User_Id, Client_Remark, 
+    Client_License_Number
   </sql>
     <select id="selectByExample" parameterType="com.bbtong.Pojo.ClientExample" resultMap="BaseResultMap">
         select
@@ -150,13 +155,15 @@
       Client_Identity_Card_Verso, Client_Address, 
       Client_Come_Time, Client_Expiration_Time, Client_Driving_License, 
       Client_Birthday, Client_Type, Type_Id, 
-      User_Id, Client_Remark)
+      User_Id, Client_Remark, Client_License_Number
+      )
     values (#{clientWay,jdbcType=VARCHAR}, #{clientName,jdbcType=VARCHAR}, #{insuranceCompanyId,jdbcType=INTEGER}, 
       #{clientIdentityCard,jdbcType=VARCHAR}, #{clientIdentityCardFront,jdbcType=VARCHAR}, 
       #{clientIdentityCardVerso,jdbcType=VARCHAR}, #{clientAddress,jdbcType=VARCHAR}, 
       #{clientComeTime,jdbcType=VARCHAR}, #{clientExpirationTime,jdbcType=VARCHAR}, #{clientDrivingLicense,jdbcType=VARCHAR}, 
       #{clientBirthday,jdbcType=VARCHAR}, #{clientType,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, 
-      #{userId,jdbcType=INTEGER}, #{clientRemark,jdbcType=VARCHAR})
+      #{userId,jdbcType=INTEGER}, #{clientRemark,jdbcType=VARCHAR}, #{clientLicenseNumber,jdbcType=VARCHAR}
+      )
   </insert>
     <insert id="insertSelective" keyColumn="Client_Id" keyProperty="clientId" parameterType="com.bbtong.Pojo.Client"
             useGeneratedKeys="true">
@@ -207,6 +214,9 @@
             <if test="clientRemark != null">
                 Client_Remark,
             </if>
+            <if test="clientLicenseNumber != null">
+                Client_License_Number,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="clientWay != null">
@@ -253,6 +263,9 @@
             </if>
             <if test="clientRemark != null">
                 #{clientRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="clientLicenseNumber != null">
+                #{clientLicenseNumber,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -313,6 +326,9 @@
             <if test="record.clientRemark != null">
                 Client_Remark = #{record.clientRemark,jdbcType=VARCHAR},
             </if>
+            <if test="record.clientLicenseNumber != null">
+                Client_License_Number = #{record.clientLicenseNumber,jdbcType=VARCHAR},
+            </if>
         </set>
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -335,7 +351,8 @@
         Client_Type = #{record.clientType,jdbcType=VARCHAR},
         Type_Id = #{record.typeId,jdbcType=INTEGER},
         User_Id = #{record.userId,jdbcType=INTEGER},
-        Client_Remark = #{record.clientRemark,jdbcType=VARCHAR}
+        Client_Remark = #{record.clientRemark,jdbcType=VARCHAR},
+        Client_License_Number = #{record.clientLicenseNumber,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
@@ -388,6 +405,9 @@
             <if test="clientRemark != null">
                 Client_Remark = #{clientRemark,jdbcType=VARCHAR},
             </if>
+            <if test="clientLicenseNumber != null">
+                Client_License_Number = #{clientLicenseNumber,jdbcType=VARCHAR},
+            </if>
         </set>
         where Client_Id = #{clientId,jdbcType=INTEGER}
     </update>
@@ -407,7 +427,8 @@
       Client_Type = #{clientType,jdbcType=VARCHAR},
       Type_Id = #{typeId,jdbcType=INTEGER},
       User_Id = #{userId,jdbcType=INTEGER},
-      Client_Remark = #{clientRemark,jdbcType=VARCHAR}
+      Client_Remark = #{clientRemark,jdbcType=VARCHAR},
+      Client_License_Number = #{clientLicenseNumber,jdbcType=VARCHAR}
     where Client_Id = #{clientId,jdbcType=INTEGER}
   </update>
     <!--用户添加新的客户的方法-->
@@ -417,13 +438,13 @@
       Client_Identity_Card_Verso, Client_Address,
       Client_Come_Time, Client_Expiration_Time, Client_Driving_License,
       Client_Birthday, Client_Type, Type_Id,
-      User_Id,Client_Remark)
+      User_Id,Client_Remark,Client_License_Number)
     values (#{clientWay,jdbcType=VARCHAR}, #{clientName,jdbcType=VARCHAR}, #{insuranceCompanyId,jdbcType=INTEGER},
       #{clientIdentityCard,jdbcType=VARCHAR}, #{clientIdentityCardFront,jdbcType=VARCHAR},
       #{clientIdentityCardVerso,jdbcType=VARCHAR}, #{clientAddress,jdbcType=VARCHAR},
       #{clientComeTime,jdbcType=VARCHAR}, #{clientExpirationTime,jdbcType=VARCHAR}, #{clientDrivingLicense,jdbcType=VARCHAR},
       #{clientBirthday,jdbcType=VARCHAR}, #{clientType,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER},
-      #{userId,jdbcType=INTEGER},#{clientRemark,jdbcType=VARCHAR})
+      #{userId,jdbcType=INTEGER},#{clientRemark,jdbcType=VARCHAR},#{clientLicenseNumber,jdbcType=VARCHAR})
   </insert>
 
     <!--查询对应的客户有多少条-->
@@ -436,6 +457,7 @@
             <if test="typeId != null and typeId != ''">
                 and Type_Id=#{typeId}
             </if>
+            and Client_State=1
         </where>
     </select>
 
@@ -452,6 +474,7 @@
             <if test="typeId != null and typeId != ''">
                 and c.Type_Id=#{typeId}
             </if>
+            and Client_State=1
         </where>
         ORDER BY c.Client_Expiration_Time LIMIT #{state},#{end}
     </select>
@@ -543,6 +566,7 @@
         </where>
     </select>
 
+    <!--用户快到车险的客户的个人信息-->
     <select id="InsuranceWarna" parameterType="map" resultMap="BaseSelectClient">
         select * from bbt_client c LEFT JOIN bbt_type t ON c.Type_Id=t.Type_Id LEFT JOIN bbt_insurance_company ic ON
         c.Insurance_Company_Id=ic.Insurance_Company_Id
@@ -559,4 +583,56 @@
         </where>
         order by c.Client_Birthday limit #{state},#{end}
     </select>
+
+    <!--用户修改对应客户的信息-->
+    <update id="ClientRedact" parameterType="selectClient">
+        update bbt_client
+        <set>
+            <if test="clientWay != null">
+                Client_way = #{clientWay,jdbcType=VARCHAR},
+            </if>
+            <if test="clientName != null">
+                Client_Name = #{clientName,jdbcType=VARCHAR},
+            </if>
+            <if test="insuranceCompanyId != null">
+                Insurance_Company_Id = #{insuranceCompanyId,jdbcType=INTEGER},
+            </if>
+            <if test="clientIdentityCard != null">
+                Client_Identity_Card = #{clientIdentityCard,jdbcType=VARCHAR},
+            </if>
+            <if test="clientAddress != null">
+                Client_Address = #{clientAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="clientComeTime != null">
+                Client_Come_Time = #{clientComeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="clientExpirationTime != null">
+                Client_Expiration_Time = #{clientExpirationTime,jdbcType=VARCHAR},
+            </if>
+            <if test="clientBirthday != null">
+                Client_Birthday = #{clientBirthday,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null">
+                Client_Type = #{clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="typeId != null">
+                Type_Id = #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="clientRemark != null">
+                Client_Remark = #{clientRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="clientLicenseNumber != null">
+                Client_License_Number = #{clientLicenseNumber,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where Client_Id=#{clientId} and User_Id=#{userId}
+    </update>
+
+    <update id="DelectClient" parameterType="map">
+        update bbt_client
+        <set>
+            Client_State=2,
+        </set>
+        where User_Id=#{userId} and Client_Id=#{clientId}
+    </update>
 </mapper>

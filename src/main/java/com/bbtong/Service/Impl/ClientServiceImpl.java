@@ -9,6 +9,8 @@ import com.bbtong.Util.ResultPage;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -99,7 +101,6 @@ public class ClientServiceImpl implements ClientService {
             resultPage.setCount(400);
             resultPage.setMessage("查询失败，请重试");
         }
-
         return resultPage;
     }
 
@@ -268,6 +269,62 @@ public class ClientServiceImpl implements ClientService {
             resultPage.setMessage("在这一个月之内没有人生日");
         }
         return resultPage;
+    }
+
+    /**
+     * 用户修改对应客户的信息
+     *
+     * @param selectClient 里面存储着修改之后的客户信息
+     * @return 戴辆
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Result ClientRedact(SelectClient selectClient) {
+        //创建对应的实体类来接受数据
+        Result result = new Result();
+        try {
+            //接受修改的数据，如果修改成功。就会接受正确的值。否则就会进catch中
+            int zhi = clientDao.ClientRedact(selectClient);
+            result.setCode(200);
+            result.setMessage("修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            result.setCode(300);
+            result.setMessage("出现异常");
+        }
+        return result;
+    }
+
+    /**
+     * 用户删除客户的方法
+     *
+     * @param userId   用户的id
+     * @param ClientId 客户的id
+     * @return 戴辆
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Result DelectClient(Integer userId, Integer ClientId) {
+        //创建接收的数据的实体类
+        Result result=new Result();
+        //创建map函数来存储数据
+        Map<String,Object> map=new HashMap<String, Object>();
+        //用户的id
+        map.put("userId",userId);
+        //客户的id
+        map.put("clientId",ClientId);
+        try {
+            int zhi=clientDao.DelectClient(map);
+            result.setCode(200);
+            result.setMessage("删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            result.setCode(300);
+            result.setMessage("出现异常");
+        }
+        return result;
     }
 
 }
