@@ -57,4 +57,13 @@ public interface UserService {
      * @return 戴辆
      */
     ResultPage SelectNews(Integer userId);
+
+    /**
+     * 用户删除自己对应的消息
+     * @param userId 用户的id
+     * @param newsId 消息的id
+     * @param index 1表示执行未读的方法，2表示执行删除的方法
+     * @return 戴辆
+     */
+    Result delectNews(Integer userId, Integer newsId,Integer index);
 }

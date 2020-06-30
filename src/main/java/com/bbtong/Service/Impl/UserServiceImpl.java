@@ -193,5 +193,36 @@ public class UserServiceImpl implements UserService {
         return resultPage;
     }
 
+    /**
+     * 用户执行删除或未读的方法
+     *
+     * @param userId 用户的id
+     * @param newsId 消息的id
+     * @param index  1表示执行未读的方法，2表示执行删除的方法
+     * @return 戴辆
+     */
+    @Override
+    public Result delectNews(Integer userId, Integer newsId, Integer index) {
+        //创建接收和返回数据的实体类
+        Result result = new Result();
+        //创建map的函数来存储操作数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);//用户的id
+        map.put("newsId", newsId);//消息的id
+        //判断执行什么方法
+        if (index == 1) {
+            int zhi = userDao.delectNewsOne(map);
+        } else if (index ==2) {
+            int zhi =userDao.delectNewsTwo(map);
+        } else {
+            result.setCode(500);
+            result.setMessage("当前异常");
+            return result;
+        }
+        result.setCode(200);
+        result.setMessage("执行成功");
+        return result;
+    }
+
 
 }

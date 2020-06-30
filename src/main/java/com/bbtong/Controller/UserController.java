@@ -328,4 +328,27 @@ public class UserController {
         resultPage = userService.SelectNews(userId);
         return resultPage;
     }
+
+    /**
+     * 用户删除对应消息的方法
+     *
+     * @param userId 用户的id
+     * @param newsId 消息的id
+     * @param index  1表示执行未读的方法，2表示执行删除的方法
+     * @return 戴辆
+     */
+    @GetMapping(value = "delectnews", produces = "application/json")
+    public @ResponseBody
+    Result delectNews(Integer userId, Integer newsId, Integer index) {
+        //创建接收数据的实体类
+        Result result = new Result();
+        if (null == userId || null == newsId) {
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        //接受service层传来的数据
+        result = userService.delectNews(userId, newsId, index);
+        return result;
+    }
 }

@@ -56,13 +56,13 @@
         <result column="Friend_Company_Name" jdbcType="VARCHAR" property="friendCompanyName"/>
     </resultMap>
     <resultMap id="BaseNews" type="com.bbtong.Pojo.News">
-        <id column="News_Id" jdbcType="INTEGER" property="newsId" />
-        <result column="News_User_Id" jdbcType="INTEGER" property="newsUserId" />
-        <result column="News_Entrust_Id" jdbcType="INTEGER" property="newsEntrustId" />
-        <result column="News_license_Number" jdbcType="INTEGER" property="newsLicenseNumber" />
-        <result column="News_Message" jdbcType="VARCHAR" property="newsMessage" />
-        <result column="News_State" jdbcType="INTEGER" property="newsState" />
-        <result column="State" jdbcType="INTEGER" property="state" />
+        <id column="News_Id" jdbcType="INTEGER" property="newsId"/>
+        <result column="News_User_Id" jdbcType="INTEGER" property="newsUserId"/>
+        <result column="News_Entrust_Id" jdbcType="INTEGER" property="newsEntrustId"/>
+        <result column="News_license_Number" jdbcType="INTEGER" property="newsLicenseNumber"/>
+        <result column="News_Message" jdbcType="VARCHAR" property="newsMessage"/>
+        <result column="News_State" jdbcType="INTEGER" property="newsState"/>
+        <result column="State" jdbcType="INTEGER" property="state"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -670,11 +670,29 @@
                 User_tietong=#{userTietong},
             </if>
         </set>
-        where  User_Id=#{userId}
+        where User_Id=#{userId}
     </update>
 
     <!--用户查看自己的消息-->
     <select id="SelectNews" parameterType="map" resultMap="BaseNews">
         select  * from  bbt_news where  News_User_Id=#{userId} and News_State!=2 order by News_State
     </select>
+
+    <!--用户将消息从未读的状态修改成已读的状态-->
+    <update id="delectNewsOne" parameterType="map">
+        update bbt_news
+        <set>
+            News_State=1,
+        </set>
+        where News_User_Id=#{userId} and News_Id=#{newsId}
+    </update>
+
+    <!--用户删除自己的消息-->
+    <update id="delectNewsOne" parameterType="map">
+        update bbt_news
+        <set>
+            News_State=2,
+        </set>
+        where News_User_Id=#{userId} and News_Id=#{newsId}
+    </update>
 </mapper>

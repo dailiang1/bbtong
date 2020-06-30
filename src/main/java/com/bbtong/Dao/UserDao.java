@@ -93,4 +93,20 @@ public interface UserDao {
      * @return 戴辆
      */
     List<News> SelectNews(Map map);
+
+    /**
+     * 用户将消息从未读变成已读的方法
+     *
+     * @param map 里面存储着数据
+     * @return 戴辆
+     */
+    int delectNewsOne(Map map);
+
+    /**
+     * 用户删除自己消息的方法
+     *
+     * @param map 里面存储着数据
+     * @return 戴辆
+     */
+    int delectNewsTwo(Map map);
 }
