@@ -55,6 +55,15 @@
         <result column="Friend_phone" jdbcType="VARCHAR" property="friendPhone"/>
         <result column="Friend_Company_Name" jdbcType="VARCHAR" property="friendCompanyName"/>
     </resultMap>
+    <resultMap id="BaseNews" type="com.bbtong.Pojo.News">
+        <id column="News_Id" jdbcType="INTEGER" property="newsId" />
+        <result column="News_User_Id" jdbcType="INTEGER" property="newsUserId" />
+        <result column="News_Entrust_Id" jdbcType="INTEGER" property="newsEntrustId" />
+        <result column="News_license_Number" jdbcType="INTEGER" property="newsLicenseNumber" />
+        <result column="News_Message" jdbcType="VARCHAR" property="newsMessage" />
+        <result column="News_State" jdbcType="INTEGER" property="newsState" />
+        <result column="State" jdbcType="INTEGER" property="state" />
+    </resultMap>
     <sql id="Example_Where_Clause">
         <where>
             <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -654,8 +663,8 @@
             <if test="userNumber != null">
                 User_Number=#{userNumber},
             </if>
-            <if test="userName != null">
-                User_Name=#{userAddress},
+            <if test="userAddress != null">
+                User_Address=#{userAddress},
             </if>
             <if test="userTietong != null">
                 User_tietong=#{userTietong},
@@ -663,4 +672,9 @@
         </set>
         where  User_Id=#{userId}
     </update>
+
+    <!--用户查看自己的消息-->
+    <select id="SelectNews" parameterType="map" resultMap="BaseNews">
+        select  * from  bbt_news where  News_User_Id=#{userId} and News_State!=2 order by News_State
+    </select>
 </mapper>

@@ -5,14 +5,12 @@ import com.bbtong.Pojo.SelectClient;
 import com.bbtong.Service.ClientService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultPage;
-import com.sun.org.apache.regexp.internal.RE;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.Session;
-import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -303,9 +301,10 @@ public class ClientController {
         return resultPage;
     }
 
-    @ApiOperation(value = "用户修改客户信息", notes = "用户修改客户信息的方法", tags = "ClientRedact", httpMethod = "GET")
+    @ApiOperation(value = "用户修改客户信息", notes = "用户修改客户信息的方法", tags = "ClientRedact", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "clientId", value = "客户的id", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "typeId", value = "客户类型表的ID,如果没有选择的话，就默认为本网客户", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "clientWay", value = "客户的手机，非必填项", required = false, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "clientName", value = "客户的姓名", required = true, dataType = "String", paramType = "query"),
@@ -333,9 +332,9 @@ public class ClientController {
      * @param selectClient 里面存储着修改之后 客户的信息
      * @return 戴辆
      */
-    @GetMapping(value = "/clientredact", produces = "application/json")
+    @PostMapping(value = "/clientredact", produces = "application/json")
     public @ResponseBody
-    Result ClientRedact(SelectClient selectClient) {
+    Result ClientRedact(@RequestBody  SelectClient selectClient) {
         //创建实体类来获取service层传回的数据
         Result result = new Result();
         if (null == selectClient.getUserId()) {
@@ -351,6 +350,8 @@ public class ClientController {
         return result;
     }
 
+
+
     /**
      * 删除客户的方法
      *
@@ -363,12 +364,12 @@ public class ClientController {
     Result DelectClient(Integer userId, Integer ClientId) {
         //创建实体类来接受和返回
         Result result = new Result();
-        if(null==userId||null==ClientId){
+        if (null == userId || null == ClientId) {
             result.setCode(300);
             result.setMessage("当前异常");
             return result;
         }
-        result=clientService.DelectClient(userId, ClientId);
+        result = clientService.DelectClient(userId, ClientId);
         return result;
     }
 }

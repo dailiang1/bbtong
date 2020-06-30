@@ -668,7 +668,7 @@
 
     <!--大家保险的用户查询自己发布的委托条数-->
     <select id="DaSelectEntrustNumber" parameterType="map" resultType="int">
-    select count(1) from bbt_entrust where User_Id=#{userId} and Entrust_State!=6
+    select count(1) from bbt_entrust where User_Id=#{userId} and Entrust_State!=6 and Entrust_State!=5
   </select>
 
     <!--大家保险的用户查看自己发布的委托-->
@@ -688,7 +688,7 @@
         and User_Id=#{userId}),u.User_Id) and e.Entrust_State=0 and e.Entrust_Id=#{entrustId}
     </select>
 
-    <!--第一步先将委托派给指定的人，写入数据库-->
+    <!--第一步 1.先将委托派给指定的人，写入数据库-->
     <update id="UpdateEntrust" parameterType="map">
         UPDATE bbt_entrust
         <set>
@@ -700,14 +700,32 @@
         WHERE Entrust_Id=#{entrustId} and User_Id=#{userId}
     </update>
 
+    <!--第一步 2.给委托的人发送消息接单成功-->
+    <insert id="query" parameterType="map">
+        insert  into bbt_news(News_User_Id, News_Entrust_Id, News_license_Number, News_Message,State)values (#{finallyUserId},#{entrustId},#{newsLicenseNumber},'接单成功',2)
+    </insert>
+
     <!--第二步将除了接单的这个人以外，其他的所有人变的可以有意向接单-->
     <update id="UpdateNewUserId" parameterType="map">
         UPDATE bbt_user SET Intention_state=0 where INSTR((SELECT New_User_Id FROM bbt_entrust WHERE Entrust_Id=#{entrustId} and User_Id=#{userId}),User_Id) and User_Id != (SELECT Finally_User_Id FROM bbt_entrust WHERE Entrust_Id=#{entrustId} and User_Id=#{userId})
     </update>
 
+    <!--第二步 给没有接单上的人，发送消息提示-->
+    <insert id="InsertNews">
+        insert into bbt_news(news_user_id, news_entrust_id, news_license_number, news_message, State)values
+        <foreach collection="list" item="newsList" separator=",">
+            (#{newsList.newsUserId},#{newsList.newsEntrustId},#{newsList.newsLicenseNumber},#{newsList.newsMessage},#{newsList.state})
+        </foreach>
+    </insert>
+
     <!--第三步 1.先查询委托人的电话和姓名-->
     <select id="Information" parameterType="map" resultMap="BaseInformation">
         select User_Name,User_Phone,Insurance_Company_Name from  bbt_user where User_Id=#{userId}
+    </select>
+
+    <!--第三步 二次开发查询委托对应的车牌号-->
+    <select id="newsLicenseNumber" parameterType="map" resultType="string">
+        select license_Plate_Number from  bbt_entrust where  User_Id=#{userId} and Entrust_Id=#{entrustId}
     </select>
 
     <!--第三步 2.将两个人添加成好友的关系-->
@@ -990,6 +1008,10 @@
         where User_Id=#{userId}
     </update>
 
+    <!--委托完成给两个人,发消息提示委托完成-->
+    <insert id="entrustNews" parameterType="map">
+        insert into bbt_news(News_User_Id, News_Entrust_Id, News_license_Number, News_Message,State)values (#{userId},#{newEntrustId},#{newsLicenseNumber},'委托完成',3),(#{newUserId},#{newEntrustId},#{newsLicenseNumber},'委托完成',3)
+    </insert>
     <!--先查询发布委托人的数据-->
     <select id="NewUser" parameterType="map" resultMap="BaseUserEntrust">
         select User_Entrust_number,User_Entrust_Money from bbt_user where User_Id=#{userId}
@@ -1002,6 +1024,15 @@
 
     <!--查询两个人是不是好友关系-->
     <select id="HaoYou" parameterType="map" resultType="int">
-        SELECT Friend_Id FROM bbt_friend  where User_Id=#{userId} and Friend_User_Id=#{finallyUserId}
+        select Friend_Id from bbt_friend  where User_Id=#{userId} and Friend_User_Id=#{finallyUserId}
     </select>
+
+    <!--大家保险委托人 撤销委托(长时间没有人接委托或者委托信息有误)-->
+    <update id="PutRevocation" parameterType="map">
+        update bbt_entrust
+        <set>
+            Entrust_State=5
+        </set>
+        where User_Id=#{userId} and Entrust_Id=#{entrustId}
+    </update>
 </mapper>

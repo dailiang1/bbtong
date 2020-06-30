@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbtong.Base.NewUser;
 import com.bbtong.Base.PostUser;
 import com.bbtong.Service.UserService;
-import com.bbtong.Util.Result;
-import com.bbtong.Util.ResultPage;
-import com.bbtong.Util.SMS;
-import com.bbtong.Util.UserResult;
+import com.bbtong.Util.*;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -250,7 +247,7 @@ public class UserController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @GetMapping(value = "/getuser")
+    @GetMapping(value = "/getuser", produces = "application/json")
     public @ResponseBody
     Result GetUser(Integer userId) {
         //创建Result存储数据和返回数据
@@ -272,9 +269,9 @@ public class UserController {
      * @param postUser 里面存储着数据
      * @return 戴辆
      */
-    @GetMapping(value = "/userredact")
+    @PostMapping(value = "/userredact", produces = "application/json")
     public @ResponseBody
-    Result UserRedact(PostUser postUser) {
+    Result UserRedact(@RequestBody PostUser postUser) {
         //创建result的实体来接收和返回数据
         Result result = new Result();
         if (null == postUser.getUserId()) {
@@ -293,14 +290,14 @@ public class UserController {
      * @param request
      * @return
      */
-    @GetMapping(value = "/exit")
+    @GetMapping(value = "/exit", produces = "application/json")
     public @ResponseBody
     Result exit(HttpServletResponse response, HttpServletRequest request) {
         Result result = new Result();
         try {
             Cookie cookie = new Cookie("userName", null);//cookie名字要相同
             cookie.setMaxAge(0); //将cookie的时间设置成0
-            cookie.setPath(request.getContextPath());  // 相同路径
+            cookie.setPath("/");  // 相同路径
             response.addCookie(cookie);//将新的cookie写到response中
             result.setCode(200);
             result.setMessage("成功");
@@ -309,5 +306,26 @@ public class UserController {
             result.setMessage("失败");
         }
         return result;
+    }
+
+    /**
+     * 用户查询自己消息的方法
+     *
+     * @param userId 用户id
+     * @return 戴辆
+     */
+    @GetMapping(value = "selectnews", produces = "application/json")
+    public @ResponseBody
+    ResultPage SelectNews(Integer userId) {
+        //创建接收数据的实体类
+        ResultPage resultPage = new ResultPage();
+        if (null == userId) {
+            resultPage.setCode(300);
+            resultPage.setMessage("当前异常");
+            return resultPage;
+        }
+        //接收service层返回的数据
+        resultPage = userService.SelectNews(userId);
+        return resultPage;
     }
 }

@@ -149,7 +149,7 @@ public interface EntrustService {
     /**
      * 大家保险用户 查看对应委托还单的还单信息
      *
-     * @param userId   用户的id
+     * @param userId    用户的id
      * @param entrustId 委托的id
      * @return 戴辆
      */
@@ -215,10 +215,10 @@ public interface EntrustService {
      * @param userId             用户的id(为之前委托发布人id，而不是还单人的id)
      * @param newEntrustId       委托的id
      * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
-     * @param deliveryOrderId     表示当前还单委托的id
+     * @param deliveryOrderId    表示当前还单委托的id
      * @return 戴辆
      */
-    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState,Integer deliveryOrderId);
+    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState, Integer deliveryOrderId);
 
     /**
      * 大家保险委托人 确定委托完成(全部完成，接委托的用户已经还完单)
@@ -228,4 +228,13 @@ public interface EntrustService {
      * @return 戴辆
      */
     Result DaConfirmEntrust(Integer userId, Integer newEntrustId);
+
+    /**
+     * 大家保险委托人 撤销委托(长时间没有人接委托或者委托信息有误)
+     *
+     * @param userId    用户的id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    Result PutRevocation(Integer userId, Integer entrustId);
 }

@@ -2,10 +2,12 @@ package com.bbtong.Dao;
 
 import com.bbtong.Base.PostUser;
 import com.bbtong.Pojo.Friend;
+import com.bbtong.Pojo.News;
 import com.bbtong.Pojo.User;
 import com.bbtong.Pojo.UserExample;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -83,4 +85,12 @@ public interface UserDao {
      * @return 戴辆
      */
     int UserRedact(PostUser postUser);
+
+    /**
+     * 用户查看自己的消息
+     *
+     * @param map 里面存储着数据
+     * @return 戴辆
+     */
+    List<News> SelectNews(Map map);
 }

@@ -220,7 +220,7 @@ public class EntrustController {
             resultPage.setMessage("当前异常请稍后再试");
             return resultPage;
         }
-        //p判断有没有输入页数，没有的话就让其显示第一页
+        //判断有没有输入页数，没有的话就让其显示第一页
         if (null == index) {
             index = 1;
         }
@@ -435,7 +435,7 @@ public class EntrustController {
     /**
      * 大家保险用户 查看对应委托还单的还单信息
      *
-     * @param userId   用户的id （多一个用户id来防止别人请求端口查询数据）
+     * @param userId    用户的id （多一个用户id来防止别人请求端口查询数据）
      * @param entrustId 委托id
      * @return 戴辆
      */
@@ -524,12 +524,12 @@ public class EntrustController {
      * @param userId             用户的id(为之前委托发布人id，而不是还单人的id)
      * @param newEntrustId       委托的id
      * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
-     * @param deliveryOrderId 表示当前还单信息id
+     * @param deliveryOrderId    表示当前还单信息id
      * @return 戴辆
      */
     @GetMapping(value = "/daputorder", produces = "application/json")
     public @ResponseBody
-    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState,Integer deliveryOrderId) {
+    Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState, Integer deliveryOrderId) {
         //1.创建Result的实体来 进行接收数据和返回数据
         Result result = new Result();
         //2.判断前端传来的数据是不是为空， 如果数据为空的话 则说明异常
@@ -538,7 +538,7 @@ public class EntrustController {
             result.setMessage("当前异常");
             return result;
         }
-        result = entrustService.DaPutOrder(userId, newEntrustId, deliveryOrderState,deliveryOrderId);
+        result = entrustService.DaPutOrder(userId, newEntrustId, deliveryOrderState, deliveryOrderId);
         return result;
     }
 
@@ -550,7 +550,7 @@ public class EntrustController {
      * @param newEntrustId 委托的id
      * @return 戴辆
      */
-    @ApiOperation(value = "大家保险用户确定委托全部完成",notes = "委托全部完成的方法",tags = "DaConfirmEntrust",httpMethod = "GET")
+    @ApiOperation(value = "大家保险用户确定委托全部完成", notes = "委托全部完成的方法", tags = "DaConfirmEntrust", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "newEntrustId", value = "委托的id", required = true, dataType = "int", paramType = "query")
@@ -570,6 +570,28 @@ public class EntrustController {
         return result;
     }
 
+
+    /**
+     * 大家保险用户撤销委托
+     *
+     * @param userId    用户id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    public @ResponseBody
+    Result PutRevocation(Integer userId, Integer entrustId) {
+        //创建接收和返回数据的实体类
+        Result result = new Result();
+        //判断用户的id和委托的id是不是为空，如果为空的话，则说明异常
+        if (null == userId || null == entrustId) {
+            result.setCode(300);
+            result.setMessage("当前异常");
+            return result;
+        }
+        //接受service层返回的结果
+        result=entrustService.PutRevocation(userId, entrustId);
+        return result;
+    }
 
 
     /**

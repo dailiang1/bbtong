@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbtong.Dao.NewsDao">
+  <resultMap id="BaseResultMap" type="com.bbtong.Pojo.News">
+    <id column="News_Id" jdbcType="INTEGER" property="newsId" />
+    <result column="News_User_Id" jdbcType="INTEGER" property="newsUserId" />
+    <result column="News_Entrust_Id" jdbcType="INTEGER" property="newsEntrustId" />
+    <result column="News_license_Number" jdbcType="INTEGER" property="newsLicenseNumber" />
+    <result column="News_Message" jdbcType="VARCHAR" property="newsMessage" />
+    <result column="News_State" jdbcType="INTEGER" property="newsState" />
+    <result column="State" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    News_Id, News_User_Id, News_Entrust_Id, News_license_Number, News_Message, News_State, 
+    `State`
+  </sql>
+  <select id="selectByExample" parameterType="com.bbtong.Pojo.NewsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbt_news
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bbt_news
+    where News_Id = #{newsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bbt_news
+    where News_Id = #{newsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bbtong.Pojo.NewsExample">
+    delete from bbt_news
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="News_Id" keyProperty="newsId" parameterType="com.bbtong.Pojo.News" useGeneratedKeys="true">
+    insert into bbt_news (News_User_Id, News_Entrust_Id, News_license_Number, 
+      News_Message, News_State, `State`
+      )
+    values (#{newsUserId,jdbcType=INTEGER}, #{newsEntrustId,jdbcType=INTEGER}, #{newsLicenseNumber,jdbcType=INTEGER}, 
+      #{newsMessage,jdbcType=VARCHAR}, #{newsState,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="News_Id" keyProperty="newsId" parameterType="com.bbtong.Pojo.News" useGeneratedKeys="true">
+    insert into bbt_news
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="newsUserId != null">
+        News_User_Id,
+      </if>
+      <if test="newsEntrustId != null">
+        News_Entrust_Id,
+      </if>
+      <if test="newsLicenseNumber != null">
+        News_license_Number,
+      </if>
+      <if test="newsMessage != null">
+        News_Message,
+      </if>
+      <if test="newsState != null">
+        News_State,
+      </if>
+      <if test="state != null">
+        `State`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="newsUserId != null">
+        #{newsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="newsEntrustId != null">
+        #{newsEntrustId,jdbcType=INTEGER},
+      </if>
+      <if test="newsLicenseNumber != null">
+        #{newsLicenseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="newsMessage != null">
+        #{newsMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="newsState != null">
+        #{newsState,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bbtong.Pojo.NewsExample" resultType="java.lang.Long">
+    select count(*) from bbt_news
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bbt_news
+    <set>
+      <if test="record.newsId != null">
+        News_Id = #{record.newsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsUserId != null">
+        News_User_Id = #{record.newsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsEntrustId != null">
+        News_Entrust_Id = #{record.newsEntrustId,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsLicenseNumber != null">
+        News_license_Number = #{record.newsLicenseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsMessage != null">
+        News_Message = #{record.newsMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsState != null">
+        News_State = #{record.newsState,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null">
+        `State` = #{record.state,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bbt_news
+    set News_Id = #{record.newsId,jdbcType=INTEGER},
+      News_User_Id = #{record.newsUserId,jdbcType=INTEGER},
+      News_Entrust_Id = #{record.newsEntrustId,jdbcType=INTEGER},
+      News_license_Number = #{record.newsLicenseNumber,jdbcType=INTEGER},
+      News_Message = #{record.newsMessage,jdbcType=VARCHAR},
+      News_State = #{record.newsState,jdbcType=INTEGER},
+      `State` = #{record.state,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bbtong.Pojo.News">
+    update bbt_news
+    <set>
+      <if test="newsUserId != null">
+        News_User_Id = #{newsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="newsEntrustId != null">
+        News_Entrust_Id = #{newsEntrustId,jdbcType=INTEGER},
+      </if>
+      <if test="newsLicenseNumber != null">
+        News_license_Number = #{newsLicenseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="newsMessage != null">
+        News_Message = #{newsMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="newsState != null">
+        News_State = #{newsState,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        `State` = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where News_Id = #{newsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bbtong.Pojo.News">
+    update bbt_news
+    set News_User_Id = #{newsUserId,jdbcType=INTEGER},
+      News_Entrust_Id = #{newsEntrustId,jdbcType=INTEGER},
+      News_license_Number = #{newsLicenseNumber,jdbcType=INTEGER},
+      News_Message = #{newsMessage,jdbcType=VARCHAR},
+      News_State = #{newsState,jdbcType=INTEGER},
+      `State` = #{state,jdbcType=INTEGER}
+    where News_Id = #{newsId,jdbcType=INTEGER}
+  </update>
+</mapper>

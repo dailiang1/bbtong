@@ -4,6 +4,7 @@ import com.bbtong.Base.*;
 import com.bbtong.Dao.EntrustDao;
 import com.bbtong.Pojo.DeliveryOrder;
 import com.bbtong.Pojo.Entrust;
+import com.bbtong.Pojo.News;
 import com.bbtong.Service.EntrustService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultHave;
@@ -99,7 +100,7 @@ public class EntrustServiceImpl implements EntrustService {
                     item.setNumber(0);
                     continue;//break跳出当前的循环，进入下面的循环
                 }
-                if (item.getNewUserId().length()<2){
+                if (item.getNewUserId().length() < 2) {
                     item.setNumber(1);
                     continue;//break跳出当前的循环，进入下面的循环
                 }
@@ -185,15 +186,41 @@ public class EntrustServiceImpl implements EntrustService {
         map.put("friendName", friendName);//接单人的姓名
         map.put("friendPhone", friendPhone);//接单人的电话
         map.put("insuranceCompanyName", InsuranceCompanyName);//接单人保险公司名称
+        //查询委托的车牌号
+        String newsLicenseNumber=entrustDao.newsLicenseNumber(map);
+        map.put("newsLicenseNumber",newsLicenseNumber);
+        //将有意向人的字段查出来
+        String NewUserId=entrustDao.NewUserId(map);
+        //将意向人根据，分割成数组
+        String[] arrStr = NewUserId.split(",");
+        //创建list的数据来存储数据
+        List<News> newsList = new ArrayList<News>();
+        //创建实体类数据来进行数据的存储
+        News news=new News();
+        //用for循环循环数组来进行操作
+        for(int i=0;i<arrStr.length;i++){
+            //判断对应的id是不是接单人的id，如果是接单人的id就不用发消息
+            if ((Integer.valueOf(arrStr[i]).intValue()!=finallyUserId)){
+                news.setNewsUserId(Integer.valueOf(arrStr[i]).intValue());//用户的id
+                news.setNewsLicenseNumber(newsLicenseNumber);//委托的车牌号
+                news.setNewsMessage("接单失败");//状态为失败
+                news.setState(1);//1表示意向委托
+                newsList.add(news);//将数据add到list数组中
+            }
+        }
         try {
-            //第一步将委托派送给指定的人，并且将委托的状态变成已经接单，并且接受返回的结果，
+            //第一步 1.将委托派送给指定的人，并且将委托的状态变成已经接单，并且接受返回的结果，
             int UpdateEntrust = entrustDao.UpdateEntrust(map);
-            //第二步将除了接单的人之外的其他人，变的可以有意向委托
+            //第一步 2.给指定委托的人接受发送接单的消息
+            int query=entrustDao.Query(map);
+            //第二步 1.将除了接单的人之外的其他人，变的可以有意向委托
             int UpdateNewUserId = entrustDao.UpdateNewUserId(map);
-                //在这之前先确定两个人有没有成为好友关系，如果成为了好友关系的话，就不用添加好友了
-            Integer haoyou=entrustDao.HaoYou(map);
-                //判断返回的数据是不是为空，如果为空的话，就让其添加好友
-            if (null==haoyou) {
+            //第二步 2.给除了接单的人之外的其他人，发消息提示他们没有抢单成功
+            int newsId=entrustDao.InsertNews(newsList);
+            //在这之前先确定两个人有没有成为好友关系，如果成为了好友关系的话，就不用添加好友了
+            Integer haoyou = entrustDao.HaoYou(map);
+            //判断返回的数据是不是为空，如果为空的话，就让其添加好友
+            if (null == haoyou) {
                 //第三步将两个人确认好友关系
                 int AddFriend = entrustDao.AddFriend(map);
             }
@@ -669,7 +696,7 @@ public class EntrustServiceImpl implements EntrustService {
     /**
      * 大家保险用户 查看对应委托还单的还单信息
      *
-     * @param userId   用户的id
+     * @param userId    用户的id
      * @param entrustId 委托的id
      * @return 戴辆
      */
@@ -899,12 +926,12 @@ public class EntrustServiceImpl implements EntrustService {
      * @param userId             用户的id(为之前委托发布人id，而不是还单人的id)
      * @param newEntrustId       委托的id
      * @param deliveryOrderState 表示用户对委托进行的处理(1表示确定，2表示驳回)
-     * @param deliveryOrderId     表示当前还单委托的id
+     * @param deliveryOrderId    表示当前还单委托的id
      * @return 戴辆
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState,Integer deliveryOrderId) {
+    public Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState, Integer deliveryOrderId) {
         //创建Result的实体来接受数据 和 返回数据
         Result result = new Result();
         //创建map函数来接受和存储参数
@@ -912,7 +939,7 @@ public class EntrustServiceImpl implements EntrustService {
         map.put("userId", userId); //将newUserId(用户的id)存到map中
         map.put("newEntrustId", newEntrustId);//将newEntrustId(委托的id)存到map中
         map.put("deliveryOrderState", deliveryOrderState);//将deliveryOrderState(表示要修改的状态1：确定，2：驳回)存到map中
-        map.put("deliveryOrderId",deliveryOrderId);//将deliveryOrderId(表示当前还单的id)存到map中
+        map.put("deliveryOrderId", deliveryOrderId);//将deliveryOrderId(表示当前还单的id)存到map中
         //获取当前日期
         Date date = new Date();
         //创建Calendar实例
@@ -949,6 +976,9 @@ public class EntrustServiceImpl implements EntrustService {
         //创建map函数来存储数据和用于存储后面查询的数据
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userId", userId);//将userId存到map 中
+        map.put("entrustId",newEntrustId);//存一个entrustId存到map中用于查询车牌号
+        String newsLicenseNumber=entrustDao.newsLicenseNumber(map);
+        map.put("newsLicenseNumber",newsLicenseNumber);
         map.put("newEntrustId", newEntrustId);//将newEntrustId存到map中
         try {
             //第一步 先根据委托人的id和委托的id 查询出，已还单的总金额
@@ -1008,6 +1038,8 @@ public class EntrustServiceImpl implements EntrustService {
                     map.put("userIntegrity", userIntegrity);//将用户的个人诚信等级写到map中
                     int updateNewUser = entrustDao.updateNewUser(map);
                 }
+                //给两个人发消息提示，委托交易完成
+                int xiaoxi=entrustDao.entrustNews(map);
                 //第九步将委托用户的委托单的总数量+1 委托单的总金额加上当前委托的
                 int updateUser = entrustDao.updateUser(map);
                 if (updateUser > 0) {
@@ -1023,6 +1055,39 @@ public class EntrustServiceImpl implements EntrustService {
                 return result;
             }
         } catch (Exception e) {
+            result.setCode(500);
+            result.setMessage("出现未知错误");
+        }
+        return result;
+    }
+
+    /**
+     * 大家保险委托人 撤销委托(长时间没有人接委托或者委托信息有误)
+     *
+     * @param userId    用户的id
+     * @param entrustId 委托的id
+     * @return 戴辆
+     */
+    @Override
+    public Result PutRevocation(Integer userId, Integer entrustId) {
+        //创建返回数据的实体
+        Result result=new Result();
+        //创建map函数将数据存到map中，用于后面的操作
+        Map<String,Object> map=new HashMap<String, Object>();
+        //将用户的id存到map中
+        map.put("userId",userId);
+        //将委托的id存到map中
+        map.put("entrusId",entrustId);
+        try {
+            int zhi=entrustDao.PutEntrust(map);
+            if (zhi>0){
+                result.setCode(200);
+                result.setMessage("修改成功");
+            }else {
+                result.setCode(400);
+                result.setMessage("失败");
+            }
+        }catch (Exception e) {
             result.setCode(500);
             result.setMessage("出现未知错误");
         }

@@ -9,6 +9,7 @@ import java.rmi.MarshalledObject;
 import java.util.List;
 import java.util.Map;
 
+import com.bbtong.Pojo.News;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -77,7 +78,7 @@ public interface EntrustDao {
     List<DaParticulars> DaParticulars(Map map);
 
     /**
-     * 第一步：将委托中的配给指定的人，(将这条委托的最终接单人，写入这个newUserId)
+     * 第一步：1.将委托中的配给指定的人，(将这条委托的最终接单人，写入这个newUserId)
      *
      * @param map 传入对应的数据， userId 委托人的ID finallyUserId 接单人的ID entrustId 订单的ID
      * @return 戴辆
@@ -85,12 +86,28 @@ public interface EntrustDao {
     Integer UpdateEntrust(Map map);
 
     /**
-     * 第二步：将除了接单的人之外的其他人，变的可以有意向委托
+     * 第一步： 2.给接单的人发送一条消息 接单成功
+     *
+     * @param map 里面存储着数据
+     * @return戴辆
+     */
+    Integer Query(Map map);
+
+    /**
+     * 第二步：1.将除了接单的人之外的其他人，变的可以有意向委托
      *
      * @param map 里面存储着 userId 以及finallyUserId 和 entrustId
      * @return 戴辆
      */
     Integer UpdateNewUserId(Map map);
+
+    /**
+     * 第二步 2.给没有接单的用户发送消息
+     *
+     * @param newsList 表示没有接到单的用户
+     * @return 戴辆
+     */
+    Integer InsertNews(List<News> newsList);
 
     /**
      * 第三步 1.先查询委托人的姓名的和电话
@@ -99,6 +116,14 @@ public interface EntrustDao {
      * @return 戴辆
      */
     Information Information(Map map);
+
+    /**
+     * 第三步 二次开发 查询对应委托的车牌号
+     *
+     * @param map 委托人的id
+     * @return 戴辆
+     */
+    String newsLicenseNumber(Map map);
 
     /**
      * 第三步 2.将两个人添加好友关系
@@ -423,6 +448,14 @@ public interface EntrustDao {
     Integer updateUser(Map map);
 
     /**
+     * 委托完成给两个人，发消息提示委托完成。
+     *
+     * @param map 里面存储着数据
+     * @return 戴辆
+     */
+    Integer entrustNews(Map map);
+
+    /**
      * 先查询发布委托人的数据
      *
      * @param map 用户的id
@@ -445,4 +478,12 @@ public interface EntrustDao {
      * @return 戴辆
      */
     Integer HaoYou(Map map);
+
+    /**
+     * 大家保险委托人 撤销委托(长时间没有人接委托或者委托信息有误)
+     *
+     * @param map map函数中存储着数据 (userId和entruId)
+     * @return 戴辆
+     */
+    Integer PutRevocation(Map map);
 }

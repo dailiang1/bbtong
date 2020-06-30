@@ -3,18 +3,22 @@ package com.bbtong.Service.Impl;
 import com.bbtong.Base.PostUser;
 import com.bbtong.Dao.UserDao;
 import com.bbtong.Pojo.Friend;
+import com.bbtong.Pojo.News;
 import com.bbtong.Pojo.User;
 import com.bbtong.Service.UserService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultPage;
 import com.bbtong.Util.UserResult;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 执行用户操作的方法
@@ -135,6 +139,12 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    /**
+     * 用户修改自己的个人资料
+     *
+     * @param postUser 里面存储这对应的数据
+     * @return 戴辆
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Result UserRedact(PostUser postUser) {
@@ -151,6 +161,36 @@ public class UserServiceImpl implements UserService {
             result.setMessage("出现异常");
         }
         return result;
+    }
+
+    /**
+     * 用户查询自己消息的方法
+     *
+     * @param userId 用户的id
+     * @return 戴辆
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public ResultPage SelectNews(Integer userId) {
+        //创建对应的实体类来接收数据
+        ResultPage resultPage = new ResultPage();
+        //创建map函数来存储数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userId", userId);//将用户的id存到map中
+        try {
+            //创建list数组来存储数据
+            List<News> newsList = userDao.SelectNews(map);
+            //记录数组的长度为消息的数量
+            resultPage.setCount(newsList.size());
+            resultPage.setCode(200);
+            resultPage.setMessage("查询成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            resultPage.setCode(300);
+            resultPage.setMessage("出现异常");
+        }
+        return resultPage;
     }
 
 

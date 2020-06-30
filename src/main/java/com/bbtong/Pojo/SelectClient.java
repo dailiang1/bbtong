@@ -1,11 +1,13 @@
 package com.bbtong.Pojo;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 用户查询显示自己的客户的信息的表
  */
 
+@Slf4j
 @Data
 public class SelectClient {
     /**
@@ -102,4 +104,9 @@ public class SelectClient {
      * 客户的车牌号
      */
     private String clientLicenseNumber;
+
+    /**
+     * 客户的状态(1表示正常，2表示删除。默认是1)
+     */
+    private  Integer clientState;
 }

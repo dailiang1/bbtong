@@ -49,4 +49,12 @@ public interface UserService {
      * @return 戴辆
      */
     Result UserRedact(PostUser postUser);
+
+    /**
+     * 用户查询消息提醒
+     *
+     * @param userId 用户的id
+     * @return 戴辆
+     */
+    ResultPage SelectNews(Integer userId);
 }
