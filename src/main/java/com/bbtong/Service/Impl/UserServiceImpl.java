@@ -184,6 +184,7 @@ public class UserServiceImpl implements UserService {
             resultPage.setCount(newsList.size());
             resultPage.setCode(200);
             resultPage.setMessage("查询成功");
+            resultPage.setData(newsList);
         } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

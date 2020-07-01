@@ -688,7 +688,7 @@
     </update>
 
     <!--用户删除自己的消息-->
-    <update id="delectNewsOne" parameterType="map">
+    <update id="delectNewsTwo" parameterType="map">
         update bbt_news
         <set>
             News_State=2,

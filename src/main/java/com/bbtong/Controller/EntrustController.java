@@ -479,6 +479,17 @@ public class EntrustController {
      * @param entrustId 委托id
      * @return
      */
+    @ApiOperation(value = "大家保险用户查询对应待处理的委托",notes = "大家保险用户查询对应待处理的委托",tags = "DaGetEntrust",httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
     @GetMapping(value = "/dagetentrust", produces = "application/json")
     public @ResponseBody
     Result DaGetEntrust(Integer userId, Integer entrustId) {
@@ -501,6 +512,17 @@ public class EntrustController {
      * @param entrustId 委托id
      * @return 戴辆
      */
+    @ApiOperation(value = "大家保险确认委托完成 状态变成3",notes = "大家保险确认委托完成",tags = "DaPutEntrust",httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
     @GetMapping(value = "/daputentrust", produces = "application/json")
     public @ResponseBody
     Result DaPutEntrust(Integer userId, Integer entrustId) {
@@ -527,6 +549,19 @@ public class EntrustController {
      * @param deliveryOrderId    表示当前还单信息id
      * @return 戴辆
      */
+    @ApiOperation(value = "大家 保险用户 确定用户还单的信息",tags = "大家保险用户 确定用户还单的信息",notes ="DaPutOrder",httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "newEntrustId", value = "委托的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "deliveryOrderState", value = "表示用户对委托进行的处理(1表示确定，2表示驳回)", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "deliveryOrderId", value = "表示当前还单信息id", required = true, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
     @GetMapping(value = "/daputorder", produces = "application/json")
     public @ResponseBody
     Result DaPutOrder(Integer userId, Integer newEntrustId, Integer deliveryOrderState, Integer deliveryOrderId) {
@@ -555,6 +590,12 @@ public class EntrustController {
             @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "newEntrustId", value = "委托的id", required = true, dataType = "int", paramType = "query")
     })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
     @GetMapping(value = "/daconfirmentrust", produces = "application/json")
     public @ResponseBody
     Result DaConfirmEntrust(Integer userId, Integer newEntrustId) {
@@ -578,6 +619,18 @@ public class EntrustController {
      * @param entrustId 委托的id
      * @return 戴辆
      */
+    @ApiOperation(value = "大家保险用户撤销委托", notes = "大家保险用户撤销委托", tags = "PutRevocation", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的Id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "委托的Id", required = true, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @GetMapping(value = "/putrevocation", produces = "application/json")
     public @ResponseBody
     Result PutRevocation(Integer userId, Integer entrustId) {
         //创建接收和返回数据的实体类
@@ -589,7 +642,7 @@ public class EntrustController {
             return result;
         }
         //接受service层返回的结果
-        result=entrustService.PutRevocation(userId, entrustId);
+        result = entrustService.PutRevocation(userId, entrustId);
         return result;
     }
 
@@ -954,6 +1007,17 @@ public class EntrustController {
      * @param entrustId 委托的id
      * @return 戴辆
      */
+    @ApiOperation(value = "其他保险 完成了委托提交申请", notes = "其他保险 完成了委托提交申请", tags = "PutEntrust", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustId", value = "对应的委托Id", required = true, dataType = "int", paramType = "query")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
     @GetMapping(value = "/putentrust", produces = "application/json")
     public @ResponseBody
     Result PutEntrust(Integer userId, Integer entrustId) {
@@ -1001,5 +1065,4 @@ public class EntrustController {
         resultPage = entrustService.GetDeliveryOrder(newEntrustId, newUserId);
         return resultPage;
     }
-
 }

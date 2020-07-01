@@ -6,6 +6,7 @@ import com.bbtong.Service.ClientService;
 import com.bbtong.Util.Result;
 import com.bbtong.Util.ResultPage;
 import io.swagger.annotations.*;
+import jdk.internal.org.objectweb.asm.tree.analysis.BasicValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -182,8 +183,7 @@ public class ClientController {
     })
     @GetMapping(value = "/particulars", produces = "application/json")
     public @ResponseBody
-    ResultPage
-    Particulars(Integer userId, Integer clientId) {
+    ResultPage Particulars(Integer userId, Integer clientId) {
         ResultPage resultPage = new ResultPage();
         if (null == userId || null == clientId) {
             resultPage.setCode(300);
@@ -334,7 +334,7 @@ public class ClientController {
      */
     @PostMapping(value = "/clientredact", produces = "application/json")
     public @ResponseBody
-    Result ClientRedact(@RequestBody  SelectClient selectClient) {
+    Result ClientRedact(@RequestBody SelectClient selectClient) {
         //创建实体类来获取service层传回的数据
         Result result = new Result();
         if (null == selectClient.getUserId()) {
@@ -351,7 +351,6 @@ public class ClientController {
     }
 
 
-
     /**
      * 删除客户的方法
      *
@@ -359,6 +358,17 @@ public class ClientController {
      * @param ClientId 客户的id
      * @return 戴辆
      */
+    @ApiOperation(value = "用户删除客户的方法", notes = "用户删除客户的方法", tags = "DelectClient", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "ClientId", value = "客户的id", required = true, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
     @GetMapping(value = "/delectclient", produces = "application/json")
     public @ResponseBody
     Result DelectClient(Integer userId, Integer ClientId) {

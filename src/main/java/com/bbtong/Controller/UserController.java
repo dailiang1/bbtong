@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.print.attribute.standard.MediaSize;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -269,6 +270,17 @@ public class UserController {
      * @param postUser 里面存储着数据
      * @return 戴辆
      */
+    @ApiOperation(value = "修改自己的个人信息", notes = "修改自己的个人信息", tags = "UserRedact", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "userPhone", value = "用户的手机号", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "userName", value = "用户的姓名", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "insuranceCompanyId", value = "用户的保险公司id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "userIdentityCard", value = "用户的身份证编号", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "userNumber", value = "保险公司的代理编号", required = true, dataType = "strinng", paramType = "query"),
+            @ApiImplicitParam(name = "userTietong", value = "保险代理人的类别(1:大家保险(铁通员工),2:大家保险员工,3其他保险的员工)", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "userAddress", value = "保险人的地址", required = true, dataType = "string", paramType = "query"),
+    })
     @PostMapping(value = "/userredact", produces = "application/json")
     public @ResponseBody
     Result UserRedact(@RequestBody PostUser postUser) {
@@ -290,9 +302,14 @@ public class UserController {
      * @param request
      * @return
      */
+    @ApiOperation(value = "用户退出删除cookie的方法", notes = "删除cookie", tags = "Exit", httpMethod = "GET")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+    })
     @GetMapping(value = "/exit", produces = "application/json")
     public @ResponseBody
-    Result exit(HttpServletResponse response, HttpServletRequest request) {
+    Result Exit(HttpServletResponse response, HttpServletRequest request) {
         Result result = new Result();
         try {
             Cookie cookie = new Cookie("userName", null);//cookie名字要相同
@@ -314,7 +331,15 @@ public class UserController {
      * @param userId 用户id
      * @return 戴辆
      */
-    @GetMapping(value = "selectnews", produces = "application/json")
+    @ApiOperation(value = "用户查询自己消息的方法", notes = "查询消息", tags = "SelectNews", httpMethod = "GET")
+    @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @GetMapping(value = "/selectnews", produces = "application/json")
     public @ResponseBody
     ResultPage SelectNews(Integer userId) {
         //创建接收数据的实体类
@@ -337,7 +362,19 @@ public class UserController {
      * @param index  1表示执行未读的方法，2表示执行删除的方法
      * @return 戴辆
      */
-    @GetMapping(value = "delectnews", produces = "application/json")
+    @ApiOperation(value = "用户删除消息的方法", notes = "用户删除消息", tags = "delectNews", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "newsId", value = "消息的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "处理消息的类型，1表示已读，2表示删除", required = true, dataType = "int", paramType = "query")
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = Result.class),
+            @ApiResponse(code = 300, message = "异常", response = Result.class),
+            @ApiResponse(code = 400, message = "失败", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
+    })
+    @GetMapping(value = "/delectnews", produces = "application/json")
     public @ResponseBody
     Result delectNews(Integer userId, Integer newsId, Integer index) {
         //创建接收数据的实体类
