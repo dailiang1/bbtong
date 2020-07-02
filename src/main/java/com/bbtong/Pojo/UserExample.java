@@ -1933,6 +1933,76 @@ public class UserExample {
             addCriterion("test_state not between", value1, value2, "testState");
             return (Criteria) this;
         }
+
+        public Criteria andUserTimeIsNull() {
+            addCriterion("User_Time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeIsNotNull() {
+            addCriterion("User_Time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeEqualTo(String value) {
+            addCriterion("User_Time =", value, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeNotEqualTo(String value) {
+            addCriterion("User_Time <>", value, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeGreaterThan(String value) {
+            addCriterion("User_Time >", value, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("User_Time >=", value, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeLessThan(String value) {
+            addCriterion("User_Time <", value, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeLessThanOrEqualTo(String value) {
+            addCriterion("User_Time <=", value, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeLike(String value) {
+            addCriterion("User_Time like", value, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeNotLike(String value) {
+            addCriterion("User_Time not like", value, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeIn(List<String> values) {
+            addCriterion("User_Time in", values, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeNotIn(List<String> values) {
+            addCriterion("User_Time not in", values, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeBetween(String value1, String value2) {
+            addCriterion("User_Time between", value1, value2, "userTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTimeNotBetween(String value1, String value2) {
+            addCriterion("User_Time not between", value1, value2, "userTime");
+            return (Criteria) this;
+        }
     }
 
     /**

@@ -486,4 +486,11 @@ public interface EntrustDao {
      * @return 戴辆
      */
     Integer PutRevocation(Map map);
+
+    /**
+     * 大家保险用户撤销委托，将这些人。变的可以重新有意向
+     * @param map 里面存着信息
+     * @return 戴辆
+     */
+    Integer PutRevocationUser(Map map);
 }

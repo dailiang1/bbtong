@@ -30,6 +30,7 @@
         <result column="Tietong_Number" jdbcType="VARCHAR" property="tietongNumber"/>
         <result column="Intention_State" jdbcType="INTEGER" property="intentionState"/>
         <result column="test_state" jdbcType="INTEGER" property="testState"/>
+        <result column="User_Time" jdbcType="VARCHAR" property="userTime"/>
     </resultMap>
 
     <!--用户注册的方法-->
@@ -43,6 +44,7 @@
         <result column="User_tietong" jdbcType="INTEGER" property="userTietong"/>
         <result column="User_Address" jdbcType="VARCHAR" property="userAddress"/>
         <result column="User_Identity_Card" jdbcType="VARCHAR" property="userIdentityCard"/>
+        <result column="User_Time" jdbcType="VARCHAR" property="userTime"/>
     </resultMap>
 
     <!--用户查询我的好友，显示的依赖-->
@@ -55,6 +57,8 @@
         <result column="Friend_phone" jdbcType="VARCHAR" property="friendPhone"/>
         <result column="Friend_Company_Name" jdbcType="VARCHAR" property="friendCompanyName"/>
     </resultMap>
+
+    <!--获取用户消息的实体类-->
     <resultMap id="BaseNews" type="com.bbtong.Pojo.News">
         <id column="News_Id" jdbcType="INTEGER" property="newsId"/>
         <result column="News_User_Id" jdbcType="INTEGER" property="newsUserId"/>
@@ -130,7 +134,7 @@
     User_Identity_Card, User_Identity_Card_Front, User_Identity_Card_Verso, User_Satisfaction, 
     User_OpenId, User_State, User_Entrust_number, User_Order_numer, User_Entrust_Money, 
     User_order_Money, User_Number, User_Pact, User_Order_State, User_tietong, User_Address, 
-    Tietong_Number, Intention_State, test_state
+    Tietong_Number, Intention_State, test_state, User_Time
   </sql>
     <select id="selectByExample" parameterType="com.bbtong.Pojo.UserExample" resultMap="BaseResultMap">
         select
@@ -181,7 +185,8 @@
       User_Order_numer, User_Entrust_Money, User_order_Money, 
       User_Number, User_Pact, User_Order_State, 
       User_tietong, User_Address, Tietong_Number, 
-      Intention_State, test_state)
+      Intention_State, test_state, User_Time
+      )
     values (#{userName,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR}, #{insuranceCompanyName,jdbcType=VARCHAR}, 
       #{insuranceCompanyId,jdbcType=INTEGER}, #{userIntegrity,jdbcType=DOUBLE}, #{userMemberState,jdbcType=INTEGER}, 
       #{userMemberBegin,jdbcType=VARCHAR}, #{userMemberFinish,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
@@ -191,7 +196,8 @@
       #{userOrderNumer,jdbcType=INTEGER}, #{userEntrustMoney,jdbcType=DOUBLE}, #{userOrderMoney,jdbcType=DOUBLE}, 
       #{userNumber,jdbcType=VARCHAR}, #{userPact,jdbcType=INTEGER}, #{userOrderState,jdbcType=INTEGER}, 
       #{userTietong,jdbcType=INTEGER}, #{userAddress,jdbcType=VARCHAR}, #{tietongNumber,jdbcType=VARCHAR}, 
-      #{intentionState,jdbcType=INTEGER}, #{testState,jdbcType=INTEGER})
+      #{intentionState,jdbcType=INTEGER}, #{testState,jdbcType=INTEGER}, #{userTime,jdbcType=VARCHAR}
+      )
   </insert>
     <insert id="insertSelective" keyColumn="User_Id" keyProperty="userId" parameterType="com.bbtong.Pojo.User"
             useGeneratedKeys="true">
@@ -278,6 +284,9 @@
             <if test="testState != null">
                 test_state,
             </if>
+            <if test="userTime != null">
+                User_Time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userName != null">
@@ -360,6 +369,9 @@
             </if>
             <if test="testState != null">
                 #{testState,jdbcType=INTEGER},
+            </if>
+            <if test="userTime != null">
+                #{userTime,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -456,6 +468,9 @@
             <if test="record.testState != null">
                 test_state = #{record.testState,jdbcType=INTEGER},
             </if>
+            <if test="record.userTime != null">
+                User_Time = #{record.userTime,jdbcType=VARCHAR},
+            </if>
         </set>
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -490,7 +505,8 @@
         User_Address = #{record.userAddress,jdbcType=VARCHAR},
         Tietong_Number = #{record.tietongNumber,jdbcType=VARCHAR},
         Intention_State = #{record.intentionState,jdbcType=INTEGER},
-        test_state = #{record.testState,jdbcType=INTEGER}
+        test_state = #{record.testState,jdbcType=INTEGER},
+        User_Time = #{record.userTime,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>
@@ -579,6 +595,9 @@
             <if test="testState != null">
                 test_state = #{testState,jdbcType=INTEGER},
             </if>
+            <if test="userTime != null">
+                User_Time = #{userTime,jdbcType=VARCHAR},
+            </if>
         </set>
         where User_Id = #{userId,jdbcType=INTEGER}
     </update>
@@ -610,39 +629,39 @@
       User_Address = #{userAddress,jdbcType=VARCHAR},
       Tietong_Number = #{tietongNumber,jdbcType=VARCHAR},
       Intention_State = #{intentionState,jdbcType=INTEGER},
-      test_state = #{testState,jdbcType=INTEGER}
+      test_state = #{testState,jdbcType=INTEGER},
+      User_Time = #{userTime,jdbcType=VARCHAR}
     where User_Id = #{userId,jdbcType=INTEGER}
   </update>
-
     <!--第一步通过用户的手机查询对应的信息-->
     <select id="PutUser" parameterType="string" resultMap="BaseResultMap">
-    select * from  bbt_user where User_Phone=#{userPhone}
-  </select>
+  select * from  bbt_user where User_Phone=#{userPhone}
+</select>
 
     <!--通过保险公司的id 查询保险公司的名称-->
     <select id="insuranceCompanyName" parameterType="int" resultType="string">
-        select Insurance_Company_Name from  bbt_insurance_company where Insurance_Company_Id=#{insuranceCompanyId}
-    </select>
+      select Insurance_Company_Name from  bbt_insurance_company where Insurance_Company_Id=#{insuranceCompanyId}
+  </select>
 
     <!--注册用户-->
     <insert id="PostUser" parameterType="postUser">
-    insert into bbt_user(user_name, User_Nickname,insurance_company_id, Insurance_Company_Name,user_phone, user_identity_card, user_number, user_tietong, user_address)values (#{userName},#{userName},#{insuranceCompanyId},#{insuranceCompanyName},#{userPhone},#{userIdentityCard},#{userNumber},#{userTietong},#{userAddress})
-  </insert>
+  insert into bbt_user(user_name, User_Nickname,insurance_company_id, Insurance_Company_Name,user_phone, user_identity_card, user_number, user_tietong, user_address,User_Time)values (#{userName},#{userName},#{insuranceCompanyId},#{insuranceCompanyName},#{userPhone},#{userIdentityCard},#{userNumber},#{userTietong},#{userAddress},#{userTime})
+</insert>
 
     <!--第一步 先查询好友的条数-->
     <select id="GetFriendNumber" parameterType="int" resultType="int">
-        select count(1) from bbt_friend where User_Id=#{userId}
-    </select>
+      select count(1) from bbt_friend where User_Id=#{userId}
+  </select>
 
     <!--第二步 查询对应好友的信息-->
     <select id="GetFriend" parameterType="int" resultMap="BaseFriend">
-        select * from bbt_friend where User_Id=#{userId}
-    </select>
+      select * from bbt_friend where User_Id=#{userId}
+  </select>
 
     <!--查看个人资料的方法-->
     <select id="GetUser" parameterType="int" resultMap="BaseResultMap">
-        select * from bbt_user where  User_Id=#{userId}
-    </select>
+      select * from bbt_user where  User_Id=#{userId}
+  </select>
 
     <!--用户修改自己的个人资料-->
     <update id="UserRedact" parameterType="postUser">
@@ -675,8 +694,8 @@
 
     <!--用户查看自己的消息-->
     <select id="SelectNews" parameterType="map" resultMap="BaseNews">
-        select  * from  bbt_news where  News_User_Id=#{userId} and News_State!=2 order by News_State
-    </select>
+      select  * from  bbt_news where  News_User_Id=#{userId} and News_State!=2 order by News_State
+  </select>
 
     <!--用户将消息从未读的状态修改成已读的状态-->
     <update id="delectNewsOne" parameterType="map">

@@ -16,9 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 执行用户操作的方法
@@ -74,6 +73,17 @@ public class UserServiceImpl implements UserService {
         Result result = new Result();
         //先通过保险公司的id，查询保险公司名称
         postUser.setInsuranceCompanyName(userDao.insuranceCompanyName(postUser.getInsuranceCompanyId()));
+        //获取电脑当前的时间
+        Date now = new Date();
+        //创建Calendar实例
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(now);   //设置当前时间
+        //将时间格式化成yyyy-MM-dd HH:mm:ss的格式
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //将当前的时间存起来
+        String Time = format.format(cal.getTime());
+        //将当前时间存到post实体中
+        postUser.setUserTime(Time);
         //创建接受返回数据
         int zhi = userDao.PostUser(postUser);
         if (zhi > 0) {
@@ -213,8 +223,8 @@ public class UserServiceImpl implements UserService {
         //判断执行什么方法
         if (index == 1) {
             int zhi = userDao.delectNewsOne(map);
-        } else if (index ==2) {
-            int zhi =userDao.delectNewsTwo(map);
+        } else if (index == 2) {
+            int zhi = userDao.delectNewsTwo(map);
         } else {
             result.setCode(500);
             result.setMessage("当前异常");
@@ -224,6 +234,4 @@ public class UserServiceImpl implements UserService {
         result.setMessage("执行成功");
         return result;
     }
-
-
 }

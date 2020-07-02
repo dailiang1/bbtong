@@ -196,9 +196,10 @@ public class EntrustServiceImpl implements EntrustService {
         //创建list的数据来存储数据
         List<News> newsList = new ArrayList<News>();
         //创建实体类数据来进行数据的存储
-        News news = new News();
+        News news;
         //用for循环循环数组来进行操作
         for (int i = 0; i < arrStr.length; i++) {
+            news = new News();
             //判断对应的id是不是接单人的id，如果是接单人的id就不用发消息
             if ((Integer.valueOf(arrStr[i]).intValue() != finallyUserId)) {
                 news.setNewsEntrustId(entrustId);//委托的id
@@ -216,8 +217,11 @@ public class EntrustServiceImpl implements EntrustService {
             int query = entrustDao.Query(map);
             //第二步 1.将除了接单的人之外的其他人，变的可以有意向委托
             int UpdateNewUserId = entrustDao.UpdateNewUserId(map);
-            //第二步 2.给除了接单的人之外的其他人，发消息提示他们没有抢单成功
-            int newsId = entrustDao.InsertNews(newsList);
+            //判断意向的人数是不是大于1
+            if (arrStr.length > 1) {
+                //第二步 2.给除了接单的人之外的其他人，发消息提示他们没有抢单成功
+                int newsId = entrustDao.InsertNews(newsList);
+            }
             //在这之前先确定两个人有没有成为好友关系，如果成为了好友关系的话，就不用添加好友了
             Integer haoyou = entrustDao.HaoYou(map);
             //判断返回的数据是不是为空，如果为空的话，就让其添加好友
@@ -232,9 +236,6 @@ public class EntrustServiceImpl implements EntrustService {
             resultPage.setCode(200);
             resultPage.setMessage("派单成功");
         } catch (Exception e) {
-//            resultPage.setCode(300);
-//            resultPage.setMessage("没有指派成功");
-//            throw new ArithmeticException(e.getMessage());
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             resultPage.setCode(300);
@@ -1079,7 +1080,36 @@ public class EntrustServiceImpl implements EntrustService {
         map.put("userId", userId);
         //将委托的id存到map中
         map.put("entrustId", entrustId);
+        //查询委托的车牌号
+        String newsLicenseNumber = entrustDao.newsLicenseNumber(map);
+        map.put("newsLicenseNumber", newsLicenseNumber);
         try {
+            //第一步 先查询有意向的人数
+            String NewUserId = entrustDao.NewUserId(map);
+
+            //判断有没有，有意向的人数,如果没有就不用发消息
+            if (NewUserId.length() > 0) {
+                //创建list的数据来存储数据
+                List<News> newsList = new ArrayList<News>();
+                //将意向人根据，分割成数组
+                String[] arrStr = NewUserId.split(",");
+                //创建实体类数据来进行数据的存储
+                News news;
+                //用for循环循环数组来进行操作
+                for (int i = 0; i < arrStr.length; i++) {
+                    news = new News();
+                    news.setNewsEntrustId(entrustId);//委托的id
+                    news.setNewsUserId(Integer.valueOf(arrStr[i]).intValue());//用户的id
+                    news.setNewsLicenseNumber(newsLicenseNumber);//委托的车牌号
+                    news.setNewsMessage("委托已撤销");//状态为委托撤销
+                    news.setState(4);//1表示意向委托
+                    newsList.add(news);//将数据add到list数组中
+                }
+                //第二步 2.给除了接单的人之外的其他人，发消息提示他们没有抢单成功
+                int newsId = entrustDao.InsertNews(newsList);
+            }
+            //第三步 将这些人可以重新有意向
+            int newUser = entrustDao.PutRevocationUser(map);
             int zhi = entrustDao.PutRevocation(map);
             if (zhi > 0) {
                 result.setCode(200);

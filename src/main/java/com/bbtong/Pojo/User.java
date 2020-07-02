@@ -123,7 +123,7 @@ public class User implements Serializable {
     private Integer userOrderState;
 
     /**
-     * A类表示：大保险代理(铁通员工)，B类表示大家保险代理(非铁通员工)，C类表示非大家保险代理。分别用1，2， 2表示
+     * A类表示：大保险代理(铁通员工)，B类表示大家保险代理(非铁通员工)，C类表示非大家保险代理。分别用0，1， 2表示
      */
     private Integer userTietong;
 
@@ -143,9 +143,14 @@ public class User implements Serializable {
     private Integer intentionState;
 
     /**
-     * 表示第一次测试的时候，注册的人是否审核了(0为审核，1已审核)
+     * 表示第一次测试的时候，注册的人是否审核了(0为待审核，1已审核)
      */
     private Integer testState;
+
+    /**
+     * 表示用户注册的时间
+     */
+    private String userTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -373,6 +378,14 @@ public class User implements Serializable {
         this.testState = testState;
     }
 
+    public String getUserTime() {
+        return userTime;
+    }
+
+    public void setUserTime(String userTime) {
+        this.userTime = userTime;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -412,7 +425,8 @@ public class User implements Serializable {
             && (this.getUserAddress() == null ? other.getUserAddress() == null : this.getUserAddress().equals(other.getUserAddress()))
             && (this.getTietongNumber() == null ? other.getTietongNumber() == null : this.getTietongNumber().equals(other.getTietongNumber()))
             && (this.getIntentionState() == null ? other.getIntentionState() == null : this.getIntentionState().equals(other.getIntentionState()))
-            && (this.getTestState() == null ? other.getTestState() == null : this.getTestState().equals(other.getTestState()));
+            && (this.getTestState() == null ? other.getTestState() == null : this.getTestState().equals(other.getTestState()))
+            && (this.getUserTime() == null ? other.getUserTime() == null : this.getUserTime().equals(other.getUserTime()));
     }
 
     @Override
@@ -447,6 +461,7 @@ public class User implements Serializable {
         result = prime * result + ((getTietongNumber() == null) ? 0 : getTietongNumber().hashCode());
         result = prime * result + ((getIntentionState() == null) ? 0 : getIntentionState().hashCode());
         result = prime * result + ((getTestState() == null) ? 0 : getTestState().hashCode());
+        result = prime * result + ((getUserTime() == null) ? 0 : getUserTime().hashCode());
         return result;
     }
 
@@ -484,6 +499,7 @@ public class User implements Serializable {
         sb.append(", tietongNumber=").append(tietongNumber);
         sb.append(", intentionState=").append(intentionState);
         sb.append(", testState=").append(testState);
+        sb.append(", userTime=").append(userTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

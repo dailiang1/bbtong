@@ -2,6 +2,10 @@ package com.bbtong.Base;
 
 import lombok.Data;
 
+/**
+ * 用户注册的方法
+ */
+
 @Data
 public class PostUser {
     /**
@@ -53,4 +57,9 @@ public class PostUser {
      * 委托人所在的城市(需自己选择，精确到县级即可)
      */
     private String userAddress;
+
+    /**
+     * 用户注册的时间
+     */
+    private String userTime;
 }
