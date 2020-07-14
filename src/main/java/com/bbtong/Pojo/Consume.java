@@ -3,8 +3,8 @@ package com.bbtong.Pojo;
 import java.io.Serializable;
 
 /**
- * bbt_consume 消费卡申请表
- * 戴辆
+ * bbt_consume
+ * @author 
  */
 public class Consume implements Serializable {
     /**
@@ -41,6 +41,11 @@ public class Consume implements Serializable {
      * 消费卡申请审核的时间
      */
     private String newconsumeTime;
+
+    /**
+     * 审核这条信息的管理员姓名
+     */
+    private String adminName;
 
     private static final long serialVersionUID = 1L;
 
@@ -100,6 +105,14 @@ public class Consume implements Serializable {
         this.newconsumeTime = newconsumeTime;
     }
 
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -118,7 +131,8 @@ public class Consume implements Serializable {
             && (this.getConsumeState() == null ? other.getConsumeState() == null : this.getConsumeState().equals(other.getConsumeState()))
             && (this.getUserNumber() == null ? other.getUserNumber() == null : this.getUserNumber().equals(other.getUserNumber()))
             && (this.getConsumeTime() == null ? other.getConsumeTime() == null : this.getConsumeTime().equals(other.getConsumeTime()))
-            && (this.getNewconsumeTime() == null ? other.getNewconsumeTime() == null : this.getNewconsumeTime().equals(other.getNewconsumeTime()));
+            && (this.getNewconsumeTime() == null ? other.getNewconsumeTime() == null : this.getNewconsumeTime().equals(other.getNewconsumeTime()))
+            && (this.getAdminName() == null ? other.getAdminName() == null : this.getAdminName().equals(other.getAdminName()));
     }
 
     @Override
@@ -132,6 +146,7 @@ public class Consume implements Serializable {
         result = prime * result + ((getUserNumber() == null) ? 0 : getUserNumber().hashCode());
         result = prime * result + ((getConsumeTime() == null) ? 0 : getConsumeTime().hashCode());
         result = prime * result + ((getNewconsumeTime() == null) ? 0 : getNewconsumeTime().hashCode());
+        result = prime * result + ((getAdminName() == null) ? 0 : getAdminName().hashCode());
         return result;
     }
 
@@ -148,6 +163,7 @@ public class Consume implements Serializable {
         sb.append(", userNumber=").append(userNumber);
         sb.append(", consumeTime=").append(consumeTime);
         sb.append(", newconsumeTime=").append(newconsumeTime);
+        sb.append(", adminName=").append(adminName);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

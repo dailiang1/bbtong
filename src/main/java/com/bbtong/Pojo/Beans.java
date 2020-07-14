@@ -3,8 +3,8 @@ package com.bbtong.Pojo;
 import java.io.Serializable;
 
 /**
- * bbt_beans 和豆申请表
- * 戴辆
+ * bbt_beans
+ * @author 
  */
 public class Beans implements Serializable {
     /**
@@ -41,6 +41,11 @@ public class Beans implements Serializable {
      * 和豆订单申请审核的时间
      */
     private String newbeansTime;
+
+    /**
+     * 审核这条信息的管理员信息
+     */
+    private String adminName;
 
     private static final long serialVersionUID = 1L;
 
@@ -100,6 +105,14 @@ public class Beans implements Serializable {
         this.newbeansTime = newbeansTime;
     }
 
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -118,7 +131,8 @@ public class Beans implements Serializable {
             && (this.getBeansState() == null ? other.getBeansState() == null : this.getBeansState().equals(other.getBeansState()))
             && (this.getUserNumber() == null ? other.getUserNumber() == null : this.getUserNumber().equals(other.getUserNumber()))
             && (this.getBeansTime() == null ? other.getBeansTime() == null : this.getBeansTime().equals(other.getBeansTime()))
-            && (this.getNewbeansTime() == null ? other.getNewbeansTime() == null : this.getNewbeansTime().equals(other.getNewbeansTime()));
+            && (this.getNewbeansTime() == null ? other.getNewbeansTime() == null : this.getNewbeansTime().equals(other.getNewbeansTime()))
+            && (this.getAdminName() == null ? other.getAdminName() == null : this.getAdminName().equals(other.getAdminName()));
     }
 
     @Override
@@ -132,6 +146,7 @@ public class Beans implements Serializable {
         result = prime * result + ((getUserNumber() == null) ? 0 : getUserNumber().hashCode());
         result = prime * result + ((getBeansTime() == null) ? 0 : getBeansTime().hashCode());
         result = prime * result + ((getNewbeansTime() == null) ? 0 : getNewbeansTime().hashCode());
+        result = prime * result + ((getAdminName() == null) ? 0 : getAdminName().hashCode());
         return result;
     }
 
@@ -148,6 +163,7 @@ public class Beans implements Serializable {
         sb.append(", userNumber=").append(userNumber);
         sb.append(", beansTime=").append(beansTime);
         sb.append(", newbeansTime=").append(newbeansTime);
+        sb.append(", adminName=").append(adminName);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

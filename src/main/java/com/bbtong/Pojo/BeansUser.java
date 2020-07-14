@@ -2,6 +2,9 @@ package com.bbtong.Pojo;
 
 import lombok.Data;
 
+/**
+ * 查询返回和豆申请表的实体
+ */
 @Data
 public class BeansUser {
     /**
@@ -44,4 +47,8 @@ public class BeansUser {
      */
     private String userPhone;
 
+    /**
+     * 审核该条管理员的姓名
+     */
+    private String adminName;
 }

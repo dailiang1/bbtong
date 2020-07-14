@@ -30,7 +30,7 @@ public class ResultPage {
     private Integer pageCount;
 
     //表示当前的状态(200表示成功，300表示异常，400表示失败，500表示错误)
-    @ApiModelProperty("表示返回的状态,通过返回的状态来判断结果")
+    @ApiModelProperty(value = "表示返回的状态,通过返回的状态来判断结果",example = "200,300,500")
     private Integer code;
 
     //用来存储返回的结果或者数据

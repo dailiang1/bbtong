@@ -9,7 +9,10 @@
     <result column="User_Number" jdbcType="VARCHAR" property="userNumber" />
     <result column="Beans_Time" jdbcType="VARCHAR" property="beansTime" />
     <result column="NewBeans_Time" jdbcType="VARCHAR" property="newbeansTime" />
+    <result column="admin_Name" jdbcType="VARCHAR" property="adminName" />
   </resultMap>
+
+  <!--查询返回对应数据的映射-->
   <resultMap id="BaseBeansUser" type="com.bbtong.Pojo.BeansUser">
     <id column="Beans_Id" jdbcType="INTEGER" property="beansId" />
     <result column="User_id" jdbcType="INTEGER" property="userId" />
@@ -19,6 +22,7 @@
     <result column="Beans_Time" jdbcType="VARCHAR" property="beansTime" />
     <result column="NewBeans_Time" jdbcType="VARCHAR" property="newbeansTime" />
     <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
+    <result column="admin_Name" jdbcType="VARCHAR" property="adminName"></result>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -79,7 +83,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Beans_Id, User_id, Card_Number, Beans_State, User_Number, Beans_Time, NewBeans_Time
+    Beans_Id, User_id, Card_Number, Beans_State, User_Number, Beans_Time, NewBeans_Time, 
+    admin_Name
   </sql>
   <select id="selectByExample" parameterType="com.bbtong.Pojo.BeansExample" resultMap="BaseResultMap">
     select
@@ -121,11 +126,11 @@
   </delete>
   <insert id="insert" keyColumn="Beans_Id" keyProperty="beansId" parameterType="com.bbtong.Pojo.Beans" useGeneratedKeys="true">
     insert into bbt_beans (User_id, Card_Number, Beans_State, 
-      User_Number, Beans_Time, NewBeans_Time
-      )
+      User_Number, Beans_Time, NewBeans_Time, 
+      admin_Name)
     values (#{userId,jdbcType=INTEGER}, #{cardNumber,jdbcType=VARCHAR}, #{beansState,jdbcType=CHAR}, 
-      #{userNumber,jdbcType=VARCHAR}, #{beansTime,jdbcType=VARCHAR}, #{newbeansTime,jdbcType=VARCHAR}
-      )
+      #{userNumber,jdbcType=VARCHAR}, #{beansTime,jdbcType=VARCHAR}, #{newbeansTime,jdbcType=VARCHAR}, 
+      #{adminName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="Beans_Id" keyProperty="beansId" parameterType="com.bbtong.Pojo.Beans" useGeneratedKeys="true">
     insert into bbt_beans
@@ -148,6 +153,9 @@
       <if test="newbeansTime != null">
         NewBeans_Time,
       </if>
+      <if test="adminName != null">
+        admin_Name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -167,6 +175,9 @@
       </if>
       <if test="newbeansTime != null">
         #{newbeansTime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null">
+        #{adminName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -200,6 +211,9 @@
       <if test="record.newbeansTime != null">
         NewBeans_Time = #{record.newbeansTime,jdbcType=VARCHAR},
       </if>
+      <if test="record.adminName != null">
+        admin_Name = #{record.adminName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -213,7 +227,8 @@
       Beans_State = #{record.beansState,jdbcType=CHAR},
       User_Number = #{record.userNumber,jdbcType=VARCHAR},
       Beans_Time = #{record.beansTime,jdbcType=VARCHAR},
-      NewBeans_Time = #{record.newbeansTime,jdbcType=VARCHAR}
+      NewBeans_Time = #{record.newbeansTime,jdbcType=VARCHAR},
+      admin_Name = #{record.adminName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -239,6 +254,9 @@
       <if test="newbeansTime != null">
         NewBeans_Time = #{newbeansTime,jdbcType=VARCHAR},
       </if>
+      <if test="adminName != null">
+        admin_Name = #{adminName,jdbcType=VARCHAR},
+      </if>
     </set>
     where Beans_Id = #{beansId,jdbcType=INTEGER}
   </update>
@@ -249,7 +267,8 @@
       Beans_State = #{beansState,jdbcType=CHAR},
       User_Number = #{userNumber,jdbcType=VARCHAR},
       Beans_Time = #{beansTime,jdbcType=VARCHAR},
-      NewBeans_Time = #{newbeansTime,jdbcType=VARCHAR}
+      NewBeans_Time = #{newbeansTime,jdbcType=VARCHAR},
+      admin_Name = #{adminName,jdbcType=VARCHAR}
     where Beans_Id = #{beansId,jdbcType=INTEGER}
   </update>
 

@@ -6,8 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.bbtong.Pojo.BeansUser;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * 和豆申请表
+ */
+
+@Mapper
 public interface BeansDao {
     long countByExample(BeansExample example);
 
@@ -64,4 +70,5 @@ public interface BeansDao {
      * @return
      */
     List<BeansUser> SelectQuery(Map map);
+
 }

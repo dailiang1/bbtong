@@ -9,6 +9,7 @@
     <result column="User_Number" jdbcType="VARCHAR" property="userNumber" />
     <result column="Consume_Time" jdbcType="VARCHAR" property="consumeTime" />
     <result column="NewConsume_Time" jdbcType="VARCHAR" property="newconsumeTime" />
+    <result column="admin_Name" jdbcType="VARCHAR" property="adminName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Consume_Id, User_id, Consume_number, Consume_State, User_Number, Consume_Time, NewConsume_Time
+    Consume_Id, User_id, Consume_number, Consume_State, User_Number, Consume_Time, NewConsume_Time, 
+    admin_Name
   </sql>
   <select id="selectByExample" parameterType="com.bbtong.Pojo.ConsumeExample" resultMap="BaseResultMap">
     select
@@ -111,11 +113,11 @@
   </delete>
   <insert id="insert" keyColumn="Consume_Id" keyProperty="consumeId" parameterType="com.bbtong.Pojo.Consume" useGeneratedKeys="true">
     insert into bbt_consume (User_id, Consume_number, Consume_State, 
-      User_Number, Consume_Time, NewConsume_Time
-      )
+      User_Number, Consume_Time, NewConsume_Time, 
+      admin_Name)
     values (#{userId,jdbcType=INTEGER}, #{consumeNumber,jdbcType=VARCHAR}, #{consumeState,jdbcType=CHAR}, 
-      #{userNumber,jdbcType=VARCHAR}, #{consumeTime,jdbcType=VARCHAR}, #{newconsumeTime,jdbcType=VARCHAR}
-      )
+      #{userNumber,jdbcType=VARCHAR}, #{consumeTime,jdbcType=VARCHAR}, #{newconsumeTime,jdbcType=VARCHAR}, 
+      #{adminName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="Consume_Id" keyProperty="consumeId" parameterType="com.bbtong.Pojo.Consume" useGeneratedKeys="true">
     insert into bbt_consume
@@ -138,6 +140,9 @@
       <if test="newconsumeTime != null">
         NewConsume_Time,
       </if>
+      <if test="adminName != null">
+        admin_Name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -157,6 +162,9 @@
       </if>
       <if test="newconsumeTime != null">
         #{newconsumeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null">
+        #{adminName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -190,6 +198,9 @@
       <if test="record.newconsumeTime != null">
         NewConsume_Time = #{record.newconsumeTime,jdbcType=VARCHAR},
       </if>
+      <if test="record.adminName != null">
+        admin_Name = #{record.adminName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -203,7 +214,8 @@
       Consume_State = #{record.consumeState,jdbcType=CHAR},
       User_Number = #{record.userNumber,jdbcType=VARCHAR},
       Consume_Time = #{record.consumeTime,jdbcType=VARCHAR},
-      NewConsume_Time = #{record.newconsumeTime,jdbcType=VARCHAR}
+      NewConsume_Time = #{record.newconsumeTime,jdbcType=VARCHAR},
+      admin_Name = #{record.adminName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -229,6 +241,9 @@
       <if test="newconsumeTime != null">
         NewConsume_Time = #{newconsumeTime,jdbcType=VARCHAR},
       </if>
+      <if test="adminName != null">
+        admin_Name = #{adminName,jdbcType=VARCHAR},
+      </if>
     </set>
     where Consume_Id = #{consumeId,jdbcType=INTEGER}
   </update>
@@ -239,7 +254,8 @@
       Consume_State = #{consumeState,jdbcType=CHAR},
       User_Number = #{userNumber,jdbcType=VARCHAR},
       Consume_Time = #{consumeTime,jdbcType=VARCHAR},
-      NewConsume_Time = #{newconsumeTime,jdbcType=VARCHAR}
+      NewConsume_Time = #{newconsumeTime,jdbcType=VARCHAR},
+      admin_Name = #{adminName,jdbcType=VARCHAR}
     where Consume_Id = #{consumeId,jdbcType=INTEGER}
   </update>
 

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbtong.Dao.AdminMessageDao">
+  <resultMap id="BaseResultMap" type="com.bbtong.Pojo.AdminMessage">
+    <id column="admin_Message_Id" jdbcType="INTEGER" property="adminMessageId" />
+    <result column="user_Id" jdbcType="INTEGER" property="userId" />
+    <result column="admin_Message_Time" jdbcType="VARCHAR" property="adminMessageTime" />
+    <result column="admin_Message_Remark" jdbcType="VARCHAR" property="adminMessageRemark" />
+    <result column="admin_Id" jdbcType="INTEGER" property="adminId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    admin_Message_Id, user_Id, admin_Message_Time, admin_Message_Remark, admin_Id
+  </sql>
+  <select id="selectByExample" parameterType="com.bbtong.Pojo.AdminMessageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bbt_admin_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bbt_admin_message
+    where admin_Message_Id = #{adminMessageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bbt_admin_message
+    where admin_Message_Id = #{adminMessageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bbtong.Pojo.AdminMessageExample">
+    delete from bbt_admin_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="admin_Message_Id" keyProperty="adminMessageId" parameterType="com.bbtong.Pojo.AdminMessage" useGeneratedKeys="true">
+    insert into bbt_admin_message (user_Id, admin_Message_Time, admin_Message_Remark, 
+      admin_Id)
+    values (#{userId,jdbcType=INTEGER}, #{adminMessageTime,jdbcType=VARCHAR}, #{adminMessageRemark,jdbcType=VARCHAR}, 
+      #{adminId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="admin_Message_Id" keyProperty="adminMessageId" parameterType="com.bbtong.Pojo.AdminMessage" useGeneratedKeys="true">
+    insert into bbt_admin_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_Id,
+      </if>
+      <if test="adminMessageTime != null">
+        admin_Message_Time,
+      </if>
+      <if test="adminMessageRemark != null">
+        admin_Message_Remark,
+      </if>
+      <if test="adminId != null">
+        admin_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="adminMessageTime != null">
+        #{adminMessageTime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMessageRemark != null">
+        #{adminMessageRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bbtong.Pojo.AdminMessageExample" resultType="java.lang.Long">
+    select count(*) from bbt_admin_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bbt_admin_message
+    <set>
+      <if test="record.adminMessageId != null">
+        admin_Message_Id = #{record.adminMessageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminMessageTime != null">
+        admin_Message_Time = #{record.adminMessageTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminMessageRemark != null">
+        admin_Message_Remark = #{record.adminMessageRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminId != null">
+        admin_Id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bbt_admin_message
+    set admin_Message_Id = #{record.adminMessageId,jdbcType=INTEGER},
+      user_Id = #{record.userId,jdbcType=INTEGER},
+      admin_Message_Time = #{record.adminMessageTime,jdbcType=VARCHAR},
+      admin_Message_Remark = #{record.adminMessageRemark,jdbcType=VARCHAR},
+      admin_Id = #{record.adminId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bbtong.Pojo.AdminMessage">
+    update bbt_admin_message
+    <set>
+      <if test="userId != null">
+        user_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="adminMessageTime != null">
+        admin_Message_Time = #{adminMessageTime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMessageRemark != null">
+        admin_Message_Remark = #{adminMessageRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null">
+        admin_Id = #{adminId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where admin_Message_Id = #{adminMessageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bbtong.Pojo.AdminMessage">
+    update bbt_admin_message
+    set user_Id = #{userId,jdbcType=INTEGER},
+      admin_Message_Time = #{adminMessageTime,jdbcType=VARCHAR},
+      admin_Message_Remark = #{adminMessageRemark,jdbcType=VARCHAR},
+      admin_Id = #{adminId,jdbcType=INTEGER}
+    where admin_Message_Id = #{adminMessageId,jdbcType=INTEGER}
+  </update>
+</mapper>

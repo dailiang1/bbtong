@@ -48,6 +48,13 @@ public class UserController {
      */
     @ApiOperation(value = "用户登陆获取手机验证码", notes = "获取手机验证码", tags = "Note", httpMethod = "GET")
     @ApiImplicitParam(name = "userPhone", value = "用户的手机号", required = true, dataType = "int", paramType = "query")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = UserResult.class),
+            @ApiResponse(code = 300, message = "异常", response = UserResult.class),
+            @ApiResponse(code = 400, message = "失败", response = UserResult.class),
+            @ApiResponse(code = 500, message = "内部错误", response = UserResult.class),
+            @ApiResponse(code = 205, message = "当前用户没有注册", response = UserResult.class)
+    })
     @GetMapping(value = "/note", produces = "application/json")
     public @ResponseBody
     UserResult UserNote(String userPhone, HttpSession session, HttpServletRequest httpServletRequest) {

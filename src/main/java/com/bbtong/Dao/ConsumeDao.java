@@ -1,6 +1,5 @@
 package com.bbtong.Dao;
 
-import com.bbtong.Pojo.Beans;
 import com.bbtong.Pojo.Consume;
 import com.bbtong.Pojo.ConsumeExample;
 import java.util.List;
@@ -8,6 +7,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * 消费卡申请
+ */
 public interface ConsumeDao {
     long countByExample(ConsumeExample example);
 
@@ -72,4 +74,5 @@ public interface ConsumeDao {
      * @return
      */
     List<Consume> SelectQuery(Map map);
+
 }
