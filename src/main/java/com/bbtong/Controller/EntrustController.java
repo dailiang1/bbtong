@@ -549,7 +549,7 @@ public class EntrustController {
      * @param deliveryOrderId    表示当前还单信息id
      * @return 戴辆
      */
-    @ApiOperation(value = "大家 保险用户 确定用户还单的信息",tags = "大家保险用户 确定用户还单的信息",notes ="DaPutOrder",httpMethod = "GET")
+    @ApiOperation(value = "大家 保险用户 确定用户还单的信息",notes = "大家保险用户 确定用户还单的信息", tags="DaPutOrder",httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户的id", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "newEntrustId", value = "委托的id", required = true, dataType = "int", paramType = "query"),

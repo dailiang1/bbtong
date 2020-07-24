@@ -37,7 +37,6 @@ public class LoginFilter implements HandlerInterceptor {
         HttpSession session = request.getSession();
         //这个是自己定义的用户实体类
         SessionUser sessionUser = new SessionUser();
-        System.out.println(request.getSession().getAttribute("userId"));
         //在session中取出用户数据
         if (request.getSession().getAttribute("userId") == null) {
             Cookie loginCookie = getLoginCookie(request, "userName");

@@ -33,6 +33,28 @@
         <result column="User_Time" jdbcType="VARCHAR" property="userTime"/>
     </resultMap>
 
+    <!--管理员  查询委托对应的信息的映射-->
+    <resultMap id="BaseParticularsEntrust" type="com.bbtong.Base.ParticularsEntrust">
+        <id column="User_Id" jdbcType="INTEGER" property="userId"/>
+        <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
+        <result column="New_User_Id" jdbcType="VARCHAR" property="newUserId"/>
+        <result column="Finally_User_Id" jdbcType="INTEGER" property="finallyUserId"/>
+        <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
+        <result column="Entrust_Car_Brand" jdbcType="VARCHAR" property="entrustCarBrand"/>
+        <result column="Entrust_Address" jdbcType="VARCHAR" property="entrustAddress"/>
+        <result column="Entrust_Remark" jdbcType="VARCHAR" property="entrustRemark"/>
+        <result column="Entrust_Start_Time" jdbcType="VARCHAR" property="entrustStartTime"/>
+        <result column="Entrust_State" jdbcType="INTEGER" property="entrustState"/>
+        <result column="Entrust_Insure" jdbcType="VARCHAR" property="entrustInsure"/>
+        <result column="Entrust_Service_Charge" jdbcType="DOUBLE" property="entrustServiceCharge"/>
+        <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
+        <result column="Entrust_Return_Money" jdbcType="DOUBLE" property="entrustReturnMoney"/>
+        <result column="Entrust_Return_Time" jdbcType="INTEGER" property="entrustReturnTime"/>
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
+        <result column="new_Insurance_Company_Name" jdbcType="VARCHAR" property="newInsuranceCompanyName"/>
+    </resultMap>
+
     <!--管理员查看所有用户实体类的依赖-->
     <resultMap id="BaseAdminUser" type="com.bbtong.Base.AdminUser">
         <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
@@ -60,7 +82,42 @@
         <result column="admin_Password" jdbcType="VARCHAR" property="adminPassword"/>
         <result column="admin_Role_Id" jdbcType="INTEGER" property="adminRoleId"/>
         <result column="admin_Role_Name" jdbcType="VARCHAR" property="adminRoleName"/>
-        <result column="admin_State" jdbcType="INTEGER" property="adminState" />
+        <result column="admin_State" jdbcType="INTEGER" property="adminState"/>
+    </resultMap>
+
+    <!--管理员查询返回用户的对应信息-->
+    <resultMap id="BaseAdminCheckUser" type="com.bbtong.Base.AdminCheckUser">
+        <result column="User_Id" jdbcType="INTEGER" property="userId"/>
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="Insurance_Company_Name" jdbcType="INTEGER" property="insuranceCompanyName"/>
+        <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="User_Time" jdbcType="VARCHAR" property="userTime"/>
+    </resultMap>
+
+    <!--注册的时候 管理员 查询对应用户个人信息的方法的映射-->
+    <resultMap id="BaseLoginUser" type="com.bbtong.Base.AdminUser">
+        <result column="User_Id" jdbcType="INTEGER" property="userId"/>
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
+        <result column="Insurance_Company_Name" jdbcType="INTEGER" property="insuranceCompanyName"/>
+        <result column="User_Identity_Card" jdbcType="VARCHAR" property="userIdentityCard"/>
+        <result column="User_State" jdbcType="INTEGER" property="userState"/>
+        <result column="User_Number" jdbcType="VARCHAR" property="userNumber"/>
+        <result column="User_Address" jdbcType="VARCHAR" property="userAddress"/>
+        <result column="test_state" jdbcType="INTEGER" property="testState"/>
+    </resultMap>
+
+    <!--管理员 查询对应委托数据的映射-->
+    <resultMap id="BaseAdminEntrust" type="com.bbtong.Base.AdminEntrust">
+        <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
+        <result column="User_Id" jdbcType="INTEGER" property="userId"/>
+        <result column="User_Name" jdbcType="INTEGER" property="userName"/>
+        <result column="User_Phone" jdbcType="INTEGER" property="userPhone"/>
+        <result column="Insurance_Company_Id" jdbcType="INTEGER" property="insuranceCompanyId"/>
+        <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
+        <result column="Entrust_Start_Time" jdbcType="VARCHAR" property="entrustStartTime"/>
+        <result column="Entrust_Money" jdbcType="DOUBLE" property="entrustMoney"/>
+        <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
     </resultMap>
 
     <!--第一步 查询数据对应的条数-->
@@ -108,19 +165,56 @@
         </where>
     </select>
 
-    <!--查询对应用户的个人信息-->
-    <select id="GetUser" parameterType="map" resultMap="BaseResultMap">
+    <!--注册的时候 管理员 查询对应用户个人信息的方法的映射-->
+    <select id="GetUser" parameterType="map" resultMap="BaseLoginUser">
         select * from bbt_user where User_Id=#{userId}
     </select>
 
     <!--第一步 根据筛选的条件查询对应的用户条数-->
     <select id="GetNewUserNumber" parameterType="map" resultType="int">
-        select count(1) from bbt_user where #{endTime}>=User_Time>=#{startTime}
+        select count(1) from bbt_user where
+        <if test="userState != '' and userState != null">
+            and User_State=#{userState}
+        </if>
+        <if test="userName != '' and userName != null">
+            and User_Name=#{userName}
+        </if>
+        <if test="userPhone != '' and userPhone != null">
+            and User_Phone=#{userPhone}
+        </if>
+        <if test="insuranceCompanyId != '' and insuranceCompanyId != null">
+            and Insurance_Company_Id=#{insuranceCompanyId}
+        </if>
+        <if test="startTime != '' and startTime !=null">
+            and User_Time>=#{startTime}
+        </if>
+        <if test="endTime != '' and endTime != null">
+            and #{endTime}>=User_Time
+        </if>
     </select>
 
     <!--第二步 查询对筛选的数据-->
-    <select id="GetNewUser" parameterType="map" resultMap="BaseResultMap">
-        select * from bbt_user where #{endTime}>=User_Time>=#{startTime} order by User_Id desc limit #{start},#{end}
+    <select id="GetNewUser" parameterType="map" resultMap="BaseAdminCheckUser">
+        select * from bbt_user where
+        <if test="userState != '' and userState != null">
+            and User_State=#{userState}
+        </if>
+        <if test="userName != '' and userName != null">
+            and User_Name=#{userName}
+        </if>
+        <if test="userPhone != '' and userPhone != null">
+            and User_Phone=#{userPhone}
+        </if>
+        <if test="insuranceCompanyId != '' and insuranceCompanyId != null">
+            and Insurance_Company_Id=#{insuranceCompanyId}
+        </if>
+        <if test="startTime != '' and startTime !=null">
+            and User_Time>=#{startTime}
+        </if>
+        <if test="endTime != '' and endTime != null">
+            and #{endTime}>=User_Time
+        </if>
+        order by User_Id desc limit #{start},#{end}
     </select>
 
     <!--第一步 先修改用户的信息-->
@@ -193,8 +287,209 @@
         where Beans_Id#{beansId}
     </update>
 
-    <!--管理员查询总的委托数-->
+    <!--第一步 查询总的委托数-->
     <select id="getEntrustCount" resultType="int">
         select count(1) from  bbt_entrust
+    </select>
+
+    <!--第二步 查询总的委托人数-->
+    <select id="getUserCount" resultType="int">
+        select count(1) from bbt_user
+    </select>
+
+    <!--第三步 查询当天注册的用户-->
+    <select id="getnewUserCount" parameterType="map" resultType="int">
+        select count (1) from bbt_user where User_Time>=#{startTime} and #{endTime}>=User_Time
+    </select>
+
+    <!--第四步 查询当天发布的委托-->
+    <select id="getnewEntrustCount" parameterType="map" resultType="int">
+        select count(1) from  bbt_entrust where Entrust_Start_Time>=#{startTime} and #{endTime}>=Entrust_Start_Time
+    </select>
+
+    <!--第一步 将用户的信息进行修改-->
+    <select id="getLoginCheck" parameterType="map" resultType="int">
+        update bbt_user
+        <set>
+            <if test="testState != '' and testState != null">
+                test_state=#{testState},
+            </if>
+            <if test="userState != '' and userState != null">
+                User_State=#{userState},
+            </if>
+            where User_Id=#{userId}
+        </set>
+    </select>
+
+    <!--通过管理id查询管理员的所有信息-->
+    <select id="GetadminRoleId" parameterType="int" resultMap="BaseAdmin">
+        select * from bbt_admin where admin_Id=#{adminId}
+    </select>
+
+    <!--超级管理员 查询对应用户信息-->
+    <select id="getCheck" parameterType="int" resultMap="BaseResultMap">
+        select * from bbt_user where User_Id=#{userId}
+    </select>
+
+    <!--第一步 超级管理员修改用户的信息-->
+    <update id="putUser" parameterType="map">
+        update bbt_user
+        <set>
+            <if test="testState != null and testState != ''">
+                test_state=#{testState},
+            </if>
+            <if test="userState != null and userState != ''">
+                User_State=#{userState},
+            </if>
+            <if test="userMemberState != null and userMemberState != ''">
+                User_Member_State=#{userMemberState},
+                <if test="userMemberState ==1">
+                    User_ Member_Begin=#{userMemberBegin},User_ Member_Finish=#{userMemberFinish},
+                </if>
+            </if>
+            <if test="userTietong != null and userTietong != ''">
+                User_tietong=#{userTietong},
+            </if>
+            <if test="intentionState != null and intentionState !=''">
+                Intention_state=#{intentionState},
+            </if>
+            <if test="userOrderState != null and userOrderState != ''">
+                User_Order_State=#{userOrderState},
+            </if>
+        </set>
+        where User_Id=#{userId}
+    </update>
+
+    <!--第一步 管理员 查询所有委托的条数-->
+    <select id="getEntrustNumber" resultType="int">
+        select count (1) from bbt_entrust
+    </select>
+
+    <!--第二步 管理员 查询对应的委托数据-->
+    <select id="getEntrust" parameterType="map" resultMap="BaseAdminEntrust">
+        SELECT u.User_Name,u.User_Phone,ic.Insurance_Company_Name,e.license_Plate_Number,e.Entrust_Money,e.Entrust_Start_Time,u.User_Id,e.Entrust_Id FROM bbt_entrust e LEFT JOIN bbt_user u ON u.User_Id=e.User_Id LEFT JOIN bbt_insurance_company ic ON ic.Insurance_Company_Id=e.Insurance_Company_Id ORDER BY e.Entrust_Start_Time DESC limit #{start},#{end}
+    </select>
+
+    <!--管理员 查询委托对应的信息-->
+    <select id="getEntrustId" parameterType="map" resultMap="BaseParticularsEntrust">
+        SELECT u.User_Id,e.Entrust_Id,u.User_Name,e.New_User_Id,e.Finally_User_Id,u.Insurance_Company_Name,e.license_Plate_Number,ic.Insurance_Company_Name as new_Insurance_Company_Name,e.Entrust_Address,e.Entrust_Car_Brand,e.Entrust_State,e.Entrust_Start_Time,e.Entrust_Money,e.Entrust_Service_Charge,e.Entrust_Return_Money,e.Entrust_Return_Time,e.Entrust_Remark,e.Entrust_Insure FROM bbt_entrust e LEFT JOIN bbt_user u ON u.User_Id=e.User_Id LEFT JOIN bbt_insurance_company ic ON ic.Insurance_Company_Id=e.Insurance_Company_Id where e.Entrust_Id=#{entrustId}
+    </select>
+
+    <!--管理员 查询自己的信息-->
+    <select id="getAdminParticulars" parameterType="map" resultMap="BaseAdmin">
+        select * from  bbt_admin where  admin_Id=#{adminId}
+    </select>
+
+    <!--管理员修改信息 第一步 根据管理员的id查询管理员对应id-->
+    <select id="getadminPassword" parameterType="map" resultType="string">
+        select admin_Password from  bbt_admin where admin_Id=#{adminId}
+    </select>
+
+    <!--管理员修改信息 第二步 修改对应的信息-->
+    <update id="putAdminParticulars" parameterType="map">
+        update bbt_admin
+        <set>
+            <if test="adminName != null and adminName != ''">
+                admin_Name=#{adminName},
+            </if>
+            <if test="adminPhone != null and adminPhone != ''">
+                admin_Phoen=#{adminPhone},
+            </if>
+            <if test="adminPassword != null and adminPassword != ''">
+                admin_Password=#{adminPassword},
+            </if>
+            <if test="adminAccount != null and adminAccount != ''">
+                admin_Account=#{adminAccount},
+            </if>
+            <if test="adminPassword != null and adminPassword != ''">
+                admin_Password=#{adminPassword},
+            </if>
+        </set>
+        where admin_Id=#{adminId}
+    </update>
+
+    <!--超级管理员 管理管理员 第一步 先查询总的条数-->
+    <select id="getAdministrationCount" parameterType="map" resultType="int">
+        select * from bbt_admin where
+        <if test="adminName != null and adminName != ''">
+            and admin_Name=#{adminName}
+        </if>
+        <if test="adminPhone != null and adminPhone != ''">
+            and admin_Phone=#{adminPhone}
+        </if>
+        <if test="adminAccount != null and adminAccount != ''">
+            and admin_Account=#{adminAccount}
+        </if>
+    </select>
+
+    <!--超级管理员 管理管理员 第二步  查询对应的数据-->
+    <select id="getAdministration" parameterType="map" resultMap="BaseAdmin">
+        select * from bbt_admin where
+        <if test="adminName != null and adminName != ''">
+            and admin_Name=#{adminName}
+        </if>
+        <if test="adminPhone != null and adminPhone != ''">
+            and admin_Phone=#{adminPhone}
+        </if>
+        <if test="adminAccount != null and adminAccount != ''">
+            and admin_Account=#{adminAccount}
+        </if>
+        order by admin_Role_Id asc limit #{start},#{end}
+    </select>
+
+    <!--超级管理员 查询对应的管理员的id-->
+    <select id="getAdministratorMessage" parameterMap="map" resultMap="BaseAdmin">
+        select * from bbt_admin where admin_Id=#{adminId}
+    </select>
+
+    <!--第一步 超级管理员 修改对应的管理员信息-->
+    <update id="putAdministratorMessage" parameterType="map">
+        update bbt_admin
+        <set>
+            <if test="adminName != null and adminName != ''">
+                admin_Name=#{adminName},
+            </if>
+            <if test="adminPhone != null and adminPhone !=''">
+                admin_Phone=#{adminPhone},
+            </if>
+            <if test="adminAccount != null and adminAccount !=''">
+                admin_Account=#{adminAccount},
+            </if>
+            <if test="adminPassword != null and adminPassword !=''">
+                admin_Password=#{adminPassword},
+            </if>
+            <if test="adminRoleId != null and adminRoleId !=''">
+                admin_Role_Id=#{adminRoleId},
+            </if>
+            <if test="adminState != null and adminState != ''">
+                admin_State=#{adminState},
+            </if>
+        </set>
+        where admin_Id=#{newAdminId}
+    </update>
+
+    <!--第二步 将管理员修改用户信息的记录存起来-->
+    <insert id="newInsertAdminMessage" parameterType="map">
+        insert into bbt_admin_message(user_Id, admin_Message_Time, admin_Message_Remark, admin_Id) values (#{newAdminId},#{adminMessageTime},#{adminMessageRemark},#{adminId})
+    </insert>
+
+    <!--第一步 将注册的管理员信息存到数据库-->
+    <insert id="postAdmin" parameterType="map">
+        insert into bbt_admin(admin_Name, admin_Phone, admin_Account, admin_Password, admin_Role_Id, admin_Role_Name)values(#{adminName},#{adminPhone},#{adminAccount},#{adminPassword},#{adminRoleId},#{adminRoleName})
+    </insert>
+
+    <!--第二步 查询最新注册的管理员-->
+    <select id="selectAdminId" resultType="int">
+        select admin_Id from bbt_admin where order by desc limit 0,1;
+    </select>
+
+    <!--第一步 判断管理员的账号和密码是否正确-->
+    <select id="getAdminLogin" parameterType="map" resultType="int">
+        select count (1) from bbt_admin where admin_Account=#{adminAccount} and admin_Password=#{adminPassword}
+    </select>
+
+    <!--第二步 查询管理员对应的信息-->
+    <select id="getAdmin" parameterType="map" resultMap="BaseAdmin">
+        select * from bbt_admin where  admin_Account=#{adminAccount} and admin_Password=#{adminPassword}
     </select>
 </mapper>

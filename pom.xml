@@ -20,7 +20,6 @@
     </properties>
 
     <dependencies>
-
         <!--测试json问题的依赖-->
         <!--        <dependency>-->
         <!--            <groupId>com.fasterxml.jackson.core</groupId>-->
@@ -42,13 +41,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <!--            &lt;!&ndash; 移除嵌入式tomcat插件 &ndash;&gt;-->
-            <!--            <exclusions>-->
-            <!--                <exclusion>-->
-            <!--                    <groupId>org.springframework.boot</groupId>-->
-            <!--                    <artifactId>spring-boot-starter-tomcat</artifactId>-->
-            <!--                </exclusion>-->
-            <!--            </exclusions>-->
+<!--                        &lt;!&ndash; 移除嵌入式tomcat插件 &ndash;&gt;-->
+<!--                        <exclusions>-->
+<!--                            <exclusion>-->
+<!--                                <groupId>org.springframework.boot</groupId>-->
+<!--                                <artifactId>spring-boot-starter-tomcat</artifactId>-->
+<!--                            </exclusion>-->
+<!--                        </exclusions>-->
         </dependency>
 
         <!--添加fastjson依赖-->

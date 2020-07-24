@@ -38,7 +38,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 //        patterns.add("/swagger-resources/**");
 //        patterns.add("/user/*");
         registry.addInterceptor(loginFilter).addPathPatterns("/**")
-                .excludePathPatterns("/user/login", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/v2/api-docs", "/user/*", "/insurance/select", "/client/add", "/entrust/have", "/entrust/add","/entrust/useralso","/client/clientredact");
+                .excludePathPatterns("/user/login", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/v2/api-docs", "/user/*", "/insurance/select", "/client/add", "/entrust/have", "/entrust/add", "/entrust/useralso", "/client/clientredact", "/admin/*");
     }
 
 }
