@@ -72,7 +72,7 @@ public class AdministratorController {
     }
 
     /**
-     * 查询对应用户个人信息的方法
+     * 注册的时候 查询对应用户个人信息的方法
      *
      * @param userId 用户的id
      * @return 戴辆
@@ -88,7 +88,7 @@ public class AdministratorController {
             @ApiResponse(code = 300, message = "当前异常", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @GetMapping(value = "/getUser", produces = "application/json")
+    @GetMapping(value = "/getuser", produces = "application/json")
     public @ResponseBody
     Result getUser(Integer userId, Integer adminRoleId) {
         //创建返回数据的实体类
@@ -155,7 +155,7 @@ public class AdministratorController {
             userState = 1;
         }
         //判断页数是不是为空，如果页数为空的话，则将页数赋值为1
-        if (index == null) {
+        if (index == null || index < 1) {
             index = 1;
         }
         //接受serviceImpl返回的实体
@@ -185,7 +185,7 @@ public class AdministratorController {
             @ApiResponse(code = 200, message = "成功", response = Result.class),
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 300, message = "当前异常", response = Result.class),
-            @ApiResponse(code = 500, message = "颞部错误", response = Result.class),
+            @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
     @GetMapping(value = "/postusercheck", produces = "application/json")
     public @ResponseBody
@@ -260,6 +260,7 @@ public class AdministratorController {
             result.setMessage("当前异常");
             return result;
         }
+
         //接受service层传来的数据
         result = administratorService.getCheckConsume(consumeId, adminId, index);
         return result;
@@ -373,7 +374,7 @@ public class AdministratorController {
     }
 
     /**
-     * 超级管理员查看和修改用户信息
+     * 超级管理员 查询对应的用户信息
      *
      * @param userId  用户id
      * @param adminId 管理员的id
@@ -417,7 +418,7 @@ public class AdministratorController {
     }
 
     /**
-     * 超级管理员修改用户的信息(在用户信息出现错误的情况下)
+     * 超级管理员修改 对应用户的信息(在用户信息出现错误的情况下)
      *
      * @param userId          用户的id
      * @param testState       确认信息(做成一个捆绑)
@@ -483,6 +484,16 @@ public class AdministratorController {
      * @param index   当前的页数
      * @return 戴辆
      */
+    @ApiOperation(value = "管理员 查询所有的委托", notes = "管理员 查询所有委托的方法", tags = "getEntrust", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "adminId", value = "表示管理员的id(用来判断管理员是否有这个权限)", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "index", value = "当前的页数", required = false, dataType = "int", paramType = "query"),
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultPage.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
+    })
     @GetMapping(value = "/getentrust")
     public @ResponseBody
     ResultPage getEntrust(Integer adminId, Integer index) {
@@ -546,7 +557,7 @@ public class AdministratorController {
     }
 
     /**
-     * 管理员 查询自己的信息
+     * 管理员 查询自己的个人信息
      *
      * @param adminId 管理员的id
      * @return 戴辆
@@ -654,6 +665,10 @@ public class AdministratorController {
             resultPage.setCode(300);
             resultPage.setMessage("当前异常");
             return resultPage;
+        }
+        //判断页数是不是为空，如果页数为空的话，则将页数赋值为1
+        if (index == null || index < 1) {
+            index = 1;
         }
         //第一步 判断用户的权限和传进来的权限id是否一致
         int newAdminRoleId = administratorService.GetadminRoleId(adminId);
@@ -793,7 +808,7 @@ public class AdministratorController {
      */
     @ApiOperation(value = "注册管理员", notes = "超级管理员 注册管理员的方法", tags = "postAdmin", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "adminId", value = "超级管理员的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "adminId", value = "超级管理员的id", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "adminName", value = "管理员的姓名", required = true, dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "adminAccount", value = "管理员的账号", required = true, dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "adminPhone", value = "管理员的电话", required = true, dataType = "string", paramType = "query"),
@@ -808,7 +823,7 @@ public class AdministratorController {
     })
     @PostMapping(value = "/postadmin", produces = "application/json")
     public @ResponseBody
-    Result postAdmin(@RequestParam("admin") Admin admin) {
+    Result postAdmin(@RequestParam(value = "admin",required = false) Admin admin) {
         //创建Result的实体来操作数据
         Result result = new Result();
         //判断admin中的数据 是不是为空
@@ -916,6 +931,21 @@ public class AdministratorController {
             result.setCode(400);
             result.setMessage("失败");
         }
+        return result;
+    }
+
+    /**
+     * 查询所有管理权限的信息
+     * @return
+     */
+    @ApiOperation(value = "查询所有权限的信息",notes = "查询所有权限信息的方法",tags = "getAdminRole",httpMethod = "GET")
+    @GetMapping(value = "/getadminrole", produces = "application/json")
+    public @ResponseBody
+    Result getAdminRole() {
+        //创建Result的实体来接受数据
+        Result result = new Result();
+        //接受service层的数据
+        result = administratorService.getAdminRole();
         return result;
     }
 }

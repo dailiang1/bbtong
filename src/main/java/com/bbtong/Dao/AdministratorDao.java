@@ -2,6 +2,7 @@ package com.bbtong.Dao;
 
 import com.bbtong.Base.*;
 import com.bbtong.Pojo.Admin;
+import com.bbtong.Pojo.AdminRole;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Pojo.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -276,4 +277,11 @@ public interface AdministratorDao {
      * @return 戴辆
      */
     Admin getAdmin(Map map);
+
+    /**
+     * 查询所有管理员权限的信息
+     *
+     * @return 戴辆
+     */
+    List<AdminRole> getAdminRole();
 }

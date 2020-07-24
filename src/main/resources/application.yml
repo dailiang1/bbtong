@@ -6,7 +6,7 @@ spring:
     time-zone: GMT+8
   datasource:
 #    url: jdbc:mysql://www.dwhlzchb.com:3306/bbt_db?createDatabaseIfNotExist=true&useSSL=false
-    url: jdbc:mysql://localhost:3306/baobaotong
+    url: jdbc:mysql://localhost:3306/bbt_db
     username: root
     password: root123
     driver-class-name: com.mysql.jdbc.Driver

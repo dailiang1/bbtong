@@ -217,4 +217,10 @@ public interface AdministratorService {
      */
     LoginResult getAdminLogin(String adminAccount, String adminPassword);
 
+    /**
+     * 查询所有权限的信息
+     *
+     * @return 戴辆
+     */
+    Result getAdminRole();
 }

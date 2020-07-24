@@ -3,6 +3,7 @@ package com.bbtong.Service.Impl;
 import com.bbtong.Base.*;
 import com.bbtong.Dao.AdministratorDao;
 import com.bbtong.Pojo.Admin;
+import com.bbtong.Pojo.AdminRole;
 import com.bbtong.Pojo.Entrust;
 import com.bbtong.Pojo.User;
 import com.bbtong.Service.AdministratorService;
@@ -443,7 +444,7 @@ public class AdministratorServiceImpl implements AdministratorService {
             //编码10001代表用户不存在
             adminRoleId = 10001;
         } else if (admin.getAdminRoleId() == 1) {//判断返回的管理员权限id，是不是1，如果不是1的话则说明数据权限不够
-            adminId = admin.getAdminRoleId();
+            adminRoleId = admin.getAdminRoleId();
         } else {
             //如果权限不为1的话 就将权限id赋值给参数， 然后返回给controller层
             adminRoleId = admin.getAdminRoleId();
@@ -761,7 +762,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         //默认一页显示10条数据
         resultPage.setSize(10);
         try {
-            //第一步  先查询总的调试
+            //第一步  先查询总的条数
             Integer count = administratorDao.getAdministrationCount(map);
             //计算总的页数
             resultPage.setPageCount((int) Math.ceil((double) count / resultPage.getSize()));
@@ -968,4 +969,35 @@ public class AdministratorServiceImpl implements AdministratorService {
         return loginResult;
 
     }
+
+    /**
+     * 查询所有权限的 信息
+     *
+     * @return 戴辆
+     */
+    @Override
+    public Result getAdminRole() {
+        //创建Result的实体来存储数据
+        Result result = new Result();
+        try {
+            //创建对应的实体来存储数据
+            List<AdminRole> adminRoleList = administratorDao.getAdminRole();
+            if (adminRoleList != null) {
+                result.setCode(200);
+                result.setMessage("成功");
+                result.setData(adminRoleList);//将数据存到实体中
+            } else {
+                result.setCode(400);
+                result.setMessage("失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            result.setCode(300);
+            result.setMessage("出现异常");
+        }
+        return result;
+    }
+
+
 }

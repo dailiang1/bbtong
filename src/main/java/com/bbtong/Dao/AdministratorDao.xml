@@ -120,6 +120,11 @@
         <result column="Insurance_Company_Name" jdbcType="VARCHAR" property="insuranceCompanyName"/>
     </resultMap>
 
+    <!--查询所有管理权限的信息-->
+    <resultMap id="BaseAdminRelo" type="com.bbtong.Pojo.AdminRole">
+        <id column="admin_Role_Id" jdbcType="INTEGER" property="adminRoleId" />
+        <result column="admin_Role_Name" jdbcType="VARCHAR" property="adminRoleName" />
+    </resultMap>
     <!--第一步 查询数据对应的条数-->
     <select id="getAllUserNumber" parameterType="map" resultType="int">
         select count(1) from bbt_user
@@ -410,35 +415,39 @@
 
     <!--超级管理员 管理管理员 第一步 先查询总的条数-->
     <select id="getAdministrationCount" parameterType="map" resultType="int">
-        select * from bbt_admin where
-        <if test="adminName != null and adminName != ''">
-            and admin_Name=#{adminName}
-        </if>
-        <if test="adminPhone != null and adminPhone != ''">
-            and admin_Phone=#{adminPhone}
-        </if>
-        <if test="adminAccount != null and adminAccount != ''">
-            and admin_Account=#{adminAccount}
-        </if>
+        select * from bbt_admin
+        <where>
+            <if test="adminName != null and adminName != ''">
+                and admin_Name=#{adminName}
+            </if>
+            <if test="adminPhone != null and adminPhone != ''">
+                and admin_Phone=#{adminPhone}
+            </if>
+            <if test="adminAccount != null and adminAccount != ''">
+                and admin_Account=#{adminAccount}
+            </if>
+        </where>
     </select>
 
     <!--超级管理员 管理管理员 第二步  查询对应的数据-->
     <select id="getAdministration" parameterType="map" resultMap="BaseAdmin">
-        select * from bbt_admin where
-        <if test="adminName != null and adminName != ''">
-            and admin_Name=#{adminName}
-        </if>
-        <if test="adminPhone != null and adminPhone != ''">
-            and admin_Phone=#{adminPhone}
-        </if>
-        <if test="adminAccount != null and adminAccount != ''">
-            and admin_Account=#{adminAccount}
-        </if>
+        select * from bbt_admin
+        <where>
+            <if test="adminName != null and adminName != ''">
+                and admin_Name=#{adminName}
+            </if>
+            <if test="adminPhone != null and adminPhone != ''">
+                and admin_Phone=#{adminPhone}
+            </if>
+            <if test="adminAccount != null and adminAccount != ''">
+                and admin_Account=#{adminAccount}
+            </if>
+        </where>
         order by admin_Role_Id asc limit #{start},#{end}
     </select>
 
     <!--超级管理员 查询对应的管理员的id-->
-    <select id="getAdministratorMessage" parameterMap="map" resultMap="BaseAdmin">
+    <select id="getAdministratorMessage" parameterType="map" resultMap="BaseAdmin">
         select * from bbt_admin where admin_Id=#{adminId}
     </select>
 
@@ -485,11 +494,15 @@
 
     <!--第一步 判断管理员的账号和密码是否正确-->
     <select id="getAdminLogin" parameterType="map" resultType="int">
-        select count (1) from bbt_admin where admin_Account=#{adminAccount} and admin_Password=#{adminPassword}
+        select count(1) from bbt_admin where admin_Account=#{adminAccount} and admin_Password=#{adminPassword}
     </select>
 
     <!--第二步 查询管理员对应的信息-->
     <select id="getAdmin" parameterType="map" resultMap="BaseAdmin">
         select * from bbt_admin where  admin_Account=#{adminAccount} and admin_Password=#{adminPassword}
+    </select>
+
+    <select id="getAdminRole" resultMap="BaseAdminRelo">
+        select * from bbt_admin_role
     </select>
 </mapper>
