@@ -95,7 +95,7 @@
     </resultMap>
 
     <!--注册的时候 管理员 查询对应用户个人信息的方法的映射-->
-    <resultMap id="BaseLoginUser" type="com.bbtong.Base.AdminUser">
+    <resultMap id="BaseLoginUser" type="com.bbtong.Base.LoginUser">
         <result column="User_Id" jdbcType="INTEGER" property="userId"/>
         <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
         <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
@@ -111,8 +111,8 @@
     <resultMap id="BaseAdminEntrust" type="com.bbtong.Base.AdminEntrust">
         <id column="Entrust_Id" jdbcType="INTEGER" property="entrustId"/>
         <result column="User_Id" jdbcType="INTEGER" property="userId"/>
-        <result column="User_Name" jdbcType="INTEGER" property="userName"/>
-        <result column="User_Phone" jdbcType="INTEGER" property="userPhone"/>
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="User_Phone" jdbcType="VARCHAR" property="userPhone"/>
         <result column="Insurance_Company_Id" jdbcType="INTEGER" property="insuranceCompanyId"/>
         <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
         <result column="Entrust_Start_Time" jdbcType="VARCHAR" property="entrustStartTime"/>
@@ -122,9 +122,36 @@
 
     <!--查询所有管理权限的信息-->
     <resultMap id="BaseAdminRelo" type="com.bbtong.Pojo.AdminRole">
-        <id column="admin_Role_Id" jdbcType="INTEGER" property="adminRoleId" />
-        <result column="admin_Role_Name" jdbcType="VARCHAR" property="adminRoleName" />
+        <id column="admin_Role_Id" jdbcType="INTEGER" property="adminRoleId"/>
+        <result column="admin_Role_Name" jdbcType="VARCHAR" property="adminRoleName"/>
     </resultMap>
+
+    <!--查询对应消费卡的映射-->
+    <resultMap id="BaseAllConsume" type="com.bbtong.Base.AllConsume">
+        <id column="Consume_Id" jdbcType="INTEGER" property="consumeId"/>
+        <result column="User_id" jdbcType="INTEGER" property="userId"/>
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="Consume_number" jdbcType="VARCHAR" property="consumeNumber"/>
+        <result column="Consume_State" jdbcType="CHAR" property="consumeState"/>
+        <result column="User_Number" jdbcType="VARCHAR" property="userNumber"/>
+        <result column="Consume_Time" jdbcType="VARCHAR" property="consumeTime"/>
+        <result column="NewConsume_Time" jdbcType="VARCHAR" property="newconsumeTime"/>
+        <result column="admin_Name" jdbcType="VARCHAR" property="adminName"/>
+    </resultMap>
+
+    <!--查询对应的和豆申请的记录的映射-->
+    <resultMap id="BaseResultMap" type="com.bbtong.Pojo.Beans">
+        <id column="Beans_Id" jdbcType="INTEGER" property="beansId"/>
+        <result column="User_id" jdbcType="INTEGER" property="userId"/>
+        <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="Card_Number" jdbcType="VARCHAR" property="cardNumber"/>
+        <result column="Beans_State" jdbcType="CHAR" property="beansState"/>
+        <result column="User_Number" jdbcType="VARCHAR" property="userNumber"/>
+        <result column="Beans_Time" jdbcType="VARCHAR" property="beansTime"/>
+        <result column="NewBeans_Time" jdbcType="VARCHAR" property="newbeansTime"/>
+        <result column="admin_Name" jdbcType="VARCHAR" property="adminName"/>
+    </resultMap>
+
     <!--第一步 查询数据对应的条数-->
     <select id="getAllUserNumber" parameterType="map" resultType="int">
         select count(1) from bbt_user
@@ -177,48 +204,52 @@
 
     <!--第一步 根据筛选的条件查询对应的用户条数-->
     <select id="GetNewUserNumber" parameterType="map" resultType="int">
-        select count(1) from bbt_user where
-        <if test="userState != '' and userState != null">
-            and User_State=#{userState}
-        </if>
-        <if test="userName != '' and userName != null">
-            and User_Name=#{userName}
-        </if>
-        <if test="userPhone != '' and userPhone != null">
-            and User_Phone=#{userPhone}
-        </if>
-        <if test="insuranceCompanyId != '' and insuranceCompanyId != null">
-            and Insurance_Company_Id=#{insuranceCompanyId}
-        </if>
-        <if test="startTime != '' and startTime !=null">
-            and User_Time>=#{startTime}
-        </if>
-        <if test="endTime != '' and endTime != null">
-            and #{endTime}>=User_Time
-        </if>
+        select count(1) from bbt_user
+        <where>
+            <if test="userState != '' and userState != null">
+                and User_State=#{userState}
+            </if>
+            <if test="userName != '' and userName != null">
+                and User_Name=#{userName}
+            </if>
+            <if test="userPhone != '' and userPhone != null">
+                and User_Phone=#{userPhone}
+            </if>
+            <if test="insuranceCompanyId != '' and insuranceCompanyId != null">
+                and Insurance_Company_Id=#{insuranceCompanyId}
+            </if>
+            <if test="startTime != '' and startTime !=null">
+                and User_Time>=#{startTime}
+            </if>
+            <if test="endTime != '' and endTime != null">
+                and #{endTime}>=User_Time
+            </if>
+        </where>
     </select>
 
     <!--第二步 查询对筛选的数据-->
     <select id="GetNewUser" parameterType="map" resultMap="BaseAdminCheckUser">
-        select * from bbt_user where
-        <if test="userState != '' and userState != null">
-            and User_State=#{userState}
-        </if>
-        <if test="userName != '' and userName != null">
-            and User_Name=#{userName}
-        </if>
-        <if test="userPhone != '' and userPhone != null">
-            and User_Phone=#{userPhone}
-        </if>
-        <if test="insuranceCompanyId != '' and insuranceCompanyId != null">
-            and Insurance_Company_Id=#{insuranceCompanyId}
-        </if>
-        <if test="startTime != '' and startTime !=null">
-            and User_Time>=#{startTime}
-        </if>
-        <if test="endTime != '' and endTime != null">
-            and #{endTime}>=User_Time
-        </if>
+        select * from bbt_user
+        <where>
+            <if test="userState != '' and userState != null">
+                and User_State=#{userState}
+            </if>
+            <if test="userName != '' and userName != null">
+                and User_Name=#{userName}
+            </if>
+            <if test="userPhone != '' and userPhone != null">
+                and User_Phone=#{userPhone}
+            </if>
+            <if test="insuranceCompanyId != '' and insuranceCompanyId != null">
+                and Insurance_Company_Id=#{insuranceCompanyId}
+            </if>
+            <if test="startTime != '' and startTime !=null">
+                and User_Time>=#{startTime}
+            </if>
+            <if test="endTime != '' and endTime != null">
+                and #{endTime}>=User_Time
+            </if>
+        </where>
         order by User_Id desc limit #{start},#{end}
     </select>
 
@@ -304,7 +335,7 @@
 
     <!--第三步 查询当天注册的用户-->
     <select id="getnewUserCount" parameterType="map" resultType="int">
-        select count (1) from bbt_user where User_Time>=#{startTime} and #{endTime}>=User_Time
+        select count(1) from bbt_user where User_Time>=#{startTime} and #{endTime}>=User_Time
     </select>
 
     <!--第四步 查询当天发布的委托-->
@@ -313,7 +344,7 @@
     </select>
 
     <!--第一步 将用户的信息进行修改-->
-    <select id="getLoginCheck" parameterType="map" resultType="int">
+    <update id="getLoginCheck" parameterType="map">
         update bbt_user
         <set>
             <if test="testState != '' and testState != null">
@@ -322,9 +353,9 @@
             <if test="userState != '' and userState != null">
                 User_State=#{userState},
             </if>
-            where User_Id=#{userId}
         </set>
-    </select>
+        where User_Id=#{userId}
+    </update>
 
     <!--通过管理id查询管理员的所有信息-->
     <select id="GetadminRoleId" parameterType="int" resultMap="BaseAdmin">
@@ -367,7 +398,7 @@
 
     <!--第一步 管理员 查询所有委托的条数-->
     <select id="getEntrustNumber" resultType="int">
-        select count (1) from bbt_entrust
+        select count(1) from bbt_entrust
     </select>
 
     <!--第二步 管理员 查询对应的委托数据-->
@@ -398,7 +429,7 @@
                 admin_Name=#{adminName},
             </if>
             <if test="adminPhone != null and adminPhone != ''">
-                admin_Phoen=#{adminPhone},
+                admin_Phone=#{adminPhone},
             </if>
             <if test="adminPassword != null and adminPassword != ''">
                 admin_Password=#{adminPassword},
@@ -415,7 +446,7 @@
 
     <!--超级管理员 管理管理员 第一步 先查询总的条数-->
     <select id="getAdministrationCount" parameterType="map" resultType="int">
-        select * from bbt_admin
+        select count(1) from bbt_admin
         <where>
             <if test="adminName != null and adminName != ''">
                 and admin_Name=#{adminName}
@@ -489,7 +520,7 @@
 
     <!--第二步 查询最新注册的管理员-->
     <select id="selectAdminId" resultType="int">
-        select admin_Id from bbt_admin where order by desc limit 0,1;
+        select admin_Id from bbt_admin order by admin_Id desc limit 0,1
     </select>
 
     <!--第一步 判断管理员的账号和密码是否正确-->
@@ -502,7 +533,82 @@
         select * from bbt_admin where  admin_Account=#{adminAccount} and admin_Password=#{adminPassword}
     </select>
 
+    <!--查询对应的管理员的权限-->
     <select id="getAdminRole" resultMap="BaseAdminRelo">
         select * from bbt_admin_role
+    </select>
+
+    <!--查询对应的委托 第一步 先查询总的条数-->
+    <select id="getScreenEntrustNumber" parameterType="map" resultType="int">
+        select count(1) from bbt_user u left join bbt_entrust e on u.User_Id=e.User_Id left join bbt_insurance_company
+        ic on e.Insurance_Company_Id=ic.Insurance_Company_Id
+        <where>
+            <if test="entrustState != null and entrustState != ''">
+                and e.Entrust_State=#{entrustState}
+            </if>
+            <if test="insuranceCompanyId != null and insuranceCompanyId != ''">
+                and e.Insurance_Company_Id=#{insuranceCompanyId}
+            </if>
+            <if test="licensePlateNumber != null and licensePlateNumber != ''">
+                and e.license_Plate_Number=#{licensePlateNumber}
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                and u.User_Phone=#{userPhone}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and e.Entrust_Start_Time>=#{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and #{endTime}>=e.Entrust_Start_Time
+            </if>
+        </where>
+    </select>
+
+    <!--查询对应的委托 第二步 根据对应的条件查询的对应的委托-->
+    <select id="getScreenEntrust" parameterType="map" resultMap="BaseAdminEntrust">
+        SELECT
+        u.User_Name,u.User_Phone,ic.Insurance_Company_Name,e.license_Plate_Number,e.Entrust_Money,e.Entrust_Start_Time,u.User_Id,e.Entrust_Id
+        from bbt_user u left join bbt_entrust e on u.User_Id=e.User_Id left join bbt_insurance_company
+        ic on e.Insurance_Company_Id=ic.Insurance_Company_Id
+        <where>
+            <if test="entrustState != null and entrustState != ''">
+                and e.Entrust_State=#{entrustState}
+            </if>
+            <if test="insuranceCompanyId != null and insuranceCompanyId != ''">
+                and e.Insurance_Company_Id=#{insuranceCompanyId}
+            </if>
+            <if test="licensePlateNumber != null and licensePlateNumber != ''">
+                and e.license_Plate_Number=#{licensePlateNumber}
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                and u.User_Phone=#{userPhone}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and e.Entrust_Start_Time>=#{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and #{endTime}>=e.Entrust_Start_Time
+            </if>
+        </where>
+        limit #{start},#{end}
+    </select>
+
+    <!--第一步 查询对应状态的消费卡条数-->
+    <select id="getAllConsumeNumber" parameterType="map" resultType="int">
+        select count(1) from bbt_consume where Consume_State=#{consumeState}
+    </select>
+
+    <!--第二步 查询对应状态的消费卡数据-->
+    <select id="getAllConsume" parameterType="map" resultMap="BaseAllConsume">
+        select c.*,u.User_Name from bbt_consume c  left join bbt_user u on c.User_id=u.User_Id where c.Consume_State=#{consumeState}
+    </select>
+
+    <!--第一步 查询对应状态的和豆申请-->
+    <select id="getAllBeansNumber" parameterType="map" resultType="int">
+        select count(1) from bbt_beans where Beans_State=#{beansState}
+    </select>
+
+    <select id="getALLBeans" parameterType="map" resultMap="BaseResultMap">
+        select b.*,u.User_Name from bbt_beans b left join bbt_user u on b.User_id=u.User_Id where b.Beans_State#{beansState}
     </select>
 </mapper>

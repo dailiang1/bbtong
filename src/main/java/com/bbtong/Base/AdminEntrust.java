@@ -15,13 +15,13 @@ public class AdminEntrust {
     /**
      * 发布委托人的姓名
      */
-    private Integer userName;
+    private String userName;
 
     /**
      * 发布委托人的电话
      */
-    private Integer userPhone;
-
+    private String userPhone;
+    
     /**
      * 指定对应要出的保单公司(可以为空) 默认是1表示所有公司
      */
@@ -30,7 +30,7 @@ public class AdminEntrust {
     /**
      * 指定对应要出的保单公司(可以为空)
      */
-    private Integer insuranceCompanyName;
+    private String insuranceCompanyName;
 
     /**
      * 必填选项，车牌号码

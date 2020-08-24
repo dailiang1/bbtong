@@ -588,13 +588,70 @@ public class AdministratorServiceImpl implements AdministratorService {
             resultPage.setSize(size);
             resultPage.setCount(count);
             resultPage.setIndex(index);
+            resultPage.setData(adminEntrustList);
         } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             resultPage.setCode(500);
             resultPage.setMessage("内部错误");
         }
-        return null;
+        return resultPage;
+    }
+
+    /**
+     * 查询对应的委托的方法
+     *
+     * @param adminId            管理员id
+     * @param entrustState       委托的状态
+     * @param insuranceCompanyId 保险公司的id
+     * @param licensePlateNumber 车牌号
+     * @param userPhone          委托人电话
+     * @param startTime          委托开始的时间
+     * @param endTime            委托结束的时间
+     * @param index              当前的页的页数
+     * @return 戴辆
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public ResultPage getScreenEntrust(Integer adminId, Integer entrustState, Integer insuranceCompanyId, String licensePlateNumber, String userPhone, String startTime, String endTime, Integer index) {
+        //创建对应的实体类来存储和接受数据
+        ResultPage resultPage = new ResultPage();
+        //创建map函数来存储数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("entrustState", entrustState);//委托对应的状态
+        map.put("insuranceCompanyId", insuranceCompanyId);//委托的保险公司的id
+        map.put("licensePlateNumber", licensePlateNumber);//委托的对应的车牌号
+        map.put("userPhone", userPhone);//委托用户的手机号码
+        map.put("startTime", startTime);//委托开始的时间的
+        map.put("endTime", endTime);//委托结束的时间
+        resultPage.setSize(10);//每页显示十条数据
+        //用try catch 来捕获异常
+        try {
+            //第一步 查询对应的委托的条数
+            Integer count = administratorDao.getScreenEntrustNumber(map);
+            resultPage.setCount(count);//将总的条数存到实体中
+            //第二步 计算总的页数 利用总条数/每页显示的页数向下取整
+            resultPage.setPageCount((int) Math.ceil((double) resultPage.getCount() / resultPage.getSize()));
+            //第三步 判断当前的页数是不是大于总页数
+            if (index >= resultPage.getPageCount()) {
+                map.put("start", (resultPage.getPageCount() - 1) * resultPage.getSize());//显示多少条到多少条的数据
+            } else {
+                map.put("start", (index - 1) * resultPage.getSize());//当前页的页数是多少
+            }
+            map.put("end", resultPage.getSize());//一页显示的条数
+            //第四步 查询对应的数据
+            List<AdminEntrust> adminEntrustList = administratorDao.getScreenEntrust(map);
+            resultPage.setCode(200);
+            resultPage.setMessage("查询成功");
+            resultPage.setIndex(index);
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            resultPage.setCode(500);
+            resultPage.setMessage("出现错误");
+            return resultPage;
+        }
+        return resultPage;
     }
 
     /**
@@ -706,7 +763,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         map.put("adminPhone", adminPhone);//将管理员的电话存到map中
         map.put("adminAccount", adminAccount);//将管理员的账号存到map中
         try {
-            if (adminPassword != null) {
+            if (adminPassword != null && adminPassword != "") {
                 //第一步 根据管理员的id 查询管理员密码 来判断管理员输入的密码是是否正确
                 String password = administratorDao.getadminPassword(map);
                 //将管理员输入的密码 进行md5加密之后和查询的密码比较
@@ -725,6 +782,16 @@ public class AdministratorServiceImpl implements AdministratorService {
                 } else {
                     result.setCode(300);
                     result.setMessage("密码错误");
+                }
+            } else {
+                Integer zhi = administratorDao.putAdminParticulars(map);
+                //判断有没有修改成功。如果没有修改成功的话就事务回滚
+                if (zhi != null) {
+                    result.setCode(200);
+                    result.setMessage("成功");
+                } else {
+                    result.setCode(400);
+                    result.setMessage("失败");
                 }
             }
         } catch (Exception e) {
@@ -897,6 +964,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         map.put("adminAccount", admin.getAdminAccount());//将管理员的账号存到map中
         map.put("adminRoleId", admin.getAdminRoleId());//管理员的权限
         map.put("adminRoleName", admin.getAdminRoleId() == 1 ? "超级管理员" : admin.getAdminRoleId() == 2 ? "高级管理员" : admin.getAdminRoleId() == 3 ? "中级管理员" : admin.getAdminRoleId() == 4 ? "低级管理员" : "管理员");
+        map.put("adminId", admin);//将超级管理员的id存到map中
         try {
             //第一步 将管理员的信息添加到数据库中去
             int addAdmin = administratorDao.postAdmin(map);
@@ -999,5 +1067,93 @@ public class AdministratorServiceImpl implements AdministratorService {
         return result;
     }
 
+    /**
+     * 查询对应的消费卡的数据
+     *
+     * @param adminId      管理员的id
+     * @param index        当前页的页数
+     * @param consumeState 对应查询的数据 0 表示待审核，1表示审核成功，2表示审核失败
+     * @return 戴辆
+     */
+    @Override
+    public ResultPage getAllConsume(Integer adminId, Integer index, Integer consumeState) {
+        //创建对应的实体来接受对应的数据
+        ResultPage resultPage = new ResultPage();
+        //创建map函数来接受和存储数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("consumeState", consumeState);//消费卡申请的状态
+        resultPage.setSize(10);//一页显示多少数据
+        //用try catch 来捕获异常
+        try {
+            //第一步 通过条件 来查询对应的条数
+            Integer count = administratorDao.getAllConsumeNumber(map);
+            //将数据存到实体中
+            resultPage.setCount(count);
+            //计算对应总页数
+            resultPage.setPageCount((int) Math.ceil((double) resultPage.getCount() / resultPage.getSize()));
+            //第三步 判断当前的页数是不是大于总页数
+            if (index >= resultPage.getPageCount()) {
+                map.put("start", (resultPage.getPageCount() - 1) * resultPage.getSize());//显示多少条到多少条的数据
+            } else {
+                map.put("start", (index - 1) * resultPage.getSize());//当前页的页数是多少
+            }
+            map.put("end", resultPage.getSize());//一页显示的条数
+            //查询对应的状态的消费卡数据
+            List<AllConsume> allConsumeList = administratorDao.getAllConsume(map);
+            resultPage.setCode(200);
+            resultPage.setMessage("查询成功");
+            resultPage.setData(allConsumeList);//将数据存到对应的实体中
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            resultPage.setCode(500);
+            resultPage.setMessage("出现异常");
+            return resultPage;
+        }
+        return resultPage;
+    }
 
+    /**
+     * 查询对应的和豆申请的数据
+     *
+     * @param adminId    管理员id
+     * @param index      表示当前的页数
+     * @param beansState 表示和豆申请的状态 0表示待审核，1表示审核成功，2表示信息错误
+     * @return 戴辆
+     */
+    @Override
+    public ResultPage getAllBeans(Integer adminId, Integer index, Integer beansState) {
+        //创建对应的实体类来存储数据
+        ResultPage resultPage = new ResultPage();
+        //创建map函数来存储数据
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("beanState", beansState);//将对应的状态存到map中
+        resultPage.setSize(10);//一页显示多少数据
+        try {
+            //第一步 查询对应状态的和豆申请条数
+            Integer count = administratorDao.getAllBeansNumber(map);
+            //将数据存到实体中
+            resultPage.setCount(count);
+            //计算对应总页数
+            resultPage.setPageCount((int) Math.ceil((double) resultPage.getCount() / resultPage.getSize()));
+            //第三步 判断当前的页数是不是大于总页数
+            if (index >= resultPage.getPageCount()) {
+                map.put("start", (resultPage.getPageCount() - 1) * resultPage.getSize());//显示多少条到多少条的数据
+            } else {
+                map.put("start", (index - 1) * resultPage.getSize());//当前页的页数是多少
+            }
+            map.put("end", resultPage.getSize());//一页显示的条数
+            //查询对应的状态的消费卡数据
+            List<AllBeans> allBeansList = administratorDao.getALLBeans(map);
+            resultPage.setCode(200);
+            resultPage.setMessage("查询成功");
+            resultPage.setData(allBeansList);//将数据存到实体中
+        } catch (Exception e) {
+            e.printStackTrace();
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            resultPage.setCode(300);
+            resultPage.setMessage("出现错误");
+        }
+        return resultPage;
+    }
 }

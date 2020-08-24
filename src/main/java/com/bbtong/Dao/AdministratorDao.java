@@ -284,4 +284,52 @@ public interface AdministratorDao {
      * @return 戴辆
      */
     List<AdminRole> getAdminRole();
+
+    /**
+     * 查询对应的委托 第一步先查询委托的总条数
+     *
+     * @param map 里面存储着查询的条件
+     * @return 戴辆
+     */
+    Integer getScreenEntrustNumber(Map map);
+
+    /**
+     * 根据条件查询对应的数据
+     *
+     * @param map 里面存储着条件
+     * @return 戴辆
+     */
+    List<AdminEntrust> getScreenEntrust(Map map);
+
+    /**
+     * 查询对应状态的消费卡申请
+     *
+     * @param map 里面存储着数据
+     * @return 戴辆
+     */
+    Integer getAllConsumeNumber(Map map);
+
+    /**
+     * 查询对应状态的消费卡数据
+     *
+     * @param map 里面存储着数据
+     * @return 戴辆
+     */
+    List<AllConsume> getAllConsume(Map map);
+
+    /**
+     * 查询对应状态的和豆申请
+     *
+     * @param map 里面存储着对应的数据
+     * @return 戴辆
+     */
+    Integer getAllBeansNumber(Map map);
+
+    /**
+     * 查询对应状态的和豆申请的数据
+     *
+     * @param map
+     * @return
+     */
+    List<AllBeans> getALLBeans(Map map);
 }

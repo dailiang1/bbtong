@@ -515,6 +515,56 @@ public class AdministratorController {
     }
 
     /**
+     * 查询对应委托的方法
+     *
+     * @param adminId            管理员的id
+     * @param entrustState       委托的状态
+     * @param insuranceCompanyId 保险公司的id
+     * @param licensePlateNumber 车牌号码
+     * @param userPhone          委托人电话
+     * @param startTime          委托开始的时间
+     * @param endTime            委托结束的时间
+     * @param index              当前的页数
+     * @return 戴辆
+     */
+    @ApiOperation(value = "管理员 查询对应委托筛选的方法", notes = "管理员筛选委托的方法", tags = "getScreenEntrust", httpMethod = "GET")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "adminId", value = "表示管理员的id(用来判断管理员是否有这个权限)", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "entrustState", value = "表示委托的状态", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "insuranceCompanyId", value = "表示保险公司的id", required = true, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "licensePlateNumber", value = "表示委托的车牌号", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "userPhone", value = "表示委托人的电话", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "startTime", value = "表示筛选开始的时间", required = true, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "endTime", value = "表示委托筛选结束的时间", required = true, dataType = "string", paramType = "query"),
+
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功", response = ResultPage.class),
+            @ApiResponse(code = 300, message = "异常", response = ResultPage.class),
+            @ApiResponse(code = 400, message = "失败", response = ResultPage.class),
+    })
+    @GetMapping(value = "getscreenentrust", produces = "application/json")
+    public @ResponseBody
+    ResultPage getScreenEntrust(Integer adminId, Integer entrustState, Integer insuranceCompanyId, String licensePlateNumber, String userPhone, String startTime, String endTime, Integer index) {
+        //创建对应接受数据和返回数据的实体
+        ResultPage resultPage = new ResultPage();
+        //第一步 判断管理员的id是否获取到了
+        if (adminId == null) {
+            resultPage.setCode(300);
+            resultPage.setMessage("当前异常");
+            return resultPage;
+        }
+        //判断当前页的页数，是否为空，如果为空的话，就输入第一页
+        if (index == null || index == 0) {
+            //将页数定义为第一页
+            index = 1;
+        }
+        //接受serviceImpl层传来的数据
+        resultPage = administratorService.getScreenEntrust(adminId, entrustState, insuranceCompanyId, licensePlateNumber, userPhone, startTime, endTime, index);
+        return resultPage;
+    }
+
+    /**
      * 管理员查看对应委托 详情的方法
      *
      * @param entrustId 委托的id
@@ -613,7 +663,7 @@ public class AdministratorController {
             @ApiResponse(code = 400, message = "失败", response = Result.class),
             @ApiResponse(code = 500, message = "内部错误", response = Result.class),
     })
-    @GetMapping(value = "/putadminparticulars")
+    @GetMapping(value = "/putadminparticulars", produces = "application/json")
     public @ResponseBody
     Result putAdminParticulars(Integer adminId, String adminName, String adminAccount, String adminPhone, String adminPassword, String newPassword) {
         //创建Result的实体类 来接受和存储数据
@@ -823,7 +873,7 @@ public class AdministratorController {
     })
     @PostMapping(value = "/postadmin", produces = "application/json")
     public @ResponseBody
-    Result postAdmin(@RequestParam(value = "admin",required = false) Admin admin) {
+    Result postAdmin(@RequestBody Admin admin) {
         //创建Result的实体来操作数据
         Result result = new Result();
         //判断admin中的数据 是不是为空
@@ -936,9 +986,10 @@ public class AdministratorController {
 
     /**
      * 查询所有管理权限的信息
+     *
      * @return
      */
-    @ApiOperation(value = "查询所有权限的信息",notes = "查询所有权限信息的方法",tags = "getAdminRole",httpMethod = "GET")
+    @ApiOperation(value = "查询所有权限的信息", notes = "查询所有权限信息的方法", tags = "getAdminRole", httpMethod = "GET")
     @GetMapping(value = "/getadminrole", produces = "application/json")
     public @ResponseBody
     Result getAdminRole() {
@@ -947,5 +998,67 @@ public class AdministratorController {
         //接受service层的数据
         result = administratorService.getAdminRole();
         return result;
+    }
+
+    /**
+     * 查询所有消费的申请的方法
+     *
+     * @param adminId      管理员的id
+     * @param index        当前页的页数
+     * @param consumeState 表示对应的状态 0表示未处理，1表示审核成功，2表示信息错误
+     * @return 戴辆
+     */
+    @GetMapping(value = "/getallconsume", produces = "application/json")
+    public @ResponseBody
+    ResultPage getAllConsume(Integer adminId, Integer index, Integer consumeState) {
+        //创建对应的实体类来存储和返回数据给前端
+        ResultPage resultPage = new ResultPage();
+        //判断管理员id是不是为空，如果为空的话吗，则说明没有获取到数据
+        if (null == adminId) {
+            resultPage.setCode(300);
+            resultPage.setMessage("当前异常");
+            return resultPage;
+        }
+        //判断吧index是不是为0获取为空,如果是的话就将其赋值为1
+        if (index == null || index == 0) {
+            index = 1;
+        }
+        //判断对应的状态是不是为空，如果为空的话就是为0
+        if (consumeState == null) {
+            consumeState = 0;
+        }
+        //接受service层传来的数据
+        resultPage = administratorService.getAllConsume(adminId, index, consumeState);
+        return resultPage;
+    }
+
+    /**
+     * 查询所有和豆申请的方法
+     *
+     * @param adminId    管理员的id
+     * @param index      当前页的页数
+     * @param beansState 表示对应的状态 0表示未处理，1表示审核成功，2表示信息错误
+     * @return 戴辆
+     */
+    public @ResponseBody
+    ResultPage getAllBeans(Integer adminId, Integer index, Integer beansState) {
+        //创建对应的实体来操作对应的数据
+        ResultPage resultPage = new ResultPage();
+        //判断管理员的id是不是为空，如果为空的话，则说明没有获取到数据
+        if (null == adminId) {
+            resultPage.setCode(300);
+            resultPage.setMessage("当前异常");
+            return resultPage;
+        }
+        //判断吧index是不是为0获取为空,如果是的话就将其赋值为1
+        if (index == null || index == 0) {
+            index = 1;
+        }
+        //判断对应的状态是不是为空，如果为空的话就是为0
+        if (beansState == null) {
+            beansState = 0;
+        }
+
+        return resultPage;
     }
 }

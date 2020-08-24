@@ -37,6 +37,27 @@ public class LoginFilter implements HandlerInterceptor {
         HttpSession session = request.getSession();
         //这个是自己定义的用户实体类
         SessionUser sessionUser = new SessionUser();
+        if (request.getSession().getAttribute("adminId") == null) {
+            Cookie loginCookie = getLoginCookie(request, "adminName");
+            if (loginCookie != null) {
+                //根据,将数据分割
+                String[] user = loginCookie.getValue().split("#");
+                //用实体类来接受数据
+                Integer adminId = Integer.valueOf(user[0]);//第一个存的是管理员的id
+                Integer adminRoleId = Integer.valueOf(user[1]);//第二个存的his管理员权限的id，也需要转换成int类型
+                if (adminId != null && adminId != null) {
+                    //将管理员的adminId存到session中
+                    session.setAttribute("adminId", adminId);
+                    //将管理员的权限id存到seesion中
+                    session.setAttribute("adminRoleId", adminRoleId);
+                    //设置session过期的时间 这为12个小时过期
+                    session.setMaxInactiveInterval(60 * 60 * 12);
+                    return true;
+                }
+            }
+        } else {
+            return true;
+        }
         //在session中取出用户数据
         if (request.getSession().getAttribute("userId") == null) {
             Cookie loginCookie = getLoginCookie(request, "userName");

@@ -133,6 +133,21 @@ public interface AdministratorService {
     ResultPage getEntrust(Integer adminId, Integer index);
 
     /**
+     * 查询对应委托的方法
+     *
+     * @param adminId            管理员id
+     * @param entrustState       委托的状态
+     * @param insuranceCompanyId 保险公司的id
+     * @param licensePlateNumber 车牌号
+     * @param userPhone          委托人电话
+     * @param startTime          委托开始的时间
+     * @param endTime            委托结束的时间
+     * @param index              当前页数
+     * @return 戴辆
+     */
+    ResultPage getScreenEntrust(Integer adminId, Integer entrustState, Integer insuranceCompanyId, String licensePlateNumber, String userPhone, String startTime, String endTime, Integer index);
+
+    /**
      * 管理员查询对应的委托详情
      *
      * @param entrustId 委托的id
@@ -223,4 +238,24 @@ public interface AdministratorService {
      * @return 戴辆
      */
     Result getAdminRole();
+
+    /**
+     * 查询对应的消费卡的申请
+     *
+     * @param adminId      管理员的id
+     * @param index        当前页的页数
+     * @param consumeState 对应查询的数据 0 表示待审核，1表示审核成功，2表示审核失败
+     * @return 戴辆
+     */
+    ResultPage getAllConsume(Integer adminId, Integer index, Integer consumeState);
+
+    /**
+     * 查询对应的和豆申请
+     *
+     * @param adminId    管理员id
+     * @param index      表示当前的页数
+     * @param beansState 表示和豆申请的状态 0表示待审核，1表示审核成功，2表示信息错误
+     * @return 戴辆
+     */
+    ResultPage getAllBeans(Integer adminId, Integer index, Integer beansState);
 }
