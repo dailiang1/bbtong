@@ -140,7 +140,7 @@
     </resultMap>
 
     <!--查询对应的和豆申请的记录的映射-->
-    <resultMap id="BaseResultMap" type="com.bbtong.Pojo.Beans">
+    <resultMap id="BaseAllBeans" type="com.bbtong.Base.AllBeans">
         <id column="Beans_Id" jdbcType="INTEGER" property="beansId"/>
         <result column="User_id" jdbcType="INTEGER" property="userId"/>
         <result column="User_Name" jdbcType="VARCHAR" property="userName"/>
@@ -305,6 +305,9 @@
             <if test="adminName != '' and adminName != null">
                 Admin_Name=#{adminName},
             </if>
+            <if test="newConsumeTime != '' and newConsumeTime != null">
+                NewConsume_Time=#{newConsumeTime},
+            </if>
         </set>
         where Consume_Id=#{consumeId}
     </update>
@@ -319,8 +322,11 @@
             <if test="adminName != '' and adminName != null">
                 Admin_Name=#{adminName},
             </if>
+            <if test="newBeansTime != '' and newBeansTime != null">
+                NewBeans_Time=#{newBeansTime},
+            </if>
         </set>
-        where Beans_Id#{beansId}
+        where Beans_Id=#{beansId}
     </update>
 
     <!--第一步 查询总的委托数-->
@@ -600,7 +606,7 @@
 
     <!--第二步 查询对应状态的消费卡数据-->
     <select id="getAllConsume" parameterType="map" resultMap="BaseAllConsume">
-        select c.*,u.User_Name from bbt_consume c  left join bbt_user u on c.User_id=u.User_Id where c.Consume_State=#{consumeState}
+        select c.*,u.User_Name from bbt_consume c  left join bbt_user u on c.User_id=u.User_Id where c.Consume_State=#{consumeState} limit #{start},#{end}
     </select>
 
     <!--第一步 查询对应状态的和豆申请-->
@@ -608,7 +614,8 @@
         select count(1) from bbt_beans where Beans_State=#{beansState}
     </select>
 
-    <select id="getALLBeans" parameterType="map" resultMap="BaseResultMap">
-        select b.*,u.User_Name from bbt_beans b left join bbt_user u on b.User_id=u.User_Id where b.Beans_State#{beansState}
+    <!--第二步 查询对应装填的和豆申请数据-->
+    <select id="getALLBeans" parameterType="map" resultMap="BaseAllBeans">
+        select b.*,u.User_Name from bbt_beans b left join bbt_user u on b.User_id=u.User_Id where b.Beans_State=#{beansState} limit #{start},#{end}
     </select>
 </mapper>

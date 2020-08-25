@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbtong.Dao.DailyDao">
+  <resultMap id="BaseResultMap" type="com.bbtong.Pojo.dj.Daily">
+    <id column="daily_Id" jdbcType="INTEGER" property="dailyId" />
+    <result column="user_Id" jdbcType="INTEGER" property="userId" />
+    <result column="user_Name" jdbcType="VARCHAR" property="userName" />
+    <result column="agent_Id" jdbcType="INTEGER" property="agentId" />
+    <result column="agent_Name" jdbcType="VARCHAR" property="agentName" />
+    <result column="dealer_Name" jdbcType="VARCHAR" property="dealerName" />
+    <result column="department_Id" jdbcType="INTEGER" property="departmentId" />
+    <result column="department_Name" jdbcType="VARCHAR" property="departmentName" />
+    <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber" />
+    <result column="compulsory" jdbcType="DOUBLE" property="compulsory" />
+    <result column="commercial" jdbcType="DOUBLE" property="commercial" />
+    <result column="daily_Time" jdbcType="VARCHAR" property="dailyTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    daily_Id, user_Id, user_Name, agent_Id, agent_Name, dealer_Name, department_Id, department_Name, 
+    license_Plate_Number, compulsory, commercial, daily_Time
+  </sql>
+  <select id="selectByExample" parameterType="com.bbtong.Pojo.dj.DailyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dj_daily
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dj_daily
+    where daily_Id = #{dailyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dj_daily
+    where daily_Id = #{dailyId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bbtong.Pojo.dj.DailyExample">
+    delete from dj_daily
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="daily_Id" keyProperty="dailyId" parameterType="com.bbtong.Pojo.dj.Daily" useGeneratedKeys="true">
+    insert into dj_daily (user_Id, user_Name, agent_Id, 
+      agent_Name, dealer_Name, department_Id, 
+      department_Name, license_Plate_Number, compulsory, 
+      commercial, daily_Time)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{agentId,jdbcType=INTEGER}, 
+      #{agentName,jdbcType=VARCHAR}, #{dealerName,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, 
+      #{departmentName,jdbcType=VARCHAR}, #{licensePlateNumber,jdbcType=VARCHAR}, #{compulsory,jdbcType=DOUBLE}, 
+      #{commercial,jdbcType=DOUBLE}, #{dailyTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="daily_Id" keyProperty="dailyId" parameterType="com.bbtong.Pojo.dj.Daily" useGeneratedKeys="true">
+    insert into dj_daily
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_Id,
+      </if>
+      <if test="userName != null">
+        user_Name,
+      </if>
+      <if test="agentId != null">
+        agent_Id,
+      </if>
+      <if test="agentName != null">
+        agent_Name,
+      </if>
+      <if test="dealerName != null">
+        dealer_Name,
+      </if>
+      <if test="departmentId != null">
+        department_Id,
+      </if>
+      <if test="departmentName != null">
+        department_Name,
+      </if>
+      <if test="licensePlateNumber != null">
+        license_Plate_Number,
+      </if>
+      <if test="compulsory != null">
+        compulsory,
+      </if>
+      <if test="commercial != null">
+        commercial,
+      </if>
+      <if test="dailyTime != null">
+        daily_Time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null">
+        #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="agentName != null">
+        #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerName != null">
+        #{dealerName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePlateNumber != null">
+        #{licensePlateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="compulsory != null">
+        #{compulsory,jdbcType=DOUBLE},
+      </if>
+      <if test="commercial != null">
+        #{commercial,jdbcType=DOUBLE},
+      </if>
+      <if test="dailyTime != null">
+        #{dailyTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bbtong.Pojo.dj.DailyExample" resultType="java.lang.Long">
+    select count(*) from dj_daily
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dj_daily
+    <set>
+      <if test="record.dailyId != null">
+        daily_Id = #{record.dailyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_Name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentId != null">
+        agent_Id = #{record.agentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.agentName != null">
+        agent_Name = #{record.agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealerName != null">
+        dealer_Name = #{record.dealerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentId != null">
+        department_Id = #{record.departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.departmentName != null">
+        department_Name = #{record.departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licensePlateNumber != null">
+        license_Plate_Number = #{record.licensePlateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compulsory != null">
+        compulsory = #{record.compulsory,jdbcType=DOUBLE},
+      </if>
+      <if test="record.commercial != null">
+        commercial = #{record.commercial,jdbcType=DOUBLE},
+      </if>
+      <if test="record.dailyTime != null">
+        daily_Time = #{record.dailyTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dj_daily
+    set daily_Id = #{record.dailyId,jdbcType=INTEGER},
+      user_Id = #{record.userId,jdbcType=INTEGER},
+      user_Name = #{record.userName,jdbcType=VARCHAR},
+      agent_Id = #{record.agentId,jdbcType=INTEGER},
+      agent_Name = #{record.agentName,jdbcType=VARCHAR},
+      dealer_Name = #{record.dealerName,jdbcType=VARCHAR},
+      department_Id = #{record.departmentId,jdbcType=INTEGER},
+      department_Name = #{record.departmentName,jdbcType=VARCHAR},
+      license_Plate_Number = #{record.licensePlateNumber,jdbcType=VARCHAR},
+      compulsory = #{record.compulsory,jdbcType=DOUBLE},
+      commercial = #{record.commercial,jdbcType=DOUBLE},
+      daily_Time = #{record.dailyTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bbtong.Pojo.dj.Daily">
+    update dj_daily
+    <set>
+      <if test="userId != null">
+        user_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_Name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null">
+        agent_Id = #{agentId,jdbcType=INTEGER},
+      </if>
+      <if test="agentName != null">
+        agent_Name = #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="dealerName != null">
+        dealer_Name = #{dealerName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        department_Id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null">
+        department_Name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePlateNumber != null">
+        license_Plate_Number = #{licensePlateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="compulsory != null">
+        compulsory = #{compulsory,jdbcType=DOUBLE},
+      </if>
+      <if test="commercial != null">
+        commercial = #{commercial,jdbcType=DOUBLE},
+      </if>
+      <if test="dailyTime != null">
+        daily_Time = #{dailyTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where daily_Id = #{dailyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bbtong.Pojo.dj.Daily">
+    update dj_daily
+    set user_Id = #{userId,jdbcType=INTEGER},
+      user_Name = #{userName,jdbcType=VARCHAR},
+      agent_Id = #{agentId,jdbcType=INTEGER},
+      agent_Name = #{agentName,jdbcType=VARCHAR},
+      dealer_Name = #{dealerName,jdbcType=VARCHAR},
+      department_Id = #{departmentId,jdbcType=INTEGER},
+      department_Name = #{departmentName,jdbcType=VARCHAR},
+      license_Plate_Number = #{licensePlateNumber,jdbcType=VARCHAR},
+      compulsory = #{compulsory,jdbcType=DOUBLE},
+      commercial = #{commercial,jdbcType=DOUBLE},
+      daily_Time = #{dailyTime,jdbcType=VARCHAR}
+    where daily_Id = #{dailyId,jdbcType=INTEGER}
+  </update>
+</mapper>

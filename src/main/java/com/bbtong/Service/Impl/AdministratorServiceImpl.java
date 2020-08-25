@@ -193,6 +193,12 @@ public class AdministratorServiceImpl implements AdministratorService {
         return resultPage;
     }
 
+    /**
+     * 审核用户的一些基本信息
+     *
+     * @param userCheck 接受用户的信息的实体类
+     * @return
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Result postUserCheck(UserCheck userCheck) {
@@ -261,6 +267,16 @@ public class AdministratorServiceImpl implements AdministratorService {
             map.put("adminName", admin.getAdminName());
             //第二步 将修改的结果存到数据中去
             int zhi = administratorDao.updateConsume(map);
+            //指定获取当前的时间
+            Calendar cal = Calendar.getInstance();
+            //将时间设置成当前日期 0:0::0
+            cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+            //获取当前的时间
+            Date beginOfDate = cal.getTime();
+            //设置时间的格式为yyyy-MM-dd HH:mm:ss
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //将时间存到map中
+            map.put("newConsumeTime", formatter.format(beginOfDate));
             result.setCode(200);
             result.setMessage("处理成功");
         } catch (Exception e) {
@@ -280,6 +296,7 @@ public class AdministratorServiceImpl implements AdministratorService {
      * @param index   1表示成功， 2表示信息有误
      * @return 戴辆
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Result getCheckBeans(Integer beansId, Integer adminId, Integer index) {
         //创建对应的实体类来接受数据
@@ -306,6 +323,16 @@ public class AdministratorServiceImpl implements AdministratorService {
             }
             //将用户的姓名存到map中
             map.put("adminName", admin.getAdminName());
+            //指定获取当前的时间
+            Calendar cal = Calendar.getInstance();
+            //将时间设置成当前日期 0:0::0
+            cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+            //获取当前的时间
+            Date beginOfDate = cal.getTime();
+            //设置时间的格式为yyyy-MM-dd HH:mm:ss
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //将时间存到map中
+            map.put("newBeansTime", formatter.format(beginOfDate));
             //第二步将 将修改的结果存到数据中去
             int zhi = administratorDao.updateBeans(map);
             result.setCode(200);
@@ -1091,6 +1118,11 @@ public class AdministratorServiceImpl implements AdministratorService {
             resultPage.setCount(count);
             //计算对应总页数
             resultPage.setPageCount((int) Math.ceil((double) resultPage.getCount() / resultPage.getSize()));
+            //判断页数是不为0，如果为0的话则说明没有数据,就直接return程序
+            if (resultPage.getPageCount() == 0) {
+                resultPage.setCode(200);
+                return resultPage;
+            }
             //第三步 判断当前的页数是不是大于总页数
             if (index >= resultPage.getPageCount()) {
                 map.put("start", (resultPage.getPageCount() - 1) * resultPage.getSize());//显示多少条到多少条的数据
@@ -1136,6 +1168,11 @@ public class AdministratorServiceImpl implements AdministratorService {
             resultPage.setCount(count);
             //计算对应总页数
             resultPage.setPageCount((int) Math.ceil((double) resultPage.getCount() / resultPage.getSize()));
+            //判断页数是不为0，如果为0的话则说明没有数据,就直接return程序
+            if (resultPage.getPageCount() == 0) {
+                resultPage.setCode(200);
+                return resultPage;
+            }
             //第三步 判断当前的页数是不是大于总页数
             if (index >= resultPage.getPageCount()) {
                 map.put("start", (resultPage.getPageCount() - 1) * resultPage.getSize());//显示多少条到多少条的数据

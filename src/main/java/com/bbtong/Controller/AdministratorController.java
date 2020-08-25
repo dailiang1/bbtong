@@ -1058,7 +1058,7 @@ public class AdministratorController {
         if (beansState == null) {
             beansState = 0;
         }
-
+        resultPage=administratorService.getAllBeans(adminId, index, beansState);
         return resultPage;
     }
 }

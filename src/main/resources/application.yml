@@ -19,7 +19,7 @@ mvc:
 #logging:
 #  level:
 mybatis:
-  typeAliasesPackage: com.bbtong.Pojo,com.bbtong.Util,com.bbtong.Base
+  typeAliasesPackage: com.bbtong.Pojo,com.bbtong.Util,com.bbtong.Base,com.bbtong.Pojo.dj
 #    com.bbt.Dao: debug
 
 debug: true
