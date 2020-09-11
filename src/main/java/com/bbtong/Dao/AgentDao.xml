@@ -5,6 +5,7 @@
     <id column="agent_Id" jdbcType="INTEGER" property="agentId" />
     <result column="agent_Name" jdbcType="VARCHAR" property="agentName" />
     <result column="dealer_Id" jdbcType="INTEGER" property="dealerId" />
+    <result column="dealer_Name" jdbcType="VARCHAR" property="dealerName" />
     <result column="dealer_Repair" jdbcType="VARCHAR" property="dealerRepair" />
     <result column="dealer_State" jdbcType="INTEGER" property="dealerState" />
   </resultMap>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    agent_Id, agent_Name, dealer_Id, dealer_Repair, dealer_State
+    agent_Id, agent_Name, dealer_Id, dealer_Name, dealer_Repair, dealer_State
   </sql>
   <select id="selectByExample" parameterType="com.bbtong.Pojo.dj.AgentExample" resultMap="BaseResultMap">
     select
@@ -108,10 +109,10 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="agent_Id" keyProperty="agentId" parameterType="com.bbtong.Pojo.dj.Agent" useGeneratedKeys="true">
-    insert into dj_agent (agent_Name, dealer_Id, dealer_Repair, 
-      dealer_State)
-    values (#{agentName,jdbcType=VARCHAR}, #{dealerId,jdbcType=INTEGER}, #{dealerRepair,jdbcType=VARCHAR}, 
-      #{dealerState,jdbcType=INTEGER})
+    insert into dj_agent (agent_Name, dealer_Id, dealer_Name, 
+      dealer_Repair, dealer_State)
+    values (#{agentName,jdbcType=VARCHAR}, #{dealerId,jdbcType=INTEGER}, #{dealerName,jdbcType=VARCHAR}, 
+      #{dealerRepair,jdbcType=VARCHAR}, #{dealerState,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" keyColumn="agent_Id" keyProperty="agentId" parameterType="com.bbtong.Pojo.dj.Agent" useGeneratedKeys="true">
     insert into dj_agent
@@ -121,6 +122,9 @@
       </if>
       <if test="dealerId != null">
         dealer_Id,
+      </if>
+      <if test="dealerName != null">
+        dealer_Name,
       </if>
       <if test="dealerRepair != null">
         dealer_Repair,
@@ -135,6 +139,9 @@
       </if>
       <if test="dealerId != null">
         #{dealerId,jdbcType=INTEGER},
+      </if>
+      <if test="dealerName != null">
+        #{dealerName,jdbcType=VARCHAR},
       </if>
       <if test="dealerRepair != null">
         #{dealerRepair,jdbcType=VARCHAR},
@@ -162,6 +169,9 @@
       <if test="record.dealerId != null">
         dealer_Id = #{record.dealerId,jdbcType=INTEGER},
       </if>
+      <if test="record.dealerName != null">
+        dealer_Name = #{record.dealerName,jdbcType=VARCHAR},
+      </if>
       <if test="record.dealerRepair != null">
         dealer_Repair = #{record.dealerRepair,jdbcType=VARCHAR},
       </if>
@@ -178,6 +188,7 @@
     set agent_Id = #{record.agentId,jdbcType=INTEGER},
       agent_Name = #{record.agentName,jdbcType=VARCHAR},
       dealer_Id = #{record.dealerId,jdbcType=INTEGER},
+      dealer_Name = #{record.dealerName,jdbcType=VARCHAR},
       dealer_Repair = #{record.dealerRepair,jdbcType=VARCHAR},
       dealer_State = #{record.dealerState,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -193,6 +204,9 @@
       <if test="dealerId != null">
         dealer_Id = #{dealerId,jdbcType=INTEGER},
       </if>
+      <if test="dealerName != null">
+        dealer_Name = #{dealerName,jdbcType=VARCHAR},
+      </if>
       <if test="dealerRepair != null">
         dealer_Repair = #{dealerRepair,jdbcType=VARCHAR},
       </if>
@@ -206,6 +220,7 @@
     update dj_agent
     set agent_Name = #{agentName,jdbcType=VARCHAR},
       dealer_Id = #{dealerId,jdbcType=INTEGER},
+      dealer_Name = #{dealerName,jdbcType=VARCHAR},
       dealer_Repair = #{dealerRepair,jdbcType=VARCHAR},
       dealer_State = #{dealerState,jdbcType=INTEGER}
     where agent_Id = #{agentId,jdbcType=INTEGER}

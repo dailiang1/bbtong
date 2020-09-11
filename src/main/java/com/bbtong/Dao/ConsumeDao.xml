@@ -11,6 +11,7 @@
     <result column="NewConsume_Time" jdbcType="VARCHAR" property="newconsumeTime" />
     <result column="admin_Name" jdbcType="VARCHAR" property="adminName" />
   </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

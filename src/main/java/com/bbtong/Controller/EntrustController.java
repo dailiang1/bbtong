@@ -166,7 +166,7 @@ public class EntrustController {
         //获取当前的时间，将当前时间存到数据库中
         Date now = new Date();
         //设置时间的编码格式
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //将当前的时间存到数据中
         entrust.setEntrustStartTime(dateFormat.format(now));
 

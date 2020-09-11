@@ -600,8 +600,15 @@ public class AdministratorServiceImpl implements AdministratorService {
         int size = 10;
         //判断总共有多少页
         int pageCount = (int) Math.ceil((double) count / size);
+        //判断总条数是不是为0，如果为0的就直接return程序
+        if (pageCount == 0) {
+            resultPage.setCode(200);
+            resultPage.setCount(count);
+            resultPage.setPageCount(pageCount);
+            return resultPage;
+        }
         //判断页数，是否大于当前页数
-        if (index > pageCount) {
+        if (index >= pageCount) {
             index = pageCount;
         }
         map.put("start", (index - 1) * count);//忽略前面多少条数据
@@ -659,6 +666,11 @@ public class AdministratorServiceImpl implements AdministratorService {
             resultPage.setCount(count);//将总的条数存到实体中
             //第二步 计算总的页数 利用总条数/每页显示的页数向下取整
             resultPage.setPageCount((int) Math.ceil((double) resultPage.getCount() / resultPage.getSize()));
+            //判断条数是不是0，为0的话直接return程序
+            if(resultPage.getPageCount()==0){
+                resultPage.setCode(200);
+                return resultPage;
+            }
             //第三步 判断当前的页数是不是大于总页数
             if (index >= resultPage.getPageCount()) {
                 map.put("start", (resultPage.getPageCount() - 1) * resultPage.getSize());//显示多少条到多少条的数据
@@ -671,6 +683,7 @@ public class AdministratorServiceImpl implements AdministratorService {
             resultPage.setCode(200);
             resultPage.setMessage("查询成功");
             resultPage.setIndex(index);
+            resultPage.setData(adminEntrustList);
         } catch (Exception e) {
             e.printStackTrace();
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -858,6 +871,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         try {
             //第一步  先查询总的条数
             Integer count = administratorDao.getAdministrationCount(map);
+            resultPage.setCount(count);//将总条数存到实体中
             //计算总的页数
             resultPage.setPageCount((int) Math.ceil((double) count / resultPage.getSize()));
             //判断总的页数和index的关系，如果index大于总的页数 就将index赋值为pagecount

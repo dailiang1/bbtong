@@ -84,7 +84,7 @@ public interface UserDao {
      * @param postUser 里面存储着修改之后的参数
      * @return 戴辆
      */
-    int UserRedact(PostUser postUser);
+    Integer UserRedact(PostUser postUser);
 
     /**
      * 用户查看自己的消息
@@ -100,7 +100,7 @@ public interface UserDao {
      * @param map 里面存储着数据
      * @return 戴辆
      */
-    int delectNewsOne(Map map);
+    Integer delectNewsOne(Map map);
 
     /**
      * 用户删除自己消息的方法
@@ -108,5 +108,29 @@ public interface UserDao {
      * @param map 里面存储着数据
      * @return 戴辆
      */
-    int delectNewsTwo(Map map);
+    Integer delectNewsTwo(Map map);
+
+    /**
+     * 判断用户是否存在
+     *
+     * @param map 里面存着用户id
+     * @return 戴辆
+     */
+    Integer ExistUser(Map map);
+
+    /**
+     * 判断用户是否为大家保险员工
+     *
+     * @param map 里面存在用户的id
+     * @return 戴辆
+     */
+    Integer ConditionUser(Map map);
+
+    /**
+     * 通过userId查询对应的姓名
+     *
+     * @param userId 用户的id
+     * @return 戴辆
+     */
+    String userName(Integer userId);
 }

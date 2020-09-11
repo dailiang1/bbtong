@@ -314,6 +314,76 @@ public class AgentExample {
             return (Criteria) this;
         }
 
+        public Criteria andDealerNameIsNull() {
+            addCriterion("dealer_Name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameIsNotNull() {
+            addCriterion("dealer_Name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameEqualTo(String value) {
+            addCriterion("dealer_Name =", value, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameNotEqualTo(String value) {
+            addCriterion("dealer_Name <>", value, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameGreaterThan(String value) {
+            addCriterion("dealer_Name >", value, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameGreaterThanOrEqualTo(String value) {
+            addCriterion("dealer_Name >=", value, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameLessThan(String value) {
+            addCriterion("dealer_Name <", value, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameLessThanOrEqualTo(String value) {
+            addCriterion("dealer_Name <=", value, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameLike(String value) {
+            addCriterion("dealer_Name like", value, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameNotLike(String value) {
+            addCriterion("dealer_Name not like", value, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameIn(List<String> values) {
+            addCriterion("dealer_Name in", values, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameNotIn(List<String> values) {
+            addCriterion("dealer_Name not in", values, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameBetween(String value1, String value2) {
+            addCriterion("dealer_Name between", value1, value2, "dealerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDealerNameNotBetween(String value1, String value2) {
+            addCriterion("dealer_Name not between", value1, value2, "dealerName");
+            return (Criteria) this;
+        }
+
         public Criteria andDealerRepairIsNull() {
             addCriterion("dealer_Repair is null");
             return (Criteria) this;

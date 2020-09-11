@@ -714,4 +714,19 @@
         </set>
         where News_User_Id=#{userId} and News_Id=#{newsId}
     </update>
+
+    <!--判断用户是否存在-->
+    <select id="ExistUser" parameterType="map" resultType="int">
+        select count(1) from bbt_user where User_Id=#{userId}
+    </select>
+
+    <!--判断用户是否为大家保险的用户-->
+    <select id="ConditionUser" parameterType="map" resultType="int">
+        select count(1) from bbt_user where User_Id=#{userId} and Insurance_Company_Id=2
+    </select>
+
+    <!--通过用户的id查询用户对应的名称-->
+    <select id="userName" parameterType="int" resultType="string">
+        select User_Name from bbt_user where User_Id=#{userId}
+    </select>
 </mapper>

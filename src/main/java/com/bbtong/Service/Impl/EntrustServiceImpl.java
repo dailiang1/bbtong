@@ -364,7 +364,6 @@ public class EntrustServiceImpl implements EntrustService {
                 //将int类型转换成string类型
                 newUserId = userId.toString();
             }
-
             //创建map函数来将数据存储起来
             map.put("newUserId", newUserId);
 

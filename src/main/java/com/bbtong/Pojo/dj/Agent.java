@@ -23,6 +23,11 @@ public class Agent implements Serializable {
     private Integer dealerId;
 
     /**
+     * 车商的名称
+     */
+    private String dealerName;
+
+    /**
      * 车商返修码
      */
     private String dealerRepair;
@@ -58,6 +63,14 @@ public class Agent implements Serializable {
         this.dealerId = dealerId;
     }
 
+    public String getDealerName() {
+        return dealerName;
+    }
+
+    public void setDealerName(String dealerName) {
+        this.dealerName = dealerName;
+    }
+
     public String getDealerRepair() {
         return dealerRepair;
     }
@@ -89,6 +102,7 @@ public class Agent implements Serializable {
         return (this.getAgentId() == null ? other.getAgentId() == null : this.getAgentId().equals(other.getAgentId()))
             && (this.getAgentName() == null ? other.getAgentName() == null : this.getAgentName().equals(other.getAgentName()))
             && (this.getDealerId() == null ? other.getDealerId() == null : this.getDealerId().equals(other.getDealerId()))
+            && (this.getDealerName() == null ? other.getDealerName() == null : this.getDealerName().equals(other.getDealerName()))
             && (this.getDealerRepair() == null ? other.getDealerRepair() == null : this.getDealerRepair().equals(other.getDealerRepair()))
             && (this.getDealerState() == null ? other.getDealerState() == null : this.getDealerState().equals(other.getDealerState()));
     }
@@ -100,6 +114,7 @@ public class Agent implements Serializable {
         result = prime * result + ((getAgentId() == null) ? 0 : getAgentId().hashCode());
         result = prime * result + ((getAgentName() == null) ? 0 : getAgentName().hashCode());
         result = prime * result + ((getDealerId() == null) ? 0 : getDealerId().hashCode());
+        result = prime * result + ((getDealerName() == null) ? 0 : getDealerName().hashCode());
         result = prime * result + ((getDealerRepair() == null) ? 0 : getDealerRepair().hashCode());
         result = prime * result + ((getDealerState() == null) ? 0 : getDealerState().hashCode());
         return result;
@@ -114,6 +129,7 @@ public class Agent implements Serializable {
         sb.append(", agentId=").append(agentId);
         sb.append(", agentName=").append(agentName);
         sb.append(", dealerId=").append(dealerId);
+        sb.append(", dealerName=").append(dealerName);
         sb.append(", dealerRepair=").append(dealerRepair);
         sb.append(", dealerState=").append(dealerState);
         sb.append(", serialVersionUID=").append(serialVersionUID);

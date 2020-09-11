@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbtong.Dao.DjLedgerDao">
+    <!--查询总的交强险和商业险费用的映射类-->
+    <resultMap id="BaseCostMap" type="com.bbtong.Base.dj.Cost">
+        <result column="comp" jdbcType="DOUBLE" property="compulsory"/>
+        <result column="comm" jdbcType="DOUBLE" property="commercial"/>
+    </resultMap>
+
+    <!--管理员查询总台账的映射-->
+    <resultMap id="BaseAdminCost" type="com.bbtong.Base.dj.AdminCost">
+        <result column="comp" jdbcType="DOUBLE" property="compulsory"/>
+        <result column="comm" jdbcType="DOUBLE" property="commercial"/>
+    </resultMap>
+
+    <!--查询保单信息的映射-->
+    <resultMap id="BaseNewDaily" type="com.bbtong.Base.dj.NewDaily">
+        <id column="daily_Id" jdbcType="INTEGER" property="dailyId"/>
+        <result column="user_Id" jdbcType="INTEGER" property="userId"/>
+        <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
+        <result column="compulsory" jdbcType="DOUBLE" property="compulsory"/>
+        <result column="commercial" jdbcType="DOUBLE" property="commercial"/>
+        <result column="daily_Time" jdbcType="VARCHAR" property="dailyTime"/>
+    </resultMap>
+
+    <!--大家保险部门的映射-->
+    <resultMap id="BaseDepartment" type="com.bbtong.Pojo.dj.Department">
+        <id column="department_Id" jdbcType="INTEGER" property="departmentId"/>
+        <result column="department_Name" jdbcType="VARCHAR" property="departmentName"/>
+    </resultMap>
+
+    <!--大家保险代理人的映射-->
+    <resultMap id="BaseAgent" type="com.bbtong.Pojo.dj.Agent">
+        <id column="agent_Id" jdbcType="INTEGER" property="agentId"/>
+        <result column="agent_Name" jdbcType="VARCHAR" property="agentName"/>
+        <result column="dealer_Id" jdbcType="INTEGER" property="dealerId"/>
+        <result column="dealer_Name" jdbcType="VARCHAR" property="dealerName"/>
+        <result column="dealer_Repair" jdbcType="VARCHAR" property="dealerRepair"/>
+        <result column="dealer_State" jdbcType="INTEGER" property="dealerState"/>
+    </resultMap>
+
+    <!--管理员搜索 大家保险用户保单信息的映射-->
+    <resultMap id="BaseAdminDaily" type="com.bbtong.Base.dj.AdminDaily">
+        <id column="daily_Id" jdbcType="INTEGER" property="dailyId"/>
+        <result column="user_Name" jdbcType="VARCHAR" property="userName"/>
+        <result column="department_Name" jdbcType="VARCHAR" property="departmentName"/>
+        <result column="agent_Name" jdbcType="VARCHAR" property="agentName"/>
+        <result column="license_Plate_Number" jdbcType="VARCHAR" property="licensePlateNumber"/>
+        <result column="compulsory" jdbcType="DOUBLE" property="compulsory"/>
+        <result column="commercial" jdbcType="DOUBLE" property="commercial"/>
+        <result column="daily_Time" jdbcType="VARCHAR" property="dailyTime"/>
+    </resultMap>
+
+    <!--查询对应时间段中的交强险费用和商业险费用-->
+    <select id="ledgerBook" parameterType="map" resultMap="BaseCostMap">
+        select sum(commercial) as comm,sum(compulsory) as comp from dj_daily where daily_Time>#{startTime} and #{endTime}>daily_Time and user_Id=#{userId}
+    </select>
+
+    <!--第一步 查询大家保险用户 对应时间段的保单的条数-->
+    <select id="getguaranteeMessageNumber" parameterType="map" resultType="int">
+        select count(1) from dj_daily where user_Id=#{userId} and daily_Time>#{startTime} and #{endTime}>daily_Time
+    </select>
+
+    <!--第二步 查询大家保险用户 对应时间段的保单信息-->
+    <select id="getguaranteeMessage" parameterType="map" resultMap="BaseNewDaily">
+        select daily_Id,user_Id,license_Plate_Number,compulsory,commercial,daily_Time from dj_daily where user_Id=#{userId} and daily_Time>#{startTime} and #{endTime}>daily_Time order by daily_Time limit #{start},#{end}
+    </select>
+
+    <!--查询大家保险所有的部门-->
+    <select id="getDepartment" resultMap="BaseDepartment">
+        select * from dj_department
+    </select>
+
+    <!--查询大家保险所有的代理人-->
+    <select id="getAgent" resultMap="BaseAgent">
+        select * from dj_agent
+    </select>
+
+    <!--大家保险用户提交台账-->
+    <insert id="postDaily" parameterType="map">
+        insert into dj_daily(user_Id, user_Name, agent_Id, agent_Name, dealer_Name, department_Id, department_Name, license_Plate_Number, compulsory, commercial, daily_Time)values(#{userId},#{userName},#{agentId},#{agentName},#{dealerName},#{departmentId},#{departmentName},#{licensePlateNumber},#{compulsory},#{commercial},#{dailyTime})
+    </insert>
+
+    <!--大家保险用户 通过用户id 和 车牌号 查询对应的保单 先查询有没有数据-->
+    <select id="getQueryMessageNumber" parameterType="map" resultType="int">
+        select count(1) from dj_daily where user_Id=#{userId} and license_Plate_Number like concat('%',#{licensePlateNumber},'%')
+    </select>
+
+    <!--大家保险用户 通过userId 和 车牌号查询对应的保单信息-->
+    <select id="getQueryMessage" parameterType="map" resultMap="BaseNewDaily">
+        select daily_Id,user_Id,license_Plate_Number,compulsory,commercial,daily_Time from dj_daily where user_Id=#{userId} and license_Plate_Number like concat('%',#{licensePlateNumber},'%')
+    </select>
+
+    <!--第一步 先查询对应的保单信息的条数 -->
+    <select id="getSearchMessageNumber" parameterType="map" resultType="int">
+        select count(1) from dj_daily where
+        <if test="licensePlateNumber != '' and licensePlateNumber != null">
+            license_Plate_Number=#{licensePlateNumber}
+        </if>
+        <if test="userName != '' and userName != null">
+            user_Name=#{userName}
+        </if>
+    </select>
+
+    <!--第二步 查询对应的保单信息的数据-->
+    <select id="getSearchMessage" parameterType="map" resultMap="BaseAdminDaily">
+        select daily_Id,user_Name,dealer_Name,department_Name,license_Plate_Number,commercial,compulsory,daily_Time from
+        dj_daily where
+        <if test="licensePlateNumber != '' and licensePlateNumber != null">
+            license_Plate_Number=#{licensePlateNumber}
+        </if>
+        <if test="userName != '' and userName != null">
+            user_Name=#{userName}
+        </if>
+        order by daily_Time limit #{start},#{end}
+    </select>
+
+    <!--管理员查询 对应时间段 总的台账-->
+    <select id="querySumDaily" parameterType="map" resultMap="BaseAdminCost">
+        select sum(commercial) as comm,sum(compulsory) as comp from dj_daily where daily_Time>#{startTime} and #{endTime}>daily_Time
+    </select>
+
+    <!--管理员查询 本年或本月的 交强险和商业险-->
+    <select id="AdminCost" parameterType="map" resultMap="BaseCostMap">
+        select sum(commercial) as comm,sum(compulsory) as comp from dj_daily where daily_Time>#{startTime} and #{endTime}>daily_Time
+    </select>
+
+    <!--管理员 查询对应时间段的交强险或商业险 总金额-->
+    <select id="getSumSelect" parameterType="map" resultMap="BaseAdminCost">
+        select sum(commercial) as comm,sum(compulsory) as comp from dj_daily where daily_Time>#{startTime} and #{endTime}>daily_Time
+        <if test="departmentId != '' and departmentId != null">
+            and department_Id=#{departmentId}
+        </if>
+        <if test="agentId != '' and agentId != null">
+            and agent_Id=#{agentId}
+        </if>
+    </select>
+</mapper>
